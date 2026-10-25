@@ -1,6 +1,6 @@
 ---
-// src/components/Navbar.astro
-import ThemeToggle from './ThemeToggle.astro';
+// src/components/Navbar.astro - 宁静低奢顶部导航
+// 最右侧极简双控：语言切换与深色模式切换
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
@@ -12,120 +12,141 @@ const navItems = [
 ];
 ---
 
-<nav class='quiet-nav layout-reading'>
-  <!-- 左侧品牌：持久保留 wo/men in tech，经典品牌紫 -->
-  <div class='nav-left'>
-    <a href='/' class:list={['brand', { active: currentPath === '/' }]}>
-      <span class='brand-main'>wo<span class='brand-slash'>/</span>men</span>
-      <span class='brand-sub'>in tech</span>
-    </a>
-  </div>
-
-  <!-- 右侧导航链接、语言切换微胶囊与主题切换 -->
-  <div class='nav-right'>
-    <div class='nav-links'>
-      {
-        navItems.map(item => {
-          const isActive = currentPath === item.href;
-          return (
-            <a
-              href={item.href}
-              class:list={['nav-link', { 'is-active': isActive }]}
-            >
-              <span class='nav-link-text lang-zh'>{item.text}</span>
-              <span class='nav-link-text lang-en'>{item.en}</span>
-              {isActive && <span class='nav-active-dot' />}
-            </a>
-          );
-        })
-      }
+<header class='nav-header'>
+  <nav class='quiet-nav layout-reading' aria-label='Main Navigation'>
+    <!-- 左侧品牌：持久保留 wo/men in tech，经典品牌紫 -->
+    <div class='nav-left'>
+      <a href='/' class:list={['brand', { active: currentPath === '/' }]}>
+        <span class='brand-main'>wo<span class='brand-slash'>/</span>men</span>
+        <span class='brand-sub'>in tech</span>
+      </a>
     </div>
 
-    <div class='nav-divider'></div>
-
-    <!-- 中英双语切换器 · 极简腕表级微胶囊 -->
-    <div class='lang-capsule' role='group' aria-label='语言切换 / Language'>
-      <button
-        type='button'
-        class='lang-tab'
-        id='lang-btn-zh'
-        data-lang-choice='zh'
-        aria-label='切换至中文'
-      >
-        中
-      </button>
-      <button
-        type='button'
-        class='lang-tab'
-        id='lang-btn-en'
-        data-lang-choice='en'
-        aria-label='Switch to English'
-      >
-        EN
-      </button>
+    <!-- 中部导航链接 -->
+    <div class='nav-center'>
+      <div class='nav-links'>
+        {
+          navItems.map(item => {
+            const isActive = currentPath === item.href;
+            return (
+              <a
+                href={item.href}
+                class:list={['nav-link', { 'is-active': isActive }]}
+              >
+                <span class='nav-link-text lang-zh'>{item.text}</span>
+                <span class='nav-link-text lang-en'>{item.en}</span>
+                {isActive && <span class='nav-active-dot' />}
+              </a>
+            );
+          })
+        }
+      </div>
     </div>
 
-    <ThemeToggle />
-  </div>
-</nav>
+    <!-- 最右侧：极简双控胶囊 (语言切换 + 深色切换) -->
+    <div class='nav-end'>
+      <div class='minimal-ctrl-group' role='group' aria-label='Preferences'>
+        <!-- 极简单键语言切换：当前中文显示 EN，点击切换为英文；反之亦然 -->
+        <button
+          type='button'
+          class='minimal-btn lang-btn'
+          id='quick-lang-btn'
+          aria-label='Toggle Language'
+          title='切换中英文 / Switch Language'
+        >
+          <span class='lang-opt lang-zh'>EN</span>
+          <span class='lang-opt lang-en'>中</span>
+        </button>
+
+        <span class='ctrl-divider' aria-hidden='true'></span>
+
+        <!-- 极简深色模式切换 -->
+        <button
+          type='button'
+          class='minimal-btn theme-btn'
+          id='quick-theme-btn'
+          data-theme-toggle
+          aria-label='切换深色/浅色模式'
+          title='切换深色/浅色模式'
+        >
+          <svg
+            class='sun-icon'
+            width='13'
+            height='13'
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke='currentColor'
+            stroke-width='1.5'
+          >
+            <circle cx='12' cy='12' r='4.5'></circle>
+            <path d='M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41'></path>
+          </svg>
+          <svg
+            class='moon-icon'
+            width='13'
+            height='13'
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke='currentColor'
+            stroke-width='1.5'
+            style='display: none;'
+          >
+            <path d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+</header>
 
 <script>
-  function setupLangToggle() {
-    const zhBtn = document.getElementById('lang-btn-zh');
-    const enBtn = document.getElementById('lang-btn-en');
-    if (!zhBtn || !enBtn) return;
+  function setupNavControls() {
+    const langBtn = document.getElementById('quick-lang-btn');
+    if (!langBtn) return;
 
-    function getActiveLang() {
-      return document.documentElement.getAttribute('data-lang') || 'zh';
-    }
-
-    function updateButtons(lang: string) {
-      if (lang === 'en') {
-        zhBtn.classList.remove('is-active');
-        enBtn.classList.add('is-active');
-      } else {
-        zhBtn.classList.add('is-active');
-        enBtn.classList.remove('is-active');
-      }
-    }
-
-    function switchLang(lang: string) {
-      document.documentElement.setAttribute('data-lang', lang);
-      document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
+    langBtn.onclick = () => {
+      const current = document.documentElement.getAttribute('data-lang') || 'zh';
+      const next = current === 'en' ? 'zh' : 'en';
+      document.documentElement.setAttribute('data-lang', next);
+      document.documentElement.lang = next === 'en' ? 'en' : 'zh-CN';
       try {
-        localStorage.setItem('site_lang', lang);
+        localStorage.setItem('site_lang', next);
       } catch (e) {}
-      updateButtons(lang);
-      window.dispatchEvent(new CustomEvent('site-language-change', { detail: { lang } }));
-    }
-
-    // 初始按钮状态同步
-    updateButtons(getActiveLang());
-
-    // 绑定点击事件
-    zhBtn.onclick = () => switchLang('zh');
-    enBtn.onclick = () => switchLang('en');
+      window.dispatchEvent(new CustomEvent('site-language-change', { detail: { lang: next } }));
+    };
   }
 
-  // 页面加载或视图转场后初始化
-  setupLangToggle();
-  document.addEventListener('astro:page-load', setupLangToggle);
-  document.addEventListener('DOMContentLoaded', setupLangToggle);
+  setupNavControls();
+  document.addEventListener('astro:page-load', setupNavControls);
+  document.addEventListener('DOMContentLoaded', setupNavControls);
 </script>
 
 <style>
+  .nav-header {
+    width: 100%;
+    position: relative;
+    z-index: 50;
+  }
+
   /* ===== 导航容器 ===== */
   .quiet-nav {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     padding-top: var(--spacing-8);
     padding-bottom: var(--spacing-5);
     border-bottom: 1px solid var(--color-border-divider);
     position: relative;
+    gap: var(--spacing-4);
   }
 
-  /* ===== 品牌标识 ===== */
+  /* ===== 左侧品牌 ===== */
+  .nav-left {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
   .brand {
     display: inline-flex;
     align-items: baseline;
@@ -140,11 +161,6 @@ const navItems = [
   .brand:hover {
     text-decoration: none !important;
     border-bottom: none !important;
-  }
-
-  .brand::after {
-    display: none !important;
-    content: none !important;
   }
 
   .brand-main {
@@ -174,11 +190,11 @@ const navItems = [
     color: var(--color-brand-purple-soft, #7d689b);
   }
 
-  /* ===== 导航右侧 ===== */
-  .nav-right {
+  /* ===== 中部导航链接 ===== */
+  .nav-center {
     display: flex;
     align-items: center;
-    gap: var(--spacing-3);
+    justify-content: center;
   }
 
   .nav-links {
@@ -201,16 +217,6 @@ const navItems = [
     white-space: nowrap;
   }
 
-  .nav-link::after {
-    display: none !important;
-    content: none !important;
-  }
-
-  .nav-link-text {
-    font-family: var(--font-family-ui);
-    font-weight: var(--font-weight-normal);
-  }
-
   .nav-link:hover {
     color: var(--color-text-heading);
   }
@@ -231,75 +237,125 @@ const navItems = [
     background: var(--color-gold-dust);
   }
 
-  .nav-divider {
-    width: 1px;
-    height: 14px;
-    background: var(--color-border-divider);
-    margin: 0 var(--spacing-1);
+  /* ===== 最右侧：极简控制区 ===== */
+  .nav-end {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    flex-shrink: 0;
   }
 
-  /* ===== 双语切换微胶囊 (Quiet Luxury Segmented Pill) ===== */
-  .lang-capsule {
+  .minimal-ctrl-group {
     display: inline-flex;
     align-items: center;
-    height: 28px;
+    height: 26px;
     background: var(--color-surface-soft);
     border: 1px solid var(--color-border-subtle);
     border-radius: var(--radius-pill);
-    padding: 2px;
-    gap: 2px;
-    user-select: none;
+    padding: 1px 3px;
     box-sizing: border-box;
-    transition: border-color var(--transition-fast);
+    user-select: none;
+    transition: border-color var(--transition-fast), background-color var(--transition-fast);
   }
 
-  .lang-capsule:hover {
-    border-color: var(--color-border);
+  .minimal-ctrl-group:hover {
+    border-color: var(--color-gold-dust);
   }
 
-  .lang-tab {
+  .minimal-btn {
     background: transparent;
     border: none;
     outline: none;
     cursor: pointer;
     height: 22px;
-    padding: 0 8px;
-    border-radius: var(--radius-pill);
-    font-family: var(--font-family-ui);
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: 0.04em;
-    color: var(--color-text-tertiary);
-    line-height: 22px;
+    padding: 0 7px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .lang-tab:hover {
-    color: var(--color-text-primary);
-  }
-
-  .lang-tab.is-active {
-    background: var(--color-surface-pure);
-    color: var(--color-brand-purple, #5e4c7a);
+    border-radius: var(--radius-pill);
+    color: var(--color-text-secondary);
+    font-family: var(--font-family-ui);
+    font-size: 11px;
     font-weight: 500;
-    box-shadow: 0 1px 3px rgba(38, 34, 28, 0.06);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    transition: color var(--transition-fast), background-color var(--transition-fast);
   }
 
-  :root.dark .lang-tab.is-active {
+  .minimal-btn:hover {
+    color: var(--color-text-heading);
+    background: var(--color-surface-pure);
+  }
+
+  .ctrl-divider {
+    width: 1px;
+    height: 10px;
+    background: var(--color-border-divider);
+    margin: 0 1px;
+    opacity: 0.8;
+  }
+
+  .theme-btn {
+    padding: 0 5px;
+    width: 22px;
+  }
+
+  :root.dark .minimal-ctrl-group {
+    border-color: rgba(216, 205, 176, 0.2);
+    background: var(--color-surface-soft);
+  }
+
+  :root.dark .minimal-ctrl-group:hover {
+    border-color: var(--color-gold-dust);
+  }
+
+  :root.dark .minimal-btn:hover {
     background: var(--color-surface-card);
-    color: #cbbae6;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    color: var(--color-gold-dust);
   }
 
-  @media (width <= 640px) {
+  /* ===== 移动端极限优化 ===== */
+  @media (max-width: 768px) {
+    .quiet-nav {
+      padding-top: var(--spacing-4);
+      padding-bottom: var(--spacing-3);
+      gap: var(--spacing-2);
+    }
+
+    .brand-main {
+      font-size: 1.125rem;
+    }
+
+    .brand-sub {
+      display: none; /* 移动端收敛副标题，视觉呼吸更充裕 */
+    }
+
     .nav-links {
       gap: var(--spacing-3);
     }
+
     .nav-link {
-      font-size: var(--font-size-xs);
+      font-size: 12.5px;
+      padding: 4px 2px;
+    }
+
+    .nav-active-dot {
+      bottom: -4px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .nav-links {
+      gap: 10px;
+    }
+
+    .nav-link {
+      font-size: 12px;
+    }
+
+    .minimal-btn.lang-btn {
+      padding: 0 5px;
+      font-size: 10px;
     }
   }
 </style>

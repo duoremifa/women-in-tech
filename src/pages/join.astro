@@ -918,8 +918,69 @@ import Layout from '../layouts/Layout.astro';
   }
 
   @media (max-width: 680px) {
+    .page-title {
+      font-size: 1.6rem;
+    }
+
     .form-card-container {
-      padding: var(--spacing-6);
+      padding: var(--spacing-5) var(--spacing-4);
+    }
+
+    .quiet-check-row {
+      padding: 12px 10px;
+      gap: 12px;
+      min-height: 48px;
+    }
+
+    .quiet-form input[type='text'],
+    .quiet-form textarea {
+      font-size: 16px; /* 防止 iOS Safari 自动缩放视口 */
+      padding: 12px 14px;
+    }
+
+    .submit-btn-primary {
+      width: 100%;
+      height: 44px;
+      font-size: 13px;
+    }
+
+    .receipt-loop-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .btn-download-ics {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+      height: 38px;
+      display: flex;
+      align-items: center;
+    }
+
+    .host-copy-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .receipt-actions {
+      flex-direction: column;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .btn-copy-receipt {
+      width: 100%;
+      text-align: center;
+      padding: 10px 14px;
+    }
+
+    .btn-back-home {
+      text-align: center;
+      padding-top: 4px;
     }
   }
 </style>

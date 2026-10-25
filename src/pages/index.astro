@@ -1858,32 +1858,266 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     color: var(--color-text-heading);
   }
 
-  @media (max-width: 640px) {
-    .receipt-loop-grid {
-      grid-template-columns: 1fr;
-    }
-    .receipt-footer-row {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: var(--spacing-2);
-    }
-  }
-
-  /* 响应式调整 */
+  /* ============================================================
+     移动端极限响应式优化 (Mobile Perfection Breakpoints)
+     ============================================================ */
   @media (max-width: 860px) {
+    .page-root {
+      padding: var(--spacing-4) 0 var(--spacing-16);
+    }
+
     .two-column-layout {
       grid-template-columns: 1fr;
-      gap: var(--spacing-12);
+      gap: var(--spacing-8);
     }
+
     .sidebar {
       position: static;
       border-right: none;
       border-bottom: 1px solid var(--color-border-divider);
       padding-right: 0;
-      padding-bottom: var(--spacing-8);
+      padding-bottom: var(--spacing-6);
+      margin-bottom: var(--spacing-2);
     }
+
+    .site-title {
+      font-size: clamp(2.2rem, 8.5vw, 2.75rem);
+    }
+
+    .manifesto {
+      font-size: 14.5px;
+      line-height: 1.8;
+      margin-bottom: var(--spacing-4);
+    }
+
+    .who-section {
+      margin-top: var(--spacing-4);
+    }
+
+    .sidebar-footer {
+      display: none;
+    }
+
+    .content-block {
+      margin-bottom: var(--spacing-12);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .section-title-line {
+      gap: var(--spacing-2);
+    }
+
+    .section-main-title {
+      font-size: 1.1875rem;
+    }
+
+    .section-intro-text {
+      font-size: 12.5px;
+      line-height: 1.65;
+      margin-top: 4px;
+    }
+
+    /* 01 日常卡片 */
+    .editorial-panel {
+      padding: var(--spacing-4) 0;
+    }
+
+    .panel-top {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .panel-title {
+      font-size: 1.0625rem;
+    }
+
+    .panel-badge {
+      font-size: 10.5px;
+      padding: 2px 7px;
+    }
+
+    .panel-desc {
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    .panel-footer-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 3px;
+      font-size: 11px;
+    }
+
+    .section-bottom-action {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-3);
+      padding-top: var(--spacing-4);
+    }
+
+    /* 02 正在打磨的器物：水平滑动与卡片压缩 */
+    .workshop-filter-bar {
+      display: flex;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      flex-wrap: nowrap;
+      gap: 8px;
+      padding-bottom: 4px;
+      margin: 0 -8px 16px;
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+
+    .workshop-filter-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .role-tab-btn {
+      flex-shrink: 0;
+      white-space: nowrap;
+      font-size: 11px;
+      padding: 5px 11px;
+      height: 28px;
+    }
+
+    .workshop-card {
+      padding: 16px 14px;
+      margin-bottom: 14px;
+    }
+
+    .card-header-line {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .work-title {
+      font-size: 1.0625rem;
+      line-height: 1.35;
+    }
+
+    .work-summary {
+      font-size: 12.5px;
+      line-height: 1.7;
+    }
+
     .work-breakdown-grid {
       grid-template-columns: 1fr;
+      gap: 8px;
+      padding: 10px 12px;
+    }
+
+    .breakdown-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .btn-join-work {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+      padding: 10px 14px;
+      font-size: 12px;
+    }
+
+    /* 04 表单触摸适配与 iOS 防缩放 */
+    .form-wrapper {
+      padding: 18px 14px;
+    }
+
+    .quiet-check-row {
+      padding: 12px 10px;
+      gap: 12px;
+      min-height: 48px;
+    }
+
+    .check-title {
+      font-size: 12.5px;
+      line-height: 1.4;
+    }
+
+    .check-note {
+      font-size: 10.5px;
+    }
+
+    .quiet-form input[type='text'],
+    .quiet-form textarea {
+      font-size: 16px; /* 防止 iOS Safari 聚焦时强制缩放视口 */
+      padding: 12px 14px;
+    }
+
+    .submit-bar {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+
+    .submit-btn-primary {
+      width: 100%;
+      justify-content: center;
+      height: 44px;
+      font-size: 13px;
+    }
+
+    .privacy-assurance-pill {
+      justify-content: center;
+      font-size: 10.5px;
+    }
+
+    /* 回执卡片单列全宽适配 */
+    .feedback-receipt-box {
+      padding: 18px 14px;
+    }
+
+    .receipt-loop-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .loop-cell {
+      padding: 14px;
+    }
+
+    .btn-download-ics {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+      height: 38px;
+      display: flex;
+      align-items: center;
+    }
+
+    .host-copy-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .receipt-footer-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .site-title {
+      font-size: 2rem;
+    }
+    .panel-title,
+    .work-title {
+      font-size: 1rem;
+    }
+    .btn-join-work,
+    .submit-btn-primary {
+      font-size: 12px;
     }
   }
 </style>

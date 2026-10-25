@@ -476,10 +476,16 @@ import Layout from '../layouts/Layout.astro';
   }
 
   @media (max-width: 680px) {
+    .page-title {
+      font-size: 1.6rem;
+    }
+
     .schedule-block {
       grid-template-columns: 1fr;
       gap: var(--spacing-4);
+      padding: var(--spacing-5) var(--spacing-4);
     }
+
     .schedule-indicator {
       border-right: none;
       border-bottom: var(--border-width-thin) solid var(--color-border-divider);
@@ -489,11 +495,38 @@ import Layout from '../layouts/Layout.astro';
       align-items: baseline;
       gap: var(--spacing-2);
     }
+
+    .block-status-line {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+
+    .block-title {
+      font-size: 1.15rem;
+    }
+
     .block-meta-grid {
       grid-template-columns: 1fr;
+      gap: 10px;
     }
+
+    .block-action {
+      justify-content: flex-start;
+      margin-top: var(--spacing-4);
+    }
+
+    .btn-rsvp {
+      font-size: 13px;
+    }
+
+    .faq-card {
+      padding: var(--spacing-5) var(--spacing-4);
+    }
+
     .faq-grid {
       grid-template-columns: 1fr;
+      gap: var(--spacing-5);
     }
   }
 </style>

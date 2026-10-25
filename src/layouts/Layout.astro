@@ -141,22 +141,21 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
 
       // 更新主题图标显示
       function updateThemeIcon() {
-        const btn = document.querySelector('[data-theme-toggle]') as HTMLElement;
-        if (!btn) return;
-
         const isDark = document.documentElement.classList.contains('dark');
-        const sunIcon = btn.querySelector('.sun-icon') as HTMLElement;
-        const moonIcon = btn.querySelector('.moon-icon') as HTMLElement;
+        document.querySelectorAll<HTMLElement>('[data-theme-toggle]').forEach(btn => {
+          const sunIcon = btn.querySelector('.sun-icon') as HTMLElement | null;
+          const moonIcon = btn.querySelector('.moon-icon') as HTMLElement | null;
 
-        if (sunIcon && moonIcon) {
-          if (isDark) {
-            sunIcon.style.display = 'none';
-            moonIcon.style.display = 'block';
-          } else {
-            sunIcon.style.display = 'block';
-            moonIcon.style.display = 'none';
+          if (sunIcon && moonIcon) {
+            if (isDark) {
+              sunIcon.style.display = 'none';
+              moonIcon.style.display = 'block';
+            } else {
+              sunIcon.style.display = 'block';
+              moonIcon.style.display = 'none';
+            }
           }
-        }
+        });
       }
 
       // 首次加载时初始化
