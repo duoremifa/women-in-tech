@@ -5,9 +5,9 @@
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 const navItems = [
-  { text: '理念', en: 'About', href: '/#about', id: 'about' },
-  { text: '日常', en: 'What We Do', href: '/#events', id: 'events' },
-  { text: '安排', en: 'Upcoming', href: '/#schedule', id: 'schedule' },
+  { text: '理念', en: 'Ethos', href: '/#about', id: 'about' },
+  { text: '日常', en: 'Events', href: '/#events', id: 'events' },
+  { text: '安排', en: 'Schedule', href: '/#schedule', id: 'schedule' },
   { text: '加入', en: 'Join', href: '/#join', id: 'join' },
 ];
 ---
@@ -414,6 +414,7 @@ const navItems = [
 
     .nav-right-group {
       gap: var(--spacing-3);
+      min-width: 0;
     }
 
     .nav-links {
@@ -424,6 +425,7 @@ const navItems = [
       font-size: 12.5px;
       letter-spacing: 0.06em;
       padding: 5px 9px;
+      white-space: nowrap;
     }
 
     .nav-active-dot {
@@ -439,10 +441,12 @@ const navItems = [
   @media (max-width: 480px) {
     .quiet-nav {
       gap: 4px;
+      padding-left: var(--spacing-3);
+      padding-right: var(--spacing-3);
     }
 
     .nav-right-group {
-      gap: 6px;
+      gap: 5px;
     }
 
     .nav-links {
@@ -451,17 +455,51 @@ const navItems = [
 
     .nav-link {
       font-size: 12px;
-      letter-spacing: 0.04em;
-      padding: 4px 7px;
+      letter-spacing: 0.03em;
+      padding: 4px 6px;
+    }
+
+    .minimal-ctrl-group {
+      height: 24px;
+      padding: 1px;
+    }
+
+    .minimal-btn {
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      min-height: 22px;
     }
 
     .minimal-btn.lang-btn {
-      padding: 0 5px;
-      font-size: 10.5px;
+      width: auto;
+      min-width: 24px;
+      padding: 0 4px;
+      font-size: 10px;
     }
 
     .nav-group-divider {
       display: none;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .brand-main {
+      font-size: 1rem;
+    }
+
+    .nav-links {
+      gap: 2px;
+    }
+
+    .nav-link {
+      font-size: 11px;
+      padding: 3px 5px;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-right-group {
+      gap: 3px;
     }
   }
 </style>

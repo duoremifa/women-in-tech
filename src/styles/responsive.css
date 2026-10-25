@@ -492,22 +492,21 @@
     gap: var(--spacing-3);
   }
 
-  input,
+  input:not([type='checkbox']):not([type='radio']):not([type='hidden']),
   textarea,
   select {
-    font-size: var(--font-size-base);
-
-    /* 防止 iOS 自动放大 */
+    font-size: 16px; /* 防止 iOS 自动放大 */
     padding: var(--spacing-3) var(--spacing-4);
     border-radius: var(--radius-sm);
     border: var(--border-width-thin) solid var(--color-border-input);
+    box-sizing: border-box;
   }
 
-  input:focus,
+  input:not([type='checkbox']):not([type='radio']):focus,
   textarea:focus,
   select:focus {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
+    border-color: var(--color-brand-purple, #5e4c7a);
+    outline: none;
   }
 
   /* 表单按钮全宽 */
@@ -678,9 +677,9 @@
   }
 }
 
-/* 主题切换按钮移动端优化 */
+/* 主题切换按钮移动端优化 (仅针对独立悬浮按钮，排除顶部导航微型胶囊) */
 @media (width <=768px) {
-  [data-theme-toggle] {
+  [data-theme-toggle]:not(.minimal-btn) {
     min-width: calc(var(--baseline) * 5.5);
     min-height: calc(var(--baseline) * 5.5);
     font-size: var(--font-size-sm);
