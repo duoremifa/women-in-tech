@@ -1,8 +1,38 @@
-# 禁止所有搜索引擎爬虫收录（保护隐私，防止内容被索引）
-User-agent: *
-Disallow: /
+# ==============================================================================
+# robots.txt for wo/men in tech (https://wotech.space)
+# 极致 SEO 开放收录 + 社交卡片抓取支持 + 杜绝恶意/低质 AI 爬虫洗稿
+# ==============================================================================
 
-# 禁止常见数据抓取和 AI 训练爬虫
+# 允许主流搜索引擎全站收录，禁止抓取内部 API 与配置
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_headers
+Disallow: /_astro/
+Disallow: /manifest.webmanifest
+
+# 显式放行顶级搜索引擎爬虫
+User-agent: Googlebot
+User-agent: Googlebot-Image
+User-agent: Bingbot
+User-agent: Baiduspider
+User-agent: Applebot
+User-agent: YandexBot
+Allow: /
+
+# 显式放行社交媒体卡片预览爬虫 (Twitter, Facebook, Instagram, LinkedIn, WeChat, Slack, Telegram)
+User-agent: Twitterbot
+User-agent: facebookexternalhit
+User-agent: LinkedInBot
+User-agent: Slackbot
+User-agent: TelegramBot
+User-agent: WhatsApp
+User-agent: SinaWeiboBot
+Allow: /
+Allow: /og-image.png
+Allow: /og-card.png
+
+# 商业级防护：禁止大规模未授权 AI 语料爬虫抓取（防止算力盗刷与恶意爬取）
 User-agent: GPTBot
 Disallow: /
 
@@ -18,13 +48,17 @@ Disallow: /
 User-agent: Claude-Web
 Disallow: /
 
+User-agent: ClaudeBot
+Disallow: /
+
 User-agent: Google-Extended
 Disallow: /
 
-User-agent: Omgilibot
+User-agent: Bytespider
 Disallow: /
 
-User-agent: FacebookBot
+User-agent: Amazonbot
 Disallow: /
 
-# 不提供 Sitemap，减少暴露
+# 网站地图 Sitemap 指针
+Sitemap: https://wotech.space/sitemap-index.xml

@@ -477,6 +477,8 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 
           <div class='form-wrapper'>
             <form id='home-join-form' class='quiet-form'>
+              {/* 商业级反爬蜜罐与机器人陷阱 (视觉隐藏，爬虫秒填即被拦截) */}
+              <input type='text' name='_hp' value='' tabindex='-1' autocomplete='off' aria-hidden='true' style='position:absolute;opacity:0;pointer-events:none;left:-9999px;width:1px;height:1px;' />
 
               {/* 字段 1: 称呼 */}
               <div class='form-field'>
@@ -857,6 +859,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
       };
     }
 
+    const formMountTime = Date.now();
     if (form && feedback) {
       form.onsubmit = async (e) => {
         e.preventDefault();
@@ -866,6 +869,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
         const interestsVal = formData.getAll('interests').map(String);
         const ideaVal = String(formData.get('idea') || '');
         const contactVal = String(formData.get('contact') || '').trim();
+        const hpVal = String(formData.get('_hp') || '');
 
         const payload = {
           name: nameVal,
@@ -873,6 +877,8 @@ import GeometricVisual from '../components/GeometricVisual.astro';
           interests: interestsVal,
           idea: ideaVal,
           contact: contactVal,
+          _hp: hpVal,
+          _t: formMountTime,
           clientTimestamp: new Date().toISOString(),
         };
 

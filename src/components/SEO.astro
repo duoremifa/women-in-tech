@@ -1,51 +1,178 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-
+// src/components/SEO.astro - 商业级 SEO 与社交卡片 (Twitter, Weibo, Facebook, Instagram, LinkedIn, WeChat)
 interface Props {
-  title: string;
+  title?: string;
   description?: string;
   image?: string;
   canonicalURL?: string;
   type?: 'website' | 'article';
   ogImage?: string;
+  publishedTime?: string;
+  keywords?: string;
 }
 
 const {
-  title,
-  description = 'wo/men in tech · women in technical · 既是女性，亦是“我们”的技术与创造联合体。面向产品经理 (PM)、交互设计师 (IxD) 与前端工程师 (FE) 的互助、交流与作品共建空间。',
-  image = '/favicon.svg',
-  canonicalURL = Astro.url.href,
+  title = 'wo/men in tech · women in technical · "我们"',
+  description = '既是女性，亦是“我们”的技术与创造联合体。面向产品经理 (PM)、交互设计师 (IxD) 与前端工程师 (FE) 的互助、交流与作品共建空间。相互成就，慢节奏打磨代表作。',
+  image = '/og-image.png',
+  canonicalURL = Astro.url.href.split('?')[0].replace(/\/$/, '') || 'https://wotech.space',
   type = 'website',
   ogImage,
+  keywords = 'wo/men in tech, women in technical, 我们, 产品经理, PM, 交互设计, IxD, 前端工程, FE, 独立开发者, 女性技术社群, 慢节奏创作, 相互成就, Coffee Chat, Show and Tell, 杭州技术交流',
 } = Astro.props;
 
-const seoTitle = title;
-const seoDescription = description;
-const seoImage = ogImage || image;
-const authorName = 'wo/men in tech';
-const siteTitle = seoTitle;
+// 确保主标题带有品牌后缀
+const siteName = 'wo/men in tech';
+const fullTitle = title.includes(siteName) ? title : `${title} · ${siteName}`;
+
+// 确保社交卡片图片是绝对路径并且是真实 PNG (Twitter/Facebook/微博/微信 不支持 svg 作为卡片图)
+const rawImage = ogImage || image || '/og-image.png';
+const absoluteImageUrl = rawImage.startsWith('http')
+  ? rawImage
+  : new URL(rawImage, 'https://wotech.space').href;
+
+// 结构化数据 Schema.org
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://wotech.space/#website',
+      'url': 'https://wotech.space/',
+      'name': 'wo/men in tech',
+      'alternateName': ['women in technical', '我们', 'wotech'],
+      'description': description,
+      'inLanguage': ['zh-CN', 'en'],
+      'publisher': {
+        '@id': 'https://wotech.space/#organization',
+      },
+    },
+    {
+      '@type': 'Organization',
+      '@id': 'https://wotech.space/#organization',
+      'name': 'wo/men in tech',
+      'alternateName': 'women in technical · "我们"',
+      'url': 'https://wotech.space/',
+      'logo': {
+        '@type': 'ImageObject',
+        'url': 'https://wotech.space/og-image.png',
+        'width': 1200,
+        'height': 630,
+      },
+      'slogan': '相互成就 · 慢节奏女性技术与创造联合体',
+      'description': '面向产品经理 (PM)、交互设计师 (IxD) 与前端工程师 (FE) 的互助、交流与作品共建空间。',
+      'sameAs': [
+        'https://github.com/duoremifa/women-in-tech',
+      ],
+    },
+    {
+      '@type': 'Event',
+      '@id': 'https://wotech.space/#coffee-chat',
+      'name': 'wo/men in tech · Coffee Chat（双周轻聚）',
+      'description': '3-5人双周轻聚，面对面交流作品、设计细节与近期思考。',
+      'eventAttendanceMode': 'https://schema.org/MixedEventAttendanceMode',
+      'eventStatus': 'https://schema.org/EventScheduled',
+      'startDate': '2026-11-08T14:30:00+08:00',
+      'endDate': '2026-11-08T16:00:00+08:00',
+      'location': [
+        {
+          '@type': 'Place',
+          'name': '杭州线下静谧小店',
+          'address': {
+            '@type': 'PostalAddress',
+            'addressLocality': 'Hangzhou',
+            'addressCountry': 'CN',
+          },
+        },
+        {
+          '@type': 'VirtualLocation',
+          'url': 'https://wotech.space/#schedule',
+        },
+      ],
+      'organizer': {
+        '@id': 'https://wotech.space/#organization',
+      },
+    },
+    {
+      '@type': 'Event',
+      '@id': 'https://wotech.space/#show-and-tell',
+      'name': 'wo/men in tech · Show & Tell（英文技术与设计交流）',
+      'description': '双周周中晚间 40 分钟英文深度分享、界面细节推敲与自由试错。',
+      'eventAttendanceMode': 'https://schema.org/OnlineEventAttendanceMode',
+      'eventStatus': 'https://schema.org/EventScheduled',
+      'startDate': '2026-11-11T20:00:00+08:00',
+      'endDate': '2026-11-11T20:45:00+08:00',
+      'location': {
+        '@type': 'VirtualLocation',
+        'url': 'https://wotech.space/#schedule',
+      },
+      'organizer': {
+        '@id': 'https://wotech.space/#organization',
+      },
+    },
+  ],
+};
 ---
 
-<!-- Essential Meta Tags -->
+<!-- 基础元数据 -->
 <meta charset='UTF-8' />
-<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+<meta name='viewport' content='width=device-width, initial-scale=1.0, viewport-fit=cover' />
 <meta name='generator' content={Astro.generator} />
 
-<!-- SEO Meta Tags -->
-<title>{siteTitle}</title>
-<meta name='description' content={seoDescription} />
+<!-- 核心 SEO 标签 -->
+<title>{fullTitle}</title>
+<meta name='description' content={description} />
+<meta name='keywords' content={keywords} />
+<meta name='author' content='wo/men in tech' />
 <link rel='canonical' href={canonicalURL} />
 
-<!-- Open Graph / Facebook -->
-<meta property='og:type' content='website' />
-<meta property='og:url' content={canonicalURL} />
-<meta property='og:title' content={siteTitle} />
-<meta property='og:description' content={seoDescription} />
-<meta property='og:image' content={new URL(seoImage, Astro.url).href} />
+<!-- 搜索引擎爬虫指令 (极致开放抓取、开启大图与丰富摘要) -->
+<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+<meta name='googlebot' content='index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1' />
+<meta name='bingbot' content='index, follow, max-snippet:-1, max-image-preview:large' />
+<meta name='baiduspider' content='index, follow' />
 
-<!-- Twitter -->
+<!-- 多语言 / 国际化 hreflang -->
+<link rel='alternate' hreflang='zh-CN' href='https://wotech.space/' />
+<link rel='alternate' hreflang='en' href='https://wotech.space/' />
+<link rel='alternate' hreflang='x-default' href='https://wotech.space/' />
+
+<!-- Open Graph / Facebook / Instagram / 微信 / 微博 / LinkedIn -->
+<meta property='og:site_name' content={siteName} />
+<meta property='og:type' content={type} />
+<meta property='og:url' content={canonicalURL} />
+<meta property='og:title' content={fullTitle} />
+<meta property='og:description' content={description} />
+<meta property='og:image' content={absoluteImageUrl} />
+<meta property='og:image:secure_url' content={absoluteImageUrl} />
+<meta property='og:image:type' content='image/png' />
+<meta property='og:image:width' content='1200' />
+<meta property='og:image:height' content='630' />
+<meta property='og:image:alt' content='wo/men in tech · 相互成就 · 慢节奏女性技术与创造社群' />
+<meta property='og:locale' content='zh_CN' />
+<meta property='og:locale:alternate' content='en_US' />
+
+<!-- Twitter / X 大图卡片 (兼容 name 与 property 规范) -->
+<meta name='twitter:card' content='summary_large_image' />
 <meta property='twitter:card' content='summary_large_image' />
+<meta name='twitter:site' content='@wotech_space' />
+<meta name='twitter:creator' content='@wotech_space' />
+<meta name='twitter:url' content={canonicalURL} />
 <meta property='twitter:url' content={canonicalURL} />
-<meta property='twitter:title' content={siteTitle} />
-<meta property='twitter:description' content={seoDescription} />
-<meta property='twitter:image' content={new URL(seoImage, Astro.url).href} />
+<meta name='twitter:title' content={fullTitle} />
+<meta property='twitter:title' content={fullTitle} />
+<meta name='twitter:description' content={description} />
+<meta property='twitter:description' content={description} />
+<meta name='twitter:image' content={absoluteImageUrl} />
+<meta property='twitter:image' content={absoluteImageUrl} />
+<meta name='twitter:image:alt' content='wo/men in tech · 相互成就' />
+
+<!-- 移动与品牌色彩 -->
+<meta name='format-detection' content='telephone=no, address=no, email=no' />
+<meta name='application-name' content={siteName} />
+<meta name='apple-mobile-web-app-title' content={siteName} />
+<meta name='apple-mobile-web-app-capable' content='yes' />
+<meta name='apple-mobile-web-app-status-bar-style' content='default' />
+
+<!-- 结构化数据 Schema.org (JSON-LD) -->
+<script type='application/ld+json' set:html={JSON.stringify(jsonLd)} />

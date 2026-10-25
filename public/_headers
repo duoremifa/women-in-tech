@@ -1,34 +1,85 @@
+# ==============================================================================
+# Cloudflare Pages Security & Anti-DDoS Caching Headers for wotech.space
+# 商业级防护：HSTS Preload + 严苛 CSP + 点击劫持防护 + 静态资源边缘完全吸收
+# ==============================================================================
+
 /*
-  # ── 防点击劫持 ───────────────────────────────────────────────
+  # ── 防点击劫持 (Clickjacking Defense) ──────────────────────────
   X-Frame-Options: DENY
-  # ── 防内容类型嗅探 ────────────────────────────────────────────
+  # ── 防内容类型嗅探 (MIME Sniffing Defense) ──────────────────────
   X-Content-Type-Options: nosniff
-  # ── 关闭旧版 XSS 过滤器（现代浏览器已废弃，关闭反而更安全） ──────
+  # ── 禁用过时且有已知漏洞的旧版 XSS 过滤 ───────────────────────────
   X-XSS-Protection: 0
-  # ── 强制 HTTPS，2 年，含子域，申请 preload ────────────────────
+  # ── 商业级强制 HTTPS (HSTS Preloadable, 2 年, 含全部子域名) ───────
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
-  # ── Referrer：仅发送 Origin，不泄露完整 URL ──────────────────
+  # ── 来源策略：仅发送 Origin，严格防止敏感路径泄漏 ───────────────
   Referrer-Policy: strict-origin-when-cross-origin
-  # ── 权限策略：关闭一切不必要的浏览器 API ─────────────────────
+  # ── 权限策略：完全封锁高危硬件与传感器 API ───────────────────────
   Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=(), payment=(), usb=(), bluetooth=(), serial=(), hid=()
-  # ── CSP：白名单来源，防 XSS 和资源注入 ──────────────────────
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self' https://*.supabase.co https://jnulqcfkvzevzgczhxis.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
-  # ── 不允许被嵌入任何跨域 frame ───────────────────────────────
+  # ── 内容安全策略 (CSP)：白名单机制，根治 XSS 与恶意脚本注入 ─────
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://*.supabase.co https://cloudflareinsights.com https://api.resend.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;
+  # ── 禁止 Flash / PDF 跨域策略文档 ─────────────────────────────
   X-Permitted-Cross-Domain-Policies: none
-  # ── 关闭 DNS 预取，减少泄露 ──────────────────────────────────
+  # ── 关闭浏览器 DNS 预取，防止隐私泄漏 ───────────────────────────
   X-DNS-Prefetch-Control: off
-  # ── 跨域隔离（防 Spectre 侧信道攻击）────────────────────────
+  # ── 跨域隔离 (防范 Spectre 侧信道攻击) ─────────────────────────
   Cross-Origin-Opener-Policy: same-origin
-  Cross-Origin-Embedder-Policy: credentialless
   Cross-Origin-Resource-Policy: same-origin
-  # ── 不发送 Server 信息 ────────────────────────────────────────
+  # ── 抹除服务器指纹 ──────────────────────────────────────────────
   Server: .
 
-/assets/*
+# ── 社交媒体卡片图片放行 (Twitter, Facebook, 微博, 微信, Slack, LinkedIn 爬虫需要跨域读取图片) ──
+/og-image.png
+  Access-Control-Allow-Origin: *
+  Cross-Origin-Resource-Policy: cross-origin
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/og-card.png
+  Access-Control-Allow-Origin: *
+  Cross-Origin-Resource-Policy: cross-origin
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/apple-touch-icon.png
+  Access-Control-Allow-Origin: *
+  Cross-Origin-Resource-Policy: cross-origin
+  Cache-Control: public, max-age=2592000, immutable
+
+/favicon.svg
+  Access-Control-Allow-Origin: *
+  Cross-Origin-Resource-Policy: cross-origin
+  Cache-Control: public, max-age=2592000, immutable
+
+/favicon.ico
+  Access-Control-Allow-Origin: *
+  Cross-Origin-Resource-Policy: cross-origin
+  Cache-Control: public, max-age=2592000, immutable
+
+# ── 静态资源边缘完全承载 (Anti-DDoS 核心：不可变静态文件，100% 边缘 CDN 命中，不回源) ──
+/_astro/*
+  Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=31536000, immutable
 
-/_astro/*
+/assets/*
+  Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000, immutable
+
+/icons/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=2592000, immutable
+
+# ── 搜索引擎 Sitemap 与元信息 ──────────────────────────────────
+/sitemap-index.xml
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/sitemap-0.xml
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/robots.txt
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
 /manifest.webmanifest
   Cache-Control: public, max-age=86400
@@ -36,8 +87,7 @@
 /sw.js
   Cache-Control: public, max-age=0, no-cache
 
-/images/*
-  Cache-Control: public, max-age=2592000
-
-/robots.txt
-  Cache-Control: public, max-age=86400
+# ── API 动态接口安全策略 ───────────────────────────────────────
+/api/*
+  Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+  X-Content-Type-Options: nosniff

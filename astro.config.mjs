@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 import AstroPWA from '@vite-pwa/astro';
 import cssnano from 'cssnano';
 
@@ -33,6 +34,12 @@ export default defineConfig({
               req.on('end', async () => {
                 try {
                   const data = JSON.parse(body || '{}');
+                  if (data._hp) {
+                    res.setHeader('Content-Type', 'application/json');
+                    res.statusCode = 200;
+                    res.end(JSON.stringify({ success: true, submissionId: 'WT-TRAP0', isEmail: false, emailSent: false }));
+                    return;
+                  }
                   const { name, craft, interests, idea, contact } = data;
                   const submissionId = `WT-${Date.now().toString(36).slice(-5).toUpperCase()}`;
                   const cleanContact = String(contact || '').trim();
@@ -202,6 +209,11 @@ export default defineConfig({
   },
 
   integrations: [
+    sitemap({
+      changefreq: 'weekly',
+      priority: 0.9,
+      lastmod: new Date(),
+    }),
     AstroPWA({
       registerType: 'autoUpdate',
       strategies: 'injectManifest',

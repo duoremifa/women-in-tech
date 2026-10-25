@@ -32,6 +32,8 @@ import Layout from '../layouts/Layout.astro';
 
     <div class='form-card-container'>
       <form id='circle-join-form' class='quiet-form'>
+        {/* 商业级反爬蜜罐与机器人陷阱 (视觉隐藏，爬虫秒填即被拦截) */}
+        <input type='text' name='_hp' value='' tabindex='-1' autocomplete='off' aria-hidden='true' style='position:absolute;opacity:0;pointer-events:none;left:-9999px;width:1px;height:1px;' />
         {/* 字段 1: 称呼 */}
         <div class='form-field'>
           <label class='field-label' for='join-name'>
@@ -358,6 +360,7 @@ import Layout from '../layouts/Layout.astro';
       };
     }
 
+    const formMountTime = Date.now();
     if (form && feedback) {
       form.onsubmit = async (e) => {
         e.preventDefault();
@@ -368,6 +371,7 @@ import Layout from '../layouts/Layout.astro';
         const interests = formData.getAll('interests') as string[];
         const idea = formData.get('idea') as string;
         const contact = formData.get('contact') as string;
+        const hpVal = (formData.get('_hp') as string) || '';
         const clientTimestamp = new Date().toISOString();
 
         const payload = {
@@ -376,6 +380,8 @@ import Layout from '../layouts/Layout.astro';
           interests,
           idea,
           contact,
+          _hp: hpVal,
+          _t: formMountTime,
           clientTimestamp,
         };
 

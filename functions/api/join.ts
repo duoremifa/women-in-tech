@@ -272,45 +272,177 @@ wo/men in tech · 慢节奏女性技术与创造社群
 https://wotech.space`;
 }
 
-export async function onRequestPost(context: any) {
+// ==============================================================================
+// 商业级安全与防 DoS 防护层 (Cloudflare Edge Firewall & Anti-Abuse)
+// ==============================================================================
+const RATE_LIMIT_STORE = new Map<string, { count: number; resetAt: number }>();
+const MAX_REQUESTS_PER_WINDOW = 5;
+const RATE_WINDOW_MS = 10 * 60 * 1000; // 10 分钟窗口
+
+function checkIpRateLimit(ip: string): boolean {
+  if (!ip || ip === 'unknown') return true;
+  const now = Date.now();
+
+  // 避免内存持续增长：超过 1000 个 IP 时清理过期记录
+  if (RATE_LIMIT_STORE.size > 1000) {
+    for (const [k, v] of RATE_LIMIT_STORE.entries()) {
+      if (v.resetAt < now) RATE_LIMIT_STORE.delete(k);
+    }
+  }
+
+  const record = RATE_LIMIT_STORE.get(ip);
+  if (!record || record.resetAt < now) {
+    RATE_LIMIT_STORE.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
+    return true;
+  }
+
+  if (record.count >= MAX_REQUESTS_PER_WINDOW) {
+    return false;
+  }
+
+  record.count += 1;
+  return true;
+}
+
+function isOriginAllowed(originHeader: string | null, refererHeader: string | null): boolean {
+  if (!originHeader && !refererHeader) return true;
+  const target = originHeader || refererHeader || '';
   try {
-    const data = await context.request.json();
+    const url = new URL(target);
+    const host = url.hostname;
+    return (
+      host === 'wotech.space' ||
+      host.endsWith('.wotech.space') ||
+      host === 'localhost' ||
+      host === '127.0.0.1' ||
+      host.endsWith('.pages.dev')
+    );
+  } catch {
+    return false;
+  }
+}
+
+function escapeHtml(str: any, maxLen = 500): string {
+  if (typeof str !== 'string') return '';
+  return str
+    .slice(0, maxLen)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
+    .trim();
+}
+
+function isValidEmailFormat(email: string): boolean {
+  if (!email || email.length > 80) return false;
+  // RFC 5322 简明无回溯正则，杜绝多项式回溯攻击 (ReDoS)
+  return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/.test(email);
+}
+
+export async function onRequestPost(context: any) {
+  // 1. 来源与 CSRF 校验
+  const req = context.request;
+  const origin = req.headers.get('origin');
+  const referer = req.headers.get('referer');
+  if (!isOriginAllowed(origin, referer)) {
+    return new Response(JSON.stringify({ error: '非法跨域请求 / Forbidden' }), {
+      status: 403,
+      headers: { 'Content-Type': 'application/json', 'X-Content-Type-Options': 'nosniff' },
+    });
+  }
+
+  // 2. IP 级速率限制 (防批量脚本刷接口、爆破邮件配额)
+  const clientIp = req.headers.get('cf-connecting-ip') || req.headers.get('x-real-ip') || 'unknown';
+  if (!checkIpRateLimit(clientIp)) {
+    return new Response(
+      JSON.stringify({
+        error: '提交请求过于频繁，请稍候再试 / Too many requests, please try again in a few minutes.',
+      }),
+      {
+        status: 429,
+        headers: {
+          'Content-Type': 'application/json',
+          'Retry-After': '600',
+          'X-Content-Type-Options': 'nosniff',
+        },
+      }
+    );
+  }
+
+  try {
+    const data = await req.json();
+
+    // 3. 蜜罐陷阱 (Honeypot Trap) 与时间陷阱 (Time Trap)
+    // 恶意爬虫或自动填充脚本会自动填写不可见的 trap 字段，或者在 1.5 秒内极速提交
+    const isHoneypotTriggered = Boolean(data._hp || data._company_trap || data.company || data.website);
+    const clientTime = Number(data._t || 0);
+    const elapsed = clientTime > 0 ? Date.now() - clientTime : 99999;
+    const isTooFast = elapsed < 1500;
+
+    const submissionTime = new Date().toISOString();
+    const submissionId = `WT-${Date.now().toString(36).slice(-5).toUpperCase()}`;
+
+    if (isHoneypotTriggered || isTooFast) {
+      // 静默防御：返回假成功 200，绝不调用 Resend API 或 Webhook，零服务器资源消耗
+      return new Response(
+        JSON.stringify({
+          success: true,
+          submissionId,
+          isEmail: false,
+          emailSent: false,
+          wechatHost: 'daiminay',
+          message: '意向已收录',
+          timestamp: submissionTime,
+        }),
+        {
+          status: 200,
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Content-Type-Options': 'nosniff',
+            'Cache-Control': 'no-store, max-age=0',
+          },
+        }
+      );
+    }
+
     const { name, craft, interests, idea, contact } = data;
 
     if (!name || !contact) {
       return new Response(JSON.stringify({ error: '请提供姓名与联系方式' }), {
         status: 400,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'X-Content-Type-Options': 'nosniff' },
       });
     }
 
-    const submissionTime = new Date().toISOString();
-    const submissionId = `WT-${Date.now().toString(36).slice(-5).toUpperCase()}`;
-    const cleanContact = String(contact).trim();
-    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanContact);
+    // 4. 输入深度清洗与 XSS 过滤
+    const safeName = escapeHtml(name, 40);
+    const cleanContact = String(contact).trim().slice(0, 80);
+    const safeIdea = escapeHtml(idea, 600);
+    const isEmail = isValidEmailFormat(cleanContact);
 
     const craftLabel = getCraftLabel(craft);
     const interestsLabel = getInterestsLabel(interests);
-    const icsContent = generateICS(submissionId, name, interests);
+    const icsContent = generateICS(submissionId, safeName, interests);
 
     let emailSent = false;
     let emailError: string | null = null;
 
-    // 1. 若联系方式是 Email，触发确认信 + .ics 附件
+    // 5. 若联系方式是合法 Email，触发确认信 + .ics 附件
     if (isEmail) {
       const emailHtml = buildEmailHtml({
-        name,
+        name: safeName,
         submissionId,
         craftName: craftLabel,
         interestNames: interestsLabel,
-        idea,
+        idea: safeIdea,
       });
       const emailText = buildEmailText({
-        name,
+        name: safeName,
         submissionId,
         craftName: craftLabel,
         interestNames: interestsLabel,
-        idea,
+        idea: safeIdea,
       });
 
       // 1.1 尝试 Resend API (从 Cloudflare 环境变量获取)
