@@ -15,8 +15,8 @@ function generateICS(submissionId: string, name: string, interests: string[] = [
       'DTSTART:20261108T063000Z', // 2026-11-08 (双周周日) 14:30 GMT+8
       'DTEND:20261108T080000Z',   // 2026-11-08 (双周周日) 16:00 GMT+8
       'SUMMARY:wo/men in tech · Coffee Chat（双周轻聚）',
-      `DESCRIPTION:致 ${name || '同行者'}：\\n这是为你预留的 Coffee Chat 交流席位。\\n回执编号: #${submissionId}\\n形式：杭州线下静谧小店 + 线上接入\\n微信联络：daiminay`,
-      'LOCATION:杭州静谧小店 / 线上视频连线',
+      `DESCRIPTION:致 ${name || '同行者'}：\\n这是为你预留的 Coffee Chat 交流席位。\\n回执编号: #${submissionId}\\n形式：杭州线下 + 线上接入\\n微信联络：daiminay`,
+      'LOCATION:杭州线下 / 线上连线',
       'STATUS:CONFIRMED',
       'SEQUENCE:0',
       'BEGIN:VALARM',
@@ -260,7 +260,7 @@ ${idea ? `关注话题：${idea}\n` : ''}
 附件为你预约的本期交流日历邀请（.ics）。导入系统日历（Apple 日历 / Google Calendar / Outlook）即可自动占位。
 
 近期安排概要：
-· Coffee Chat：双周周末 · 杭州线下静谧小店 + 线上接入（3-5人）
+· Coffee Chat：双周周末 · 杭州线下 + 线上接入（3-5人）
 · Show & Tell：双周周中晚间 · 40 min 英文深度分享与自由试错 + Q&A
 
 如有任何即时想交流的细节，亦可随时微信联系我：daiminay（备注回执编号 #${submissionId} 即可）。
