@@ -279,20 +279,39 @@ const RATE_LIMIT_STORE = new Map<string, { count: number; resetAt: number }>();
 const MAX_REQUESTS_PER_WINDOW = 5;
 const RATE_WINDOW_MS = 10 * 60 * 1000; // 10 分钟窗口
 
+function secureJsonResponse(body: any, status = 200, extraHeaders: Record<string, string> = {}) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'X-Content-Type-Options': 'nosniff',
+      'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
+      'Pragma': 'no-cache',
+      'X-Frame-Options': 'DENY',
+      'Referrer-Policy': 'strict-origin-when-cross-origin',
+      ...extraHeaders,
+    },
+  });
+}
+
 function checkIpRateLimit(ip: string): boolean {
-  if (!ip || ip === 'unknown') return true;
+  // 若未获取到 IP 则放入受限匿名池，绝不绕过限制
+  const safeIp = ip && ip !== 'unknown' ? ip : '__shared_anonymous_pool__';
   const now = Date.now();
 
-  // 避免内存持续增长：超过 1000 个 IP 时清理过期记录
-  if (RATE_LIMIT_STORE.size > 1000) {
+  // 严格上限清理，杜绝 Map 内存持续扩张
+  if (RATE_LIMIT_STORE.size > 1500) {
     for (const [k, v] of RATE_LIMIT_STORE.entries()) {
       if (v.resetAt < now) RATE_LIMIT_STORE.delete(k);
     }
+    if (RATE_LIMIT_STORE.size > 2000) {
+      RATE_LIMIT_STORE.clear();
+    }
   }
 
-  const record = RATE_LIMIT_STORE.get(ip);
+  const record = RATE_LIMIT_STORE.get(safeIp);
   if (!record || record.resetAt < now) {
-    RATE_LIMIT_STORE.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
+    RATE_LIMIT_STORE.set(safeIp, { count: 1, resetAt: now + RATE_WINDOW_MS });
     return true;
   }
 
@@ -304,18 +323,19 @@ function checkIpRateLimit(ip: string): boolean {
   return true;
 }
 
-function isOriginAllowed(originHeader: string | null, refererHeader: string | null): boolean {
-  if (!originHeader && !refererHeader) return true;
-  const target = originHeader || refererHeader || '';
+function isOriginAllowed(originHeader: string | null, refererHeader: string | null, env: any): boolean {
+  // 必须存在来源头，杜绝无头跨站伪造或外部脚本盲投
+  const target = originHeader || refererHeader;
+  if (!target) return false;
   try {
     const url = new URL(target);
-    const host = url.hostname;
+    const host = url.hostname.toLowerCase();
     return (
       host === 'wotech.space' ||
       host.endsWith('.wotech.space') ||
-      host === 'localhost' ||
-      host === '127.0.0.1' ||
-      host.endsWith('.pages.dev')
+      host === 'women-in-tech.pages.dev' ||
+      host.endsWith('-women-in-tech.pages.dev') ||
+      (Boolean(env?.DEV_MODE) && (host === 'localhost' || host === '127.0.0.1'))
     );
   } catch {
     return false;
@@ -334,6 +354,15 @@ function escapeHtml(str: any, maxLen = 500): string {
     .trim();
 }
 
+function sanitizeForWebhook(str: any, maxLen = 300): string {
+  if (typeof str !== 'string') return '';
+  return str
+    .slice(0, maxLen)
+    .replace(/[\r\n\t]+/g, ' ')
+    .replace(/@(everyone|channel|here|all)/gi, '@ $1')
+    .trim();
+}
+
 function isValidEmailFormat(email: string): boolean {
   if (!email || email.length > 80) return false;
   // RFC 5322 简明无回溯正则，杜绝多项式回溯攻击 (ReDoS)
@@ -341,40 +370,35 @@ function isValidEmailFormat(email: string): boolean {
 }
 
 export async function onRequestPost(context: any) {
-  // 1. 来源与 CSRF 校验
   const req = context.request;
-  const origin = req.headers.get('origin');
-  const referer = req.headers.get('referer');
-  if (!isOriginAllowed(origin, referer)) {
-    return new Response(JSON.stringify({ error: '非法跨域请求 / Forbidden' }), {
-      status: 403,
-      headers: { 'Content-Type': 'application/json', 'X-Content-Type-Options': 'nosniff' },
-    });
+
+  // 1. 请求体尺寸硬顶限制 (防大包 DoS)
+  const contentLength = Number(req.headers.get('content-length') || 0);
+  if (contentLength > 10240) {
+    return secureJsonResponse({ error: '请求数据过大 / Payload Too Large' }, 413);
   }
 
-  // 2. IP 级速率限制 (防批量脚本刷接口、爆破邮件配额)
+  // 2. 来源与 CSRF 严苛校验 (只放行指定域名与项目域)
+  const origin = req.headers.get('origin');
+  const referer = req.headers.get('referer');
+  if (!isOriginAllowed(origin, referer, context.env)) {
+    return secureJsonResponse({ error: '非法跨域请求 / Forbidden' }, 403);
+  }
+
+  // 3. IP 级速率限制 (防批量脚本刷接口、爆破邮件配额)
   const clientIp = req.headers.get('cf-connecting-ip') || req.headers.get('x-real-ip') || 'unknown';
   if (!checkIpRateLimit(clientIp)) {
-    return new Response(
-      JSON.stringify({
-        error: '提交请求过于频繁，请稍候再试 / Too many requests, please try again in a few minutes.',
-      }),
-      {
-        status: 429,
-        headers: {
-          'Content-Type': 'application/json',
-          'Retry-After': '600',
-          'X-Content-Type-Options': 'nosniff',
-        },
-      }
+    return secureJsonResponse(
+      { error: '提交请求过于频繁，请稍候再试 / Too many requests, please try again in a few minutes.' },
+      429,
+      { 'Retry-After': '600' }
     );
   }
 
   try {
     const data = await req.json();
 
-    // 3. 蜜罐陷阱 (Honeypot Trap) 与时间陷阱 (Time Trap)
-    // 恶意爬虫或自动填充脚本会自动填写不可见的 trap 字段，或者在 1.5 秒内极速提交
+    // 4. 蜜罐陷阱 (Honeypot Trap) 与时间陷阱 (Time Trap)
     const isHoneypotTriggered = Boolean(data._hp || data._company_trap || data.company || data.website);
     const clientTime = Number(data._t || 0);
     const elapsed = clientTime > 0 ? Date.now() - clientTime : 99999;
@@ -385,45 +409,40 @@ export async function onRequestPost(context: any) {
 
     if (isHoneypotTriggered || isTooFast) {
       // 静默防御：返回假成功 200，绝不调用 Resend API 或 Webhook，零服务器资源消耗
-      return new Response(
-        JSON.stringify({
-          success: true,
-          submissionId,
-          isEmail: false,
-          emailSent: false,
-          wechatHost: 'daiminay',
-          message: '意向已收录',
-          timestamp: submissionTime,
-        }),
-        {
-          status: 200,
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Content-Type-Options': 'nosniff',
-            'Cache-Control': 'no-store, max-age=0',
-          },
-        }
-      );
+      return secureJsonResponse({
+        success: true,
+        submissionId,
+        isEmail: false,
+        emailSent: false,
+        wechatHost: 'daiminay',
+        message: '意向已收录',
+        timestamp: submissionTime,
+      });
     }
 
     const { name, craft, interests, idea, contact } = data;
 
     if (!name || !contact) {
-      return new Response(JSON.stringify({ error: '请提供姓名与联系方式' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json', 'X-Content-Type-Options': 'nosniff' },
-      });
+      return secureJsonResponse({ error: '请提供姓名与联系方式' }, 400);
     }
 
-    // 4. 输入深度清洗与 XSS 过滤
+    // 5. 白名单校验与输入深度清洗
+    const VALID_CRAFTS = ['design', 'product', 'engineering', 'research', 'other'];
+    const safeCraftKey = VALID_CRAFTS.includes(String(craft)) ? String(craft) : 'other';
+
+    const VALID_INTERESTS = ['coffee', 'english', 'lab', 'view', 'coffee_chat', 'english_chat', 'portfolio_building'];
+    const safeInterests = Array.isArray(interests)
+      ? interests.filter(i => typeof i === 'string' && VALID_INTERESTS.includes(i)).slice(0, 5)
+      : [];
+
     const safeName = escapeHtml(name, 40);
     const cleanContact = String(contact).trim().slice(0, 80);
     const safeIdea = escapeHtml(idea, 600);
     const isEmail = isValidEmailFormat(cleanContact);
 
-    const craftLabel = getCraftLabel(craft);
-    const interestsLabel = getInterestsLabel(interests);
-    const icsContent = generateICS(submissionId, safeName, interests);
+    const craftLabel = getCraftLabel(safeCraftKey);
+    const interestsLabel = getInterestsLabel(safeInterests);
+    const icsContent = generateICS(submissionId, safeName, safeInterests);
 
     let emailSent = false;
     let emailError: string | null = null;
@@ -477,7 +496,7 @@ export async function onRequestPost(context: any) {
 
           // 若域名尚未在 Resend 完成 DNS 验证，自动降级为官方 onboarding@resend.dev 通道重试
           if (!resendResp.ok) {
-            const firstErr = await resendResp.text().catch(() => '');
+            await resendResp.text().catch(() => '');
             resendResp = await fetch('https://api.resend.com/emails', {
               method: 'POST',
               headers: {
@@ -549,18 +568,18 @@ export async function onRequestPost(context: any) {
       }
     }
 
-    // 2. 无论是否留邮箱，通知发起人 (Webhook / Organizer Email)
+    // 6. 无论是否留邮箱，通知发起人 (Webhook / Organizer Email，经深度字符清洗与 HTTPS 严格校验)
     const webhookUrl = context.env?.JOIN_WEBHOOK_URL;
-    if (webhookUrl) {
+    if (webhookUrl && (webhookUrl.startsWith('https://') || webhookUrl.startsWith('http://localhost'))) {
       try {
+        const safeWebhookText = `[wo/men in tech] 新预约加入\n编号: #${submissionId}\n称呼: ${sanitizeForWebhook(safeName)}\n领域: ${craftLabel}\n意向: ${interestsLabel}\n联系: ${sanitizeForWebhook(cleanContact)}\n想法: ${sanitizeForWebhook(safeIdea) || '无'}\n邮箱触达: ${emailSent ? '成功' : isEmail ? '未送达' : '微信方式'}\n时间: ${submissionTime}`;
+
         await fetch(webhookUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             msg_type: 'text',
-            content: {
-              text: `[wo/men in tech] 新预约加入\n编号: #${submissionId}\n称呼: ${name}\n领域: ${craftLabel}\n意向: ${interestsLabel}\n联系: ${cleanContact}\n想法: ${idea || '无'}\n邮箱触达: ${emailSent ? '成功' : (isEmail ? '未送达 (' + emailError + ')' : '微信方式')}\n时间: ${submissionTime}`,
-            },
+            content: { text: safeWebhookText },
           }),
         });
       } catch (err) {
@@ -568,27 +587,18 @@ export async function onRequestPost(context: any) {
       }
     }
 
-    return new Response(
-      JSON.stringify({
-        success: true,
-        submissionId,
-        isEmail,
-        emailSent,
-        emailError,
-        icsContent,
-        wechatHost: 'daiminay',
-        message: '意向已收录',
-        timestamp: submissionTime,
-      }),
-      {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-  } catch (err: any) {
-    return new Response(JSON.stringify({ error: '提交解析异常: ' + err.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
+    // 7. 零信息泄漏安全回执响应 (严禁向客户端泄露服务内部错误、密钥或堆栈)
+    return secureJsonResponse({
+      success: true,
+      submissionId,
+      isEmail,
+      emailSent,
+      wechatHost: 'daiminay',
+      message: '意向已收录',
+      timestamp: submissionTime,
     });
+  } catch (err: any) {
+    console.error('Join API processing error:', err);
+    return secureJsonResponse({ error: '提交解析异常，请稍候重试' }, 500);
   }
 }

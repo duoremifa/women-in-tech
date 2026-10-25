@@ -132,6 +132,8 @@ export default defineConfig({
                   }
 
                   res.setHeader('Content-Type', 'application/json');
+                  res.setHeader('X-Content-Type-Options', 'nosniff');
+                  res.setHeader('Cache-Control', 'no-store, max-age=0');
                   res.statusCode = 200;
                   res.end(
                     JSON.stringify({
@@ -139,7 +141,6 @@ export default defineConfig({
                       submissionId,
                       isEmail,
                       emailSent,
-                      icsContent,
                       wechatContact: 'daiminay',
                       message: '意向已收录',
                       timestamp: new Date().toISOString(),

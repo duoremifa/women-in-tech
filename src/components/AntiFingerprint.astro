@@ -163,20 +163,15 @@
     }
   };
 
-  // 🚀 执行所有保护措施
+  // 🚀 执行安全防护（专注保护媒体与硬件渲染指纹，不干扰原生布局与时间计算）
   const initAntiFingerprint = () => {
-    // 检查是否需要启用反指纹保护
     const shouldEnableProtection = localStorage.getItem('anti-fingerprint') !== 'disabled';
 
     if (shouldEnableProtection) {
       protectCanvasFingerprint();
       protectWebGLFingerprint();
       protectFontFingerprint();
-      protectTimezoneFingerprint();
       protectAudioFingerprint();
-      protectScreenFingerprint();
-
-      console.log('🛡️ Anti-fingerprint protection enabled');
     }
   };
 

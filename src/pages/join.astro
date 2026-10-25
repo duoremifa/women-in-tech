@@ -385,11 +385,9 @@ import Layout from '../layouts/Layout.astro';
           clientTimestamp,
         };
 
-        // 1. 本地存储备份
+        // 1. 会话级防重与状态记录，不持久化敏感联络信息
         try {
-          const existing = JSON.parse(localStorage.getItem('wotech_rsvp_backup') || '[]');
-          existing.push(payload);
-          localStorage.setItem('wotech_rsvp_backup', JSON.stringify(existing));
+          sessionStorage.setItem('wotech_rsvp_sent', '1');
         } catch (err) {}
 
         // 2. 尝试向服务端 API 提交
@@ -487,20 +485,43 @@ import Layout from '../layouts/Layout.astro';
         const noteZh = document.getElementById('join-note-text');
         const noteEn = document.getElementById('join-note-text-en');
         if (isEmail) {
-          if (noteZh) noteZh.innerHTML = `已向你的邮箱 <code>${contact}</code> 发送确认信与 .ics 日历邀请（若未收到可检查垃圾箱）。`;
-          if (noteEn) noteEn.innerHTML = `A confirmation letter & .ics invite have been dispatched to <code>${contact}</code>.`;
+          if (noteZh) {
+            noteZh.textContent = '已向你的邮箱 ';
+            const codeEl = document.createElement('code');
+            codeEl.textContent = contact;
+            noteZh.appendChild(codeEl);
+            noteZh.appendChild(document.createTextNode(' 发送确认信与 .ics 日历邀请（若未收到可检查垃圾箱）。'));
+          }
+          if (noteEn) {
+            noteEn.textContent = 'A confirmation letter & .ics invite have been dispatched to ';
+            const codeEl = document.createElement('code');
+            codeEl.textContent = contact;
+            noteEn.appendChild(codeEl);
+            noteEn.appendChild(document.createTextNode('.'));
+          }
         } else {
-          if (noteZh) noteZh.innerHTML = `感谢你的加入。意向已记录至社群档案，你可以直接下载下方日历邀请，或添加微信随时交流。`;
-          if (noteEn) noteEn.innerHTML = `Thank you for joining. You may download the .ics invite below or connect via WeChat to explore more.`;
+          if (noteZh) noteZh.textContent = '感谢你的加入。意向已记录至社群档案，你可以直接下载下方日历邀请，或添加微信随时交流。';
+          if (noteEn) noteEn.textContent = 'Thank you for joining. You may download the .ics invite below or connect via WeChat to explore more.';
         }
 
         if (receiptSummaryBox) {
-          receiptSummaryBox.innerHTML = `
-            <div class="summary-line"><span>${isEn ? 'Moniker:' : '称呼：'}</span><strong>${name}</strong></div>
-            <div class="summary-line"><span>${isEn ? 'Craft Domain:' : '领域：'}</span><span>${craft}</span></div>
-            <div class="summary-line"><span>${isEn ? 'Gatherings:' : '意向活动：'}</span><span>${interests.join(' / ') || (isEn ? 'None specified' : '未指定')}</span></div>
-            <div class="summary-line"><span>${isEn ? 'Contact:' : '联系方式：'}</span><code>${contact}</code></div>
-          `;
+          receiptSummaryBox.textContent = '';
+          const createSummaryLine = (labelStr: string, valueStr: string, isCode = false) => {
+            const row = document.createElement('div');
+            row.className = 'summary-line';
+            const labelSpan = document.createElement('span');
+            labelSpan.textContent = labelStr;
+            row.appendChild(labelSpan);
+            const valSpan = document.createElement(isCode ? 'code' : 'span');
+            valSpan.textContent = valueStr;
+            row.appendChild(valSpan);
+            return row;
+          };
+
+          receiptSummaryBox.appendChild(createSummaryLine(isEn ? 'Moniker:' : '称呼：', name));
+          receiptSummaryBox.appendChild(createSummaryLine(isEn ? 'Craft Domain:' : '领域：', craft));
+          receiptSummaryBox.appendChild(createSummaryLine(isEn ? 'Gatherings:' : '意向活动：', interests.join(' / ') || (isEn ? 'None specified' : '未指定')));
+          receiptSummaryBox.appendChild(createSummaryLine(isEn ? 'Contact:' : '联系方式：', contact, true));
         }
 
         lastPayloadText = `wo/men in tech 回执 #${subId}\n称呼: ${name}\n领域: ${craft}\n意向: ${interests.join(', ')}\n联系: ${contact}`;

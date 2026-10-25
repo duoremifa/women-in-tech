@@ -15,7 +15,7 @@ const commonChineseChars = '的了一是在不了有和人这中大为上个国�
 const commonLatinChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:\'",.<>/?`~';
 
 // 标点符号
-const punctuation = '，。！？；：""''（）【】《》〈〉「」『』〔〕…—–·';
+const punctuation = "，。！？；：\"\"''（）【】《》〈〉「」『』〔〕…—–·";
 
 // 完整字符集
 const fullCharset = commonChineseChars + commonLatinChars + punctuation;

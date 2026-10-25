@@ -50,37 +50,34 @@
 </style>
 
 <script>
-  function initReadingProgress() {
+  function initReadingProgress(): (() => void) | undefined {
     const progressBar = document.getElementById('reading-progress');
-    if (!progressBar) return;
+    if (!progressBar) return undefined;
 
+    const bar = progressBar;
     function updateProgress() {
       const winScroll = document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
 
-      // 更新进度条宽度和渐变
-      progressBar.style.width = scrolled + '%';
-
-      // 触发涟漪效果
+      bar.style.width = scrolled + '%';
       triggerRipple();
     }
 
     function triggerRipple() {
-      progressBar.classList.add('active');
+      bar.classList.add('active');
       setTimeout(() => {
-        progressBar.classList.remove('active');
-      }, 300); // 使用300ms而不是变量
+        bar.classList.remove('active');
+      }, 300);
     }
 
-    window.addEventListener('scroll', updateProgress);
+    window.addEventListener('scroll', updateProgress, { passive: true });
     updateProgress();
 
-    // 返回清理函数
     return () => window.removeEventListener('scroll', updateProgress);
   }
 
-  let cleanup = null;
+  let cleanup: (() => void) | undefined = undefined;
 
   document.addEventListener('astro:page-load', () => {
     if (cleanup) cleanup();

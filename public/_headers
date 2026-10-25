@@ -17,7 +17,7 @@
   # ── 权限策略：完全封锁高危硬件与传感器 API ───────────────────────
   Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=(), payment=(), usb=(), bluetooth=(), serial=(), hid=()
   # ── 内容安全策略 (CSP)：白名单机制，根治 XSS 与恶意脚本注入 ─────
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://*.supabase.co https://cloudflareinsights.com https://api.resend.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://*.supabase.co https://cloudflareinsights.com https://api.resend.com; object-src 'none'; worker-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;
   # ── 禁止 Flash / PDF 跨域策略文档 ─────────────────────────────
   X-Permitted-Cross-Domain-Policies: none
   # ── 关闭浏览器 DNS 预取，防止隐私泄漏 ───────────────────────────
@@ -91,3 +91,5 @@
 /api/*
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0
   X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin

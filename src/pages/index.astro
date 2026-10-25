@@ -882,11 +882,9 @@ import GeometricVisual from '../components/GeometricVisual.astro';
           clientTimestamp: new Date().toISOString(),
         };
 
-        // 备份到本地存储
+        // 仅在会话中暂存提交时间，不持久化敏感联络信息
         try {
-          const existing = JSON.parse(localStorage.getItem('wotech_rsvp_backup') || '[]');
-          existing.push(payload);
-          localStorage.setItem('wotech_rsvp_backup', JSON.stringify(existing));
+          sessionStorage.setItem('wotech_rsvp_sent', '1');
         } catch (err) {}
 
         let subId = `WT-${Date.now().toString(36).slice(-5).toUpperCase()}`;
@@ -981,17 +979,25 @@ import GeometricVisual from '../components/GeometricVisual.astro';
         const noteEn = document.getElementById('home-note-text-en');
         if (isEmail) {
           if (noteZh) {
-            noteZh.innerHTML = `已向你的邮箱 <code>${contactVal}</code> 发送确认信与 .ics 日历邀请（若未收到可检查垃圾箱）。`;
+            noteZh.textContent = '已向你的邮箱 ';
+            const codeEl = document.createElement('code');
+            codeEl.textContent = contactVal;
+            noteZh.appendChild(codeEl);
+            noteZh.appendChild(document.createTextNode(' 发送确认信与 .ics 日历邀请（若未收到可检查垃圾箱）。'));
           }
           if (noteEn) {
-            noteEn.innerHTML = `A confirmation letter & .ics invite have been dispatched to <code>${contactVal}</code>.`;
+            noteEn.textContent = 'A confirmation letter & .ics invite have been dispatched to ';
+            const codeEl = document.createElement('code');
+            codeEl.textContent = contactVal;
+            noteEn.appendChild(codeEl);
+            noteEn.appendChild(document.createTextNode('.'));
           }
         } else {
           if (noteZh) {
-            noteZh.innerHTML = `意向已记录至社群档案。你可以直接下载下方日历邀请，或添加微信随时交流。`;
+            noteZh.textContent = '意向已记录至社群档案。你可以直接下载下方日历邀请，或添加微信随时交流。';
           }
           if (noteEn) {
-            noteEn.innerHTML = `Your note is recorded. You may download the .ics invite below or connect via WeChat to explore more.`;
+            noteEn.textContent = 'Your note is recorded. You may download the .ics invite below or connect via WeChat to explore more.';
           }
         }
 
