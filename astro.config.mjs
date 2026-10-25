@@ -3,7 +3,7 @@ import AstroPWA from '@vite-pwa/astro';
 import cssnano from 'cssnano';
 
 export default defineConfig({
-  site: 'https://women-in-tech.pages.dev',
+  site: 'https://wotech.space',
   base: '/',
   trailingSlash: 'ignore',
 
