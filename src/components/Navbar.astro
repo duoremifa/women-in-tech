@@ -5,10 +5,10 @@
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 const navItems = [
-  { text: '理念', en: 'About', href: '/' },
-  { text: '日常', en: 'What We Do', href: '/events' },
-  { text: '安排', en: 'Upcoming', href: '/upcoming' },
-  { text: '加入', en: 'Join', href: '/join' },
+  { text: '理念', en: 'About', href: '/#about', id: 'about' },
+  { text: '日常', en: 'What We Do', href: '/#events', id: 'events' },
+  { text: '安排', en: 'Upcoming', href: '/#schedule', id: 'schedule' },
+  { text: '加入', en: 'Join', href: '/#join', id: 'join' },
 ];
 ---
 
@@ -22,20 +22,21 @@ const navItems = [
       </a>
     </div>
 
-    <!-- 中部导航链接 -->
+    <!-- 中部导航链接：对齐主页四大核心篇章 -->
     <div class='nav-center'>
       <div class='nav-links'>
         {
-          navItems.map(item => {
-            const isActive = currentPath === item.href;
+          navItems.map((item, index) => {
+            const isActive = index === 0;
             return (
               <a
                 href={item.href}
                 class:list={['nav-link', { 'is-active': isActive }]}
+                data-nav-id={item.id}
               >
                 <span class='nav-link-text lang-zh'>{item.text}</span>
                 <span class='nav-link-text lang-en'>{item.en}</span>
-                {isActive && <span class='nav-active-dot' />}
+                <span class='nav-active-dot' />
               </a>
             );
           })
@@ -101,19 +102,81 @@ const navItems = [
 
 <script>
   function setupNavControls() {
+    // 1. 极简语言切换
     const langBtn = document.getElementById('quick-lang-btn');
-    if (!langBtn) return;
+    if (langBtn) {
+      langBtn.onclick = () => {
+        const current = document.documentElement.getAttribute('data-lang') || 'zh';
+        const next = current === 'en' ? 'zh' : 'en';
+        document.documentElement.setAttribute('data-lang', next);
+        document.documentElement.lang = next === 'en' ? 'en' : 'zh-CN';
+        try {
+          localStorage.setItem('site_lang', next);
+        } catch (e) {}
+        window.dispatchEvent(new CustomEvent('site-language-change', { detail: { lang: next } }));
+      };
+    }
 
-    langBtn.onclick = () => {
-      const current = document.documentElement.getAttribute('data-lang') || 'zh';
-      const next = current === 'en' ? 'zh' : 'en';
-      document.documentElement.setAttribute('data-lang', next);
-      document.documentElement.lang = next === 'en' ? 'en' : 'zh-CN';
-      try {
-        localStorage.setItem('site_lang', next);
-      } catch (e) {}
-      window.dispatchEvent(new CustomEvent('site-language-change', { detail: { lang: next } }));
-    };
+    // 2. 首页锚点平滑滚动与联动
+    const isHomePage = window.location.pathname === '/' || window.location.pathname === '';
+    const navLinks = document.querySelectorAll<HTMLAnchorElement>('.nav-link[data-nav-id]');
+
+    function setActiveNav(id: string) {
+      navLinks.forEach((link) => {
+        if (link.dataset.navId === id) {
+          link.classList.add('is-active');
+        } else {
+          link.classList.remove('is-active');
+        }
+      });
+    }
+
+    navLinks.forEach((link) => {
+      link.onclick = (e) => {
+        const navId = link.dataset.navId;
+        if (!navId) return;
+
+        if (isHomePage) {
+          e.preventDefault();
+          if (navId === 'about') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            history.pushState(null, '', '/');
+            setActiveNav('about');
+          } else {
+            const targetEl = document.getElementById(navId);
+            if (targetEl) {
+              targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              history.pushState(null, '', `/#${navId}`);
+              setActiveNav(navId);
+            }
+          }
+        }
+      };
+    });
+
+    // 3. 首页滚动智能监听 (Scroll Spy)
+    if (isHomePage) {
+      const sections = ['about', 'events', 'schedule', 'join'];
+      const sectionElements = sections.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+
+      if ('IntersectionObserver' in window && sectionElements.length > 0) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                setActiveNav(entry.target.id);
+              }
+            });
+          },
+          {
+            rootMargin: '-15% 0px -60% 0px',
+            threshold: 0,
+          }
+        );
+
+        sectionElements.forEach((el) => observer.observe(el));
+      }
+    }
   }
 
   setupNavControls();
@@ -190,8 +253,11 @@ const navItems = [
     color: var(--color-brand-purple-soft, #7d689b);
   }
 
-  /* ===== 中部导航链接 ===== */
+  /* ===== 中部导航链接 (绝对居中保证视觉平衡) ===== */
   .nav-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -200,7 +266,7 @@ const navItems = [
   .nav-links {
     display: flex;
     align-items: center;
-    gap: var(--spacing-5);
+    gap: var(--spacing-6);
   }
 
   .nav-link {
@@ -235,6 +301,12 @@ const navItems = [
     height: 3px;
     border-radius: 50%;
     background: var(--color-gold-dust);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+  }
+
+  .nav-link.is-active .nav-active-dot {
+    opacity: 1;
   }
 
   /* ===== 最右侧：极简控制区 ===== */
@@ -328,6 +400,12 @@ const navItems = [
 
     .brand-sub {
       display: none; /* 移动端收敛副标题，视觉呼吸更充裕 */
+    }
+
+    .nav-center {
+      position: static;
+      transform: none;
+      margin: 0 auto;
     }
 
     .nav-links {
