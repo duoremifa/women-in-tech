@@ -1,77 +1,193 @@
-/* src/styles/components/forms.css */
+/* ============================================
+   宁静低压设计系统 · 表单与交互控件规范 v2.0
+   极致简约、触感反馈、去工业化机械感
+   ============================================ */
 
-/* Form Components & Feedback */
-
-input,
+/* ----- 统一输入控件基底 ----- */
+input[type='text'],
+input[type='email'],
+input[type='tel'],
 textarea,
 select {
   display: block;
   width: 100%;
-  padding: var(--spacing-3);
+  padding: 0.75rem 1rem;
   font-family: var(--font-family-ui);
-
-  /* 表单元素：UI 字体 */
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
   color: var(--color-text-primary);
-  background-color: var(--color-surface-primary);
-  border: var(--border-width-thin) solid var(--color-border);
-  border-radius: var(--radius-md);
-  transition: all var(--transition-fast);
+  background-color: var(--color-surface-pure);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  border-radius: var(--radius-subtle, 6px);
+  box-shadow: 0 1px 2px rgba(38, 34, 28, 0.02);
+  transition:
+    border-color var(--transition-normal),
+    background-color var(--transition-normal),
+    box-shadow var(--transition-normal);
+  -webkit-appearance: none;
+  appearance: none;
 }
 
-/* LINEAR 风格悬停：边框高亮 */
-input:hover:not(:focus),
-textarea:hover:not(:focus),
-select:hover:not(:focus) {
-  border-color: var(--color-border-medium);
+/* 占位符质感：柔和低饱和，不宣兵夺主 */
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-text-tertiary);
+  opacity: 0.7;
+  font-weight: var(--font-weight-light);
+  letter-spacing: 0.01em;
 }
 
+/* 悬停微反馈 */
+input:hover:not(:focus):not(:disabled),
+textarea:hover:not(:focus):not(:disabled),
+select:hover:not(:focus):not(:disabled) {
+  border-color: var(--color-primary-300);
+  background-color: var(--color-surface-pure);
+}
+
+/* 聚焦光晕：磨砂薰衣草微光 + 哑光金过渡 */
 input:focus,
 textarea:focus,
 select:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 var(--border-width-thick) var(--color-primary-light);
+  box-shadow: 0 0 0 3px rgba(183, 170, 217, 0.18);
+  background-color: var(--color-surface-pure);
 }
 
+/* ----- 下拉筛选框 (Select) 极致优化 ----- */
+select {
+  cursor: pointer;
+  padding-right: 2.5rem;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%238F81A6' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 11px 7px;
+}
+
+select:hover {
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23B7AAD9' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+select option {
+  background: var(--color-surface-pure);
+  color: var(--color-text-primary);
+  padding: 0.5rem 1rem;
+}
+
+/* ----- 多行文本域 (Textarea) ----- */
+textarea {
+  min-height: 5.5rem;
+  resize: vertical;
+  line-height: var(--line-height-relaxed);
+}
+
+/* ----- 标签规范 ----- */
 label {
   display: block;
-  margin-bottom: var(--spacing-2);
-  font-size: var(--font-size-sm);
+  font-family: var(--font-family-ui);
+  font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-2);
+}
+
+/* ----- 极简胶囊复选框与单选钮 (Pill Chips) ----- */
+.quiet-pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.quiet-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.95rem;
+  background: var(--color-surface-soft);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-family-ui);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  user-select: none;
+  transition: all var(--transition-fast);
+}
+
+.quiet-pill:hover {
+  border-color: var(--color-primary-300);
+  color: var(--color-text-primary);
+  background: var(--color-surface-pure);
+  transform: translateY(-1px);
+}
+
+.quiet-pill:active {
+  transform: scale(0.98);
+}
+
+.quiet-pill input[type='checkbox'],
+.quiet-pill input[type='radio'] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* 激活选中态：磨砂薰衣草与哑光金沉浸质感 */
+.quiet-pill:has(input:checked),
+.quiet-pill.is-active {
+  background: var(--color-primary-50);
+  border-color: var(--color-primary);
+  color: var(--color-text-heading);
+  font-weight: var(--font-weight-medium);
+  box-shadow: 0 1px 3px rgba(183, 170, 217, 0.2);
+}
+
+.quiet-pill-indicator {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-border);
+  margin-right: 0.5rem;
+  transition: all var(--transition-fast);
+}
+
+.quiet-pill:has(input:checked) .quiet-pill-indicator,
+.quiet-pill.is-active .quiet-pill-indicator {
+  background: var(--color-primary);
+  transform: scale(1.2);
+}
+
+/* ----- 深色模式适配 ----- */
+:root.dark input[type='text'],
+:root.dark input[type='email'],
+:root.dark input[type='tel'],
+:root.dark textarea,
+:root.dark select {
+  background-color: var(--color-surface-card);
+  border-color: var(--color-border-subtle);
+  color: var(--color-text-primary);
+}
+
+:root.dark select option {
+  background: var(--color-surface-card);
+  color: var(--color-text-primary);
+}
+
+:root.dark .quiet-pill {
+  background: var(--color-surface-soft);
+  border-color: var(--color-border-subtle);
   color: var(--color-text-secondary);
 }
 
-/* Form Feedback Messages (Alerts) */
-.message {
-  padding: var(--spacing-3) var(--spacing-4);
-  margin-top: var(--spacing-4);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-sm);
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-2);
-  opacity: 1;
-}
-
-.message-success {
-  background-color: color-mix(in srgb, var(--color-success), transparent 90%);
-  color: color-mix(in srgb, var(--color-success), black 20%);
-  border: var(--border-width-thin) solid color-mix(in srgb, var(--color-success), transparent 80%);
-}
-
-.message-error {
-  background-color: color-mix(in srgb, var(--color-error), transparent 90%);
-  color: color-mix(in srgb, var(--color-error), black 20%);
-  border: var(--border-width-thin) solid color-mix(in srgb, var(--color-error), transparent 80%);
-}
-
-.message-success::before {
-  content: '🌿';
-  font-size: var(--font-size-xl);
-}
-
-.message-error::before {
-  content: '🍂';
-  font-size: var(--font-size-xl);
+:root.dark .quiet-pill:has(input:checked),
+:root.dark .quiet-pill.is-active {
+  background: rgba(183, 170, 217, 0.15);
+  border-color: var(--color-primary);
+  color: var(--color-text-heading);
 }
