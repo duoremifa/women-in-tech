@@ -11,33 +11,33 @@
         —— 替代原温暖活泼色板，保留所有结构变量
      ======================================== */
 
-  /* ----- 背景与表面 · 纸感肌理 ----- */
-  --color-bg-page: #f8f6f2;
+  /* ----- 背景与表面 · 温润手工棉纸肌理 ----- */
+  --color-bg-page: #f7f5f0;
 
-  /* 旧米白，像手工棉纸，不反光 */
-  --color-surface-pure: #fff;
+  /* 暖调手工棉纸底色，杜绝屏幕冷光反光 */
+  --color-surface-pure: #fdfcf9;
 
-  /* 纯白卡片，触感洁净 */
-  --color-surface-soft: #fefcf7;
+  /* 微温奶白纸质卡片，触感素雅柔和 */
+  --color-surface-soft: #f3f0e8;
 
-  /* 极浅奶油，用于轻微区隔 */
-  --color-surface-card: #fff;
+  /* 极浅素米色，用于微区隔与前置槽 */
+  --color-surface-card: #fdfcf9;
 
-  /* 保持原变量名，用于卡片背景 */
+  /* 保持变量名，用于卡片容器 */
 
-  /* ----- 边框与分割 · 近乎隐形 ----- */
-  --color-border-subtle: #eae5de;
+  /* ----- 边框与分割 · 亚麻纤维与极细金痕 ----- */
+  --color-border-subtle: #e5ded3;
 
-  /* 亚麻灰，比白更安静 */
-  --color-border-divider: #f0ede8;
+  /* 暖亚麻微痕，比纯灰更具纸质纤维感 */
+  --color-border-divider: #ede8df;
 
-  /* 分割线，近乎透明 */
-  --color-border-light: #f1ede9;
+  /* 呼吸分割线 */
+  --color-border-light: #e8e2d7;
 
-  /* 兼容原变量，现为暖灰 */
-  --color-border: #d8d2c9;
+  /* 浅框线 */
+  --color-border: #d5ccbe;
 
-  /* 更明确的边界，依然柔和 */
+  /* 明确的暖金调边界 */
 
   /* ----- 文本 · 极高可读，极低压迫 ----- */
   --color-text-primary: #26221c;

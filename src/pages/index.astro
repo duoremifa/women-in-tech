@@ -262,7 +262,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                       <svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg>
                     </span>
                     <div class='check-content'>
-                      <span class='check-title'>☕ Offline & Online Coffee Chat</span>
+                      <span class='check-title'>Coffee Chat</span>
                       <span class='check-note'>双周轻聚 · 低压真诚</span>
                     </div>
                   </label>
@@ -273,7 +273,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                       <svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg>
                     </span>
                     <div class='check-content'>
-                      <span class='check-title'>🗣️ English Tech & Design Chat</span>
+                      <span class='check-title'>English Tech & Design Chat</span>
                       <span class='check-note'>双周线上 · 5 min Show & Tell</span>
                     </div>
                   </label>
@@ -284,7 +284,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                       <svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg>
                     </span>
                     <div class='check-content'>
-                      <span class='check-title'>🛠️ 作品 Lab · 慢工出细活</span>
+                      <span class='check-title'>作品 Lab · 慢工出细活</span>
                       <span class='check-note'>经验互借 · 代表作打磨</span>
                     </div>
                   </label>
@@ -580,15 +580,16 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   .editorial-panels-stack {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-4);
+    gap: var(--spacing-5);
   }
 
   .editorial-panel {
     background: var(--color-surface-pure);
     border: var(--border-width-thin) solid var(--color-border-subtle);
+    border-left: 2px solid var(--color-gold-dust);
     border-radius: var(--radius-sm);
-    padding: var(--spacing-5) var(--spacing-6);
-    box-shadow: 0 1px 2px rgba(38, 34, 28, 0.02);
+    padding: var(--spacing-6) var(--spacing-7);
+    box-shadow: 0 1px 3px rgba(38, 34, 28, 0.02);
     transition:
       border-color var(--transition-fast),
       transform var(--transition-fast),
@@ -596,9 +597,10 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   }
 
   .editorial-panel:hover {
-    border-color: rgba(216, 205, 176, 0.6);
+    border-color: rgba(216, 205, 176, 0.7);
+    border-left-color: var(--color-gold-dust);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(216, 205, 176, 0.08);
+    box-shadow: 0 4px 14px rgba(216, 205, 176, 0.09);
   }
 
   .panel-top {
@@ -619,11 +621,12 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     font-size: var(--font-size-xs);
     color: var(--color-gold-dust);
     font-weight: var(--font-weight-light);
+    letter-spacing: 0.05em;
   }
 
   .panel-title {
     font-family: var(--font-family-heading);
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-lg);
     font-weight: var(--font-weight-normal);
     color: var(--color-text-heading);
     margin: 0;
@@ -633,26 +636,28 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   .panel-badge {
     font-family: var(--font-family-ui);
     font-size: 11px;
-    color: var(--color-text-tertiary);
+    letter-spacing: 0.06em;
+    color: var(--color-primary-dark);
     background: var(--color-surface-soft);
     border: 1px solid var(--color-border-divider);
-    padding: 1px 8px;
+    padding: 2px 9px;
     border-radius: var(--radius-pill);
     white-space: nowrap;
   }
 
   .panel-badge.status-open {
-    color: #436956;
-    border-color: rgba(196, 214, 204, 0.5);
-    background: rgba(196, 214, 204, 0.15);
+    color: #4a705e;
+    border-color: rgba(196, 214, 204, 0.6);
+    background: rgba(196, 214, 204, 0.18);
   }
 
   .panel-desc {
     font-family: var(--font-family-text);
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
-    line-height: 1.8;
+    line-height: 1.85;
     margin: 0;
+    letter-spacing: 0.01em;
   }
 
   .panel-footer-meta {
@@ -661,10 +666,11 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     align-items: center;
     border-top: 1px solid var(--color-border-divider);
     padding-top: var(--spacing-3);
-    margin-top: var(--spacing-3);
+    margin-top: var(--spacing-4);
     font-family: var(--font-family-ui);
     font-size: 11px;
     color: var(--color-text-tertiary);
+    letter-spacing: 0.02em;
   }
 
   /* 章节底部跳转链接 */
