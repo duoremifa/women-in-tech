@@ -257,42 +257,54 @@ const navItems = [
   .nav-right-group {
     display: flex;
     align-items: center;
-    gap: var(--spacing-6);
+    gap: var(--spacing-5);
     margin-left: auto;
   }
 
   .nav-links {
     display: flex;
     align-items: center;
-    gap: var(--spacing-7); /* 28px：充裕舒展的呼吸感 */
+    gap: var(--spacing-3); /* 12px 胶囊间距，舒展通透 */
   }
 
   .nav-link {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     color: var(--color-text-secondary);
     text-decoration: none !important;
     border-bottom: none !important;
-    font-size: 13px;
-    letter-spacing: 0.05em;
-    padding: var(--spacing-1) 0;
+    font-size: 13.5px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
     position: relative;
-    transition: color var(--transition-fast);
+    transition: color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
     white-space: nowrap;
+    user-select: none;
   }
 
   .nav-link:hover {
     color: var(--color-text-heading);
+    background: var(--color-surface-soft);
   }
 
   .nav-link.is-active {
     color: var(--color-text-heading);
-    font-weight: var(--font-weight-medium);
+    font-weight: 500;
+    background: var(--color-surface-card);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+
+  :root.dark .nav-link.is-active {
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   }
 
   .nav-active-dot {
     position: absolute;
-    bottom: -6px;
+    bottom: 3px;
     left: 50%;
     transform: translateX(-50%);
     width: 3px;
@@ -309,10 +321,10 @@ const navItems = [
 
   .nav-group-divider {
     width: 1px;
-    height: 12px;
+    height: 14px;
     background: var(--color-border-divider);
     opacity: 0.7;
-    margin: 0 2px;
+    margin: 0 4px;
   }
 
   .minimal-ctrl-group {
@@ -389,7 +401,7 @@ const navItems = [
     .quiet-nav {
       padding-top: var(--spacing-4);
       padding-bottom: var(--spacing-3);
-      gap: var(--spacing-3);
+      gap: var(--spacing-2);
     }
 
     .brand-main {
@@ -405,26 +417,28 @@ const navItems = [
     }
 
     .nav-links {
-      gap: var(--spacing-3);
+      gap: 6px;
     }
 
     .nav-link {
       font-size: 12.5px;
-      padding: 4px 2px;
+      letter-spacing: 0.06em;
+      padding: 5px 9px;
     }
 
     .nav-active-dot {
-      bottom: -4px;
+      bottom: 2px;
     }
 
     .nav-group-divider {
       height: 10px;
+      margin: 0 1px;
     }
   }
 
   @media (max-width: 480px) {
     .quiet-nav {
-      gap: var(--spacing-2);
+      gap: 4px;
     }
 
     .nav-right-group {
@@ -432,17 +446,18 @@ const navItems = [
     }
 
     .nav-links {
-      gap: 8px;
+      gap: 3px;
     }
 
     .nav-link {
       font-size: 12px;
-      padding: 2px 0;
+      letter-spacing: 0.04em;
+      padding: 4px 7px;
     }
 
     .minimal-btn.lang-btn {
-      padding: 0 4px;
-      font-size: 10px;
+      padding: 0 5px;
+      font-size: 10.5px;
     }
 
     .nav-group-divider {
