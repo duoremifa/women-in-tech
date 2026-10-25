@@ -282,22 +282,23 @@ export async function onRequestPost(context: any) {
         idea,
       });
 
-      // 1.1 尝试 Resend API
+      // 1.1 尝试 Resend API (从 Cloudflare 环境变量获取)
       const resendApiKey = context.env?.RESEND_API_KEY;
       if (resendApiKey) {
         try {
           // 在 Node / CF Workers 环境下将 UTF-8 字符串转 Base64
           const icsBase64 = btoa(unescape(encodeURIComponent(icsContent)));
-          const fromEmail = context.env?.EMAIL_FROM || 'wo/men in tech <invitation@wotech.space>';
+          const defaultDomainFrom = context.env?.EMAIL_FROM || 'wo/men in tech <invitation@wotech.space>';
 
-          const resendResp = await fetch('https://api.resend.com/emails', {
+          // 优先尝试自定义域名发送
+          let resendResp = await fetch('https://api.resend.com/emails', {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${resendApiKey}`,
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              from: fromEmail,
+              from: defaultDomainFrom,
               to: [cleanContact],
               subject: `[wo/men in tech] 交流预约确认与日历邀请 #${submissionId}`,
               html: emailHtml,
@@ -310,6 +311,31 @@ export async function onRequestPost(context: any) {
               ],
             }),
           });
+
+          // 若域名尚未在 Resend 完成 DNS 验证，自动降级为官方 onboarding@resend.dev 通道重试
+          if (!resendResp.ok) {
+            const firstErr = await resendResp.text().catch(() => '');
+            resendResp = await fetch('https://api.resend.com/emails', {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${resendApiKey}`,
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                from: 'wo/men in tech <onboarding@resend.dev>',
+                to: [cleanContact],
+                subject: `[wo/men in tech] 交流预约确认与日历邀请 #${submissionId}`,
+                html: emailHtml,
+                text: emailText,
+                attachments: [
+                  {
+                    filename: `wotech-gathering-${submissionId}.ics`,
+                    content: icsBase64,
+                  },
+                ],
+              }),
+            });
+          }
 
           if (resendResp.ok) {
             emailSent = true;

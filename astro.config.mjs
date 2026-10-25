@@ -64,6 +64,34 @@ export default defineConfig({
                     'END:VCALENDAR',
                   ].join('\r\n');
 
+                  let emailSent = false;
+                  const resendKey = process.env.RESEND_API_KEY;
+                  if (isEmail && resendKey) {
+                    try {
+                      const icsBase64 = Buffer.from(icsContent).toString('base64');
+                      let rResp = await fetch('https://api.resend.com/emails', {
+                        method: 'POST',
+                        headers: {
+                          Authorization: `Bearer ${resendKey}`,
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                          from: 'wo/men in tech <onboarding@resend.dev>',
+                          to: [cleanContact],
+                          subject: `[wo/men in tech] 交流预约确认与日历邀请 #${submissionId}`,
+                          text: `✦ wo/men in tech · "我们"\n\n致 ${name || '同行者'}：\n你的交流意向已静默送达。\n回执编号：#${submissionId}\n\n已随信附带本期交流日历邀请（.ics 附件）。\n包含 Coffee Chat 与 Show & Tell 交流时段。\n\n主理人微信快速通道：daiminay\n（添加时请备注回执编号 #${submissionId}）\n\n给推敲留出时间，让灵感自然生长。\nhttps://wotech.space`,
+                          attachments: [
+                            {
+                              filename: `wotech-gathering-${submissionId}.ics`,
+                              content: icsBase64,
+                            },
+                          ],
+                        }),
+                      });
+                      if (rResp.ok) emailSent = true;
+                    } catch (e) {}
+                  }
+
                   res.setHeader('Content-Type', 'application/json');
                   res.statusCode = 200;
                   res.end(
@@ -71,7 +99,7 @@ export default defineConfig({
                       success: true,
                       submissionId,
                       isEmail,
-                      emailSent: isEmail,
+                      emailSent,
                       icsContent,
                       wechatHost: 'daiminay',
                       message: '意向已收录',
