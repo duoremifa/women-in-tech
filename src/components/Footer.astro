@@ -6,7 +6,7 @@
   <div class='footer-sub'>
     <div class='footer-signature'>
       <span class='gold-thread-dot'>✦</span>
-      <span>wo/men in tech</span>
+      <span>wo<span class='brand-slash'>/</span>men in tech</span>
     </div>
     <span class='footer-description'>
       women in technical · 既是女性，亦是“我们”的技术与创造联合体
@@ -48,6 +48,15 @@
     font-weight: var(--font-weight-medium);
     color: var(--color-text-primary);
     margin-bottom: var(--spacing-2);
+  }
+
+  .brand-slash {
+    display: inline-block;
+    margin: 0 0.04em;
+    font-weight: 300;
+    color: var(--color-gold-dust);
+    opacity: 0.75;
+    font-style: normal;
   }
 
   .gold-thread-dot {

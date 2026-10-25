@@ -12,10 +12,8 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     <div class='two-column-layout'>
       {/* 左侧栏：理念与双语介绍 */}
       <aside class='sidebar' id='about'>
-        <span class='gold-thread-mini'></span>
-
         <div class='brand-group'>
-          <h1 class='site-title'>wo/men</h1>
+          <h1 class='site-title'>wo<span class='brand-slash'>/</span>men</h1>
           <p class='site-tagline'>women in technical · 也是“我们”</p>
         </div>
 
@@ -359,6 +357,17 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     line-height: var(--line-height-tight);
     margin-bottom: var(--spacing-2);
     letter-spacing: -0.02em;
+    text-decoration: none !important;
+    border-bottom: none !important;
+  }
+
+  .site-title .brand-slash {
+    display: inline-block;
+    margin: 0 0.04em;
+    font-weight: 300;
+    color: var(--color-gold-dust);
+    opacity: 0.75;
+    font-style: normal;
   }
 
   .site-tagline {
