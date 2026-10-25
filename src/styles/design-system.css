@@ -782,3 +782,20 @@
    设计系统核心结束
    所有组件样式已迁移至 src/styles/components/
    ============================================ */
+
+/* ============================================
+   双语切换机制 (Bilingual Display Engine)
+   ============================================ */
+html[data-lang="zh"] .lang-en {
+  display: none !important;
+}
+
+html[data-lang="en"] .lang-zh {
+  display: none !important;
+}
+
+/* 初始或默认态：未指定 data-lang 时默认展示中文 */
+html:not([data-lang="en"]) .lang-en {
+  display: none !important;
+}
+

@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import GeometricVisual from '../components/GeometricVisual.astro';
 ---
 
 <Layout
@@ -9,13 +8,26 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   width='reading'
 >
   <div class='page-container'>
+    <!-- 头部引导 -->
     <header class='page-header'>
       <span class='section-eyebrow'>WHAT WE DO</span>
-      <h1 class='page-title'>日常与创作机制</h1>
-      <p class='page-lead'>
-        在商业流水线之外，守住纯粹的手艺与思考。<br />
-        不赶 deadline，不做为了证明什么的交付，只做对得起自己的作品与交流。
-      </p>
+
+      <div class='lang-zh'>
+        <h1 class='page-title'>日常与创作机制</h1>
+        <p class='page-lead'>
+          在商业流水线之外，守住纯粹的手艺与思考。<br />
+          不赶 deadline，不做为了证明什么的交付，只做对得起自己的作品与交流。
+        </p>
+      </div>
+
+      <div class='lang-en'>
+        <h1 class='page-title'>What We Do · Circle Mechanics</h1>
+        <p class='page-lead'>
+          Holding space for pure craft and deliberate reflection outside commercial conveyor belts.<br />
+          No artificial deadlines, no vanity deliverables—only meaningful work and authentic exchanges.
+        </p>
+      </div>
+
       <div class='gold-hairline'></div>
     </header>
 
@@ -24,10 +36,12 @@ import GeometricVisual from '../components/GeometricVisual.astro';
       <article class='event-detail-card'>
         <div class='card-header-line'>
           <span class='card-index'>01</span>
-          <span class='card-badge'>双周轻聚 · 线上 / 杭州</span>
+          <span class='card-badge lang-zh'>双周轻聚 · 线上 / 杭州</span>
+          <span class='card-badge lang-en'>Biweekly · Online / Hangzhou</span>
         </div>
         <h2 class='card-title'>Coffee Chat</h2>
-        <div class='card-body'>
+        
+        <div class='card-body lang-zh'>
           <p class='card-lead'>
             这不是商务社交（networking），也不是换取资源的交易场。
           </p>
@@ -43,16 +57,35 @@ import GeometricVisual from '../components/GeometricVisual.astro';
             </ul>
           </div>
         </div>
+
+        <div class='card-body lang-en'>
+          <p class='card-lead'>
+            Not networking, and never a transactional barter for industry leverage.
+          </p>
+          <p>
+            In a quiet Hangzhou tea house or a private video link, two or three of us finish our cups. We reflect on work-in-progress, lingering design thoughts, unfinished side tools, or simply listen to someone's winding path.
+          </p>
+          <div class='card-insight-box'>
+            <span class='insight-label'>Principles</span>
+            <ul class='insight-list'>
+              <li><strong>Judgment-Free</strong>: No patronizing career lectures; only genuine vulnerability and grounded craft experience.</li>
+              <li><strong>Low-Pressure Presence</strong>: Speak whenever moved, or simply listen quietly from start to finish.</li>
+              <li><strong>Preserving White Space</strong>: We never rush toward predetermined conclusions, giving space for organic serendipity.</li>
+            </ul>
+          </div>
+        </div>
       </article>
 
       {/* 模块 2: English Chat */}
       <article class='event-detail-card'>
         <div class='card-header-line'>
           <span class='card-index'>02</span>
-          <span class='card-badge'>双周线上 · 不定期</span>
+          <span class='card-badge lang-zh'>双周线上 · 不定期</span>
+          <span class='card-badge lang-en'>Biweekly Virtual · 40–60 min</span>
         </div>
         <h2 class='card-title'>English Tech & Design Chat</h2>
-        <div class='card-body'>
+        
+        <div class='card-body lang-zh'>
           <p class='card-lead'>
             用英语聊产品、设计或代码，在一个不被审判的环境里自由试错。
           </p>
@@ -67,16 +100,35 @@ import GeometricVisual from '../components/GeometricVisual.astro';
             </ul>
           </div>
         </div>
+
+        <div class='card-body lang-en'>
+          <p class='card-lead'>
+            Discussing product, interface craft, or code in English in a safe sandbox.
+          </p>
+          <p>
+            Global craft is within reach, yet what often holds us back is self-censorship before speaking. We host a 40–60 minute intimate Show & Tell: 5 minutes per person to share a loved interaction, architectural trade-off, or design rationale in English.
+          </p>
+          <div class='card-insight-box'>
+            <span class='insight-label'>Takeaways</span>
+            <ul class='insight-list'>
+              <li><strong>Safe Haven</strong>: Irrespective of fluency, you will find generous patience and constructive curiosity.</li>
+              <li><strong>Global Aesthetic Horizon</strong>: Engaging with international independent software, open-source gems, and soulful utility.</li>
+            </ul>
+          </div>
+        </div>
       </article>
 
       {/* 模块 3: 作品 Lab */}
       <article class='event-detail-card'>
         <div class='card-header-line'>
           <span class='card-index'>03</span>
-          <span class='card-badge'>慢工出细活 · 小组共建</span>
+          <span class='card-badge lang-zh'>慢工出细活 · 小组共建</span>
+          <span class='card-badge lang-en'>Deliberate Craft · Small Cohorts</span>
         </div>
-        <h2 class='card-title'>作品 Lab · Portfolio Co-building</h2>
-        <div class='card-body'>
+        <h2 class='card-title lang-zh'>作品 Lab · 代表作共建</h2>
+        <h2 class='card-title lang-en'>Craft Lab · Signature Works</h2>
+        
+        <div class='card-body lang-zh'>
           <p class='card-lead'>
             把那个在脑海里转了很久的小想法，拿出来做成一件立得住的器物。
           </p>
@@ -91,19 +143,45 @@ import GeometricVisual from '../components/GeometricVisual.astro';
             </ul>
           </div>
         </div>
+
+        <div class='card-body lang-en'>
+          <p class='card-lead'>
+            Taking that lingering intuition out of your journal and shaping it into an enduring artifact.
+          </p>
+          <p>
+            In day jobs, we often inhabit isolated cogs, rarely holding complete stewardship over philosophy, interaction, and system integrity. In Craft Lab, women across PM, IxD, and Engineering lend each other perspective—refining taste, robustness, and genuine utility.
+          </p>
+          <div class='card-insight-box'>
+            <span class='insight-label'>Craft Standards</span>
+            <ul class='insight-list'>
+              <li><strong>Only Work That Counts</strong>: No rushed boilerplate; every interaction frame and line of logic is treated with care.</li>
+              <li><strong>Full Authorship</strong>: All shared artifacts remain entirely authored by their creators as personal signature portfolios.</li>
+            </ul>
+          </div>
+        </div>
       </article>
     </div>
 
     {/* 底部行动引导 */}
     <section class='next-steps'>
       <div class='next-card'>
-        <div class='next-text'>
+        <div class='next-text lang-zh'>
           <h3>想参加最近的一期交流？</h3>
           <p>查看近期的具体排期，或者直接告诉我们你的兴趣。</p>
         </div>
+        <div class='next-text lang-en'>
+          <h3>Wish to join an upcoming circle?</h3>
+          <p>Browse our current schedule or leave us a quiet note with your interests.</p>
+        </div>
         <div class='next-actions'>
-          <a href='/upcoming' class='btn-link-gold'>查看近期排期 →</a>
-          <a href='/join' class='btn-solid-dark'>预约加入我们</a>
+          <a href='/upcoming' class='btn-link-gold'>
+            <span class='lang-zh'>查看近期排期 →</span>
+            <span class='lang-en'>View Schedule →</span>
+          </a>
+          <a href='/join' class='btn-solid-dark'>
+            <span class='lang-zh'>预约加入我们</span>
+            <span class='lang-en'>Join the Circle</span>
+          </a>
         </div>
       </div>
     </section>
@@ -120,14 +198,12 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   }
 
   .section-eyebrow {
-    font-family: var(--font-family-ui);
+    font-family: var(--font-family-mono);
     font-size: var(--font-size-xs);
-    letter-spacing: 0.16em;
-    color: var(--color-primary-dark);
-    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-gold-dust);
     display: block;
-    margin-bottom: var(--spacing-3);
-    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-2);
   }
 
   .page-title {
@@ -136,31 +212,28 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     font-weight: var(--font-weight-light);
     color: var(--color-text-heading);
     letter-spacing: -0.02em;
-    line-height: var(--line-height-tight);
-    margin: 0 0 var(--spacing-4);
+    margin: 0 0 var(--spacing-3);
   }
 
   .page-lead {
-    font-family: var(--font-family-text);
+    font-family: var(--font-family-body);
     font-size: var(--font-size-base);
     color: var(--color-text-secondary);
-    line-height: 1.85;
-    margin: 0;
+    line-height: var(--line-height-loose);
+    margin: 0 0 var(--spacing-6);
   }
 
   .gold-hairline {
-    width: 2.5rem;
+    width: var(--spacing-12);
     height: 1px;
     background: var(--color-gold-dust);
-    opacity: 0.5;
-    margin-top: var(--spacing-6);
+    opacity: 0.7;
   }
 
-  /* 活动卡片组 */
   .events-detail-stack {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-10);
+    gap: var(--spacing-8);
   }
 
   .event-detail-card {
@@ -169,31 +242,26 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     border-left: 2px solid var(--color-gold-dust);
     border-radius: var(--radius-sm);
     padding: var(--spacing-8);
-    box-shadow: 0 1px 3px rgba(38, 34, 28, 0.02);
   }
 
   .card-header-line {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: var(--spacing-3);
+    margin-bottom: var(--spacing-2);
   }
 
   .card-index {
-    font-family: var(--font-family-heading);
-    font-size: var(--font-size-sm);
-    color: var(--color-gold-dust);
-    font-weight: var(--font-weight-light);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-tertiary);
   }
 
   .card-badge {
     font-family: var(--font-family-ui);
-    font-size: 11px;
-    color: var(--color-text-tertiary);
-    border: 1px solid var(--color-border-divider);
-    padding: 2px 8px;
-    border-radius: var(--radius-pill);
-    background: var(--color-surface-soft);
+    font-size: var(--font-size-xs);
+    color: var(--color-primary-dark);
+    letter-spacing: 0.04em;
   }
 
   .card-title {
@@ -201,51 +269,43 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     font-size: var(--font-size-2xl);
     font-weight: var(--font-weight-normal);
     color: var(--color-text-heading);
-    letter-spacing: -0.01em;
     margin: 0 0 var(--spacing-4);
   }
 
   .card-body {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-3);
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
   }
 
   .card-lead {
     font-size: var(--font-size-base);
     color: var(--color-text-primary);
-    line-height: 1.75;
-    font-weight: var(--font-weight-medium);
-  }
-
-  .card-body p {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-secondary);
-    line-height: 1.85;
-    margin: 0;
+    margin-bottom: var(--spacing-3);
   }
 
   .card-insight-box {
-    background: var(--color-surface-soft);
-    border-left: 2px solid var(--color-gold-dust);
+    margin-top: var(--spacing-6);
     padding: var(--spacing-4) var(--spacing-5);
-    margin-top: var(--spacing-3);
+    background: var(--color-surface-card);
+    border: var(--border-width-thin) solid var(--color-border-divider);
+    border-radius: var(--radius-xs);
   }
 
   .insight-label {
-    font-family: var(--font-family-ui);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-text-tertiary);
     display: block;
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    color: var(--color-gold-dust);
+    letter-spacing: 0.08em;
     margin-bottom: var(--spacing-2);
+    text-transform: uppercase;
   }
 
   .insight-list {
-    list-style: none;
-    padding: 0;
     margin: 0;
+    padding-left: var(--spacing-4);
     display: flex;
     flex-direction: column;
     gap: var(--spacing-2);
@@ -254,14 +314,13 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   .insight-list li {
     font-size: var(--font-size-xs);
     color: var(--color-text-secondary);
-    line-height: 1.7;
+    line-height: var(--line-height-relaxed);
   }
 
-  .insight-list strong {
+  .insight-list li strong {
     color: var(--color-text-primary);
   }
 
-  /* 底部导流 */
   .next-steps {
     margin-top: var(--spacing-16);
   }
@@ -274,63 +333,56 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
     gap: var(--spacing-6);
   }
 
   .next-text h3 {
+    margin: 0 0 var(--spacing-1);
     font-family: var(--font-family-heading);
     font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-normal);
     color: var(--color-text-heading);
-    margin: 0 0 var(--spacing-1);
   }
 
   .next-text p {
+    margin: 0;
+    font-family: var(--font-family-body);
     font-size: var(--font-size-xs);
     color: var(--color-text-secondary);
-    margin: 0;
   }
 
   .next-actions {
     display: flex;
     align-items: center;
     gap: var(--spacing-4);
+    flex-shrink: 0;
   }
 
   .btn-link-gold {
     font-family: var(--font-family-ui);
     font-size: var(--font-size-xs);
-    color: var(--color-gold-dust);
-    text-decoration: none;
-    letter-spacing: 0.04em;
-    padding: var(--spacing-2) 0;
-  }
-
-  .btn-link-gold:hover {
-    color: var(--color-text-heading);
+    color: var(--color-primary-dark);
+    text-decoration: none !important;
+    border-bottom: 1px solid var(--color-gold-dust) !important;
+    padding-bottom: 2px;
   }
 
   .btn-solid-dark {
+    padding: var(--spacing-2) var(--spacing-5);
+    background: var(--color-primary-dark);
+    color: var(--color-surface-pure) !important;
+    border-radius: var(--radius-xs);
     font-family: var(--font-family-ui);
     font-size: var(--font-size-xs);
+    text-decoration: none !important;
     letter-spacing: 0.04em;
-    padding: var(--spacing-3) var(--spacing-6);
-    background: var(--color-text-heading);
-    color: var(--color-bg-page);
-    border-radius: var(--radius-sm);
-    text-decoration: none;
-    transition: all var(--transition-fast);
+    transition: background var(--transition-fast);
   }
 
   .btn-solid-dark:hover {
-    background: var(--color-primary-dark);
+    background: var(--color-text-heading);
   }
 
-  @media (width <= 640px) {
-    .event-detail-card {
-      padding: var(--spacing-5);
-    }
+  @media (max-width: 680px) {
     .next-card {
       flex-direction: column;
       align-items: flex-start;

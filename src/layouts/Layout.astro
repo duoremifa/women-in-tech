@@ -62,6 +62,15 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
 <!doctype html>
 <html lang='zh-CN'>
   <head>
+    <script is:inline>
+      (function() {
+        try {
+          const storedLang = localStorage.getItem('site_lang') || 'zh';
+          document.documentElement.setAttribute('data-lang', storedLang);
+          document.documentElement.lang = storedLang === 'en' ? 'en' : 'zh-CN';
+        } catch (e) {}
+      })();
+    </script>
     <!-- ===== SEO & 基础元数据 ===== -->
     <SEO title={title} description={description} ogImage={ogImage} />
     <ViewTransitions />

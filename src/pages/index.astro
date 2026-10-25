@@ -11,16 +11,18 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   <div class='page-root'>
     <div class='two-column-layout'>
 
-      {/* ===== 左侧：品牌与宣言 ===== */}
+      {/* ===== 左侧：品牌与宣言 (Brand anchor persists identically across all languages) ===== */}
       <aside class='sidebar' id='about'>
 
+        {/* 永久保留的核心标识，不受中英文切换影响 */}
         <div class='brand-group'>
           <h1 class='site-title'>wo<span class='brand-slash'>/</span>men</h1>
           <p class='site-sub'>women in technical</p>
           <p class='site-zh'>"我们"</p>
         </div>
 
-        <div class='manifesto'>
+        {/* 中文版宣言 */}
+        <div class='manifesto lang-zh'>
           <p>
             在每一个商业项目的空隙里，<br />
             总有一些东西是做给自己的。
@@ -30,9 +32,21 @@ import GeometricVisual from '../components/GeometricVisual.astro';
           </p>
         </div>
 
+        {/* 英文版宣言 */}
+        <div class='manifesto lang-en'>
+          <p>
+            In between every commercial sprint,<br />
+            there is always something we build for ourselves.
+          </p>
+          <p>
+            This is that sanctuary.
+          </p>
+        </div>
+
         <div class='sidebar-divider'></div>
 
-        <div class='who-section'>
+        {/* 中文版面向群体 */}
+        <div class='who-section lang-zh'>
           <span class='who-label'>面向群体</span>
           <p class='who-desc'>
             所有在技术与创造领域工作的女性——<br />
@@ -41,6 +55,19 @@ import GeometricVisual from '../components/GeometricVisual.astro';
           <p class='who-note'>
             不需要特定头衔，<br />
             只是对作品本身有一点执念。
+          </p>
+        </div>
+
+        {/* 英文版面向群体 */}
+        <div class='who-section lang-en'>
+          <span class='who-label'>CRAFTED FOR</span>
+          <p class='who-desc'>
+            All women creating across tech and design—<br />
+            Product, Interaction, Engineering, Research, Writing...
+          </p>
+          <p class='who-note'>
+            No specific titles required,<br />
+            only a quiet devotion to the craft itself.
           </p>
         </div>
 
@@ -54,17 +81,26 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 
         {/* 1. 我们做什么 */}
         <section class='content-block' id='events'>
-          <div class='section-heading-group'>
+          {/* 中文标题 */}
+          <div class='section-heading-group lang-zh'>
             <div class='section-title-line'>
               <span class='section-serial'>01</span>
               <h2 class='section-main-title'>日常与创作机制</h2>
-              <span class='section-en-tag'>WHAT WE DO</span>
             </div>
             <p class='section-intro-text'>在商业流水线之外，守住纯粹的手艺与思考。</p>
           </div>
 
-          <div class='editorial-panels-stack'>
-            {/* 项目 01 */}
+          {/* 英文标题 */}
+          <div class='section-heading-group lang-en'>
+            <div class='section-title-line'>
+              <span class='section-serial'>01</span>
+              <h2 class='section-main-title'>What We Do</h2>
+            </div>
+            <p class='section-intro-text'>Holding space for pure craft and deliberate contemplation outside commercial conveyor belts.</p>
+          </div>
+
+          {/* 中文展陈内容 */}
+          <div class='editorial-panels-stack lang-zh'>
             <article class='editorial-panel'>
               <div class='panel-top'>
                 <div class='panel-name-group'>
@@ -79,7 +115,6 @@ import GeometricVisual from '../components/GeometricVisual.astro';
               </p>
             </article>
 
-            {/* 项目 02 */}
             <article class='editorial-panel'>
               <div class='panel-top'>
                 <div class='panel-name-group'>
@@ -94,7 +129,6 @@ import GeometricVisual from '../components/GeometricVisual.astro';
               </p>
             </article>
 
-            {/* 项目 03 */}
             <article class='editorial-panel'>
               <div class='panel-top'>
                 <div class='panel-name-group'>
@@ -110,9 +144,55 @@ import GeometricVisual from '../components/GeometricVisual.astro';
             </article>
           </div>
 
+          {/* 英文展陈内容 */}
+          <div class='editorial-panels-stack lang-en'>
+            <article class='editorial-panel'>
+              <div class='panel-top'>
+                <div class='panel-name-group'>
+                  <span class='panel-index'>01</span>
+                  <h3 class='panel-title'>Coffee Chat</h3>
+                </div>
+                <span class='panel-badge'>Biweekly · Online / Hangzhou</span>
+              </div>
+              <p class='panel-desc'>
+                Not networking.<br />
+                Two or three people finishing a cup of coffee, sharing recent pursuits—or simply enjoying the silence.
+              </p>
+            </article>
+
+            <article class='editorial-panel'>
+              <div class='panel-top'>
+                <div class='panel-name-group'>
+                  <span class='panel-index'>02</span>
+                  <h3 class='panel-title'>English Tech & Design Chat</h3>
+                </div>
+                <span class='panel-badge'>Biweekly · Virtual</span>
+              </div>
+              <p class='panel-desc'>
+                Discussing product, design, or architecture in English.<br />
+                A judgment-free space to practice expressing genuine craft reflections.
+              </p>
+            </article>
+
+            <article class='editorial-panel'>
+              <div class='panel-top'>
+                <div class='panel-name-group'>
+                  <span class='panel-index'>03</span>
+                  <h3 class='panel-title'>Craft Lab</h3>
+                </div>
+                <span class='panel-badge'>Small Cohorts · Deliberate Work</span>
+              </div>
+              <p class='panel-desc'>
+                Bring that lingering idea out of your private notes.<br />
+                Polish it with peers who understand nuanced craft. No deadlines, no vanity MVPs, just work that matters.
+              </p>
+            </article>
+          </div>
+
           <div class='section-footer-link'>
             <a href='/events' class='quiet-text-link'>
-              <span>阅读完整手艺准则与共建机制</span>
+              <span class='lang-zh'>阅读完整手艺准则与共建机制</span>
+              <span class='lang-en'>Explore Craft Manifesto & Circle Norms</span>
               <span class='link-arrow'>→</span>
             </a>
           </div>
@@ -120,17 +200,26 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 
         {/* 2. 近期安排 */}
         <section class='content-block' id='schedule'>
-          <div class='section-heading-group'>
+          {/* 中文标题 */}
+          <div class='section-heading-group lang-zh'>
             <div class='section-title-line'>
               <span class='section-serial'>02</span>
               <h2 class='section-main-title'>近期安排</h2>
-              <span class='section-en-tag'>UPCOMING</span>
             </div>
             <p class='section-intro-text'>小规模交流，确保每一次相聚都有充裕的聆听与表达。</p>
           </div>
 
-          <div class='editorial-panels-stack'>
-            {/* 近期 01 */}
+          {/* 英文标题 */}
+          <div class='section-heading-group lang-en'>
+            <div class='section-title-line'>
+              <span class='section-serial'>02</span>
+              <h2 class='section-main-title'>Upcoming Gatherings</h2>
+            </div>
+            <p class='section-intro-text'>Intimate circles ensuring ample time for unhurried listening and honest exchange.</p>
+          </div>
+
+          {/* 中文排期内容 */}
+          <div class='editorial-panels-stack lang-zh'>
             <article class='editorial-panel'>
               <div class='panel-top'>
                 <div class='panel-name-group'>
@@ -148,7 +237,6 @@ import GeometricVisual from '../components/GeometricVisual.astro';
               </div>
             </article>
 
-            {/* 近期 02 */}
             <article class='editorial-panel'>
               <div class='panel-top'>
                 <div class='panel-name-group'>
@@ -167,9 +255,47 @@ import GeometricVisual from '../components/GeometricVisual.astro';
             </article>
           </div>
 
+          {/* 英文排期内容 */}
+          <div class='editorial-panels-stack lang-en'>
+            <article class='editorial-panel'>
+              <div class='panel-top'>
+                <div class='panel-name-group'>
+                  <span class='panel-index'>01</span>
+                  <h3 class='panel-title'>In the Age of AI, What Truly Remains Ours?</h3>
+                </div>
+                <span class='panel-badge status-open'>Open for RSVP</span>
+              </div>
+              <p class='panel-desc'>
+                Reflections on stepping away from automated pipeline anxiety to cultivate unmistakable personal expression.
+              </p>
+              <div class='panel-footer-meta'>
+                <span>Format: Quiet café in Hangzhou + Online link</span>
+                <span>Biweekly Weekend · 3–5 Participants</span>
+              </div>
+            </article>
+
+            <article class='editorial-panel'>
+              <div class='panel-top'>
+                <div class='panel-name-group'>
+                  <span class='panel-index'>02</span>
+                  <h3 class='panel-title'>Show & Tell: Walk Me Through Something You Made</h3>
+                </div>
+                <span class='panel-badge status-open'>Open for RSVP</span>
+              </div>
+              <p class='panel-desc'>
+                5 minutes per person to share a favorite interface detail, micro-interaction, or code architecture in English in a judgment-free space.
+              </p>
+              <div class='panel-footer-meta'>
+                <span>Format: Virtual Studio · 40 min</span>
+                <span>Biweekly Weekday Evening</span>
+              </div>
+            </article>
+          </div>
+
           <div class='section-footer-link'>
             <a href='/upcoming' class='quiet-text-link'>
-              <span>查看全部排期与答疑</span>
+              <span class='lang-zh'>查看全部排期与答疑</span>
+              <span class='lang-en'>View Full Schedule & Circle FAQ</span>
               <span class='link-arrow'>→</span>
             </a>
           </div>
@@ -177,46 +303,64 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 
         {/* 3. 预约加入 (前置极细金线手作表单) */}
         <section class='content-block' id='join'>
-          <div class='section-heading-group'>
+          {/* 中文标题 */}
+          <div class='section-heading-group lang-zh'>
             <div class='section-title-line'>
               <span class='section-serial'>03</span>
               <h2 class='section-main-title'>预约交流 · 加入“我们”</h2>
-              <span class='section-en-tag'>JOIN THE CIRCLE</span>
             </div>
             <p class='section-intro-text'>如果你有共鸣，欢迎随时留下你的声音。没有评判与考核。</p>
+          </div>
+
+          {/* 英文标题 */}
+          <div class='section-heading-group lang-en'>
+            <div class='section-title-line'>
+              <span class='section-serial'>03</span>
+              <h2 class='section-main-title'>Join the Circle</h2>
+            </div>
+            <p class='section-intro-text'>If our ethos resonates with you, you are warmly invited to leave a note. No judgment, no assessments.</p>
           </div>
 
           <div class='form-wrapper'>
             <form id='home-join-form' class='quiet-form'>
 
+              {/* 字段 1: 称呼 */}
               <div class='form-field'>
                 <label class='field-label' for='home-name'>
-                  <span>如何称呼你</span>
-                  <span class='field-hint'>Name / Nickname</span>
+                  <span class='lang-zh'>如何称呼你</span>
+                  <span class='lang-en'>What should we call you</span>
+                  <span class='field-hint lang-zh'>名字或习惯的称呼</span>
+                  <span class='field-hint lang-en'>Name or preferred moniker</span>
                 </label>
                 <input
                   type='text'
                   id='home-name'
                   name='name'
                   placeholder='名字或习惯的称呼'
+                  data-placeholder-zh='名字或习惯的称呼'
+                  data-placeholder-en='Your name or preferred moniker'
                   required
                   autocomplete='off'
                 />
               </div>
 
-              {/* 前置细金线单选 */}
+              {/* 字段 2: 前置细金线单选 */}
               <div class='form-field'>
                 <label class='field-label'>
-                  <span>你在从事的领域</span>
-                  <span class='field-hint'>单选</span>
+                  <span class='lang-zh'>你在从事的领域</span>
+                  <span class='lang-en'>Your Primary Craft</span>
+                  <span class='field-hint lang-zh'>单选</span>
+                  <span class='field-hint lang-en'>Single choice</span>
                 </label>
                 <div class='quiet-check-list' role='radiogroup' aria-label='从事领域'>
                   <label class='quiet-check-row is-radio'>
                     <input type='radio' name='craft' value='design' checked />
                     <span class='check-indicator' aria-hidden='true'></span>
                     <div class='check-content'>
-                      <span class='check-title'>设计 · 视觉传达 / 交互体验 (IxD)</span>
-                      <span class='check-note'>视觉、触感与动效</span>
+                      <span class='check-title lang-zh'>设计 · 视觉传达 / 交互体验 (IxD)</span>
+                      <span class='check-title lang-en'>Design · Interaction & Visual Craft (IxD)</span>
+                      <span class='check-note lang-zh'>视觉、触感与动效</span>
+                      <span class='check-note lang-en'>Visuals, typography & micro-interactions</span>
                     </div>
                   </label>
 
@@ -224,8 +368,10 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                     <input type='radio' name='craft' value='product' />
                     <span class='check-indicator' aria-hidden='true'></span>
                     <div class='check-content'>
-                      <span class='check-title'>产品 · 逻辑推敲 / 独立孵化 (PM)</span>
-                      <span class='check-note'>痛点挖掘与体验闭环</span>
+                      <span class='check-title lang-zh'>产品 · 逻辑推敲 / 独立孵化 (PM)</span>
+                      <span class='check-title lang-en'>Product · Product Thinking & Independent Work (PM)</span>
+                      <span class='check-note lang-zh'>痛点挖掘与体验闭环</span>
+                      <span class='check-note lang-en'>Problem framing & human experience loops</span>
                     </div>
                   </label>
 
@@ -233,8 +379,10 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                     <input type='radio' name='craft' value='engineering' />
                     <span class='check-indicator' aria-hidden='true'></span>
                     <div class='check-content'>
-                      <span class='check-title'>工程 · 前端架构 / 独立全栈 (FE)</span>
-                      <span class='check-note'>代码实现与鲁棒工程</span>
+                      <span class='check-title lang-zh'>工程 · 前端架构 / 独立全栈 (FE)</span>
+                      <span class='check-title lang-en'>Engineering · Frontend Architecture & Systems (FE)</span>
+                      <span class='check-note lang-zh'>代码实现与鲁棒工程</span>
+                      <span class='check-note lang-en'>Clean code, robust craftsmanship</span>
                     </div>
                   </label>
 
@@ -242,18 +390,22 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                     <input type='radio' name='craft' value='other' />
                     <span class='check-indicator' aria-hidden='true'></span>
                     <div class='check-content'>
-                      <span class='check-title'>研究 / 写作 / 自由创造者</span>
-                      <span class='check-note'>深度观察与跨界表达</span>
+                      <span class='check-title lang-zh'>研究 / 写作 / 自由创造者</span>
+                      <span class='check-title lang-en'>Research / Writing / Independent Creators</span>
+                      <span class='check-note lang-zh'>深度观察与跨界表达</span>
+                      <span class='check-note lang-en'>Deep synthesis & cross-disciplinary inquiries</span>
                     </div>
                   </label>
                 </div>
               </div>
 
-              {/* 前置细金线多选 */}
+              {/* 字段 3: 前置细金线多选 */}
               <div class='form-field'>
                 <label class='field-label'>
-                  <span>想参与的活动</span>
-                  <span class='field-hint'>多选</span>
+                  <span class='lang-zh'>想参与的活动</span>
+                  <span class='lang-en'>Gatherings of Interest</span>
+                  <span class='field-hint lang-zh'>多选</span>
+                  <span class='field-hint lang-en'>Multiple choice</span>
                 </label>
                 <div class='quiet-check-list'>
                   <label class='quiet-check-row'>
@@ -262,8 +414,10 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                       <svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg>
                     </span>
                     <div class='check-content'>
-                      <span class='check-title'>Coffee Chat</span>
-                      <span class='check-note'>双周轻聚 · 低压真诚</span>
+                      <span class='check-title lang-zh'>Coffee Chat</span>
+                      <span class='check-title lang-en'>Coffee Chat</span>
+                      <span class='check-note lang-zh'>双周轻聚 · 低压真诚</span>
+                      <span class='check-note lang-en'>Biweekly · low pressure, genuine connection</span>
                     </div>
                   </label>
 
@@ -273,8 +427,10 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                       <svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg>
                     </span>
                     <div class='check-content'>
-                      <span class='check-title'>English Tech & Design Chat</span>
-                      <span class='check-note'>双周线上 · 5 min Show & Tell</span>
+                      <span class='check-title lang-zh'>English Tech & Design Chat</span>
+                      <span class='check-title lang-en'>English Tech & Design Chat</span>
+                      <span class='check-note lang-zh'>双周线上 · 5 min Show & Tell</span>
+                      <span class='check-note lang-en'>Biweekly online · 5 min Show & Tell</span>
                     </div>
                   </label>
 
@@ -284,36 +440,48 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                       <svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg>
                     </span>
                     <div class='check-content'>
-                      <span class='check-title'>作品 Lab · 慢工出细活</span>
-                      <span class='check-note'>经验互借 · 代表作打磨</span>
+                      <span class='check-title lang-zh'>作品 Lab · 慢工出细活</span>
+                      <span class='check-title lang-en'>Craft Lab</span>
+                      <span class='check-note lang-zh'>经验互借 · 代表作打磨</span>
+                      <span class='check-note lang-en'>Small cohorts · patient iteration on signature work</span>
                     </div>
                   </label>
                 </div>
               </div>
 
+              {/* 字段 4: 正在做的事 */}
               <div class='form-field'>
                 <label class='field-label' for='home-idea'>
-                  <span>正在做的事，或者想交流的话题</span>
-                  <span class='field-hint'>可留空</span>
+                  <span class='lang-zh'>正在做的事，或者想交流的话题</span>
+                  <span class='lang-en'>Current projects, questions, or topics you care about</span>
+                  <span class='field-hint lang-zh'>可留空</span>
+                  <span class='field-hint lang-en'>Optional</span>
                 </label>
                 <textarea
                   id='home-idea'
                   name='idea'
                   rows='2'
                   placeholder='一个未完成的作品，一个还没找到人聊的想法……'
+                  data-placeholder-zh='一个未完成的作品，一个还没找到人聊的想法……'
+                  data-placeholder-en='An unfinished side project, a nagging design question...'
                 ></textarea>
               </div>
 
+              {/* 字段 5: 联系方式 */}
               <div class='form-field'>
                 <label class='field-label' for='home-contact'>
-                  <span>联系方式</span>
-                  <span class='field-hint'>微信号或邮箱 · 仅用于活动邀请</span>
+                  <span class='lang-zh'>联系方式</span>
+                  <span class='lang-en'>Contact Information</span>
+                  <span class='field-hint lang-zh'>微信号或邮箱 · 仅用于活动邀请</span>
+                  <span class='field-hint lang-en'>WeChat ID or Email · strictly for circle invites</span>
                 </label>
                 <input
                   type='text'
                   id='home-contact'
                   name='contact'
                   placeholder='微信号或 Email'
+                  data-placeholder-zh='微信号或 Email'
+                  data-placeholder-en='WeChat ID or Email'
                   required
                   autocomplete='off'
                 />
@@ -321,11 +489,15 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 
               <div class='submit-zone'>
                 <button type='submit' class='submit-btn-primary' id='home-submit-btn'>
-                  <span>留下联系方式</span>
+                  <span class='lang-zh'>留下联系方式</span>
+                  <span class='lang-en'>Submit Note & Reserve Seat</span>
                   <span class='btn-arrow'>→</span>
                 </button>
-                <span class='privacy-reassurance'>
+                <span class='privacy-reassurance lang-zh'>
                   随时可退订联系 · 不作商业营销
+                </span>
+                <span class='privacy-reassurance lang-en'>
+                  Unsubscribe anytime · Zero commercial marketing
                 </span>
               </div>
 
@@ -334,11 +506,13 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                   <div class='receipt-head'>
                     <span class='receipt-icon'>✦</span>
                     <div>
-                      <h4 class='receipt-msg-title'>收到了。</h4>
+                      <h4 class='receipt-msg-title lang-zh'>收到了。</h4>
+                      <h4 class='receipt-msg-title lang-en'>Received with warmth.</h4>
                       <p class='receipt-id-tag' id='home-receipt-id'>回执编号: WT-PENDING</p>
                     </div>
                   </div>
-                  <p class='receipt-note'>意向已保存在社群记录中，我们会在下次活动前联系你。</p>
+                  <p class='receipt-note lang-zh'>意向已保存在社群记录中，我们会在下次活动前联系你。</p>
+                  <p class='receipt-note lang-en'>Your note has been securely saved. We will reach out quietly before our next circle gathering.</p>
                 </div>
               </div>
 
@@ -352,52 +526,71 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 </Layout>
 
 <script>
-  const form = document.getElementById('home-join-form') as HTMLFormElement | null;
-  const feedback = document.getElementById('home-form-feedback');
-  const submitBtn = document.getElementById('home-submit-btn');
-  const receiptDisplay = document.getElementById('home-receipt-id');
+  function setupHomeForm() {
+    const form = document.getElementById('home-join-form') as HTMLFormElement | null;
+    const feedback = document.getElementById('home-form-feedback');
+    const submitBtn = document.getElementById('home-submit-btn');
+    const receiptDisplay = document.getElementById('home-receipt-id');
 
-  if (form && feedback) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      const payload = {
-        name: formData.get('name'),
-        craft: formData.get('craft'),
-        interests: formData.getAll('interests'),
-        idea: formData.get('idea'),
-        contact: formData.get('contact'),
-        clientTimestamp: new Date().toISOString(),
-      };
+    // 动态同步输入框 Placeholder
+    function syncPlaceholders() {
+      const isEn = document.documentElement.getAttribute('data-lang') === 'en';
+      document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[data-placeholder-zh]').forEach(el => {
+        el.placeholder = isEn ? (el.dataset.placeholderEn || '') : (el.dataset.placeholderZh || '');
+      });
+    }
 
-      // 备份到本地存储
-      try {
-        const existing = JSON.parse(localStorage.getItem('wotech_rsvp_backup') || '[]');
-        existing.push(payload);
-        localStorage.setItem('wotech_rsvp_backup', JSON.stringify(existing));
-      } catch (err) {}
+    syncPlaceholders();
+    window.addEventListener('site-language-change', syncPlaceholders);
 
-      // 发送至 API
-      let subId = `WT-${Date.now().toString(36).slice(-5).toUpperCase()}`;
-      try {
-        if (submitBtn) submitBtn.setAttribute('disabled', 'true');
-        const res = await fetch('/api/join', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        if (res.ok) {
-          const resData = await res.json();
-          if (resData.submissionId) subId = resData.submissionId;
+    if (form && feedback) {
+      form.onsubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const payload = {
+          name: formData.get('name'),
+          craft: formData.get('craft'),
+          interests: formData.getAll('interests'),
+          idea: formData.get('idea'),
+          contact: formData.get('contact'),
+          clientTimestamp: new Date().toISOString(),
+        };
+
+        // 备份到本地存储
+        try {
+          const existing = JSON.parse(localStorage.getItem('wotech_rsvp_backup') || '[]');
+          existing.push(payload);
+          localStorage.setItem('wotech_rsvp_backup', JSON.stringify(existing));
+        } catch (err) {}
+
+        // 发送至 API
+        let subId = `WT-${Date.now().toString(36).slice(-5).toUpperCase()}`;
+        try {
+          if (submitBtn) submitBtn.setAttribute('disabled', 'true');
+          const res = await fetch('/api/join', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          if (res.ok) {
+            const resData = await res.json();
+            if (resData.submissionId) subId = resData.submissionId;
+          }
+        } catch (err) {}
+
+        const isEn = document.documentElement.getAttribute('data-lang') === 'en';
+        if (receiptDisplay) {
+          receiptDisplay.textContent = isEn ? `Receipt ID: #${subId}` : `回执编号: #${subId}`;
         }
-      } catch (err) {}
-
-      if (receiptDisplay) receiptDisplay.textContent = `回执编号: #${subId}`;
-      feedback.style.display = 'block';
-      if (submitBtn) submitBtn.style.display = 'none';
-      feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    });
+        feedback.style.display = 'block';
+        if (submitBtn) submitBtn.style.display = 'none';
+        feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      };
+    }
   }
+
+  setupHomeForm();
+  document.addEventListener('astro:page-load', setupHomeForm);
 </script>
 
 <style>
@@ -451,12 +644,11 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   }
 
   .site-zh {
-    font-family: var(--font-family-ui);
-    font-size: var(--font-size-xs);
-    color: var(--color-primary-dark);
-    letter-spacing: 0.06em;
-    margin: 0;
-    margin-top: 2px;
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin: var(--spacing-1) 0 0;
+    letter-spacing: 0.05em;
   }
 
   .manifesto {
@@ -464,77 +656,73 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   }
 
   .manifesto p {
-    font-family: var(--font-family-heading);
+    font-family: var(--font-family-body);
     font-size: var(--font-size-sm);
+    line-height: var(--line-height-loose);
     color: var(--color-text-secondary);
-    line-height: 1.9;
     margin: 0 0 var(--spacing-4);
-    font-weight: var(--font-weight-light);
-    font-style: italic;
   }
 
   .manifesto p:last-child {
-    margin: 0;
-    color: var(--color-text-tertiary);
-    font-size: var(--font-size-xs);
+    margin-bottom: 0;
+    color: var(--color-text-primary);
   }
 
   .sidebar-divider {
-    width: 2rem;
     height: 1px;
-    background: var(--color-gold-dust);
-    opacity: 0.4;
-    margin: var(--spacing-8) 0;
+    background: var(--color-border-divider);
+    margin: var(--spacing-6) 0;
+    width: var(--spacing-8);
   }
 
   .who-section {
-    margin-bottom: var(--spacing-8);
+    margin-bottom: var(--spacing-10);
   }
 
   .who-label {
+    display: block;
     font-family: var(--font-family-ui);
     font-size: var(--font-size-xs);
-    color: var(--color-text-tertiary);
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    display: block;
-    margin-bottom: var(--spacing-3);
+    color: var(--color-text-tertiary);
+    margin-bottom: var(--spacing-2);
   }
 
   .who-desc {
-    font-size: var(--font-size-sm);
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-xs);
+    line-height: var(--line-height-relaxed);
     color: var(--color-text-secondary);
-    line-height: 1.8;
-    margin: 0 0 var(--spacing-3);
+    margin: 0 0 var(--spacing-2);
   }
 
   .who-note {
+    font-family: var(--font-family-body);
     font-size: var(--font-size-xs);
+    line-height: var(--line-height-relaxed);
     color: var(--color-text-tertiary);
-    line-height: 1.7;
     margin: 0;
-    font-style: italic;
   }
 
   .sidebar-footer {
-    margin-top: var(--spacing-12);
-    opacity: 0.5;
+    padding-top: var(--spacing-6);
   }
 
-  /* 右侧内容区 */
+  /* ===== 右侧：核心展陈区 ===== */
   .content-main {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-16);
+    gap: var(--spacing-20);
   }
 
   .content-block {
-    position: relative;
+    display: flex;
+    flex-direction: column;
   }
 
-  /* ===== 章节统一标题头组 (Editorial Heading Group) ===== */
   .section-heading-group {
-    margin-bottom: var(--spacing-6);
+    margin-bottom: var(--spacing-8);
   }
 
   .section-title-line {
@@ -545,62 +733,50 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   }
 
   .section-serial {
-    font-family: var(--font-family-heading);
-    font-size: var(--font-size-sm);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-xs);
     color: var(--color-gold-dust);
-    font-weight: var(--font-weight-light);
+    letter-spacing: 0.1em;
   }
 
   .section-main-title {
     font-family: var(--font-family-heading);
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-2xl);
     font-weight: var(--font-weight-normal);
     color: var(--color-text-heading);
-    letter-spacing: -0.01em;
     margin: 0;
-  }
-
-  .section-en-tag {
-    font-family: var(--font-family-ui);
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--color-primary-dark);
+    letter-spacing: -0.01em;
   }
 
   .section-intro-text {
-    font-family: var(--font-family-text);
-    font-size: var(--font-size-xs);
-    color: var(--color-text-tertiary);
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
     margin: 0;
-    line-height: var(--line-height-normal);
+    line-height: var(--line-height-relaxed);
   }
 
-  /* ===== 出版级图文面板 (Editorial Panels) ===== */
+  /* ===== 极简展陈面板 ===== */
   .editorial-panels-stack {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-5);
+    gap: var(--spacing-4);
   }
 
   .editorial-panel {
     background: var(--color-surface-pure);
     border: var(--border-width-thin) solid var(--color-border-subtle);
-    border-left: 2px solid var(--color-gold-dust);
     border-radius: var(--radius-sm);
-    padding: var(--spacing-6) var(--spacing-7);
-    box-shadow: 0 1px 3px rgba(38, 34, 28, 0.02);
-    transition:
-      border-color var(--transition-fast),
-      transform var(--transition-fast),
-      box-shadow var(--transition-fast);
+    padding: var(--spacing-6) var(--spacing-6);
+    position: relative;
+    border-left: 2px solid var(--color-gold-dust);
+    transition: background var(--transition-fast), border-color var(--transition-fast);
   }
 
   .editorial-panel:hover {
-    border-color: rgba(216, 205, 176, 0.7);
-    border-left-color: var(--color-gold-dust);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 14px rgba(216, 205, 176, 0.09);
+    background: var(--color-surface-card);
+    border-color: var(--color-border);
+    border-left-color: var(--color-primary-dark);
   }
 
   .panel-top {
@@ -617,66 +793,53 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   }
 
   .panel-index {
-    font-family: var(--font-family-heading);
+    font-family: var(--font-family-mono);
     font-size: var(--font-size-xs);
-    color: var(--color-gold-dust);
-    font-weight: var(--font-weight-light);
-    letter-spacing: 0.05em;
+    color: var(--color-text-tertiary);
+    opacity: 0.8;
   }
 
   .panel-title {
     font-family: var(--font-family-heading);
     font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-normal);
+    font-weight: var(--font-weight-medium);
     color: var(--color-text-heading);
     margin: 0;
-    letter-spacing: -0.01em;
   }
 
   .panel-badge {
     font-family: var(--font-family-ui);
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    color: var(--color-primary-dark);
-    background: var(--color-surface-soft);
-    border: 1px solid var(--color-border-divider);
-    padding: 2px 9px;
-    border-radius: var(--radius-pill);
-    white-space: nowrap;
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.04em;
+    color: var(--color-text-tertiary);
   }
 
   .panel-badge.status-open {
-    color: #4a705e;
-    border-color: rgba(196, 214, 204, 0.6);
-    background: rgba(196, 214, 204, 0.18);
+    color: var(--color-primary-dark);
+    font-weight: var(--font-weight-medium);
   }
 
   .panel-desc {
-    font-family: var(--font-family-text);
+    font-family: var(--font-family-body);
     font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
     color: var(--color-text-secondary);
-    line-height: 1.85;
     margin: 0;
-    letter-spacing: 0.01em;
   }
 
   .panel-footer-meta {
+    margin-top: var(--spacing-4);
+    padding-top: var(--spacing-3);
+    border-top: var(--border-width-thin) solid var(--color-border-divider);
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid var(--color-border-divider);
-    padding-top: var(--spacing-3);
-    margin-top: var(--spacing-4);
     font-family: var(--font-family-ui);
-    font-size: 11px;
+    font-size: var(--font-size-xs);
     color: var(--color-text-tertiary);
-    letter-spacing: 0.02em;
   }
 
-  /* 章节底部跳转链接 */
   .section-footer-link {
-    margin-top: var(--spacing-4);
-    text-align: right;
+    margin-top: var(--spacing-6);
   }
 
   .quiet-text-link {
@@ -685,17 +848,21 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     gap: var(--spacing-2);
     font-family: var(--font-family-ui);
     font-size: var(--font-size-xs);
-    color: var(--color-gold-dust);
+    letter-spacing: 0.06em;
+    color: var(--color-primary-dark);
     text-decoration: none !important;
-    letter-spacing: 0.04em;
-    transition: color var(--transition-fast);
+    border-bottom: 1px solid var(--color-gold-dust) !important;
+    padding-bottom: 2px;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
   }
 
   .quiet-text-link:hover {
     color: var(--color-text-heading);
+    border-bottom-color: var(--color-text-heading) !important;
   }
 
   .link-arrow {
+    font-family: var(--font-family-mono);
     transition: transform var(--transition-fast);
   }
 
@@ -703,47 +870,202 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     transform: translateX(3px);
   }
 
-  /* 表单区 */
+  /* ===== 表单容器 ===== */
   .form-wrapper {
     background: var(--color-surface-pure);
     border: var(--border-width-thin) solid var(--color-border-subtle);
     border-radius: var(--radius-sm);
     padding: var(--spacing-8);
-  }
-
-  .quiet-form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-6);
+    border-left: 2px solid var(--color-gold-dust);
   }
 
   .form-field {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-2);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .field-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+  }
+
+  .field-hint {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-tertiary);
+    font-weight: var(--font-weight-normal);
+  }
+
+  .quiet-form input[type='text'],
+  .quiet-form textarea {
+    width: 100%;
+    background: var(--color-surface-card);
+    border: var(--border-width-thin) solid var(--color-border);
+    border-radius: var(--radius-xs);
+    padding: var(--spacing-3) var(--spacing-4);
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-primary);
+    transition: border-color var(--transition-fast), background var(--transition-fast);
+  }
+
+  .quiet-form input[type='text']:focus,
+  .quiet-form textarea:focus {
+    outline: none;
+    border-color: var(--color-gold-dust);
+    background: var(--color-surface-pure);
+    box-shadow: 0 0 0 1px var(--color-gold-dust);
+  }
+
+  /* 前置细金线选项列表 */
+  .quiet-check-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .quiet-check-row {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-3);
+    padding: var(--spacing-3) var(--spacing-4);
+    border: var(--border-width-thin) solid var(--color-border-divider);
+    border-radius: var(--radius-xs);
+    background: var(--color-surface-card);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .quiet-check-row:hover {
+    border-color: var(--color-border);
+    background: var(--color-surface-pure);
+  }
+
+  .quiet-check-row input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .check-indicator {
+    width: 14px;
+    height: 14px;
+    margin-top: 3px;
+    flex-shrink: 0;
+    border: 1px solid var(--color-border);
+    border-radius: 2px;
+    background: var(--color-surface-pure);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+  }
+
+  .is-radio .check-indicator {
+    border-radius: 50%;
+  }
+
+  .quiet-check-row input:checked ~ .check-indicator {
+    border-color: var(--color-gold-dust);
+    background: var(--color-primary-dark);
+  }
+
+  .is-radio input:checked ~ .check-indicator::after {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-surface-pure);
+  }
+
+  .quiet-check-row svg {
+    width: 10px;
+    height: 10px;
+    stroke: var(--color-surface-pure);
+    stroke-width: 1.8;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+  }
+
+  .quiet-check-row input:checked ~ .check-indicator svg {
+    opacity: 1;
+  }
+
+  .check-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .check-title {
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+  }
+
+  .check-note {
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
   }
 
   .submit-zone {
+    margin-top: var(--spacing-8);
     display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+  }
+
+  .submit-btn-primary {
+    display: inline-flex;
     align-items: center;
-    gap: var(--spacing-4);
-    flex-wrap: wrap;
-    margin-top: var(--spacing-2);
+    justify-content: center;
+    gap: var(--spacing-3);
+    padding: var(--spacing-3) var(--spacing-6);
+    background: var(--color-primary-dark);
+    color: var(--color-surface-pure);
+    border: none;
+    border-radius: var(--radius-xs);
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .submit-btn-primary:hover {
+    background: var(--color-text-heading);
+  }
+
+  .submit-btn-primary .btn-arrow {
+    transition: transform var(--transition-fast);
+  }
+
+  .submit-btn-primary:hover .btn-arrow {
+    transform: translateX(4px);
   }
 
   .privacy-reassurance {
     font-family: var(--font-family-ui);
     font-size: 11px;
     color: var(--color-text-tertiary);
-    letter-spacing: 0.02em;
+    text-align: center;
   }
 
   .feedback-receipt-box {
-    background: var(--color-surface-soft);
-    border: 1px solid var(--color-gold-dust);
-    border-radius: var(--radius-sm);
-    padding: var(--spacing-5);
-    margin-top: var(--spacing-4);
+    margin-top: var(--spacing-6);
+    padding: var(--spacing-6);
+    background: var(--color-surface-card);
+    border: var(--border-width-thin) solid var(--color-border);
+    border-left: 2px solid var(--color-gold-dust);
+    border-radius: var(--radius-xs);
   }
 
   .receipt-head {
@@ -759,27 +1081,29 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   }
 
   .receipt-msg-title {
+    margin: 0;
     font-family: var(--font-family-heading);
     font-size: var(--font-size-base);
     color: var(--color-text-heading);
-    margin: 0;
-    font-weight: var(--font-weight-normal);
   }
 
   .receipt-id-tag {
-    font-family: var(--font-family-mono, monospace);
-    font-size: 11px;
-    color: var(--color-primary-dark);
     margin: 2px 0 0;
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
   }
 
   .receipt-note {
+    margin: 0;
+    font-family: var(--font-family-body);
     font-size: var(--font-size-xs);
     color: var(--color-text-secondary);
-    margin: 0;
+    line-height: var(--line-height-relaxed);
   }
 
-  @media (width <= 1024px) {
+  /* 响应式调整 */
+  @media (max-width: 860px) {
     .two-column-layout {
       grid-template-columns: 1fr;
       gap: var(--spacing-12);
@@ -789,26 +1113,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
       border-right: none;
       border-bottom: var(--border-width-thin) solid var(--color-border-divider);
       padding-right: 0;
-      padding-bottom: var(--spacing-10);
-    }
-    .site-title {
-      font-size: var(--font-size-3xl);
-    }
-  }
-
-  @media (width <= 640px) {
-    .form-wrapper {
-      padding: var(--spacing-5);
-    }
-    .panel-top {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: var(--spacing-1);
-    }
-    .panel-footer-meta {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 2px;
+      padding-bottom: var(--spacing-8);
     }
   }
 </style>

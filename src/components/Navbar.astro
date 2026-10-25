@@ -13,7 +13,7 @@ const navItems = [
 ---
 
 <nav class='quiet-nav layout-reading'>
-  <!-- 左侧品牌 -->
+  <!-- 左侧品牌：持久保留 wo/men in tech，中英保持一致 -->
   <div class='nav-left'>
     <a href='/' class:list={['brand', { active: currentPath === '/' }]}>
       <span class='brand-main'>wo<span class='brand-slash'>/</span>men</span>
@@ -21,7 +21,7 @@ const navItems = [
     </a>
   </div>
 
-  <!-- 右侧导航链接与主题切换 -->
+  <!-- 右侧导航链接、语言切换与主题切换 -->
   <div class='nav-right'>
     <div class='nav-links'>
       {
@@ -32,8 +32,8 @@ const navItems = [
               href={item.href}
               class:list={['nav-link', { 'is-active': isActive }]}
             >
-              <span class='nav-link-zh'>{item.text}</span>
-              <span class='nav-link-en'>{item.en}</span>
+              <span class='nav-link-text lang-zh'>{item.text}</span>
+              <span class='nav-link-text lang-en'>{item.en}</span>
               {isActive && <span class='nav-active-dot' />}
             </a>
           );
@@ -43,9 +43,78 @@ const navItems = [
 
     <div class='nav-divider'></div>
 
+    <!-- 中英双语切换器 -->
+    <div class='lang-toggle-wrap' role='group' aria-label='语言切换 / Language'>
+      <button
+        type='button'
+        class='lang-toggle-btn'
+        id='lang-btn-zh'
+        data-lang-choice='zh'
+        aria-label='切换至中文'
+      >
+        中
+      </button>
+      <span class='lang-toggle-slash' aria-hidden='true'>/</span>
+      <button
+        type='button'
+        class='lang-toggle-btn'
+        id='lang-btn-en'
+        data-lang-choice='en'
+        aria-label='Switch to English'
+      >
+        EN
+      </button>
+    </div>
+
+    <div class='nav-divider'></div>
+
     <ThemeToggle />
   </div>
 </nav>
+
+<script>
+  function setupLangToggle() {
+    const zhBtn = document.getElementById('lang-btn-zh');
+    const enBtn = document.getElementById('lang-btn-en');
+    if (!zhBtn || !enBtn) return;
+
+    function getActiveLang() {
+      return document.documentElement.getAttribute('data-lang') || 'zh';
+    }
+
+    function updateButtons(lang: string) {
+      if (lang === 'en') {
+        zhBtn.classList.remove('is-active');
+        enBtn.classList.add('is-active');
+      } else {
+        zhBtn.classList.add('is-active');
+        enBtn.classList.remove('is-active');
+      }
+    }
+
+    function switchLang(lang: string) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
+      try {
+        localStorage.setItem('site_lang', lang);
+      } catch (e) {}
+      updateButtons(lang);
+      window.dispatchEvent(new CustomEvent('site-language-change', { detail: { lang } }));
+    }
+
+    // 初始按钮状态同步
+    updateButtons(getActiveLang());
+
+    // 绑定点击事件（避免重复绑定）
+    zhBtn.onclick = () => switchLang('zh');
+    enBtn.onclick = () => switchLang('en');
+  }
+
+  // 页面加载或视图转场后初始化
+  setupLangToggle();
+  document.addEventListener('astro:page-load', setupLangToggle);
+  document.addEventListener('DOMContentLoaded', setupLangToggle);
+</script>
 
 <style>
   /* ===== 导航容器 ===== */
@@ -123,12 +192,11 @@ const navItems = [
 
   .nav-link {
     display: inline-flex;
-    align-items: baseline;
-    gap: 4px;
+    align-items: center;
     color: var(--color-text-secondary);
     text-decoration: none !important;
     border-bottom: none !important;
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-sm);
     letter-spacing: 0.04em;
     padding: var(--spacing-1) 0;
     position: relative;
@@ -141,35 +209,18 @@ const navItems = [
     content: none !important;
   }
 
-  .nav-link-zh {
+  .nav-link-text {
     font-family: var(--font-family-ui);
     font-weight: var(--font-weight-normal);
-  }
-
-  .nav-link-en {
-    font-family: var(--font-family-ui);
-    font-size: 10px;
-    color: var(--color-text-tertiary);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    opacity: 0.8;
   }
 
   .nav-link:hover {
     color: var(--color-text-heading);
   }
 
-  .nav-link:hover .nav-link-en {
-    color: var(--color-primary-dark);
-  }
-
   .nav-link.is-active {
     color: var(--color-text-heading);
     font-weight: var(--font-weight-medium);
-  }
-
-  .nav-link.is-active .nav-link-en {
-    color: var(--color-gold-dust);
   }
 
   .nav-active-dot {
@@ -185,16 +236,56 @@ const navItems = [
 
   .nav-divider {
     width: 1px;
-    height: 14px;
+    height: 13px;
     background: var(--color-border-divider);
+  }
+
+  /* ===== 双语切换器 ===== */
+  .lang-toggle-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    user-select: none;
+  }
+
+  .lang-toggle-slash {
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    opacity: 0.45;
+  }
+
+  .lang-toggle-btn {
+    background: none;
+    border: none;
+    padding: 2px 4px;
+    margin: 0;
+    font-family: var(--font-family-ui);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--color-text-tertiary);
+    cursor: pointer;
+    border-radius: 2px;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+    line-height: 1;
+    border-bottom: 1px solid transparent;
+  }
+
+  .lang-toggle-btn:hover {
+    color: var(--color-text-heading);
+  }
+
+  .lang-toggle-btn.is-active {
+    color: var(--color-text-heading);
+    font-weight: var(--font-weight-medium);
+    border-bottom-color: var(--color-gold-dust);
   }
 
   @media (width <= 640px) {
     .nav-links {
       gap: var(--spacing-3);
     }
-    .nav-link-en {
-      display: none;
+    .nav-link {
+      font-size: var(--font-size-xs);
     }
   }
 </style>

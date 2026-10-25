@@ -10,11 +10,23 @@ import Layout from '../layouts/Layout.astro';
   <div class='page-container'>
     <header class='page-header'>
       <span class='section-eyebrow'>JOIN THE CIRCLE</span>
-      <h1 class='page-title'>预约交流 · 加入“我们”</h1>
-      <p class='page-lead'>
-        如果你在技术、设计或创造领域，正在寻找同频且能互相托举的伙伴，<br />
-        欢迎留下你的声音。没有复杂的考核，只有平等的倾听与共同打磨。
-      </p>
+
+      <div class='lang-zh'>
+        <h1 class='page-title'>预约交流 · 加入“我们”</h1>
+        <p class='page-lead'>
+          如果你在技术、设计或创造领域，正在寻找同频且能互相托举的伙伴，<br />
+          欢迎留下你的声音。没有复杂的考核，只有平等的倾听与共同打磨。
+        </p>
+      </div>
+
+      <div class='lang-en'>
+        <h1 class='page-title'>Join the Circle · Reserve Seat</h1>
+        <p class='page-lead'>
+          If you are creating across technology, design, or writing, seeking quiet companions to mutually uplift,<br />
+          you are warmly invited to leave a note. No tests, only equal listening and deliberate craft.
+        </p>
+      </div>
+
       <div class='gold-hairline'></div>
     </header>
 
@@ -23,14 +35,18 @@ import Layout from '../layouts/Layout.astro';
         {/* 字段 1: 称呼 */}
         <div class='form-field'>
           <label class='field-label' for='join-name'>
-            <span>如何称呼你</span>
-            <span class='field-hint'>Name / Nickname</span>
+            <span class='lang-zh'>如何称呼你</span>
+            <span class='lang-en'>What should we call you</span>
+            <span class='field-hint lang-zh'>名字或习惯的称呼</span>
+            <span class='field-hint lang-en'>Name or preferred moniker</span>
           </label>
           <input
             type='text'
             id='join-name'
             name='name'
             placeholder='例如：Erin 或你习惯的称呼'
+            data-placeholder-zh='例如：Erin 或你习惯的称呼'
+            data-placeholder-en='e.g., Erin or your preferred moniker'
             required
             autocomplete='off'
           />
@@ -39,16 +55,20 @@ import Layout from '../layouts/Layout.astro';
         {/* 字段 2: 从事领域 (前置细金线单选列表) */}
         <div class='form-field'>
           <label class='field-label'>
-            <span>你在从事的领域</span>
-            <span class='field-hint'>单选 · 用于安排同频交流</span>
+            <span class='lang-zh'>你在从事的领域</span>
+            <span class='lang-en'>Your Primary Craft</span>
+            <span class='field-hint lang-zh'>单选 · 用于安排同频交流</span>
+            <span class='field-hint lang-en'>Single choice</span>
           </label>
           <div class='quiet-check-list' role='radiogroup' aria-label='从事领域'>
             <label class='quiet-check-row is-radio'>
               <input type='radio' name='craft' value='design' checked />
               <span class='check-indicator' aria-hidden='true'></span>
               <div class='check-content'>
-                <span class='check-title'>设计 · 视觉传达 / 交互体验 (IxD / UI)</span>
-                <span class='check-note'>视觉、触感与动效</span>
+                <span class='check-title lang-zh'>设计 · 视觉传达 / 交互体验 (IxD / UI)</span>
+                <span class='check-title lang-en'>Design · Interaction & Visual Craft (IxD / UI)</span>
+                <span class='check-note lang-zh'>视觉、触感与动效</span>
+                <span class='check-note lang-en'>Visuals, typography & micro-interactions</span>
               </div>
             </label>
 
@@ -56,8 +76,10 @@ import Layout from '../layouts/Layout.astro';
               <input type='radio' name='craft' value='product' />
               <span class='check-indicator' aria-hidden='true'></span>
               <div class='check-content'>
-                <span class='check-title'>产品 · 商业逻辑 / 独立孵化 (PM)</span>
-                <span class='check-note'>痛点挖掘与体验闭环</span>
+                <span class='check-title lang-zh'>产品 · 商业逻辑 / 独立孵化 (PM)</span>
+                <span class='check-title lang-en'>Product · Product Strategy & Independent Projects (PM)</span>
+                <span class='check-note lang-zh'>痛点挖掘与体验闭环</span>
+                <span class='check-note lang-en'>Problem framing & human experience loops</span>
               </div>
             </label>
 
@@ -65,8 +87,10 @@ import Layout from '../layouts/Layout.astro';
               <input type='radio' name='craft' value='engineering' />
               <span class='check-indicator' aria-hidden='true'></span>
               <div class='check-content'>
-                <span class='check-title'>工程 · 前端架构 / 独立全栈 (FE / Fullstack)</span>
-                <span class='check-note'>代码实现与鲁棒工程</span>
+                <span class='check-title lang-zh'>工程 · 前端架构 / 独立全栈 (FE / Fullstack)</span>
+                <span class='check-title lang-en'>Engineering · Frontend Architecture & Systems (FE)</span>
+                <span class='check-note lang-zh'>代码实现与鲁棒工程</span>
+                <span class='check-note lang-en'>Robust code craftsmanship and system design</span>
               </div>
             </label>
 
@@ -74,8 +98,10 @@ import Layout from '../layouts/Layout.astro';
               <input type='radio' name='craft' value='research' />
               <span class='check-indicator' aria-hidden='true'></span>
               <div class='check-content'>
-                <span class='check-title'>研究 · 用户洞察 / 写作出版 (Research / Writing)</span>
-                <span class='check-note'>深度观察与概念叙事</span>
+                <span class='check-title lang-zh'>研究 · 用户洞察 / 写作出版 (Research / Writing)</span>
+                <span class='check-title lang-en'>Research · User Inquiries & Writing (Research / Writing)</span>
+                <span class='check-note lang-zh'>深度观察与概念叙事</span>
+                <span class='check-note lang-en'>Deep cultural observation and conceptual synthesis</span>
               </div>
             </label>
 
@@ -83,8 +109,10 @@ import Layout from '../layouts/Layout.astro';
               <input type='radio' name='craft' value='other' />
               <span class='check-indicator' aria-hidden='true'></span>
               <div class='check-content'>
-                <span class='check-title'>其他创造性领域 · 自由探索者</span>
-                <span class='check-note'>跨学科独立创作者</span>
+                <span class='check-title lang-zh'>其他创造性领域 · 自由探索者</span>
+                <span class='check-title lang-en'>Other Creative Pursuits · Independent Explorers</span>
+                <span class='check-note lang-zh'>跨学科独立创作者</span>
+                <span class='check-note lang-en'>Cross-disciplinary creators and tinkerers</span>
               </div>
             </label>
           </div>
@@ -93,8 +121,10 @@ import Layout from '../layouts/Layout.astro';
         {/* 字段 3: 感兴趣的活动 (前置细金线多选列表) */}
         <div class='form-field'>
           <label class='field-label'>
-            <span>想参与的活动形式</span>
-            <span class='field-hint'>多选 · 可全选</span>
+            <span class='lang-zh'>想参与的活动形式</span>
+            <span class='lang-en'>Gatherings of Interest</span>
+            <span class='field-hint lang-zh'>多选 · 可全选</span>
+            <span class='field-hint lang-en'>Multiple choice</span>
           </label>
           <div class='quiet-check-list'>
             <label class='quiet-check-row'>
@@ -103,8 +133,10 @@ import Layout from '../layouts/Layout.astro';
                 <svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg>
               </span>
               <div class='check-content'>
-                <span class='check-title'>Coffee Chat</span>
-                <span class='check-note'>双周轻聚 · 低压真诚</span>
+                <span class='check-title lang-zh'>Coffee Chat</span>
+                <span class='check-title lang-en'>Coffee Chat</span>
+                <span class='check-note lang-zh'>双周轻聚 · 低压真诚</span>
+                <span class='check-note lang-en'>Biweekly · low pressure, genuine connection</span>
               </div>
             </label>
 
@@ -114,8 +146,10 @@ import Layout from '../layouts/Layout.astro';
                 <svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg>
               </span>
               <div class='check-content'>
-                <span class='check-title'>English Tech & Design Chat</span>
-                <span class='check-note'>跨文化表达 · 5 min Show & Tell</span>
+                <span class='check-title lang-zh'>English Tech & Design Chat</span>
+                <span class='check-title lang-en'>English Tech & Design Chat</span>
+                <span class='check-note lang-zh'>跨文化表达 · 5 min Show & Tell</span>
+                <span class='check-note lang-en'>Biweekly online · 5 min Show & Tell</span>
               </div>
             </label>
 
@@ -125,8 +159,10 @@ import Layout from '../layouts/Layout.astro';
                 <svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg>
               </span>
               <div class='check-content'>
-                <span class='check-title'>作品 Lab · 慢工出细活</span>
-                <span class='check-note'>经验互借 · 代表作打磨</span>
+                <span class='check-title lang-zh'>作品 Lab · 慢工出细活</span>
+                <span class='check-title lang-en'>Craft Lab</span>
+                <span class='check-note lang-zh'>经验互借 · 代表作打磨</span>
+                <span class='check-note lang-en'>Small cohorts · patient iteration on signature work</span>
               </div>
             </label>
           </div>
@@ -135,28 +171,36 @@ import Layout from '../layouts/Layout.astro';
         {/* 字段 4: 正在琢磨的事 */}
         <div class='form-field'>
           <label class='field-label' for='join-idea'>
-            <span>正在做的事，或者想交流的话题</span>
-            <span class='field-hint'>可留空</span>
+            <span class='lang-zh'>正在做的事，或者想交流的话题</span>
+            <span class='lang-en'>Current projects, questions, or topics you care about</span>
+            <span class='field-hint lang-zh'>可留空</span>
+            <span class='field-hint lang-en'>Optional</span>
           </label>
           <textarea
             id='join-idea'
             name='idea'
             rows='3'
             placeholder='例如：正在构思一个极简独立工具，想找设计师伙伴交流；或者想练习用英语做一次产品 demo……'
+            data-placeholder-zh='例如：正在构思一个极简独立工具，想找设计师伙伴交流；或者想练习用英语做一次产品 demo……'
+            data-placeholder-en='e.g., Working on a minimal side tool, looking for design feedback, or wanting to practice a calm demo in English...'
           ></textarea>
         </div>
 
         {/* 字段 5: 联系方式 */}
         <div class='form-field'>
           <label class='field-label' for='join-contact'>
-            <span>联系方式</span>
-            <span class='field-hint'>微信或邮箱 · 仅用于活动邀请</span>
+            <span class='lang-zh'>联系方式</span>
+            <span class='lang-en'>Contact Information</span>
+            <span class='field-hint lang-zh'>微信或邮箱 · 仅用于活动邀请</span>
+            <span class='field-hint lang-en'>WeChat ID or Email · strictly for circle invites</span>
           </label>
           <input
             type='text'
             id='join-contact'
             name='contact'
             placeholder='微信号或 Email'
+            data-placeholder-zh='微信号或 Email'
+            data-placeholder-en='WeChat ID or Email'
             required
             autocomplete='off'
           />
@@ -165,35 +209,47 @@ import Layout from '../layouts/Layout.astro';
         {/* 提交按钮与状态 */}
         <div class='submit-zone'>
           <button type='submit' class='submit-btn-primary' id='submit-trigger'>
-            <span>提交预约与交流意向</span>
+            <span class='lang-zh'>提交预约与交流意向</span>
+            <span class='lang-en'>Submit Note & Reserve Seat</span>
             <span class='btn-arrow'>→</span>
           </button>
-          <span class='privacy-reassurance'>
+          <span class='privacy-reassurance lang-zh'>
             承诺不作任何商业营销 · 随时可退订联系
+          </span>
+          <span class='privacy-reassurance lang-en'>
+            Unsubscribe anytime · Zero commercial marketing
           </span>
         </div>
 
-        {/* 成功反馈回执函卡片 (真正的响应式闭环) */}
+        {/* 成功反馈回执函卡片 */}
         <div id='join-feedback' class='feedback-receipt' style='display: none;'>
           <div class='receipt-card'>
             <div class='receipt-header'>
               <span class='receipt-mark'>✦</span>
               <div>
-                <h3 class='receipt-title'>意向已真诚记录</h3>
+                <h3 class='receipt-title lang-zh'>意向已真诚记录</h3>
+                <h3 class='receipt-title lang-en'>Received with Warmth</h3>
                 <span class='receipt-id' id='receipt-id-display'>回执编号: WT-PENDING</span>
               </div>
             </div>
-            <p class='receipt-desc'>
+            <p class='receipt-desc lang-zh'>
               感谢你的加入。我们会在下一次 Coffee Chat 或 English Chat 排期确定前，通过微信或邮箱与你一对一确认。
+            </p>
+            <p class='receipt-desc lang-en'>
+              Thank you for reaching out. We will connect with you quietly via your contact info prior to our next circle gathering.
             </p>
             <div class='receipt-summary' id='receipt-summary-box'>
               {/* 动态填充摘要 */}
             </div>
             <div class='receipt-actions'>
               <button type='button' class='btn-copy-receipt' id='btn-copy-receipt'>
-                复制我的预约摘要
+                <span class='lang-zh'>复制我的预约摘要</span>
+                <span class='lang-en'>Copy Summary</span>
               </button>
-              <a href='/' class='btn-back-home'>返回主页</a>
+              <a href='/' class='btn-back-home'>
+                <span class='lang-zh'>返回主页</span>
+                <span class='lang-en'>Back Home</span>
+              </a>
             </div>
           </div>
         </div>
@@ -203,108 +259,112 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <script>
-  const form = document.getElementById('circle-join-form') as HTMLFormElement | null;
-  const feedback = document.getElementById('join-feedback');
-  const submitBtn = document.getElementById('submit-trigger');
-  const receiptIdDisplay = document.getElementById('receipt-id-display');
-  const receiptSummaryBox = document.getElementById('receipt-summary-box');
-  const copyBtn = document.getElementById('btn-copy-receipt');
+  function setupJoinPageForm() {
+    const form = document.getElementById('circle-join-form') as HTMLFormElement | null;
+    const feedback = document.getElementById('join-feedback');
+    const submitBtn = document.getElementById('submit-trigger');
+    const receiptIdDisplay = document.getElementById('receipt-id-display');
+    const receiptSummaryBox = document.getElementById('receipt-summary-box');
+    const copyBtn = document.getElementById('btn-copy-receipt');
 
-  let lastPayloadText = '';
+    function syncPlaceholders() {
+      const isEn = document.documentElement.getAttribute('data-lang') === 'en';
+      document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[data-placeholder-zh]').forEach(el => {
+        el.placeholder = isEn ? (el.dataset.placeholderEn || '') : (el.dataset.placeholderZh || '');
+      });
+    }
 
-  if (form && feedback) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const formData = new FormData(form);
-      const name = formData.get('name') as string;
-      const craft = formData.get('craft') as string;
-      const interests = formData.getAll('interests') as string[];
-      const idea = formData.get('idea') as string;
-      const contact = formData.get('contact') as string;
+    syncPlaceholders();
+    window.addEventListener('site-language-change', syncPlaceholders);
 
-      const payload = {
-        name,
-        craft,
-        interests,
-        idea,
-        contact,
-        clientTimestamp: new Date().toISOString(),
-      };
+    let lastPayloadText = '';
 
-      // 1. 本地存储备份 (确保数据永不丢失)
-      try {
-        const existing = JSON.parse(localStorage.getItem('wotech_rsvp_backup') || '[]');
-        existing.push(payload);
-        localStorage.setItem('wotech_rsvp_backup', JSON.stringify(existing));
-      } catch (err) {
-        console.warn('Local storage error:', err);
-      }
+    if (form && feedback) {
+      form.onsubmit = async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(form);
+        const name = formData.get('name') as string;
+        const craft = formData.get('craft') as string;
+        const interests = formData.getAll('interests') as string[];
+        const idea = formData.get('idea') as string;
+        const contact = formData.get('contact') as string;
+        const clientTimestamp = new Date().toISOString();
 
-      // 2. 尝试向后端 API 发送
-      let generatedId = `WT-${Date.now().toString(36).slice(-5).toUpperCase()}`;
-      try {
+        const payload = {
+          name,
+          craft,
+          interests,
+          idea,
+          contact,
+          clientTimestamp,
+        };
+
+        // 1. 本地存储备份
+        try {
+          const existing = JSON.parse(localStorage.getItem('wotech_rsvp_backup') || '[]');
+          existing.push(payload);
+          localStorage.setItem('wotech_rsvp_backup', JSON.stringify(existing));
+        } catch (err) {}
+
+        // 2. 尝试向服务端 API 提交
+        let subId = `WT-${Date.now().toString(36).slice(-5).toUpperCase()}`;
         if (submitBtn) submitBtn.setAttribute('disabled', 'true');
-        const res = await fetch('/api/join', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        if (res.ok) {
-          const resData = await res.json();
-          if (resData.submissionId) generatedId = resData.submissionId;
+
+        try {
+          const res = await fetch('/api/join', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          if (res.ok) {
+            const resData = await res.json();
+            if (resData.submissionId) {
+              subId = resData.submissionId;
+            }
+          }
+        } catch (err) {}
+
+        const isEn = document.documentElement.getAttribute('data-lang') === 'en';
+
+        // 3. 展现回执
+        if (receiptIdDisplay) {
+          receiptIdDisplay.textContent = isEn ? `Receipt ID: #${subId}` : `回执编号: #${subId}`;
         }
-      } catch (err) {
-        console.log('API async offline handled, saved locally.');
-      }
 
-      // 3. 渲染回执卡片
-      if (receiptIdDisplay) receiptIdDisplay.textContent = `回执编号: #${generatedId}`;
+        if (receiptSummaryBox) {
+          receiptSummaryBox.innerHTML = `
+            <div class="summary-line"><span>${isEn ? 'Moniker:' : '称呼：'}</span><strong>${name}</strong></div>
+            <div class="summary-line"><span>${isEn ? 'Craft Domain:' : '领域：'}</span><span>${craft}</span></div>
+            <div class="summary-line"><span>${isEn ? 'Gatherings:' : '意向活动：'}</span><span>${interests.join(' / ') || (isEn ? 'None specified' : '未指定')}</span></div>
+            <div class="summary-line"><span>${isEn ? 'Contact:' : '联系方式：'}</span><code>${contact}</code></div>
+          `;
+        }
 
-      const craftLabels: Record<string, string> = {
-        design: '设计 · 视觉传达 / 交互体验',
-        product: '产品 · 商业逻辑 / 独立孵化',
-        engineering: '工程 · 前端架构 / 独立全栈',
-        research: '研究 · 用户洞察 / 写作出版',
-        other: '其他创造性领域',
+        lastPayloadText = `wo/men in tech 回执 #${subId}\n称呼: ${name}\n领域: ${craft}\n意向: ${interests.join(', ')}\n联系: ${contact}`;
+
+        feedback.style.display = 'block';
+        if (submitBtn) submitBtn.style.display = 'none';
+        feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       };
+    }
 
-      const interestLabels: Record<string, string> = {
-        coffee_chat: '☕ Coffee Chat',
-        english_chat: '🗣️ English Chat',
-        portfolio_building: '🛠️ 作品 Lab',
+    if (copyBtn) {
+      copyBtn.onclick = () => {
+        if (!lastPayloadText) return;
+        const isEn = document.documentElement.getAttribute('data-lang') === 'en';
+        navigator.clipboard.writeText(lastPayloadText).then(() => {
+          copyBtn.textContent = isEn ? '✓ Copied' : '✓ 已复制到剪贴板';
+          setTimeout(() => {
+            copyBtn.textContent = isEn ? 'Copy Summary' : '复制我的预约摘要';
+          }, 2500);
+        });
       };
-
-      lastPayloadText = `【wo/men in tech 预约回执】\n编号: #${generatedId}\n称呼: ${name}\n专长: ${craftLabels[craft] || craft}\n活动: ${interests.map(i => interestLabels[i] || i).join('、')}\n联系: ${contact}\n${idea ? `思考: ${idea}\n` : ''}`;
-
-      if (receiptSummaryBox) {
-        receiptSummaryBox.innerHTML = `
-          <div class="summary-line"><span>称呼</span><strong>${name}</strong></div>
-          <div class="summary-line"><span>领域</span><strong>${craftLabels[craft] || craft}</strong></div>
-          <div class="summary-line"><span>活动</span><strong>${interests.map(i => interestLabels[i] || i).join('、')}</strong></div>
-          <div class="summary-line"><span>联系方式</span><strong>${contact}</strong></div>
-        `;
-      }
-
-      feedback.style.display = 'block';
-      if (submitBtn) submitBtn.style.display = 'none';
-      feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    });
+    }
   }
 
-  if (copyBtn) {
-    copyBtn.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(lastPayloadText);
-        copyBtn.textContent = '已复制回执文本 ✓';
-        setTimeout(() => {
-          copyBtn.textContent = '复制我的预约摘要';
-        }, 2000);
-      } catch (e) {
-        alert('可手动截屏保存此回执编号');
-      }
-    });
-  }
+  setupJoinPageForm();
+  document.addEventListener('astro:page-load', setupJoinPageForm);
 </script>
 
 <style>
@@ -353,52 +413,204 @@ import Layout from '../layouts/Layout.astro';
     margin-top: var(--spacing-6);
   }
 
-  /* 表单卡片容器 */
   .form-card-container {
     background: var(--color-surface-pure);
     border: var(--border-width-thin) solid var(--color-border-subtle);
     border-left: 2px solid var(--color-gold-dust);
     border-radius: var(--radius-sm);
     padding: var(--spacing-10);
-    box-shadow: 0 1px 3px rgba(38, 34, 28, 0.02);
-  }
-
-  .quiet-form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-8);
   }
 
   .form-field {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-2);
+    margin-bottom: var(--spacing-8);
+  }
+
+  .field-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+  }
+
+  .field-hint {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-tertiary);
+    font-weight: var(--font-weight-normal);
+  }
+
+  .quiet-form input[type='text'],
+  .quiet-form textarea {
+    width: 100%;
+    background: var(--color-surface-card);
+    border: var(--border-width-thin) solid var(--color-border);
+    border-radius: var(--radius-xs);
+    padding: var(--spacing-3) var(--spacing-4);
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-primary);
+    transition: all var(--transition-fast);
+  }
+
+  .quiet-form input[type='text']:focus,
+  .quiet-form textarea:focus {
+    outline: none;
+    border-color: var(--color-gold-dust);
+    background: var(--color-surface-pure);
+    box-shadow: 0 0 0 1px var(--color-gold-dust);
+  }
+
+  /* 前置细金线选项设计 */
+  .quiet-check-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .quiet-check-row {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-3);
+    padding: var(--spacing-3) var(--spacing-4);
+    border: var(--border-width-thin) solid var(--color-border-divider);
+    border-radius: var(--radius-xs);
+    background: var(--color-surface-card);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .quiet-check-row:hover {
+    border-color: var(--color-border);
+    background: var(--color-surface-pure);
+  }
+
+  .quiet-check-row input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .check-indicator {
+    width: 14px;
+    height: 14px;
+    margin-top: 3px;
+    flex-shrink: 0;
+    border: 1px solid var(--color-border);
+    border-radius: 2px;
+    background: var(--color-surface-pure);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+  }
+
+  .is-radio .check-indicator {
+    border-radius: 50%;
+  }
+
+  .quiet-check-row input:checked ~ .check-indicator {
+    border-color: var(--color-gold-dust);
+    background: var(--color-primary-dark);
+  }
+
+  .is-radio input:checked ~ .check-indicator::after {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-surface-pure);
+  }
+
+  .quiet-check-row svg {
+    width: 10px;
+    height: 10px;
+    stroke: var(--color-surface-pure);
+    stroke-width: 1.8;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+  }
+
+  .quiet-check-row input:checked ~ .check-indicator svg {
+    opacity: 1;
+  }
+
+  .check-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .check-title {
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+  }
+
+  .check-note {
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
   }
 
   .submit-zone {
+    margin-top: var(--spacing-8);
     display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+  }
+
+  .submit-btn-primary {
+    display: inline-flex;
     align-items: center;
-    gap: var(--spacing-6);
-    flex-wrap: wrap;
-    margin-top: var(--spacing-2);
+    justify-content: center;
+    gap: var(--spacing-3);
+    padding: var(--spacing-3) var(--spacing-6);
+    background: var(--color-primary-dark);
+    color: var(--color-surface-pure);
+    border: none;
+    border-radius: var(--radius-xs);
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .submit-btn-primary:hover {
+    background: var(--color-text-heading);
+  }
+
+  .submit-btn-primary .btn-arrow {
+    transition: transform var(--transition-fast);
+  }
+
+  .submit-btn-primary:hover .btn-arrow {
+    transform: translateX(4px);
   }
 
   .privacy-reassurance {
     font-family: var(--font-family-ui);
     font-size: 11px;
     color: var(--color-text-tertiary);
-    letter-spacing: 0.02em;
+    text-align: center;
   }
 
-  /* 回执函卡片 */
+  /* 成功回执 */
   .feedback-receipt {
-    margin-top: var(--spacing-6);
+    margin-top: var(--spacing-8);
   }
 
   .receipt-card {
-    background: var(--color-surface-soft);
-    border: 1px solid var(--color-gold-dust);
-    border-radius: var(--radius-sm);
+    background: var(--color-surface-card);
+    border: var(--border-width-thin) solid var(--color-border);
+    border-left: 2px solid var(--color-gold-dust);
+    border-radius: var(--radius-xs);
     padding: var(--spacing-6);
   }
 
@@ -411,93 +623,90 @@ import Layout from '../layouts/Layout.astro';
 
   .receipt-mark {
     color: var(--color-gold-dust);
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-base);
   }
 
   .receipt-title {
-    font-family: var(--font-family-heading);
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-normal);
-    color: var(--color-text-heading);
     margin: 0;
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-base);
+    color: var(--color-text-heading);
   }
 
   .receipt-id {
-    font-family: var(--font-family-mono, monospace);
+    display: block;
+    font-family: var(--font-family-mono);
     font-size: 11px;
-    color: var(--color-primary-dark);
+    color: var(--color-text-tertiary);
+    margin-top: 2px;
   }
 
   .receipt-desc {
+    font-family: var(--font-family-body);
     font-size: var(--font-size-xs);
     color: var(--color-text-secondary);
-    line-height: 1.7;
+    line-height: var(--line-height-relaxed);
     margin: 0 0 var(--spacing-4);
   }
 
   .receipt-summary {
     background: var(--color-surface-pure);
-    border: 1px solid var(--color-border-divider);
+    border: var(--border-width-thin) solid var(--color-border-divider);
     border-radius: var(--radius-xs);
     padding: var(--spacing-3) var(--spacing-4);
     display: flex;
     flex-direction: column;
     gap: var(--spacing-2);
+    font-family: var(--font-family-ui);
+    font-size: 11px;
     margin-bottom: var(--spacing-5);
   }
 
   :global(.summary-line) {
     display: flex;
     justify-content: space-between;
-    font-size: 11px;
-    font-family: var(--font-family-ui);
+    color: var(--color-text-secondary);
   }
 
-  :global(.summary-line span) {
-    color: var(--color-text-tertiary);
-  }
-
-  :global(.summary-line strong) {
-    color: var(--color-text-primary);
-    font-weight: var(--font-weight-medium);
+  :global(.summary-line code) {
+    font-family: var(--font-family-mono);
+    color: var(--color-primary-dark);
   }
 
   .receipt-actions {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: var(--spacing-4);
   }
 
   .btn-copy-receipt {
-    font-family: var(--font-family-ui);
-    font-size: var(--font-size-xs);
-    color: var(--color-text-heading);
-    background: var(--color-surface-pure);
-    border: 1px solid var(--color-border-subtle);
-    padding: var(--spacing-2) var(--spacing-4);
+    background: none;
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-xs);
+    padding: var(--spacing-2) var(--spacing-4);
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    color: var(--color-text-secondary);
     cursor: pointer;
     transition: all var(--transition-fast);
   }
 
   .btn-copy-receipt:hover {
+    color: var(--color-text-heading);
     border-color: var(--color-gold-dust);
   }
 
   .btn-back-home {
     font-family: var(--font-family-ui);
-    font-size: var(--font-size-xs);
-    color: var(--color-text-tertiary);
-    text-decoration: none;
+    font-size: 11px;
+    color: var(--color-primary-dark);
+    text-decoration: none !important;
+    border-bottom: 1px solid var(--color-gold-dust) !important;
   }
 
-  .btn-back-home:hover {
-    color: var(--color-text-heading);
-  }
-
-  @media (width <= 640px) {
+  @media (max-width: 680px) {
     .form-card-container {
-      padding: var(--spacing-5);
+      padding: var(--spacing-6);
     }
   }
 </style>

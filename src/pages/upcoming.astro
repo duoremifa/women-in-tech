@@ -10,11 +10,23 @@ import Layout from '../layouts/Layout.astro';
   <div class='page-container'>
     <header class='page-header'>
       <span class='section-eyebrow'>UPCOMING GATHERINGS</span>
-      <h1 class='page-title'>近期安排</h1>
-      <p class='page-lead'>
-        每一次聚会都保持极小规模（3-6 人），<br />
-        确保每个人都有充裕的表达时间与安静聆听的呼吸空间。
-      </p>
+      
+      <div class='lang-zh'>
+        <h1 class='page-title'>近期安排</h1>
+        <p class='page-lead'>
+          每一次聚会都保持极小规模（3-6 人），<br />
+          确保每个人都有充裕的表达时间与安静聆听的呼吸空间。
+        </p>
+      </div>
+
+      <div class='lang-en'>
+        <h1 class='page-title'>Upcoming Gatherings</h1>
+        <p class='page-lead'>
+          Every gathering is intentionally kept intimate (3–6 people),<br />
+          ensuring unhurried room to speak and quiet space to listen.
+        </p>
+      </div>
+
       <div class='gold-hairline'></div>
     </header>
 
@@ -27,25 +39,51 @@ import Layout from '../layouts/Layout.astro';
         </div>
         <div class='schedule-content'>
           <div class='block-status-line'>
-            <span class='status-pill status-open'>开放预约中</span>
-            <span class='status-meta'>双周周末 · 杭州线下 + 线上接入</span>
+            <span class='status-pill status-open lang-zh'>开放预约中</span>
+            <span class='status-pill status-open lang-en'>Open for RSVP</span>
+            <span class='status-meta lang-zh'>双周周末 · 杭州线下 + 线上接入</span>
+            <span class='status-meta lang-en'>Biweekly Weekend · Hangzhou + Online</span>
           </div>
-          <h2 class='block-title'>AI 时代，还剩下什么是属于自己的？</h2>
-          <p class='block-desc'>
-            当生成式代码和模板能够秒级产出界面，我们对于“手艺”与“代表作”的定义正在发生怎样的变化？这一期我们坐下来，聊聊如何从工业流水线的焦虑中抽离，重新发现具有个人辨识度的表达。
-          </p>
-          <div class='block-meta-grid'>
-            <div class='meta-col'>
-              <span class='meta-label'>交流形式</span>
-              <span class='meta-val'>杭州静谧咖啡馆（线下）+ 视频连线（线上）</span>
-            </div>
-            <div class='meta-col'>
-              <span class='meta-label'>适合对象</span>
-              <span class='meta-val'>对产品、视觉与工程有个人执念的创造者</span>
+
+          <div class='lang-zh'>
+            <h2 class='block-title'>AI 时代，还剩下什么是属于自己的？</h2>
+            <p class='block-desc'>
+              当生成式代码和模板能够秒级产出界面，我们对于“手艺”与“代表作”的定义正在发生怎样的变化？这一期我们坐下来，聊聊如何从工业流水线的焦虑中抽离，重新发现具有个人辨识度的表达。
+            </p>
+            <div class='block-meta-grid'>
+              <div class='meta-col'>
+                <span class='meta-label'>交流形式</span>
+                <span class='meta-val'>杭州静谧咖啡馆（线下）+ 视频连线（线上）</span>
+              </div>
+              <div class='meta-col'>
+                <span class='meta-label'>适合对象</span>
+                <span class='meta-val'>对产品、视觉与工程有个人执念的创造者</span>
+              </div>
             </div>
           </div>
+
+          <div class='lang-en'>
+            <h2 class='block-title'>In the Age of AI, What Truly Remains Ours?</h2>
+            <p class='block-desc'>
+              As generative models output boilerplate interfaces in seconds, how are our definitions of personal craft and signature artifacts evolving? Let's sit together and explore stepping back from industrial anxiety to uncover distinct personal voice.
+            </p>
+            <div class='block-meta-grid'>
+              <div class='meta-col'>
+                <span class='meta-label'>Format</span>
+                <span class='meta-val'>Quiet café in Hangzhou (Offline) + Video Link (Online)</span>
+              </div>
+              <div class='meta-col'>
+                <span class='meta-label'>Craft Audience</span>
+                <span class='meta-val'>Creators devoted to thoughtful UI, engineering, and product</span>
+              </div>
+            </div>
+          </div>
+
           <div class='block-action'>
-            <a href='/join' class='btn-rsvp'>预约本期席位 →</a>
+            <a href='/join' class='btn-rsvp'>
+              <span class='lang-zh'>预约本期席位 →</span>
+              <span class='lang-en'>Reserve Seat →</span>
+            </a>
           </div>
         </div>
       </article>
@@ -58,25 +96,51 @@ import Layout from '../layouts/Layout.astro';
         </div>
         <div class='schedule-content'>
           <div class='block-status-line'>
-            <span class='status-pill status-open'>开放预约中</span>
-            <span class='status-meta'>双周周中晚间 · 线上 40-50 min</span>
+            <span class='status-pill status-open lang-zh'>开放预约中</span>
+            <span class='status-pill status-open lang-en'>Open for RSVP</span>
+            <span class='status-meta lang-zh'>双周周中晚间 · 线上 40-50 min</span>
+            <span class='status-meta lang-en'>Biweekly Weekday Evening · Virtual 40–50 min</span>
           </div>
-          <h2 class='block-title'>Show & Tell — Walk Me Through Something You Made</h2>
-          <p class='block-desc'>
-            每人准备 5 分钟，用英文讲述一个你最近喜欢的小东西：可以是一个精致的 CSS 微交互、一段让你眼前一亮的设计系统 Token，或者一个正在构建的侧边项目。在零评判的安全语境里，迈出全球化表达的第一步。
-          </p>
-          <div class='block-meta-grid'>
-            <div class='meta-col'>
-              <span class='meta-label'>交流形式</span>
-              <span class='meta-val'>线上视频室 · 仅限 5 人以内</span>
-            </div>
-            <div class='meta-col'>
-              <span class='meta-label'>适合对象</span>
-              <span class='meta-val'>希望消除出海英语交流焦虑的女性同行</span>
+
+          <div class='lang-zh'>
+            <h2 class='block-title'>Show & Tell — Walk Me Through Something You Made</h2>
+            <p class='block-desc'>
+              每人准备 5 分钟，用英文讲述一个你最近喜欢的小东西：可以是一个精致的 CSS 微交互、一段让你眼前一亮的设计系统 Token，或者一个正在构建的侧边项目。在零评判的安全语境里，迈出全球化表达的第一步。
+            </p>
+            <div class='block-meta-grid'>
+              <div class='meta-col'>
+                <span class='meta-label'>交流形式</span>
+                <span class='meta-val'>线上视频室 · 仅限 5 人以内</span>
+              </div>
+              <div class='meta-col'>
+                <span class='meta-label'>适合对象</span>
+                <span class='meta-val'>希望消除出海英语交流焦虑的女性同行</span>
+              </div>
             </div>
           </div>
+
+          <div class='lang-en'>
+            <h2 class='block-title'>Show & Tell — Walk Me Through Something You Made</h2>
+            <p class='block-desc'>
+              5 minutes per person to share a favorite interface detail, micro-interaction, or code architecture in English. In a welcoming and low-stakes environment, take an easy step toward global self-expression.
+            </p>
+            <div class='block-meta-grid'>
+              <div class='meta-col'>
+                <span class='meta-label'>Format</span>
+                <span class='meta-val'>Virtual Studio · Capped at 5 participants</span>
+              </div>
+              <div class='meta-col'>
+                <span class='meta-label'>Craft Audience</span>
+                <span class='meta-val'>Women seeking a judgment-free space to converse in English</span>
+              </div>
+            </div>
+          </div>
+
           <div class='block-action'>
-            <a href='/join' class='btn-rsvp'>预约本期席位 →</a>
+            <a href='/join' class='btn-rsvp'>
+              <span class='lang-zh'>预约本期席位 →</span>
+              <span class='lang-en'>Reserve Seat →</span>
+            </a>
           </div>
         </div>
       </article>
@@ -85,29 +149,56 @@ import Layout from '../layouts/Layout.astro';
       <article class='schedule-block'>
         <div class='schedule-indicator'>
           <span class='block-num'>03</span>
-          <span class='block-type'>作品 Lab</span>
+          <span class='block-type lang-zh'>作品 Lab</span>
+          <span class='block-type lang-en'>Craft Lab</span>
         </div>
         <div class='schedule-content'>
           <div class='block-status-line'>
-            <span class='status-pill status-draft'>小组筹备中</span>
-            <span class='status-meta'>慢节奏共建 · 滚动开展</span>
+            <span class='status-pill status-draft lang-zh'>小组筹备中</span>
+            <span class='status-pill status-draft lang-en'>Cohort Forming</span>
+            <span class='status-meta lang-zh'>慢节奏共建 · 滚动开展</span>
+            <span class='status-meta lang-en'>Patient Collaboration · Rolling Onboarding</span>
           </div>
-          <h2 class='block-title'>第一期作品共建方案：纯粹美感与高可用架构</h2>
-          <p class='block-desc'>
-            我们计划召集 2-3 位不同专长的伙伴，利用业余时间合力完成一个真正具有收藏质感与实用价值的开源 Web 产品。拒绝粗糙玩具，把每一处间距与基线对齐做到极致。
-          </p>
-          <div class='block-meta-grid'>
-            <div class='meta-col'>
-              <span class='meta-label'>协作模式</span>
-              <span class='meta-val'>异步推敲 + 周末轻度同步</span>
-            </div>
-            <div class='meta-col'>
-              <span class='meta-label'>参与条件</span>
-              <span class='meta-val'>有一项愿意深度投入的核心专长</span>
+
+          <div class='lang-zh'>
+            <h2 class='block-title'>第一期作品共建方案：纯粹美感与高可用架构</h2>
+            <p class='block-desc'>
+              我们计划召集 2-3 位不同专长的伙伴，利用业余时间合力完成一个真正具有收藏质感与实用价值的开源 Web 产品。拒绝粗糙玩具，把每一处间距与基线对齐做到极致。
+            </p>
+            <div class='block-meta-grid'>
+              <div class='meta-col'>
+                <span class='meta-label'>协作模式</span>
+                <span class='meta-val'>异步推敲 + 周末轻度同步</span>
+              </div>
+              <div class='meta-col'>
+                <span class='meta-label'>参与条件</span>
+                <span class='meta-val'>有一项愿意深度投入的核心专长</span>
+              </div>
             </div>
           </div>
+
+          <div class='lang-en'>
+            <h2 class='block-title'>Cohort 01: Pure Aesthetics & Resilient Web Systems</h2>
+            <p class='block-desc'>
+              Gathering 2–3 women across complementary disciplines (PM, IxD, FE) to collaboratively build an enduring, refined open-source digital tool. Honoring craftsmanship at every scale.
+            </p>
+            <div class='block-meta-grid'>
+              <div class='meta-col'>
+                <span class='meta-label'>Cadence</span>
+                <span class='meta-val'>Async refinement + biweekly gentle touchpoints</span>
+              </div>
+              <div class='meta-col'>
+                <span class='meta-label'>Prerequisite</span>
+                <span class='meta-val'>One craft area you wish to invest deliberate care into</span>
+              </div>
+            </div>
+          </div>
+
           <div class='block-action'>
-            <a href='/join' class='btn-rsvp'>表达共建意向 →</a>
+            <a href='/join' class='btn-rsvp'>
+              <span class='lang-zh'>表达共建意向 →</span>
+              <span class='lang-en'>Express Interest →</span>
+            </a>
           </div>
         </div>
       </article>
@@ -116,8 +207,10 @@ import Layout from '../layouts/Layout.astro';
     {/* 底部常见疑问 */}
     <footer class='faq-section'>
       <div class='faq-card'>
-        <h3>关于活动的二三事</h3>
-        <div class='faq-grid'>
+        <h3 class='lang-zh'>关于活动的二三事</h3>
+        <h3 class='lang-en'>Circle FAQ & Clarifications</h3>
+
+        <div class='faq-grid lang-zh'>
           <div class='faq-item'>
             <h4>收费吗？</h4>
             <p>不收取任何社群费用。线下咖啡聚会各自点单，线上活动完全免费开放。</p>
@@ -125,6 +218,17 @@ import Layout from '../layouts/Layout.astro';
           <div class='faq-item'>
             <h4>必须说话很多吗？</h4>
             <p>完全不用。你可以根据当天的精力和心境决定发言的频率，安静陪伴同样受到欢迎。</p>
+          </div>
+        </div>
+
+        <div class='faq-grid lang-en'>
+          <div class='faq-item'>
+            <h4>Are there any fees or dues?</h4>
+            <p>None at all. In offline coffee meetups everyone simply covers their own beverage. Online gatherings are entirely free.</p>
+          </div>
+          <div class='faq-item'>
+            <h4>Am I pressured to talk a lot?</h4>
+            <p>Never. Speak as much or as little as your energy allows on the day. Quiet listening is valued equally.</p>
           </div>
         </div>
       </div>
@@ -178,7 +282,6 @@ import Layout from '../layouts/Layout.astro';
     margin-top: var(--spacing-6);
   }
 
-  /* 安排卡片列表 */
   .schedule-cards-stack {
     display: flex;
     flex-direction: column;
@@ -186,82 +289,78 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .schedule-block {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: var(--spacing-6);
     background: var(--color-surface-pure);
     border: var(--border-width-thin) solid var(--color-border-subtle);
     border-left: 2px solid var(--color-gold-dust);
     border-radius: var(--radius-sm);
     padding: var(--spacing-8);
-    display: flex;
-    gap: var(--spacing-8);
-    align-items: flex-start;
-    box-shadow: 0 1px 3px rgba(38, 34, 28, 0.02);
+    transition: all var(--transition-fast);
+  }
+
+  .schedule-block:hover {
+    border-color: var(--color-border);
+    border-left-color: var(--color-primary-dark);
   }
 
   .schedule-indicator {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    min-width: 68px;
-    padding: var(--spacing-3) var(--spacing-2);
-    background: var(--color-surface-soft);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-sm);
+    gap: var(--spacing-1);
+    border-right: var(--border-width-thin) solid var(--color-border-divider);
+    padding-right: var(--spacing-4);
   }
 
   .block-num {
-    font-family: var(--font-family-heading);
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-light);
-    color: var(--color-text-heading);
-    line-height: 1;
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-xs);
+    color: var(--color-gold-dust);
   }
 
   .block-type {
     font-family: var(--font-family-ui);
-    font-size: 10px;
-    color: var(--color-primary-dark);
-    letter-spacing: 0.04em;
-    margin-top: 4px;
-    text-align: center;
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    line-height: 1.3;
   }
 
   .schedule-content {
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-3);
   }
 
   .block-status-line {
     display: flex;
     align-items: center;
     gap: var(--spacing-3);
+    margin-bottom: var(--spacing-2);
   }
 
   .status-pill {
     font-family: var(--font-family-ui);
-    font-size: 10px;
-    padding: 1px 8px;
-    border-radius: var(--radius-pill);
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 2px;
     letter-spacing: 0.04em;
   }
 
-  .status-open {
-    background: rgba(196, 214, 204, 0.25);
-    color: #436956;
-    border: 1px solid rgba(196, 214, 204, 0.5);
+  .status-pill.status-open {
+    background: var(--color-surface-soft);
+    color: var(--color-primary-dark);
+    font-weight: var(--font-weight-medium);
   }
 
-  .status-draft {
+  .status-pill.status-draft {
     background: var(--color-surface-soft);
     color: var(--color-text-tertiary);
-    border: 1px solid var(--color-border-divider);
   }
 
   .status-meta {
+    font-family: var(--font-family-ui);
     font-size: 11px;
     color: var(--color-text-tertiary);
-    font-family: var(--font-family-ui);
   }
 
   .block-title {
@@ -269,25 +368,25 @@ import Layout from '../layouts/Layout.astro';
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-normal);
     color: var(--color-text-heading);
-    margin: 0;
-    letter-spacing: -0.01em;
+    margin: 0 0 var(--spacing-3);
   }
 
   .block-desc {
+    font-family: var(--font-family-body);
     font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
-    line-height: 1.8;
-    margin: 0;
+    line-height: var(--line-height-relaxed);
+    margin: 0 0 var(--spacing-5);
   }
 
   .block-meta-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--spacing-4);
-    background: var(--color-surface-soft);
-    padding: var(--spacing-3) var(--spacing-4);
-    border-radius: var(--radius-xs);
-    margin-top: var(--spacing-2);
+    padding: var(--spacing-4) 0;
+    border-top: var(--border-width-thin) solid var(--color-border-divider);
+    border-bottom: var(--border-width-thin) solid var(--color-border-divider);
+    margin-bottom: var(--spacing-5);
   }
 
   .meta-col {
@@ -298,37 +397,36 @@ import Layout from '../layouts/Layout.astro';
 
   .meta-label {
     font-family: var(--font-family-ui);
-    font-size: 10px;
+    font-size: 11px;
     color: var(--color-text-tertiary);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
   }
 
   .meta-val {
-    font-family: var(--font-family-ui);
+    font-family: var(--font-family-body);
     font-size: var(--font-size-xs);
     color: var(--color-text-primary);
   }
 
   .block-action {
-    margin-top: var(--spacing-2);
+    display: flex;
+    justify-content: flex-end;
   }
 
   .btn-rsvp {
     font-family: var(--font-family-ui);
     font-size: var(--font-size-xs);
-    color: var(--color-gold-dust);
-    text-decoration: none;
-    letter-spacing: 0.04em;
-    display: inline-block;
+    color: var(--color-primary-dark);
+    text-decoration: none !important;
+    border-bottom: 1px solid var(--color-gold-dust) !important;
+    padding-bottom: 2px;
     transition: color var(--transition-fast);
   }
 
   .btn-rsvp:hover {
     color: var(--color-text-heading);
+    border-bottom-color: var(--color-text-heading) !important;
   }
 
-  /* FAQ */
   .faq-section {
     margin-top: var(--spacing-16);
   }
@@ -341,38 +439,46 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .faq-card h3 {
+    margin: 0 0 var(--spacing-6);
     font-family: var(--font-family-heading);
     font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-light);
     color: var(--color-text-heading);
-    margin: 0 0 var(--spacing-6);
   }
 
   .faq-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-8);
+    gap: var(--spacing-6);
   }
 
   .faq-item h4 {
-    font-family: var(--font-family-ui);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-text-primary);
     margin: 0 0 var(--spacing-2);
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-primary);
   }
 
   .faq-item p {
+    margin: 0;
+    font-family: var(--font-family-body);
     font-size: var(--font-size-xs);
     color: var(--color-text-secondary);
-    line-height: 1.75;
-    margin: 0;
+    line-height: var(--line-height-relaxed);
   }
 
-  @media (width <= 640px) {
+  @media (max-width: 680px) {
     .schedule-block {
-      flex-direction: column;
-      padding: var(--spacing-5);
+      grid-template-columns: 1fr;
+      gap: var(--spacing-4);
+    }
+    .schedule-indicator {
+      border-right: none;
+      border-bottom: var(--border-width-thin) solid var(--color-border-divider);
+      padding-right: 0;
+      padding-bottom: var(--spacing-2);
+      flex-direction: row;
+      align-items: baseline;
+      gap: var(--spacing-2);
     }
     .block-meta-grid {
       grid-template-columns: 1fr;
