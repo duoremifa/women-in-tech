@@ -71,49 +71,6 @@ import GeometricVisual from '../components/GeometricVisual.astro';
           </p>
         </div>
 
-        {/* 冷启动快速通道 · 3 条轻巧路径 */}
-        <div class='quick-start-box'>
-          <div class='quick-start-head'>
-            <span class='gold-thread-dot'>✦</span>
-            <span class='quick-start-title lang-zh'>冷启动 · 3 条轻巧参与路径</span>
-            <span class='quick-start-title lang-en'>Getting Started · 3 Direct Paths</span>
-          </div>
-          <div class='quick-paths-stack'>
-            <button type='button' class='quick-path-btn' data-quick-action='coffee_chat'>
-              <span class='path-index'>01</span>
-              <div class='path-info'>
-                <span class='path-title lang-zh'>喝杯咖啡 · 聊最近在琢磨的事</span>
-                <span class='path-title lang-en'>Coffee Chat · Share recent pursuits</span>
-                <span class='path-meta lang-zh'>双周极小规模 · 线上 / 杭州</span>
-                <span class='path-meta lang-en'>Biweekly · 3-5 people intimate circle</span>
-              </div>
-              <span class='path-arrow'>⟶</span>
-            </button>
-
-            <button type='button' class='quick-path-btn' data-quick-action='english_chat'>
-              <span class='path-index'>02</span>
-              <div class='path-info'>
-                <span class='path-title lang-zh'>5 分钟试讲 · 练英语表达</span>
-                <span class='path-title lang-en'>Show & Tell · 5 min English Demo</span>
-                <span class='path-meta lang-zh'>双周线上 · 零审判的安全语境</span>
-                <span class='path-meta lang-en'>Virtual studio · Judgment-free space</span>
-              </div>
-              <span class='path-arrow'>⟶</span>
-            </button>
-
-            <button type='button' class='quick-path-btn' data-quick-action='portfolio_building'>
-              <span class='path-index'>03</span>
-              <div class='path-info'>
-                <span class='path-title lang-zh'>带上想法 · 找伙伴打磨作品</span>
-                <span class='path-title lang-en'>Craft Lab · Co-build signature work</span>
-                <span class='path-meta lang-zh'>慢工出细活 · 不赶工期只做精品</span>
-                <span class='path-meta lang-en'>Small cohorts · Patient craftsmanship</span>
-              </div>
-              <span class='path-arrow'>⟶</span>
-            </button>
-          </div>
-        </div>
-
         <div class='sidebar-footer'>
           <GeometricVisual type='subtle' height='72px' />
         </div>
@@ -759,31 +716,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     syncPlaceholders();
     window.addEventListener('site-language-change', syncPlaceholders);
 
-    // 2. 冷启动快速通道按钮联动 (Quick Path Buttons)
-    document.querySelectorAll<HTMLButtonElement>('[data-quick-action]').forEach(btn => {
-      btn.onclick = () => {
-        const action = btn.dataset.quickAction;
-        const targetCheckbox = document.querySelector<HTMLInputElement>(`input[name="interests"][value="${action}"]`);
-        if (targetCheckbox) {
-          targetCheckbox.checked = true;
-        }
-
-        const joinSection = document.getElementById('join');
-        if (joinSection) {
-          joinSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        if (nameInput) {
-          setTimeout(() => {
-            nameInput.focus();
-            nameInput.classList.add('glow-spark');
-            setTimeout(() => nameInput.classList.remove('glow-spark'), 1800);
-          }, 450);
-        }
-      };
-    });
-
-    // 3. 作品共建认领按钮联动 (Workshop Co-build Buttons)
+    // 2. 作品共建认领按钮联动 (Workshop Co-build Buttons)
     document.querySelectorAll<HTMLButtonElement>('.btn-join-work').forEach(btn => {
       btn.onclick = () => {
         const workName = btn.dataset.workName || '';
@@ -1002,104 +935,6 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     line-height: 1.65;
     color: var(--color-text-tertiary);
     margin: 0;
-  }
-
-  /* ===== 冷启动快速通道 (Quick Start Box) ===== */
-  .quick-start-box {
-    margin: var(--spacing-8) 0;
-    padding: var(--spacing-4);
-    background: var(--color-surface-pure);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-xs);
-  }
-
-  .quick-start-head {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-2);
-    margin-bottom: var(--spacing-3);
-  }
-
-  .quick-start-head .gold-thread-dot {
-    color: var(--color-gold-dust);
-    font-size: 10px;
-  }
-
-  .quick-start-title {
-    font-family: var(--font-family-ui);
-    font-size: 11px;
-    font-weight: var(--font-weight-medium);
-    color: var(--color-brand-purple, #5e4c7a);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .quick-paths-stack {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-2);
-  }
-
-  .quick-path-btn {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-3);
-    padding: var(--spacing-2) var(--spacing-3);
-    background: var(--color-surface-soft);
-    border: 1px solid var(--color-border-divider);
-    border-radius: var(--radius-xs);
-    cursor: pointer;
-    text-align: left;
-    transition: all var(--transition-fast);
-    width: 100%;
-  }
-
-  .quick-path-btn:hover {
-    background: var(--color-surface-pure);
-    border-color: var(--color-gold-dust);
-    transform: translateX(2px);
-  }
-
-  .path-index {
-    font-family: var(--font-family-heading);
-    font-size: 13px;
-    font-style: italic;
-    font-weight: 300;
-    color: var(--color-brand-purple, #5e4c7a);
-    flex-shrink: 0;
-  }
-
-  .path-info {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    flex-grow: 1;
-  }
-
-  .path-title {
-    font-family: var(--font-family-ui);
-    font-size: 12px;
-    font-weight: var(--font-weight-medium);
-    color: var(--color-text-primary);
-    line-height: 1.35;
-  }
-
-  .path-meta {
-    font-family: var(--font-family-ui);
-    font-size: 10.5px;
-    color: var(--color-text-tertiary);
-  }
-
-  .path-arrow {
-    font-family: var(--font-family-mono);
-    font-size: 11px;
-    color: var(--color-gold-dust);
-    transition: transform var(--transition-fast);
-  }
-
-  .quick-path-btn:hover .path-arrow {
-    transform: translateX(2px);
-    color: var(--color-brand-purple, #5e4c7a);
   }
 
   .sidebar-footer {
