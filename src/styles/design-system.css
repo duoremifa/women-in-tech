@@ -710,45 +710,38 @@
    深色模式 · 宁静低压版（温暖夜光）
    ============================================ */
 :root.dark {
-  /* 文本色 - 低反光，柔白 */
-  --color-text-primary: #f0ede9;
-  --color-text-secondary: #cbc6c0;
-  --color-text-tertiary: #a6a09a;
+  /* 文本色 - 低反光，柔白与温和灰 */
+  --color-text-primary: #eae6df;
+  --color-text-secondary: #aba49a;
+  --color-text-tertiary: #797369;
   --color-text-heading: #faf8f5;
 
-  /* 表面色 - 深灰带紫调，不冰冷 */
-  --color-bg-page: #1c1b1f;
-  --color-surface-primary: #2a2830;
+  /* 表面色 - 手工暗夜炭纸基调，层次分明 */
+  --color-bg-page: #151413;
+  --color-surface-primary: #151413;
+  --color-surface-secondary: #1a1917;
+  --color-surface-tertiary: #22201d;
+  --color-surface-quaternary: #262421;
 
-  /* 统一为页脚标准色 */
-  --color-surface-secondary: #1f1f2b;
+  --color-surface-pure: #1e1d1b;
+  --color-surface-soft: #252320;
+  --color-surface-card: #1e1d1b;
 
-  /* 深色次级背景 */
-  --color-surface-tertiary: #242429;
+  /* 边框 - 极细暗金与微光分割 */
+  --color-border-subtle: rgba(216, 205, 176, 0.15);
+  --color-border-divider: rgba(255, 255, 255, 0.08);
+  --color-border-light: rgba(216, 205, 176, 0.18);
+  --color-border: rgba(216, 205, 176, 0.28);
 
-  /* 深色三级背景 */
-  --color-surface-quaternary: #1e1e2a;
-
-  /* 深色四级背景 */
-  --color-surface-pure: #2a2830;
-  --color-surface-soft: #2f2d35;
-  --color-surface-card: #2a2830;
-
-  /* 边框 - 暗金细线 */
-  --color-border-subtle: #434047;
-  --color-border-divider: #3b3940;
-  --color-border-light: #4a4750;
-  --color-border: #5e5a64;
-
-  /* 主色 - 夜光薰衣草 */
+  /* 主色 - 柔和夜光薰衣草 */
   --color-primary: #cbbae6;
-  --color-primary-light: #35323e;
-  --color-primary-dark: #a693cc;
-  --color-primary-50: rgb(203 186 230 / 5%);
-  --color-primary-100: rgb(203 186 230 / 10%);
-  --color-primary-200: rgb(203 186 230 / 15%);
-  --color-primary-300: rgb(203 186 230 / 20%);
-  --color-primary-400: rgb(203 186 230 / 30%);
+  --color-primary-light: #2b2733;
+  --color-primary-dark: #b29ed4;
+  --color-primary-50: rgba(203, 186, 230, 0.08);
+  --color-primary-100: rgba(203, 186, 230, 0.14);
+  --color-primary-200: rgba(203, 186, 230, 0.22);
+  --color-primary-300: rgba(203, 186, 230, 0.3);
+  --color-primary-400: rgba(203, 186, 230, 0.4);
   --color-primary-500: #cbbae6;
   --color-primary-600: #b09ad1;
   --color-primary-700: #a084c2;
@@ -756,12 +749,10 @@
   --color-primary-900: #5e4c7a;
   --color-primary-rgb: 203, 186, 230;
 
-  /* 点缀金 -> 暗金 */
-  --color-gold-dust: #bfb09b;
-
-  /* 深金RGB值 */
-  --color-gold-dust-rgb: 191, 176, 155;
-  --color-gold-dust-light: #4a4540;
+  /* 点缀金 - 哑光暖金 */
+  --color-gold-dust: #d8cdb0;
+  --color-gold-dust-rgb: 216, 205, 176;
+  --color-gold-dust-light: #2e2b26;
 
   /* 页脚变量 - 深色模式 */
   --surface-footer: var(--color-surface-card);

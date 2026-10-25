@@ -1,0 +1,338 @@
+---
+import Layout from '../layouts/Layout.astro';
+import GeometricVisual from '../components/GeometricVisual.astro';
+---
+
+<Layout
+  title='日常与创作机制 · What We Do · wo/men in tech'
+  description='在商业流水线之外，守住纯粹的手艺与思考。Coffee Chat、English Chat 与 作品 Lab。'
+  width='reading'
+>
+  <div class='page-container'>
+    <header class='page-header'>
+      <span class='section-eyebrow'>WHAT WE DO</span>
+      <h1 class='page-title'>日常与创作机制</h1>
+      <p class='page-lead'>
+        在商业流水线之外，守住纯粹的手艺与思考。<br />
+        不赶 deadline，不做为了证明什么的交付，只做对得起自己的作品与交流。
+      </p>
+      <div class='gold-hairline'></div>
+    </header>
+
+    <div class='events-detail-stack'>
+      {/* 模块 1: Coffee Chat */}
+      <article class='event-detail-card'>
+        <div class='card-header-line'>
+          <span class='card-index'>01</span>
+          <span class='card-badge'>双周轻聚 · 线上 / 杭州</span>
+        </div>
+        <h2 class='card-title'>Coffee Chat</h2>
+        <div class='card-body'>
+          <p class='card-lead'>
+            这不是商务社交（networking），也不是换取资源的交易场。
+          </p>
+          <p>
+            在杭州的静谧小馆或线上视频室，两三个人，把手里的咖啡喝完。聊聊最近在做的事、阅读中的灵感卡壳、正在推敲的独立小工具，或者纯粹听别人讲一段探索的经历。
+          </p>
+          <div class='card-insight-box'>
+            <span class='insight-label'>守则 · Principles</span>
+            <ul class='insight-list'>
+              <li><strong>去评判</strong>：不输出居高临下的职场说教，只呈现真实的体悟与困惑。</li>
+              <li><strong>低压倾听</strong>：你可以畅所欲言，也可以选择全程安静聆听。</li>
+              <li><strong>保护留白</strong>：每一次交流不设既定结论，让思考自然发酵。</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      {/* 模块 2: English Chat */}
+      <article class='event-detail-card'>
+        <div class='card-header-line'>
+          <span class='card-index'>02</span>
+          <span class='card-badge'>双周线上 · 不定期</span>
+        </div>
+        <h2 class='card-title'>English Tech & Design Chat</h2>
+        <div class='card-body'>
+          <p class='card-lead'>
+            用英语聊产品、设计或代码，在一个不被审判的环境里自由试错。
+          </p>
+          <p>
+            全球化与独立出海并不遥远，很多时候阻碍我们的不是技术本身，而是开口前的审慎与自我怀疑。我们提供 40-60 分钟的轻量 Show & Tell，每人 5 分钟，用英文讲述一个自己喜欢的界面细节、技术方案或设计权衡。
+          </p>
+          <div class='card-insight-box'>
+            <span class='insight-label'>收获 · Takeaways</span>
+            <ul class='insight-list'>
+              <li><strong>安全语境</strong>：无论口语流利与否，这里只有耐心的倾听与真诚的反馈。</li>
+              <li><strong>全球审美视野</strong>：接触海外优秀独立软件、开源美学与小而美产品模式。</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      {/* 模块 3: 作品 Lab */}
+      <article class='event-detail-card'>
+        <div class='card-header-line'>
+          <span class='card-index'>03</span>
+          <span class='card-badge'>慢工出细活 · 小组共建</span>
+        </div>
+        <h2 class='card-title'>作品 Lab · Portfolio Co-building</h2>
+        <div class='card-body'>
+          <p class='card-lead'>
+            把那个在脑海里转了很久的小想法，拿出来做成一件立得住的器物。
+          </p>
+          <p>
+            在工作中我们大多负责某一个螺丝钉环节，很少能完整掌控一件产品从哲学、交互到代码的整体质感。在作品 Lab 中，不同视角的女性创造者互借经验——设计师带来克制顶奢的审美体系，工程师提供严丝合缝的工程实现，研究者打磨真实的问题闭环。
+          </p>
+          <div class='card-insight-box'>
+            <span class='insight-label'>标准 · Standard</span>
+            <ul class='insight-list'>
+              <li><strong>只做值得的事</strong>：拒绝粗制滥造的练习稿，每一行代码与每一帧动效都经得起审视。</li>
+              <li><strong>个人署名</strong>：所有合作方案完全归属于创作者本人，可直接作为独立代表作。</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    {/* 底部行动引导 */}
+    <section class='next-steps'>
+      <div class='next-card'>
+        <div class='next-text'>
+          <h3>想参加最近的一期交流？</h3>
+          <p>查看近期的具体排期，或者直接告诉我们你的兴趣。</p>
+        </div>
+        <div class='next-actions'>
+          <a href='/upcoming' class='btn-link-gold'>查看近期排期 →</a>
+          <a href='/join' class='btn-solid-dark'>预约加入我们</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .page-container {
+    padding: var(--spacing-6) 0 var(--spacing-20);
+  }
+
+  .page-header {
+    margin-bottom: var(--spacing-12);
+  }
+
+  .section-eyebrow {
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.16em;
+    color: var(--color-primary-dark);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: var(--spacing-3);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .page-title {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-light);
+    color: var(--color-text-heading);
+    letter-spacing: -0.02em;
+    line-height: var(--line-height-tight);
+    margin: 0 0 var(--spacing-4);
+  }
+
+  .page-lead {
+    font-family: var(--font-family-text);
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    line-height: 1.85;
+    margin: 0;
+  }
+
+  .gold-hairline {
+    width: 2.5rem;
+    height: 1px;
+    background: var(--color-gold-dust);
+    opacity: 0.5;
+    margin-top: var(--spacing-6);
+  }
+
+  /* 活动卡片组 */
+  .events-detail-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-10);
+  }
+
+  .event-detail-card {
+    background: var(--color-surface-pure);
+    border: var(--border-width-thin) solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-8);
+    box-shadow: 0 1px 3px rgba(38, 34, 28, 0.02);
+  }
+
+  .card-header-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-3);
+  }
+
+  .card-index {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-dust);
+    font-weight: var(--font-weight-light);
+  }
+
+  .card-badge {
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    border: 1px solid var(--color-border-divider);
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-soft);
+  }
+
+  .card-title {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-heading);
+    letter-spacing: -0.01em;
+    margin: 0 0 var(--spacing-4);
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+  }
+
+  .card-lead {
+    font-size: var(--font-size-base);
+    color: var(--color-text-primary);
+    line-height: 1.75;
+    font-weight: var(--font-weight-medium);
+  }
+
+  .card-body p {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.85;
+    margin: 0;
+  }
+
+  .card-insight-box {
+    background: var(--color-surface-soft);
+    border-left: 2px solid var(--color-gold-dust);
+    padding: var(--spacing-4) var(--spacing-5);
+    margin-top: var(--spacing-3);
+  }
+
+  .insight-label {
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    display: block;
+    margin-bottom: var(--spacing-2);
+  }
+
+  .insight-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .insight-list li {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
+
+  .insight-list strong {
+    color: var(--color-text-primary);
+  }
+
+  /* 底部导流 */
+  .next-steps {
+    margin-top: var(--spacing-16);
+  }
+
+  .next-card {
+    background: var(--color-surface-pure);
+    border: var(--border-width-thin) solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-8);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-6);
+  }
+
+  .next-text h3 {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-heading);
+    margin: 0 0 var(--spacing-1);
+  }
+
+  .next-text p {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  .next-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+  }
+
+  .btn-link-gold {
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    color: var(--color-gold-dust);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    padding: var(--spacing-2) 0;
+  }
+
+  .btn-link-gold:hover {
+    color: var(--color-text-heading);
+  }
+
+  .btn-solid-dark {
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.04em;
+    padding: var(--spacing-3) var(--spacing-6);
+    background: var(--color-text-heading);
+    color: var(--color-bg-page);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+
+  .btn-solid-dark:hover {
+    background: var(--color-primary-dark);
+  }
+
+  @media (width <= 640px) {
+    .event-detail-card {
+      padding: var(--spacing-5);
+    }
+    .next-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

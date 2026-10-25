@@ -1,0 +1,383 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title='近期安排 · Upcoming · wo/men in tech'
+  description='近期 Coffee Chat 与 English Chat 交流安排。小规模、低压力、真诚对话。'
+  width='reading'
+>
+  <div class='page-container'>
+    <header class='page-header'>
+      <span class='section-eyebrow'>UPCOMING GATHERINGS</span>
+      <h1 class='page-title'>近期安排</h1>
+      <p class='page-lead'>
+        每一次聚会都保持极小规模（3-6 人），<br />
+        确保每个人都有充裕的表达时间与安静聆听的呼吸空间。
+      </p>
+      <div class='gold-hairline'></div>
+    </header>
+
+    <div class='schedule-cards-stack'>
+      {/* 安排 01 */}
+      <article class='schedule-block'>
+        <div class='schedule-indicator'>
+          <span class='block-num'>01</span>
+          <span class='block-type'>Coffee Chat</span>
+        </div>
+        <div class='schedule-content'>
+          <div class='block-status-line'>
+            <span class='status-pill status-open'>开放预约中</span>
+            <span class='status-meta'>双周周末 · 杭州线下 + 线上接入</span>
+          </div>
+          <h2 class='block-title'>AI 时代，还剩下什么是属于自己的？</h2>
+          <p class='block-desc'>
+            当生成式代码和模板能够秒级产出界面，我们对于“手艺”与“代表作”的定义正在发生怎样的变化？这一期我们坐下来，聊聊如何从工业流水线的焦虑中抽离，重新发现具有个人辨识度的表达。
+          </p>
+          <div class='block-meta-grid'>
+            <div class='meta-col'>
+              <span class='meta-label'>交流形式</span>
+              <span class='meta-val'>杭州静谧咖啡馆（线下）+ 视频连线（线上）</span>
+            </div>
+            <div class='meta-col'>
+              <span class='meta-label'>适合对象</span>
+              <span class='meta-val'>对产品、视觉与工程有个人执念的创造者</span>
+            </div>
+          </div>
+          <div class='block-action'>
+            <a href='/join' class='btn-rsvp'>预约本期席位 →</a>
+          </div>
+        </div>
+      </article>
+
+      {/* 安排 02 */}
+      <article class='schedule-block'>
+        <div class='schedule-indicator'>
+          <span class='block-num'>02</span>
+          <span class='block-type'>English Chat</span>
+        </div>
+        <div class='schedule-content'>
+          <div class='block-status-line'>
+            <span class='status-pill status-open'>开放预约中</span>
+            <span class='status-meta'>双周周中晚间 · 线上 40-50 min</span>
+          </div>
+          <h2 class='block-title'>Show & Tell — Walk Me Through Something You Made</h2>
+          <p class='block-desc'>
+            每人准备 5 分钟，用英文讲述一个你最近喜欢的小东西：可以是一个精致的 CSS 微交互、一段让你眼前一亮的设计系统 Token，或者一个正在构建的侧边项目。在零评判的安全语境里，迈出全球化表达的第一步。
+          </p>
+          <div class='block-meta-grid'>
+            <div class='meta-col'>
+              <span class='meta-label'>交流形式</span>
+              <span class='meta-val'>线上视频室 · 仅限 5 人以内</span>
+            </div>
+            <div class='meta-col'>
+              <span class='meta-label'>适合对象</span>
+              <span class='meta-val'>希望消除出海英语交流焦虑的女性同行</span>
+            </div>
+          </div>
+          <div class='block-action'>
+            <a href='/join' class='btn-rsvp'>预约本期席位 →</a>
+          </div>
+        </div>
+      </article>
+
+      {/* 安排 03 */}
+      <article class='schedule-block'>
+        <div class='schedule-indicator'>
+          <span class='block-num'>03</span>
+          <span class='block-type'>作品 Lab</span>
+        </div>
+        <div class='schedule-content'>
+          <div class='block-status-line'>
+            <span class='status-pill status-draft'>小组筹备中</span>
+            <span class='status-meta'>慢节奏共建 · 滚动开展</span>
+          </div>
+          <h2 class='block-title'>第一期作品共建方案：纯粹美感与高可用架构</h2>
+          <p class='block-desc'>
+            我们计划召集 2-3 位不同专长的伙伴，利用业余时间合力完成一个真正具有收藏质感与实用价值的开源 Web 产品。拒绝粗糙玩具，把每一处间距与基线对齐做到极致。
+          </p>
+          <div class='block-meta-grid'>
+            <div class='meta-col'>
+              <span class='meta-label'>协作模式</span>
+              <span class='meta-val'>异步推敲 + 周末轻度同步</span>
+            </div>
+            <div class='meta-col'>
+              <span class='meta-label'>参与条件</span>
+              <span class='meta-val'>有一项愿意深度投入的核心专长</span>
+            </div>
+          </div>
+          <div class='block-action'>
+            <a href='/join' class='btn-rsvp'>表达共建意向 →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    {/* 底部常见疑问 */}
+    <footer class='faq-section'>
+      <div class='faq-card'>
+        <h3>关于活动的二三事</h3>
+        <div class='faq-grid'>
+          <div class='faq-item'>
+            <h4>收费吗？</h4>
+            <p>不收取任何社群费用。线下咖啡聚会各自点单，线上活动完全免费开放。</p>
+          </div>
+          <div class='faq-item'>
+            <h4>必须说话很多吗？</h4>
+            <p>完全不用。你可以根据当天的精力和心境决定发言的频率，安静陪伴同样受到欢迎。</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</Layout>
+
+<style>
+  .page-container {
+    padding: var(--spacing-6) 0 var(--spacing-20);
+  }
+
+  .page-header {
+    margin-bottom: var(--spacing-12);
+  }
+
+  .section-eyebrow {
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.16em;
+    color: var(--color-primary-dark);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: var(--spacing-3);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .page-title {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-light);
+    color: var(--color-text-heading);
+    letter-spacing: -0.02em;
+    line-height: var(--line-height-tight);
+    margin: 0 0 var(--spacing-4);
+  }
+
+  .page-lead {
+    font-family: var(--font-family-text);
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    line-height: 1.85;
+    margin: 0;
+  }
+
+  .gold-hairline {
+    width: 2.5rem;
+    height: 1px;
+    background: var(--color-gold-dust);
+    opacity: 0.5;
+    margin-top: var(--spacing-6);
+  }
+
+  /* 安排卡片列表 */
+  .schedule-cards-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+  }
+
+  .schedule-block {
+    background: var(--color-surface-pure);
+    border: var(--border-width-thin) solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-8);
+    display: flex;
+    gap: var(--spacing-8);
+    align-items: flex-start;
+    box-shadow: 0 1px 3px rgba(38, 34, 28, 0.02);
+  }
+
+  .schedule-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 68px;
+    padding: var(--spacing-3) var(--spacing-2);
+    background: var(--color-surface-soft);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+  }
+
+  .block-num {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-light);
+    color: var(--color-text-heading);
+    line-height: 1;
+  }
+
+  .block-type {
+    font-family: var(--font-family-ui);
+    font-size: 10px;
+    color: var(--color-primary-dark);
+    letter-spacing: 0.04em;
+    margin-top: 4px;
+    text-align: center;
+  }
+
+  .schedule-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+  }
+
+  .block-status-line {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+  }
+
+  .status-pill {
+    font-family: var(--font-family-ui);
+    font-size: 10px;
+    padding: 1px 8px;
+    border-radius: var(--radius-pill);
+    letter-spacing: 0.04em;
+  }
+
+  .status-open {
+    background: rgba(196, 214, 204, 0.25);
+    color: #436956;
+    border: 1px solid rgba(196, 214, 204, 0.5);
+  }
+
+  .status-draft {
+    background: var(--color-surface-soft);
+    color: var(--color-text-tertiary);
+    border: 1px solid var(--color-border-divider);
+  }
+
+  .status-meta {
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    font-family: var(--font-family-ui);
+  }
+
+  .block-title {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-heading);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .block-desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .block-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-4);
+    background: var(--color-surface-soft);
+    padding: var(--spacing-3) var(--spacing-4);
+    border-radius: var(--radius-xs);
+    margin-top: var(--spacing-2);
+  }
+
+  .meta-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .meta-label {
+    font-family: var(--font-family-ui);
+    font-size: 10px;
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .meta-val {
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-primary);
+  }
+
+  .block-action {
+    margin-top: var(--spacing-2);
+  }
+
+  .btn-rsvp {
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    color: var(--color-gold-dust);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    display: inline-block;
+    transition: color var(--transition-fast);
+  }
+
+  .btn-rsvp:hover {
+    color: var(--color-text-heading);
+  }
+
+  /* FAQ */
+  .faq-section {
+    margin-top: var(--spacing-16);
+  }
+
+  .faq-card {
+    background: var(--color-surface-pure);
+    border: var(--border-width-thin) solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-8);
+  }
+
+  .faq-card h3 {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-light);
+    color: var(--color-text-heading);
+    margin: 0 0 var(--spacing-6);
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-8);
+  }
+
+  .faq-item h4 {
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    margin: 0 0 var(--spacing-2);
+  }
+
+  .faq-item p {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  @media (width <= 640px) {
+    .schedule-block {
+      flex-direction: column;
+      padding: var(--spacing-5);
+    }
+    .block-meta-grid {
+      grid-template-columns: 1fr;
+    }
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

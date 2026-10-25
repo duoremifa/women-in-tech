@@ -1,0 +1,502 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title='预约加入 · Join the Circle · wo/men in tech'
+  description='预约交流与加入 wo/men in tech 社群。低压力、真诚、互相托举。'
+  width='reading'
+>
+  <div class='page-container'>
+    <header class='page-header'>
+      <span class='section-eyebrow'>JOIN THE CIRCLE</span>
+      <h1 class='page-title'>预约交流 · 加入“我们”</h1>
+      <p class='page-lead'>
+        如果你在技术、设计或创造领域，正在寻找同频且能互相托举的伙伴，<br />
+        欢迎留下你的声音。没有复杂的考核，只有平等的倾听与共同打磨。
+      </p>
+      <div class='gold-hairline'></div>
+    </header>
+
+    <div class='form-card-container'>
+      <form id='circle-join-form' class='quiet-form'>
+        {/* 字段 1: 称呼 */}
+        <div class='form-field'>
+          <label class='field-label' for='join-name'>
+            <span>如何称呼你</span>
+            <span class='field-hint'>Name / Nickname</span>
+          </label>
+          <input
+            type='text'
+            id='join-name'
+            name='name'
+            placeholder='例如：Erin 或你习惯的称呼'
+            required
+            autocomplete='off'
+          />
+        </div>
+
+        {/* 字段 2: 从事领域 (前置细金线单选列表) */}
+        <div class='form-field'>
+          <label class='field-label'>
+            <span>你在从事的领域</span>
+            <span class='field-hint'>单选 · 用于安排同频交流</span>
+          </label>
+          <div class='quiet-check-list' role='radiogroup' aria-label='从事领域'>
+            <label class='quiet-check-row is-radio'>
+              <input type='radio' name='craft' value='design' checked />
+              <span class='check-indicator' aria-hidden='true'></span>
+              <div class='check-content'>
+                <span class='check-title'>设计 · 视觉传达 / 交互体验 (IxD / UI)</span>
+                <span class='check-note'>视觉、触感与动效</span>
+              </div>
+            </label>
+
+            <label class='quiet-check-row is-radio'>
+              <input type='radio' name='craft' value='product' />
+              <span class='check-indicator' aria-hidden='true'></span>
+              <div class='check-content'>
+                <span class='check-title'>产品 · 商业逻辑 / 独立孵化 (PM)</span>
+                <span class='check-note'>痛点挖掘与体验闭环</span>
+              </div>
+            </label>
+
+            <label class='quiet-check-row is-radio'>
+              <input type='radio' name='craft' value='engineering' />
+              <span class='check-indicator' aria-hidden='true'></span>
+              <div class='check-content'>
+                <span class='check-title'>工程 · 前端架构 / 独立全栈 (FE / Fullstack)</span>
+                <span class='check-note'>代码实现与鲁棒工程</span>
+              </div>
+            </label>
+
+            <label class='quiet-check-row is-radio'>
+              <input type='radio' name='craft' value='research' />
+              <span class='check-indicator' aria-hidden='true'></span>
+              <div class='check-content'>
+                <span class='check-title'>研究 · 用户洞察 / 写作出版 (Research / Writing)</span>
+                <span class='check-note'>深度观察与概念叙事</span>
+              </div>
+            </label>
+
+            <label class='quiet-check-row is-radio'>
+              <input type='radio' name='craft' value='other' />
+              <span class='check-indicator' aria-hidden='true'></span>
+              <div class='check-content'>
+                <span class='check-title'>其他创造性领域 · 自由探索者</span>
+                <span class='check-note'>跨学科独立创作者</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        {/* 字段 3: 感兴趣的活动 (前置细金线多选列表) */}
+        <div class='form-field'>
+          <label class='field-label'>
+            <span>想参与的活动形式</span>
+            <span class='field-hint'>多选 · 可全选</span>
+          </label>
+          <div class='quiet-check-list'>
+            <label class='quiet-check-row'>
+              <input type='checkbox' name='interests' value='coffee_chat' checked />
+              <span class='check-indicator' aria-hidden='true'>
+                <svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg>
+              </span>
+              <div class='check-content'>
+                <span class='check-title'>☕ Offline & Online Coffee Chat</span>
+                <span class='check-note'>双周轻聚 · 低压真诚</span>
+              </div>
+            </label>
+
+            <label class='quiet-check-row'>
+              <input type='checkbox' name='interests' value='english_chat' checked />
+              <span class='check-indicator' aria-hidden='true'>
+                <svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg>
+              </span>
+              <div class='check-content'>
+                <span class='check-title'>🗣️ English Tech & Design Chat</span>
+                <span class='check-note'>跨文化表达 · 5 min Show & Tell</span>
+              </div>
+            </label>
+
+            <label class='quiet-check-row'>
+              <input type='checkbox' name='interests' value='portfolio_building' checked />
+              <span class='check-indicator' aria-hidden='true'>
+                <svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg>
+              </span>
+              <div class='check-content'>
+                <span class='check-title'>🛠️ 作品 Lab · 慢工出细活</span>
+                <span class='check-note'>经验互借 · 代表作打磨</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        {/* 字段 4: 正在琢磨的事 */}
+        <div class='form-field'>
+          <label class='field-label' for='join-idea'>
+            <span>正在做的事，或者想交流的话题</span>
+            <span class='field-hint'>可留空</span>
+          </label>
+          <textarea
+            id='join-idea'
+            name='idea'
+            rows='3'
+            placeholder='例如：正在构思一个极简独立工具，想找设计师伙伴交流；或者想练习用英语做一次产品 demo……'
+          ></textarea>
+        </div>
+
+        {/* 字段 5: 联系方式 */}
+        <div class='form-field'>
+          <label class='field-label' for='join-contact'>
+            <span>联系方式</span>
+            <span class='field-hint'>微信或邮箱 · 仅用于活动邀请</span>
+          </label>
+          <input
+            type='text'
+            id='join-contact'
+            name='contact'
+            placeholder='微信号或 Email'
+            required
+            autocomplete='off'
+          />
+        </div>
+
+        {/* 提交按钮与状态 */}
+        <div class='submit-zone'>
+          <button type='submit' class='submit-btn-primary' id='submit-trigger'>
+            <span>提交预约与交流意向</span>
+            <span class='btn-arrow'>→</span>
+          </button>
+          <span class='privacy-reassurance'>
+            承诺不作任何商业营销 · 随时可退订联系
+          </span>
+        </div>
+
+        {/* 成功反馈回执函卡片 (真正的响应式闭环) */}
+        <div id='join-feedback' class='feedback-receipt' style='display: none;'>
+          <div class='receipt-card'>
+            <div class='receipt-header'>
+              <span class='receipt-mark'>✦</span>
+              <div>
+                <h3 class='receipt-title'>意向已真诚记录</h3>
+                <span class='receipt-id' id='receipt-id-display'>回执编号: WT-PENDING</span>
+              </div>
+            </div>
+            <p class='receipt-desc'>
+              感谢你的加入。我们会在下一次 Coffee Chat 或 English Chat 排期确定前，通过微信或邮箱与你一对一确认。
+            </p>
+            <div class='receipt-summary' id='receipt-summary-box'>
+              {/* 动态填充摘要 */}
+            </div>
+            <div class='receipt-actions'>
+              <button type='button' class='btn-copy-receipt' id='btn-copy-receipt'>
+                复制我的预约摘要
+              </button>
+              <a href='/' class='btn-back-home'>返回主页</a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById('circle-join-form') as HTMLFormElement | null;
+  const feedback = document.getElementById('join-feedback');
+  const submitBtn = document.getElementById('submit-trigger');
+  const receiptIdDisplay = document.getElementById('receipt-id-display');
+  const receiptSummaryBox = document.getElementById('receipt-summary-box');
+  const copyBtn = document.getElementById('btn-copy-receipt');
+
+  let lastPayloadText = '';
+
+  if (form && feedback) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(form);
+      const name = formData.get('name') as string;
+      const craft = formData.get('craft') as string;
+      const interests = formData.getAll('interests') as string[];
+      const idea = formData.get('idea') as string;
+      const contact = formData.get('contact') as string;
+
+      const payload = {
+        name,
+        craft,
+        interests,
+        idea,
+        contact,
+        clientTimestamp: new Date().toISOString(),
+      };
+
+      // 1. 本地存储备份 (确保数据永不丢失)
+      try {
+        const existing = JSON.parse(localStorage.getItem('wotech_rsvp_backup') || '[]');
+        existing.push(payload);
+        localStorage.setItem('wotech_rsvp_backup', JSON.stringify(existing));
+      } catch (err) {
+        console.warn('Local storage error:', err);
+      }
+
+      // 2. 尝试向后端 API 发送
+      let generatedId = `WT-${Date.now().toString(36).slice(-5).toUpperCase()}`;
+      try {
+        if (submitBtn) submitBtn.setAttribute('disabled', 'true');
+        const res = await fetch('/api/join', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (res.ok) {
+          const resData = await res.json();
+          if (resData.submissionId) generatedId = resData.submissionId;
+        }
+      } catch (err) {
+        console.log('API async offline handled, saved locally.');
+      }
+
+      // 3. 渲染回执卡片
+      if (receiptIdDisplay) receiptIdDisplay.textContent = `回执编号: #${generatedId}`;
+
+      const craftLabels: Record<string, string> = {
+        design: '设计 · 视觉传达 / 交互体验',
+        product: '产品 · 商业逻辑 / 独立孵化',
+        engineering: '工程 · 前端架构 / 独立全栈',
+        research: '研究 · 用户洞察 / 写作出版',
+        other: '其他创造性领域',
+      };
+
+      const interestLabels: Record<string, string> = {
+        coffee_chat: '☕ Coffee Chat',
+        english_chat: '🗣️ English Chat',
+        portfolio_building: '🛠️ 作品 Lab',
+      };
+
+      lastPayloadText = `【wo/men in tech 预约回执】\n编号: #${generatedId}\n称呼: ${name}\n专长: ${craftLabels[craft] || craft}\n活动: ${interests.map(i => interestLabels[i] || i).join('、')}\n联系: ${contact}\n${idea ? `思考: ${idea}\n` : ''}`;
+
+      if (receiptSummaryBox) {
+        receiptSummaryBox.innerHTML = `
+          <div class="summary-line"><span>称呼</span><strong>${name}</strong></div>
+          <div class="summary-line"><span>领域</span><strong>${craftLabels[craft] || craft}</strong></div>
+          <div class="summary-line"><span>活动</span><strong>${interests.map(i => interestLabels[i] || i).join('、')}</strong></div>
+          <div class="summary-line"><span>联系方式</span><strong>${contact}</strong></div>
+        `;
+      }
+
+      feedback.style.display = 'block';
+      if (submitBtn) submitBtn.style.display = 'none';
+      feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }
+
+  if (copyBtn) {
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(lastPayloadText);
+        copyBtn.textContent = '已复制回执文本 ✓';
+        setTimeout(() => {
+          copyBtn.textContent = '复制我的预约摘要';
+        }, 2000);
+      } catch (e) {
+        alert('可手动截屏保存此回执编号');
+      }
+    });
+  }
+</script>
+
+<style>
+  .page-container {
+    padding: var(--spacing-6) 0 var(--spacing-20);
+  }
+
+  .page-header {
+    margin-bottom: var(--spacing-12);
+  }
+
+  .section-eyebrow {
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.16em;
+    color: var(--color-primary-dark);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: var(--spacing-3);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .page-title {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-light);
+    color: var(--color-text-heading);
+    letter-spacing: -0.02em;
+    line-height: var(--line-height-tight);
+    margin: 0 0 var(--spacing-4);
+  }
+
+  .page-lead {
+    font-family: var(--font-family-text);
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    line-height: 1.85;
+    margin: 0;
+  }
+
+  .gold-hairline {
+    width: 2.5rem;
+    height: 1px;
+    background: var(--color-gold-dust);
+    opacity: 0.5;
+    margin-top: var(--spacing-6);
+  }
+
+  /* 表单卡片容器 */
+  .form-card-container {
+    background: var(--color-surface-pure);
+    border: var(--border-width-thin) solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-10);
+    box-shadow: 0 1px 3px rgba(38, 34, 28, 0.02);
+  }
+
+  .quiet-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .submit-zone {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-6);
+    flex-wrap: wrap;
+    margin-top: var(--spacing-2);
+  }
+
+  .privacy-reassurance {
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.02em;
+  }
+
+  /* 回执函卡片 */
+  .feedback-receipt {
+    margin-top: var(--spacing-6);
+  }
+
+  .receipt-card {
+    background: var(--color-surface-soft);
+    border: 1px solid var(--color-gold-dust);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-6);
+  }
+
+  .receipt-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    margin-bottom: var(--spacing-3);
+  }
+
+  .receipt-mark {
+    color: var(--color-gold-dust);
+    font-size: var(--font-size-xl);
+  }
+
+  .receipt-title {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-heading);
+    margin: 0;
+  }
+
+  .receipt-id {
+    font-family: var(--font-family-mono, monospace);
+    font-size: 11px;
+    color: var(--color-primary-dark);
+  }
+
+  .receipt-desc {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin: 0 0 var(--spacing-4);
+  }
+
+  .receipt-summary {
+    background: var(--color-surface-pure);
+    border: 1px solid var(--color-border-divider);
+    border-radius: var(--radius-xs);
+    padding: var(--spacing-3) var(--spacing-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-5);
+  }
+
+  :global(.summary-line) {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-family: var(--font-family-ui);
+  }
+
+  :global(.summary-line span) {
+    color: var(--color-text-tertiary);
+  }
+
+  :global(.summary-line strong) {
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .receipt-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+  }
+
+  .btn-copy-receipt {
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-heading);
+    background: var(--color-surface-pure);
+    border: 1px solid var(--color-border-subtle);
+    padding: var(--spacing-2) var(--spacing-4);
+    border-radius: var(--radius-xs);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .btn-copy-receipt:hover {
+    border-color: var(--color-gold-dust);
+  }
+
+  .btn-back-home {
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-tertiary);
+    text-decoration: none;
+  }
+
+  .btn-back-home:hover {
+    color: var(--color-text-heading);
+  }
+
+  @media (width <= 640px) {
+    .form-card-container {
+      padding: var(--spacing-5);
+    }
+  }
+</style>

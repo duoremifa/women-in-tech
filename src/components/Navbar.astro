@@ -1,13 +1,14 @@
 ---
 // src/components/Navbar.astro
-const currentPath = Astro.url.pathname;
+import ThemeToggle from './ThemeToggle.astro';
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 const navItems = [
-  { text: '理念 (About)', href: '#about', external: false },
-  { text: '角色 (Triad)', href: '#roles', external: false },
-  { text: '活动 (Events)', href: '#events', external: false },
-  { text: '作品 (Portfolio)', href: '#portfolio', external: false },
-  { text: '预约 (RSVP)', href: '#join', external: false },
+  { text: '理念', en: 'About', href: '/' },
+  { text: '日常', en: 'What We Do', href: '/events' },
+  { text: '安排', en: 'Upcoming', href: '/upcoming' },
+  { text: '加入', en: 'Join', href: '/join' },
 ];
 ---
 
@@ -20,18 +21,29 @@ const navItems = [
     </a>
   </div>
 
-  <!-- 右侧导航链接 -->
+  <!-- 右侧导航链接与主题切换 -->
   <div class='nav-right'>
-    {
-      navItems.map(item => (
-        <a
-          href={item.href}
-          class='nav-link'
-        >
-          {item.text}
-        </a>
-      ))
-    }
+    <div class='nav-links'>
+      {
+        navItems.map(item => {
+          const isActive = currentPath === item.href;
+          return (
+            <a
+              href={item.href}
+              class:list={['nav-link', { 'is-active': isActive }]}
+            >
+              <span class='nav-link-zh'>{item.text}</span>
+              <span class='nav-link-en'>{item.en}</span>
+              {isActive && <span class='nav-active-dot' />}
+            </a>
+          );
+        })
+      }
+    </div>
+
+    <div class='nav-divider'></div>
+
+    <ThemeToggle />
   </div>
 </nav>
 
@@ -42,24 +54,21 @@ const navItems = [
     justify-content: space-between;
     align-items: center;
     padding-top: var(--spacing-8);
-    padding-bottom: var(--spacing-6);
-    font-family: var(--font-family-ui);
-    font-size: var(--font-size-sm);
-    color: var(--color-text-secondary);
+    padding-bottom: var(--spacing-5);
     border-bottom: var(--border-width-thin) solid var(--color-border-divider);
-    margin-bottom: var(--spacing-6);
     position: relative;
   }
 
   /* ===== 品牌标识 ===== */
   .brand {
-    display: flex;
+    display: inline-flex;
     align-items: baseline;
     gap: var(--spacing-2);
     text-decoration: none !important;
     border-bottom: none !important;
     color: var(--color-text-primary);
     position: relative;
+    user-select: none;
   }
 
   .brand:hover {
@@ -76,8 +85,9 @@ const navItems = [
     font-family: var(--font-family-heading);
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-medium);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
     color: var(--color-text-heading);
+    line-height: 1;
   }
 
   .brand-slash {
@@ -93,47 +103,98 @@ const navItems = [
     font-family: var(--font-family-ui);
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-light);
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--color-primary-dark);
   }
 
-  /* ===== 链接样式 ===== */
+  /* ===== 导航右侧 ===== */
   .nav-right {
     display: flex;
     align-items: center;
-    gap: var(--spacing-5);
+    gap: var(--spacing-4);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-6);
   }
 
   .nav-link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
     color: var(--color-text-secondary);
-    text-decoration: none;
+    text-decoration: none !important;
+    border-bottom: none !important;
     font-size: var(--font-size-xs);
-    letter-spacing: 0.06em;
-    border-bottom: var(--border-width-thin) solid transparent;
-    transition:
-      border-color var(--transition-normal),
-      color var(--transition-normal);
-    padding-bottom: var(--spacing-1);
+    letter-spacing: 0.04em;
+    padding: var(--spacing-1) 0;
+    position: relative;
+    transition: color var(--transition-fast);
     white-space: nowrap;
   }
 
-  .nav-link:hover {
-    border-bottom-color: var(--color-primary);
-    color: var(--color-text-primary);
+  .nav-link::after {
+    display: none !important;
+    content: none !important;
   }
 
-  @media (width <= 768px) {
-    .quiet-nav {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: var(--spacing-4);
-      padding-bottom: var(--spacing-4);
-    }
+  .nav-link-zh {
+    font-family: var(--font-family-ui);
+    font-weight: var(--font-weight-normal);
+  }
 
-    .nav-right {
-      flex-wrap: wrap;
+  .nav-link-en {
+    font-family: var(--font-family-ui);
+    font-size: 10px;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.8;
+  }
+
+  .nav-link:hover {
+    color: var(--color-text-heading);
+  }
+
+  .nav-link:hover .nav-link-en {
+    color: var(--color-primary-dark);
+  }
+
+  .nav-link.is-active {
+    color: var(--color-text-heading);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .nav-link.is-active .nav-link-en {
+    color: var(--color-gold-dust);
+  }
+
+  .nav-active-dot {
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--color-gold-dust);
+  }
+
+  .nav-divider {
+    width: 1px;
+    height: 14px;
+    background: var(--color-border-divider);
+  }
+
+  @media (width <= 640px) {
+    .nav-links {
       gap: var(--spacing-3);
+    }
+    .nav-link-en {
+      display: none;
     }
   }
 </style>
