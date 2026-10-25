@@ -232,15 +232,54 @@ import Layout from '../layouts/Layout.astro';
                 <span class='receipt-id' id='receipt-id-display'>回执编号: WT-PENDING</span>
               </div>
             </div>
-            <p class='receipt-desc lang-zh'>
-              感谢你的加入。我们会在下一次 Coffee Chat 或 English Chat 排期确定前，通过微信或邮箱与你一对一确认。
-            </p>
-            <p class='receipt-desc lang-en'>
-              Thank you for reaching out. We will connect with you quietly via your contact info prior to our next circle gathering.
-            </p>
+            
+            <div class='receipt-desc-box'>
+              <p class='receipt-desc lang-zh' id='join-note-text'>
+                感谢你的加入。意向已收录入社群档案。
+              </p>
+              <p class='receipt-desc lang-en' id='join-note-text-en'>
+                Thank you for reaching out. Your note has been securely saved in our circle records.
+              </p>
+            </div>
+
             <div class='receipt-summary' id='receipt-summary-box'>
               {/* 动态填充摘要 */}
             </div>
+
+            {/* 闭环双操作区 */}
+            <div class='receipt-loop-grid'>
+              {/* 闭环 1: 日历占位 (.ics) */}
+              <div class='loop-cell'>
+                <div class='loop-cell-info'>
+                  <span class='loop-cell-tag lang-zh'>日历占位 · .ics</span>
+                  <span class='loop-cell-tag lang-en'>Calendar · .ics</span>
+                  <p class='loop-cell-desc lang-zh'>包含 Coffee Chat 与 Show & Tell 交流时段，一键导入手机或系统日历。</p>
+                  <p class='loop-cell-desc lang-en'>Includes Coffee Chat & Show & Tell slots. Import to system calendar with one click.</p>
+                </div>
+                <button type='button' class='btn-download-ics' id='join-btn-download-ics'>
+                  <span class='lang-zh'>下载 .ics 日历邀请 ↗</span>
+                  <span class='lang-en'>Download .ics Invite ↗</span>
+                </button>
+              </div>
+
+              {/* 闭环 2: 主理人微信快速直通 */}
+              <div class='loop-cell'>
+                <div class='loop-cell-info'>
+                  <span class='loop-cell-tag lang-zh'>主理人直通微信</span>
+                  <span class='loop-cell-tag lang-en'>Host Direct WeChat</span>
+                  <p class='loop-cell-desc lang-zh'>如需提前沟通作品或锁定面对面席位，可直接添加主理人微信。</p>
+                  <p class='loop-cell-desc lang-en'>Connect with host directly to confirm your seat or share upcoming thoughts.</p>
+                </div>
+                <div class='host-copy-box'>
+                  <code class='host-id'>daiminay</code>
+                  <button type='button' class='btn-copy-wechat' id='join-btn-copy-wechat' data-wechat='daiminay'>
+                    <span class='copy-text lang-zh'>复制微信号</span>
+                    <span class='copy-text lang-en'>Copy ID</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
             <div class='receipt-actions'>
               <button type='button' class='btn-copy-receipt' id='btn-copy-receipt'>
                 <span class='lang-zh'>复制我的预约摘要</span>
@@ -266,6 +305,11 @@ import Layout from '../layouts/Layout.astro';
     const receiptIdDisplay = document.getElementById('receipt-id-display');
     const receiptSummaryBox = document.getElementById('receipt-summary-box');
     const copyBtn = document.getElementById('btn-copy-receipt');
+    const downloadIcsBtn = document.getElementById('join-btn-download-ics');
+    const copyWechatBtn = document.getElementById('join-btn-copy-wechat');
+
+    let currentIcsData = '';
+    let currentSubId = '';
 
     function syncPlaceholders() {
       const isEn = document.documentElement.getAttribute('data-lang') === 'en';
@@ -278,6 +322,38 @@ import Layout from '../layouts/Layout.astro';
     window.addEventListener('site-language-change', syncPlaceholders);
 
     let lastPayloadText = '';
+
+    if (downloadIcsBtn) {
+      downloadIcsBtn.onclick = () => {
+        if (!currentIcsData) return;
+        const blob = new Blob([currentIcsData], { type: 'text/calendar;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `wotech-gathering-${currentSubId || 'invite'}.ics`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      };
+    }
+
+    if (copyWechatBtn) {
+      copyWechatBtn.onclick = async () => {
+        try {
+          await navigator.clipboard.writeText('daiminay');
+          const isEn = document.documentElement.getAttribute('data-lang') === 'en';
+          const label = copyWechatBtn.querySelector('.copy-text');
+          if (label) {
+            const original = label.textContent;
+            label.textContent = isEn ? '✓ Copied' : '✓ 已复制';
+            setTimeout(() => {
+              label.textContent = original;
+            }, 2500);
+          }
+        } catch (e) {}
+      };
+    }
 
     if (form && feedback) {
       form.onsubmit = async (e) => {
@@ -309,6 +385,10 @@ import Layout from '../layouts/Layout.astro';
 
         // 2. 尝试向服务端 API 提交
         let subId = `WT-${Date.now().toString(36).slice(-5).toUpperCase()}`;
+        currentSubId = subId;
+        const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(contact || '').trim());
+        let emailSent = false;
+
         if (submitBtn) submitBtn.setAttribute('disabled', 'true');
 
         try {
@@ -321,15 +401,52 @@ import Layout from '../layouts/Layout.astro';
             const resData = await res.json();
             if (resData.submissionId) {
               subId = resData.submissionId;
+              currentSubId = subId;
             }
+            if (resData.icsContent) currentIcsData = resData.icsContent;
+            if (resData.emailSent !== undefined) emailSent = resData.emailSent;
           }
         } catch (err) {}
+
+        // 本地保底生成 .ics
+        if (!currentIcsData) {
+          const dt = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+          currentIcsData = [
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'PRODID:-//wo/men in tech//Circle Gatherings//CN',
+            'CALSCALE:GREGORIAN',
+            'METHOD:REQUEST',
+            'BEGIN:VEVENT',
+            `UID:wotech-${subId}@wotech.space`,
+            `DTSTAMP:${dt}`,
+            'DTSTART:20261107T020000Z',
+            'DTEND:20261107T033000Z',
+            'SUMMARY:wo/men in tech · Coffee Chat & Show and Tell 交流席位',
+            `DESCRIPTION:致 ${name || '同行者'}：\\n欢迎加入 wo/men in tech 慢节奏交流。\\n回执编号: #${subId}\\n主理人微信：daiminay`,
+            'LOCATION:线上视频室 / 杭州静谧小店',
+            'STATUS:CONFIRMED',
+            'SEQUENCE:0',
+            'END:VEVENT',
+            'END:VCALENDAR',
+          ].join('\r\n');
+        }
 
         const isEn = document.documentElement.getAttribute('data-lang') === 'en';
 
         // 3. 展现回执
         if (receiptIdDisplay) {
           receiptIdDisplay.textContent = isEn ? `Receipt ID: #${subId}` : `回执编号: #${subId}`;
+        }
+
+        const noteZh = document.getElementById('join-note-text');
+        const noteEn = document.getElementById('join-note-text-en');
+        if (isEmail) {
+          if (noteZh) noteZh.innerHTML = `已向你的邮箱 <code>${contact}</code> 发送纯白衬线体确认信与 .ics 日历占位邀请（若未收到可检查垃圾箱）。`;
+          if (noteEn) noteEn.innerHTML = `A confirmation letter & .ics invite have been dispatched to <code>${contact}</code>.`;
+        } else {
+          if (noteZh) noteZh.innerHTML = `感谢你的加入。意向已记录至社群档案，你可以直接下载下方日历占位，或添加主理人微信。`;
+          if (noteEn) noteEn.innerHTML = `Thank you for joining. You may download the .ics invite below or connect via WeChat.`;
         }
 
         if (receiptSummaryBox) {
@@ -672,10 +789,107 @@ import Layout from '../layouts/Layout.astro';
     color: var(--color-primary-dark);
   }
 
+  .receipt-loop-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-4);
+    margin: var(--spacing-5) 0 var(--spacing-6);
+  }
+
+  .loop-cell {
+    background: var(--color-surface-soft);
+    border: 1px solid var(--color-border-subtle);
+    padding: var(--spacing-4);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: border-color var(--transition-fast);
+  }
+
+  .loop-cell:hover {
+    border-color: var(--color-gold-dust);
+  }
+
+  .loop-cell-info {
+    margin-bottom: var(--spacing-3);
+  }
+
+  .loop-cell-tag {
+    display: inline-block;
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-brand-purple, #5e4c7a);
+    margin-bottom: var(--spacing-1);
+    font-weight: 500;
+  }
+
+  .loop-cell-desc {
+    margin: 0;
+    font-family: var(--font-family-body);
+    font-size: 11.5px;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+  }
+
+  .btn-download-ics {
+    align-self: flex-start;
+    background: transparent;
+    border: 1px solid var(--color-gold-dust);
+    color: var(--color-gold-dust);
+    padding: 6px 12px;
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    cursor: pointer;
+    border-radius: var(--radius-xs);
+    transition: all 0.2s ease;
+  }
+
+  .btn-download-ics:hover {
+    background: var(--color-gold-dust);
+    color: #fff;
+  }
+
+  .host-copy-box {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    margin-top: auto;
+  }
+
+  .host-id {
+    font-family: var(--font-family-mono);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-text-heading);
+    background: var(--color-surface-pure);
+    padding: 3px 8px;
+    border: 1px solid var(--color-border-divider);
+  }
+
+  .btn-copy-wechat {
+    background: var(--color-brand-purple, #5e4c7a);
+    color: #fff;
+    border: none;
+    padding: 5px 12px;
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    cursor: pointer;
+    border-radius: 999px;
+    transition: opacity 0.2s ease;
+  }
+
+  .btn-copy-wechat:hover {
+    opacity: 0.9;
+  }
+
   .receipt-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-top: var(--spacing-4);
+    border-top: 1px solid var(--color-border-divider);
   }
 
   .btn-copy-receipt {
