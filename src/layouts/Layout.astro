@@ -205,6 +205,9 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
     background-color: var(--color-bg-page);
     padding-top: var(--spacing-8); /* 顶部留白（与导航间距） */
     padding-bottom: var(--spacing-20); /* 底部留白（与页脚间距） */
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
   }
 
   /* 深色模式适配（由变量自动处理，无需额外代码） */

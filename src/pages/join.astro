@@ -499,8 +499,10 @@ import Layout from '../layouts/Layout.astro';
 
         lastPayloadText = `wo/men in tech 回执 #${subId}\n称呼: ${name}\n领域: ${craft}\n意向: ${interests.join(', ')}\n联系: ${contact}`;
 
+        form.querySelectorAll<HTMLElement>('.form-field, .submit-zone').forEach((el) => {
+          el.style.display = 'none';
+        });
         feedback.style.display = 'block';
-        if (submitBtn) submitBtn.style.display = 'none';
         feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       };
     }
@@ -759,21 +761,24 @@ import Layout from '../layouts/Layout.astro';
 
   /* 成功回执 */
   .feedback-receipt {
-    margin-top: var(--spacing-8);
+    margin-top: 0;
+    width: 100%;
   }
 
   .receipt-card {
-    background: var(--color-surface-card);
-    border: 1px solid var(--color-border-divider);
-    border-radius: var(--radius-xs);
-    padding: var(--spacing-6);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
   }
 
   .receipt-header {
     display: flex;
     align-items: center;
-    gap: var(--spacing-3);
-    margin-bottom: var(--spacing-3);
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-4);
+    padding-bottom: var(--spacing-4);
+    border-bottom: 1px solid var(--color-border-divider);
   }
 
   .receipt-mark {
@@ -802,6 +807,22 @@ import Layout from '../layouts/Layout.astro';
     color: var(--color-text-secondary);
     line-height: var(--line-height-relaxed);
     margin: 0 0 var(--spacing-4);
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .receipt-desc code {
+    font-family: var(--font-family-mono);
+    background: var(--color-surface-soft);
+    padding: 2px 7px;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-xs);
+    font-size: 12px;
+    color: var(--color-brand-purple, #5e4c7a);
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    max-width: 100%;
+    display: inline;
   }
 
   .receipt-summary {
@@ -987,7 +1008,24 @@ import Layout from '../layouts/Layout.astro';
     }
 
     .form-card-container {
-      padding: var(--spacing-5) var(--spacing-4);
+      padding: 20px 16px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .feedback-receipt {
+      margin-top: 0;
+      padding: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .receipt-card {
+      padding: 0;
+      background: transparent;
+      border: none;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .quiet-check-row {
@@ -1011,6 +1049,13 @@ import Layout from '../layouts/Layout.astro';
     .receipt-loop-grid {
       grid-template-columns: 1fr;
       gap: 12px;
+      width: 100%;
+    }
+
+    .loop-cell {
+      padding: 14px;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .btn-download-ics {
@@ -1022,12 +1067,13 @@ import Layout from '../layouts/Layout.astro';
       align-items: center;
     }
 
-    .host-copy-box {
+    .wechat-field-card {
       display: flex;
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      margin-top: 8px;
+      margin-top: 10px;
+      box-sizing: border-box;
     }
 
     .receipt-actions {
