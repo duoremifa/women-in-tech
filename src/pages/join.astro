@@ -364,12 +364,11 @@ import Layout from '../layouts/Layout.astro';
             <span class='lang-en'>Join the Conversation</span>
             <span class='btn-arrow'>⟶</span>
           </button>
-          <span class='privacy-reassurance lang-zh'>
-            承诺不作任何商业营销 · 随时可退订联系
-          </span>
-          <span class='privacy-reassurance lang-en'>
-            Unsubscribe anytime · Zero commercial marketing
-          </span>
+          <div class='privacy-assurance-pill'>
+            <span class='privacy-dot'>✦</span>
+            <span class='privacy-text lang-zh'>随时可退订联系 · 承诺不作商业营销</span>
+            <span class='privacy-text lang-en'>Unsubscribe anytime · Zero commercial marketing</span>
+          </div>
         </div>
 
         {/* 成功反馈回执函卡片 */}
@@ -1237,9 +1236,13 @@ import Layout from '../layouts/Layout.astro';
 
   .submit-zone {
     margin-top: var(--spacing-8);
+    padding-top: var(--spacing-5);
+    border-top: 1px solid var(--color-border-divider);
     display: flex;
-    flex-direction: column;
-    gap: var(--spacing-3);
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--spacing-4);
+    flex-wrap: wrap;
   }
 
   .submit-btn-primary {
@@ -1271,11 +1274,19 @@ import Layout from '../layouts/Layout.astro';
     transform: translateX(4px);
   }
 
-  .privacy-reassurance {
+  .privacy-assurance-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
     font-family: var(--font-family-ui);
     font-size: 11px;
     color: var(--color-text-tertiary);
-    text-align: center;
+    letter-spacing: 0.02em;
+  }
+
+  .privacy-dot {
+    color: var(--color-gold-dust);
+    font-size: 9px;
   }
 
   /* 成功回执 */
@@ -1622,10 +1633,21 @@ import Layout from '../layouts/Layout.astro';
       min-height: 46px;
     }
 
+    .submit-zone {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+      margin-top: var(--spacing-4);
+    }
+
     .submit-btn-primary {
       width: 100%;
       height: 46px;
       font-size: 13.5px;
+    }
+
+    .privacy-assurance-pill {
+      justify-content: center;
     }
 
     .receipt-loop-grid {
