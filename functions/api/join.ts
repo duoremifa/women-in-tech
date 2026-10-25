@@ -1,30 +1,61 @@
 // functions/api/join.ts - Cloudflare Pages Function
-// 闭环处理：表单提交 -> 生成回执 -> (若留邮箱) 触发 Resend/SendGrid 纯白纯文本衬线体确认信 + .ics 日历占位附件 -> 邮件/Webhook 同步主理人
+// 闭环处理：表单提交 -> 生成回执 -> (若留邮箱) 触发 Resend 确认信 + .ics 日历占位附件 -> 邮件/Webhook 同步发起人
 
-function generateICS(submissionId: string, name: string): string {
+function generateICS(submissionId: string, name: string, interests: string[] = []): string {
   const dtStamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+  const wantsCoffee = interests.includes('coffee') || interests.length === 0;
+  const wantsEnglish = interests.includes('english') || interests.length === 0;
+  const events: string[] = [];
+
+  if (wantsCoffee) {
+    events.push([
+      'BEGIN:VEVENT',
+      `UID:wotech-coffee-${submissionId}@wotech.space`,
+      `DTSTAMP:${dtStamp}`,
+      'DTSTART:20261108T063000Z', // 2026-11-08 (双周周日) 14:30 GMT+8
+      'DTEND:20261108T080000Z',   // 2026-11-08 (双周周日) 16:00 GMT+8
+      'SUMMARY:wo/men in tech · Coffee Chat（双周轻聚）',
+      `DESCRIPTION:致 ${name || '同行者'}：\\n这是为你预留的 Coffee Chat 交流席位。\\n回执编号: #${submissionId}\\n形式：杭州线下静谧小店 + 线上接入\\n微信联络：daiminay`,
+      'LOCATION:杭州静谧小店 / 线上视频连线',
+      'STATUS:CONFIRMED',
+      'SEQUENCE:0',
+      'BEGIN:VALARM',
+      'TRIGGER:-PT30M',
+      'ACTION:DISPLAY',
+      'DESCRIPTION:wo/men in tech · Coffee Chat 提醒',
+      'END:VALARM',
+      'END:VEVENT',
+    ].join('\r\n'));
+  }
+
+  if (wantsEnglish) {
+    events.push([
+      'BEGIN:VEVENT',
+      `UID:wotech-showtell-${submissionId}@wotech.space`,
+      `DTSTAMP:${dtStamp}`,
+      'DTSTART:20261111T120000Z', // 2026-11-11 (双周周三晚间) 20:00 GMT+8
+      'DTEND:20261111T124500Z',   // 2026-11-11 (双周周三晚间) 20:45 GMT+8
+      'SUMMARY:wo/men in tech · Show & Tell 英文技术与设计交流',
+      `DESCRIPTION:致 ${name || '同行者'}：\\n这是为你预留的 Show & Tell 交流席位。\\n回执编号: #${submissionId}\\n形式：40 min 英文界面细节与代码架构分享 + Q&A\\n微信联络：daiminay`,
+      'LOCATION:线上视频室 (活动前发放连线)',
+      'STATUS:CONFIRMED',
+      'SEQUENCE:0',
+      'BEGIN:VALARM',
+      'TRIGGER:-PT30M',
+      'ACTION:DISPLAY',
+      'DESCRIPTION:wo/men in tech · Show & Tell 提醒',
+      'END:VALARM',
+      'END:VEVENT',
+    ].join('\r\n'));
+  }
+
   return [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
     'PRODID:-//wo/men in tech//Circle Gatherings//CN',
     'CALSCALE:GREGORIAN',
     'METHOD:REQUEST',
-    'BEGIN:VEVENT',
-    `UID:wotech-${submissionId}@wotech.space`,
-    `DTSTAMP:${dtStamp}`,
-    'DTSTART:20261107T020000Z',
-    'DTEND:20261107T033000Z',
-    'SUMMARY:wo/men in tech · Coffee Chat & Show and Tell 交流席位',
-    `DESCRIPTION:致 ${name}：\\n欢迎加入 wo/men in tech 慢节奏交流。\\n回执编号: #${submissionId}\\n近期安排：\\n1. Coffee Chat（杭州线下 / 线上连线）\\n2. Show & Tell（40 min 英文界面细节与代码架构分享 + Q&A）\\n主理人微信：daiminay`,
-    'LOCATION:线上视频室 (活动前发放连线) / 杭州静谧小店',
-    'STATUS:CONFIRMED',
-    'SEQUENCE:0',
-    'BEGIN:VALARM',
-    'TRIGGER:-PT30M',
-    'ACTION:DISPLAY',
-    'DESCRIPTION:wo/men in tech 交流提醒',
-    'END:VALARM',
-    'END:VEVENT',
+    ...events,
     'END:VCALENDAR',
   ].join('\r\n');
 }
@@ -190,8 +221,8 @@ function buildEmailHtml(params: {
     </div>
 
     <div class="wechat-box">
-      <strong>主理人微信快速通道</strong>：<code>daiminay</code><br>
-      <span style="font-size: 12px; color: #8C8680;">添加时请备注回执编号 #${submissionId}，我们将邀你进入本期小规模深度交流席位。</span>
+      <strong>微信直接交流</strong>：<code>daiminay</code><br>
+      <span style="font-size: 12px; color: #8C8680;">添加时请备注回执编号 #${submissionId}，我们将邀你进入当期交流席位。</span>
     </div>
 
     <p style="margin-top: 24px; font-style: italic; color: #6E6862; font-size: 13.5px;">给推敲留出时间，让灵感自然生长。</p>
@@ -232,7 +263,7 @@ ${idea ? `关注话题：${idea}\n` : ''}
 · Coffee Chat：双周周末 · 杭州线下静谧小店 + 线上接入（3-5人）
 · Show & Tell：双周周中晚间 · 40 min 英文深度分享与自由试错 + Q&A
 
-如有任何即时想交流的细节，亦可直接添加主理人微信：daiminay（备注回执编号 #${submissionId} 即可）。
+如有任何即时想交流的细节，亦可随时微信联系我：daiminay（备注回执编号 #${submissionId} 即可）。
 
 给推敲留出时间，让灵感自然生长。
 
@@ -260,12 +291,12 @@ export async function onRequestPost(context: any) {
 
     const craftLabel = getCraftLabel(craft);
     const interestsLabel = getInterestsLabel(interests);
-    const icsContent = generateICS(submissionId, name);
+    const icsContent = generateICS(submissionId, name, interests);
 
     let emailSent = false;
     let emailError: string | null = null;
 
-    // 1. 若联系方式是 Email，触发纯白衬线体邮件 + .ics 附件
+    // 1. 若联系方式是 Email，触发确认信 + .ics 附件
     if (isEmail) {
       const emailHtml = buildEmailHtml({
         name,
@@ -386,7 +417,7 @@ export async function onRequestPost(context: any) {
       }
     }
 
-    // 2. 无论是否留邮箱，通知主理人 (Webhook / Organizer Email)
+    // 2. 无论是否留邮箱，通知发起人 (Webhook / Organizer Email)
     const webhookUrl = context.env?.JOIN_WEBHOOK_URL;
     if (webhookUrl) {
       try {

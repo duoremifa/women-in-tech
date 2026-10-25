@@ -694,26 +694,29 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                     </button>
                   </div>
 
-                  {/* 闭环 2: 主理人微信直通通道 */}
+                  {/* 闭环 2: 微信联络通道 */}
                   <div class='loop-cell'>
                     <div class='loop-cell-info'>
-                      <span class='loop-cell-tag lang-zh'>主理人直通微信</span>
-                      <span class='loop-cell-tag lang-en'>Host Direct WeChat</span>
-                      <p class='loop-cell-desc lang-zh'>如需提前沟通想法或锁定面对面席位，可直接添加主理人微信。</p>
-                      <p class='loop-cell-desc lang-en'>Connect with host directly to confirm your seat or share upcoming thoughts.</p>
+                      <span class='loop-cell-tag lang-zh'>微信直接交流</span>
+                      <span class='loop-cell-tag lang-en'>Connect via WeChat</span>
+                      <p class='loop-cell-desc lang-zh'>如果有正在推敲的作品或想法想先聊聊，欢迎随时联系我。</p>
+                      <p class='loop-cell-desc lang-en'>If you have a thought or project in progress you'd like to share, feel free to reach out directly.</p>
                     </div>
-                    <div class='host-copy-box'>
-                      <code class='host-id'>daiminay</code>
-                      <button type='button' class='btn-copy-wechat' id='home-btn-copy-wechat' data-wechat='daiminay'>
-                        <span class='copy-text lang-zh'>复制微信号</span>
-                        <span class='copy-text lang-en'>Copy ID</span>
+                    <div class='wechat-field-card'>
+                      <div class='wechat-text-col'>
+                        <span class='wechat-label-caption'>微信号</span>
+                        <code class='wechat-handle'>daiminay</code>
+                      </div>
+                      <button type='button' class='btn-copy-hairline' id='home-btn-copy-wechat' data-wechat='daiminay' aria-label='复制微信号'>
+                        <span class='copy-text lang-zh'>复制</span>
+                        <span class='copy-text lang-en'>Copy</span>
                       </button>
                     </div>
                   </div>
                 </div>
 
                 <div class='receipt-footer-row'>
-                  <span class='receipt-remind lang-zh'>添加微信时请备注回执编号，我们将邀你进入本期席位。</span>
+                  <span class='receipt-remind lang-zh'>添加微信时请备注回执编号，我们将邀你进入当期交流。</span>
                   <span class='receipt-remind lang-en'>Please include your receipt ID when connecting.</span>
                   <button type='button' class='btn-modify-form' id='home-btn-modify-form'>
                     <span class='lang-zh'>修改或重填 ↺</span>
@@ -902,26 +905,62 @@ import GeometricVisual from '../components/GeometricVisual.astro';
           }
         } catch (err) {}
 
-        // 本地保底生成 .ics
+        // 本地保底生成 .ics (按意向独立生成真实活动项)
         if (!currentIcsData) {
           const dt = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+          const wantsCoffee = interestsVal.includes('coffee') || interestsVal.length === 0;
+          const wantsEnglish = interestsVal.includes('english') || interestsVal.length === 0;
+          const events: string[] = [];
+
+          if (wantsCoffee) {
+            events.push([
+              'BEGIN:VEVENT',
+              `UID:wotech-coffee-${subId}@wotech.space`,
+              `DTSTAMP:${dt}`,
+              'DTSTART:20261108T063000Z', // 2026-11-08 (双周周日) 14:30 GMT+8
+              'DTEND:20261108T080000Z',   // 2026-11-08 (双周周日) 16:00 GMT+8
+              'SUMMARY:wo/men in tech · Coffee Chat（双周轻聚）',
+              `DESCRIPTION:致 ${nameVal || '同行者'}：\\n这是为你预留的 Coffee Chat 交流席位。\\n回执编号: #${subId}\\n形式：杭州静谧小店 + 线上接入\\n微信联络：daiminay`,
+              'LOCATION:杭州静谧小店 / 线上视频连线',
+              'STATUS:CONFIRMED',
+              'SEQUENCE:0',
+              'BEGIN:VALARM',
+              'TRIGGER:-PT30M',
+              'ACTION:DISPLAY',
+              'DESCRIPTION:wo/men in tech · Coffee Chat 提醒',
+              'END:VALARM',
+              'END:VEVENT',
+            ].join('\r\n'));
+          }
+
+          if (wantsEnglish) {
+            events.push([
+              'BEGIN:VEVENT',
+              `UID:wotech-showtell-${subId}@wotech.space`,
+              `DTSTAMP:${dt}`,
+              'DTSTART:20261111T120000Z', // 2026-11-11 (双周周三晚间) 20:00 GMT+8
+              'DTEND:20261111T124500Z',   // 2026-11-11 (双周周三晚间) 20:45 GMT+8
+              'SUMMARY:wo/men in tech · Show & Tell 英文技术与设计交流',
+              `DESCRIPTION:致 ${nameVal || '同行者'}：\\n这是为你预留的 Show & Tell 交流席位。\\n回执编号: #${subId}\\n形式：40 min 英文界面细节与代码架构分享 + Q&A\\n微信联络：daiminay`,
+              'LOCATION:线上视频室 (活动前发放连线)',
+              'STATUS:CONFIRMED',
+              'SEQUENCE:0',
+              'BEGIN:VALARM',
+              'TRIGGER:-PT30M',
+              'ACTION:DISPLAY',
+              'DESCRIPTION:wo/men in tech · Show & Tell 提醒',
+              'END:VALARM',
+              'END:VEVENT',
+            ].join('\r\n'));
+          }
+
           currentIcsData = [
             'BEGIN:VCALENDAR',
             'VERSION:2.0',
             'PRODID:-//wo/men in tech//Circle Gatherings//CN',
             'CALSCALE:GREGORIAN',
             'METHOD:REQUEST',
-            'BEGIN:VEVENT',
-            `UID:wotech-${subId}@wotech.space`,
-            `DTSTAMP:${dt}`,
-            'DTSTART:20261107T020000Z',
-            'DTEND:20261107T033000Z',
-            'SUMMARY:wo/men in tech · Coffee Chat & Show and Tell 交流席位',
-            `DESCRIPTION:致 ${nameVal || '同行者'}：\\n欢迎加入 wo/men in tech 慢节奏交流。\\n回执编号: #${subId}\\n主理人微信：daiminay`,
-            'LOCATION:线上视频室 / 杭州静谧小店',
-            'STATUS:CONFIRMED',
-            'SEQUENCE:0',
-            'END:VEVENT',
+            ...events,
             'END:VCALENDAR',
           ].join('\r\n');
         }
@@ -936,17 +975,17 @@ import GeometricVisual from '../components/GeometricVisual.astro';
         const noteEn = document.getElementById('home-note-text-en');
         if (isEmail) {
           if (noteZh) {
-            noteZh.innerHTML = `已向你的邮箱 <code>${contactVal}</code> 发送纯白衬线体确认信与 .ics 日历占位邀请（若未收到可检查垃圾箱）。`;
+            noteZh.innerHTML = `已向你的邮箱 <code>${contactVal}</code> 发送确认信与 .ics 日历邀请（若未收到可检查垃圾箱）。`;
           }
           if (noteEn) {
             noteEn.innerHTML = `A confirmation letter & .ics invite have been dispatched to <code>${contactVal}</code>.`;
           }
         } else {
           if (noteZh) {
-            noteZh.innerHTML = `意向已记录至社群档案。你可以直接下载下方日历邀请，或添加主理人微信快速锁定席位。`;
+            noteZh.innerHTML = `意向已记录至社群档案。你可以直接下载下方日历邀请，或添加微信随时交流。`;
           }
           if (noteEn) {
-            noteEn.innerHTML = `Your note is recorded. You may download the .ics invite below or connect via WeChat to confirm your seat.`;
+            noteEn.innerHTML = `Your note is recorded. You may download the .ics invite below or connect via WeChat to explore more.`;
           }
         }
 
@@ -1796,37 +1835,62 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     color: #fff;
   }
 
-  .host-copy-box {
+  .wechat-field-card {
     display: flex;
     align-items: center;
-    gap: var(--spacing-3);
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: var(--color-surface-soft);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-xs);
     margin-top: auto;
+    transition: border-color var(--transition-fast);
   }
 
-  .host-id {
+  .wechat-field-card:hover {
+    border-color: var(--color-gold-dust);
+  }
+
+  .wechat-text-col {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-2);
+  }
+
+  .wechat-label-caption {
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.04em;
+  }
+
+  .wechat-handle {
     font-family: var(--font-family-mono);
-    font-size: 13px;
+    font-size: 13.5px;
     font-weight: 500;
     color: var(--color-text-heading);
-    background: var(--color-surface-soft);
-    padding: 4px 10px;
-    border: 1px solid var(--color-border-divider);
-  }
-
-  .btn-copy-wechat {
-    background: var(--color-brand-purple, #5e4c7a);
-    color: #fff;
+    letter-spacing: 0.03em;
+    background: none;
     border: none;
-    padding: 6px 14px;
-    font-family: var(--font-family-ui);
-    font-size: 11.5px;
-    cursor: pointer;
-    border-radius: 999px;
-    transition: opacity 0.2s ease;
+    padding: 0;
   }
 
-  .btn-copy-wechat:hover {
-    opacity: 0.9;
+  .btn-copy-hairline {
+    background: transparent;
+    border: 1px solid var(--color-border-divider);
+    color: var(--color-text-secondary);
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: var(--radius-xs);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-copy-hairline:hover {
+    border-color: var(--color-gold-dust);
+    color: var(--color-gold-dust);
+    background: var(--color-surface-card);
   }
 
   .receipt-footer-row {
