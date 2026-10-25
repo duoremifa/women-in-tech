@@ -14,7 +14,7 @@ const navItems = [
 
 <header class='nav-header'>
   <nav class='quiet-nav layout-reading' aria-label='Main Navigation'>
-    <!-- 左侧品牌：持久保留 wo/men in tech，经典品牌紫 -->
+    <!-- 左侧品牌：轻盈内敛，不与下方边栏大标题争夺视觉焦点 -->
     <div class='nav-left'>
       <a href='/' class:list={['brand', { active: currentPath === '/' }]}>
         <span class='brand-main'>wo<span class='brand-slash'>/</span>men</span>
@@ -22,8 +22,8 @@ const navItems = [
       </a>
     </div>
 
-    <!-- 中部导航链接：对齐主页四大核心篇章 -->
-    <div class='nav-center'>
+    <!-- 右侧联动群组：自然对齐右侧核心展陈区，留出中央广阔宁静呼吸 -->
+    <div class='nav-right-group'>
       <div class='nav-links'>
         {
           navItems.map((item, index) => {
@@ -42,10 +42,10 @@ const navItems = [
           })
         }
       </div>
-    </div>
 
-    <!-- 最右侧：极简双控胶囊 (语言切换 + 深色切换) -->
-    <div class='nav-end'>
+      <span class='nav-group-divider' aria-hidden='true'></span>
+
+      <!-- 极简双控胶囊 (语言切换 + 深色切换) -->
       <div class='minimal-ctrl-group' role='group' aria-label='Preferences'>
         <!-- 极简单键语言切换：当前中文显示 EN，点击切换为英文；反之亦然 -->
         <button
@@ -253,20 +253,18 @@ const navItems = [
     color: var(--color-brand-purple-soft, #7d689b);
   }
 
-  /* ===== 中部导航链接 (绝对居中保证视觉平衡) ===== */
-  .nav-center {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+  /* ===== 右侧联动群组：自然对齐右侧核心展陈区 ===== */
+  .nav-right-group {
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: var(--spacing-6);
+    margin-left: auto;
   }
 
   .nav-links {
     display: flex;
     align-items: center;
-    gap: var(--spacing-6);
+    gap: var(--spacing-7); /* 28px：充裕舒展的呼吸感 */
   }
 
   .nav-link {
@@ -276,7 +274,7 @@ const navItems = [
     text-decoration: none !important;
     border-bottom: none !important;
     font-size: 13px;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     padding: var(--spacing-1) 0;
     position: relative;
     transition: color var(--transition-fast);
@@ -309,12 +307,12 @@ const navItems = [
     opacity: 1;
   }
 
-  /* ===== 最右侧：极简控制区 ===== */
-  .nav-end {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    flex-shrink: 0;
+  .nav-group-divider {
+    width: 1px;
+    height: 12px;
+    background: var(--color-border-divider);
+    opacity: 0.7;
+    margin: 0 2px;
   }
 
   .minimal-ctrl-group {
@@ -391,7 +389,7 @@ const navItems = [
     .quiet-nav {
       padding-top: var(--spacing-4);
       padding-bottom: var(--spacing-3);
-      gap: var(--spacing-2);
+      gap: var(--spacing-3);
     }
 
     .brand-main {
@@ -402,10 +400,8 @@ const navItems = [
       display: none; /* 移动端收敛副标题，视觉呼吸更充裕 */
     }
 
-    .nav-center {
-      position: static;
-      transform: none;
-      margin: 0 auto;
+    .nav-right-group {
+      gap: var(--spacing-3);
     }
 
     .nav-links {
@@ -420,20 +416,37 @@ const navItems = [
     .nav-active-dot {
       bottom: -4px;
     }
+
+    .nav-group-divider {
+      height: 10px;
+    }
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: 480px) {
+    .quiet-nav {
+      gap: var(--spacing-2);
+    }
+
+    .nav-right-group {
+      gap: 6px;
+    }
+
     .nav-links {
-      gap: 10px;
+      gap: 8px;
     }
 
     .nav-link {
       font-size: 12px;
+      padding: 2px 0;
     }
 
     .minimal-btn.lang-btn {
-      padding: 0 5px;
+      padding: 0 4px;
       font-size: 10px;
+    }
+
+    .nav-group-divider {
+      display: none;
     }
   }
 </style>
