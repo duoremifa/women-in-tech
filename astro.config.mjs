@@ -1,5 +1,4 @@
 import { defineConfig } from 'astro/config';
-import cloudflare from '@astrojs/cloudflare';
 import AstroPWA from '@vite-pwa/astro';
 import cssnano from 'cssnano';
 
@@ -8,25 +7,19 @@ export default defineConfig({
   base: '/',
   trailingSlash: 'ignore',
 
-  // Cloudflare Pages 适配器配置
+  // 纯静态输出模式 (本地开发极其快速、零依赖无报错)
   output: 'static',
-  adapter: cloudflare({
-    mode: 'directory',
-    functionPerRoute: false,
-  }),
 
   // 构建优化配置
   build: {
     format: 'file',
   },
 
-  // 🛡️ Vite配置 - 包含CSP支持和构建优化
   vite: {
     define: {
       'import.meta.env.CSP_NONCE': JSON.stringify(process.env.CSP_NONCE || 'womenintech-csp-nonce'),
     },
 
-    // 🎨 PostCSS配置优化
     css: {
       devSourcemap: false,
       transformer: 'lightningcss',
