@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>wo/men · 微信横屏卡片设计</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Noto+Serif+SC:wght@300;400;600&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    .font-serif-en { font-family: 'Cormorant Garamond', Georgia, serif; }
+    .font-serif-cn { font-family: 'Noto Serif SC', 'Songti SC', SimSun, serif; }
+    .font-sans-ui { font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; }
+
+    /* 噪点纹理与微光 */
+    .film-grain {
+      background-image: radial-gradient(rgba(212, 175, 55, 0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+  </style>
+</head>
+<body class="bg-[#0f0e13] text-stone-200 antialiased p-4 md:p-8 min-h-screen font-sans-ui flex flex-col items-center justify-center">
+
+  <div class="max-w-4xl w-full mx-auto space-y-6">
+
+    <!-- 顶部控制条 -->
+    <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-stone-800">
+      <div>
+        <h1 class="text-stone-100 text-lg font-medium tracking-wide flex items-center gap-2">
+          <span class="text-[#c5a059]">✦</span> wo/men 微信横屏卡片设计
+        </h1>
+        <p class="text-stone-400 text-xs mt-0.5">针对微信对话框与朋友圈阅读节奏进行信息瘦身 · 16:9 比例</p>
+      </div>
+
+      <!-- 控制器：文案方案 & 配色主题 -->
+      <div class="flex items-center gap-3">
+        <div class="bg-stone-900 border border-stone-700 rounded-lg p-1 flex text-xs">
+          <button onclick="switchCopy(1)" id="btn-copy-1" class="px-3 py-1.5 rounded transition text-white bg-stone-800 font-medium">方案一 (极简金句)</button>
+          <button onclick="switchCopy(2)" id="btn-copy-2" class="px-3 py-1.5 rounded transition text-stone-400 hover:text-stone-200">方案二 (诗意留白)</button>
+          <button onclick="switchCopy(3)" id="btn-copy-3" class="px-3 py-1.5 rounded transition text-stone-400 hover:text-stone-200">方案三 (手艺社群)</button>
+        </div>
+
+        <button onclick="toggleTheme()" id="btn-theme" class="bg-stone-900 hover:bg-stone-800 border border-stone-700 text-stone-300 text-xs px-3 py-2 rounded-lg flex items-center gap-1.5 transition">
+          <span id="theme-icon">☾</span> <span id="theme-label">暗夜版</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 卡片主体视口容器 (16:9 横屏) -->
+    <div class="relative w-full aspect-[16/9] max-h-[500px] rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 border border-stone-800" id="card-canvas">
+      
+      <!-- 装饰背景线条与微光 -->
+      <div class="absolute inset-0 film-grain opacity-40 pointer-events-none"></div>
+      <div class="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-gradient-to-br from-[#5e4c7a]/20 to-transparent blur-3xl pointer-events-none"></div>
+      <div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full bg-gradient-to-tr from-[#c5a059]/15 to-transparent blur-2xl pointer-events-none"></div>
+
+      <!-- 卡片内边框细线 (发丝线) -->
+      <div class="absolute inset-3.5 md:inset-6 rounded-xl border border-stone-700/40 pointer-events-none transition-colors duration-500" id="inner-border"></div>
+
+      <!-- 卡片内容层 -->
+      <div class="relative h-full w-full p-6 md:p-12 flex flex-col justify-between z-10 box-border">
+        
+        <!-- 顶部：品牌双语 Logo 与静默标签 -->
+        <div class="flex items-start justify-between">
+          <div class="flex items-baseline gap-3">
+            <span class="font-serif-en text-2xl md:text-3xl font-normal tracking-wide text-stone-100" id="card-logo">wo/men</span>
+            <span class="font-serif-cn text-xs md:text-sm text-[#c5a059] tracking-widest font-light" id="card-logo-cn">「我们」</span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span class="text-[9px] md:text-[11px] uppercase tracking-[0.2em] px-2.5 py-1 rounded-full border border-stone-700/50 text-stone-400 font-sans-ui" id="card-tag">
+              Women in Tech & Craft
+            </span>
+          </div>
+        </div>
+
+        <!-- 中部：核心文案主体 -->
+        <div class="space-y-4 my-auto max-w-xl">
+          <div id="copy-container" class="transition-all duration-300">
+            <!-- 动态渲染文案 -->
+          </div>
+        </div>
+
+        <!-- 底部：微光承诺与域名字标 -->
+        <div class="flex items-center justify-between pt-4 border-t border-stone-800/60 transition-colors duration-500 text-xs" id="card-footer">
+          <div class="flex items-center gap-2 text-stone-400 font-serif-cn text-[11px] md:text-xs" id="card-promise">
+            <span class="text-[#c5a059]">✦</span>
+            <span id="footer-note">不问头衔 · 只认手艺与真诚</span>
+          </div>
+
+          <div class="font-sans-ui tracking-wider text-[11px] md:text-xs text-stone-400 flex items-center gap-1.5" id="card-domain">
+            <span class="opacity-60">wotech.space</span>
+            <span class="text-[#c5a059]">⟶</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 底部建议与提示说明 -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-stone-400 pt-2">
+      <div class="p-4 rounded-xl bg-stone-900/60 border border-stone-800/80 space-y-1">
+        <span class="text-stone-200 font-medium flex items-center gap-1.5">
+          <span class="text-[#c5a059]">1</span> 为什么删减“面向群体”？
+        </span>
+        <p class="leading-relaxed text-stone-400 text-[11px]">
+          “面向群体/产品设计工程”读起来像招聘简章或问卷表单。用一句话“给对作品有执念的技术与创造者”即可直击灵魂，留白更大。
+        </p>
+      </div>
+
+      <div class="p-4 rounded-xl bg-stone-900/60 border border-stone-800/80 space-y-1">
+        <span class="text-stone-200 font-medium flex items-center gap-1.5">
+          <span class="text-[#c5a059]">2</span> 英文微调理由
+        </span>
+        <p class="leading-relaxed text-stone-400 text-[11px]">
+          原英文 “women in technical” 语法有瑕疵，地道表达应为 “Women in Tech” 或 “Women in Technology”。结合品牌 “wo/men” 语双关即可。
+        </p>
+      </div>
+
+      <div class="p-4 rounded-xl bg-stone-900/60 border border-stone-800/80 space-y-1">
+        <span class="text-stone-200 font-medium flex items-center gap-1.5">
+          <span class="text-[#c5a059]">3</span> 微信发图使用技巧
+        </span>
+        <p class="leading-relaxed text-stone-400 text-[11px]">
+          横屏 16:9 在微信聊天气泡或发朋友圈、公众号横幅时不会被两端裁切，文字居中偏左在拇指滑动时一秒就能读懂。
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const copySets = {
+      1: {
+        headline: "在商业项目的空隙里，<br/>总有些东西是做给自己的。",
+        subline: "这里是那个地方。",
+        note: "不问头衔 · 只认手艺与真诚",
+        focus: "极简呼吸感 · 28字黄金阅读量"
+      },
+      2: {
+        headline: "为纯粹的灵感，留一席安静空隙。",
+        subline: "献给所有在技术与创造领域、对作品仍有执念的女性。",
+        note: "双周轻聚 · 作品研磨 · 零商业营销",
+        focus: "温润叙事感 · 突出自留地定位"
+      },
+      3: {
+        headline: "在代码与设计的间隙，<br/>做自己的代表作。",
+        subline: "产品 · 交互 · 工程 · 独立创造 · 深度交流",
+        note: "随时可退订 · 承诺不作商业营销",
+        focus: "手艺圈层感 · 标明同频角色"
+      }
+    };
+
+    let currentCopy = 1;
+    let isDark = true;
+
+    function renderCopy() {
+      const data = copySets[currentCopy];
+      const container = document.getElementById('copy-container');
+      
+      const textColor = isDark ? 'text-stone-100' : 'text-stone-900';
+      const subColor = isDark ? 'text-stone-300' : 'text-stone-600';
+      
+      container.innerHTML = `
+        <h2 class="font-serif-cn text-xl md:text-2xl lg:text-3xl font-light leading-snug tracking-wide ${textColor}">
+          ${data.headline}
+        </h2>
+        <p class="font-serif-cn text-xs md:text-sm lg:text-base font-light tracking-wider ${subColor} mt-3">
+          ${data.subline}
+        </p>
+      `;
+
+      document.getElementById('footer-note').innerText = data.note;
+    }
+
+    function switchCopy(index) {
+      currentCopy = index;
+      [1, 2, 3].forEach(i => {
+        const btn = document.getElementById(`btn-copy-${i}`);
+        if (i === index) {
+          btn.className = "px-3 py-1.5 rounded transition text-white bg-stone-800 font-medium";
+        } else {
+          btn.className = "px-3 py-1.5 rounded transition text-stone-400 hover:text-stone-200";
+        }
+      });
+      renderCopy();
+    }
+
+    function toggleTheme() {
+      isDark = !isDark;
+      const canvas = document.getElementById('card-canvas');
+      const innerBorder = document.getElementById('inner-border');
+      const logo = document.getElementById('card-logo');
+      const logoCn = document.getElementById('card-logo-cn');
+      const tag = document.getElementById('card-tag');
+      const footer = document.getElementById('card-footer');
+      const promise = document.getElementById('card-promise');
+      const domain = document.getElementById('card-domain');
+      const icon = document.getElementById('theme-icon');
+      const label = document.getElementById('theme-label');
+
+      if (!isDark) {
+        // 暖白雅致版 (Warm Paper / Ivory Luxury)
+        canvas.className = "relative w-full aspect-[16/9] max-h-[500px] rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 border border-stone-200 bg-[#faf8f5]";
+        innerBorder.className = "absolute inset-3.5 md:inset-6 rounded-xl border border-stone-300/60 pointer-events-none transition-colors duration-500";
+        logo.className = "font-serif-en text-2xl md:text-3xl font-normal tracking-wide text-stone-900";
+        logoCn.className = "font-serif-cn text-xs md:text-sm text-[#8c6b2d] tracking-widest font-normal";
+        tag.className = "text-[9px] md:text-[11px] uppercase tracking-[0.2em] px-2.5 py-1 rounded-full border border-stone-300 text-stone-600 font-sans-ui bg-stone-100/60";
+        footer.className = "flex items-center justify-between pt-4 border-t border-stone-200/80 transition-colors duration-500 text-xs";
+        promise.className = "flex items-center gap-2 text-stone-600 font-serif-cn text-[11px] md:text-xs";
+        domain.className = "font-sans-ui tracking-wider text-[11px] md:text-xs text-stone-600 flex items-center gap-1.5";
+        icon.innerText = "☼";
+        label.innerText = "暖纸版";
+      } else {
+        // 暗夜深紫版 (Night Plum / Quiet Luxury)
+        canvas.className = "relative w-full aspect-[16/9] max-h-[500px] rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 border border-stone-800 bg-[#14121a]";
+        innerBorder.className = "absolute inset-3.5 md:inset-6 rounded-xl border border-stone-700/40 pointer-events-none transition-colors duration-500";
+        logo.className = "font-serif-en text-2xl md:text-3xl font-normal tracking-wide text-stone-100";
+        logoCn.className = "font-serif-cn text-xs md:text-sm text-[#c5a059] tracking-widest font-light";
+        tag.className = "text-[9px] md:text-[11px] uppercase tracking-[0.2em] px-2.5 py-1 rounded-full border border-stone-700/50 text-stone-400 font-sans-ui";
+        footer.className = "flex items-center justify-between pt-4 border-t border-stone-800/60 transition-colors duration-500 text-xs";
+        promise.className = "flex items-center gap-2 text-stone-400 font-serif-cn text-[11px] md:text-xs";
+        domain.className = "font-sans-ui tracking-wider text-[11px] md:text-xs text-stone-400 flex items-center gap-1.5";
+        icon.innerText = "☾";
+        label.innerText = "暗夜版";
+      }
+
+      renderCopy();
+    }
+
+    // 初始化加载
+    renderCopy();
+  </script>
+</body>
+</html>

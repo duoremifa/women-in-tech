@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>wo/men Card Dark</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Noto+Serif+SC:wght@300;400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 2400px;
+      height: 1350px;
+      background: #110f17;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .card {
+      position: relative;
+      width: 2400px;
+      height: 1350px;
+      background: radial-gradient(circle at 85% 15%, rgba(94, 76, 122, 0.28) 0%, transparent 55%),
+                  radial-gradient(circle at 15% 85%, rgba(197, 160, 89, 0.16) 0%, transparent 50%),
+                  #13111a;
+      padding: 120px 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    /* 噪点质感 */
+    .film-grain {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(212, 175, 55, 0.08) 1.5px, transparent 1.5px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    /* 发丝内框线 */
+    .inner-border {
+      position: absolute;
+      inset: 48px;
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      border-radius: 28px;
+      pointer-events: none;
+    }
+
+    .inner-border::after {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 20px;
+    }
+
+    /* 头部 */
+    .card-header {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 24px;
+    }
+
+    .brand-en {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 68px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: #f7f6f9;
+    }
+
+    .brand-cn {
+      font-family: 'Noto Serif SC', 'Songti SC', SimSun, serif;
+      font-size: 30px;
+      font-weight: 300;
+      letter-spacing: 0.28em;
+      color: #c5a059;
+    }
+
+    .tag-pill {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.03);
+      color: #a8a3b5;
+    }
+
+    /* 核心文案 */
+    .card-body {
+      position: relative;
+      z-index: 10;
+      max-width: 1700px;
+      margin: auto 0;
+    }
+
+    .headline {
+      font-family: 'Noto Serif SC', 'Songti SC', SimSun, serif;
+      font-size: 72px;
+      font-weight: 300;
+      line-height: 1.45;
+      letter-spacing: 0.06em;
+      color: #fcfbfe;
+      margin-bottom: 32px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    .subline {
+      font-family: 'Noto Serif SC', 'Songti SC', SimSun, serif;
+      font-size: 40px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      color: #d1cbdc;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .subline-dot {
+      color: #c5a059;
+      font-size: 24px;
+    }
+
+    /* 底部基线 */
+    .card-footer {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: 'Noto Serif SC', 'Songti SC', SimSun, serif;
+      font-size: 26px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      color: #a6a0b3;
+    }
+
+    .footer-star {
+      color: #c5a059;
+      font-size: 22px;
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 26px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: #8e889c;
+    }
+
+    .footer-arrow {
+      color: #c5a059;
+      font-size: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="film-grain"></div>
+    <div class="inner-border"></div>
+
+    <div class="card-header">
+      <div class="brand-wrap">
+        <span class="brand-en">wo/men</span>
+        <span class="brand-cn">「我们」</span>
+      </div>
+      <div class="tag-pill">Women in Tech & Craft</div>
+    </div>
+
+    <div class="card-body">
+      <h1 class="headline">在商业项目的空隙里，<br/>总有些东西是做给自己的。</h1>
+      <div class="subline">
+        <span class="subline-dot">✦</span>
+        <span>这里是那个地方。</span>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <div class="footer-left">
+        <span class="footer-star">✦</span>
+        <span>不问头衔 · 只认手艺与真诚</span>
+      </div>
+      <div class="footer-right">
+        <span>wotech.space</span>
+        <span class="footer-arrow">⟶</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
