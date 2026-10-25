@@ -32,13 +32,13 @@ a:hover::after {
 /* ============ 引用样式 ============ */
 blockquote {
   font-family: var(--font-family-text);
-  font-style: italic;
-  font-size: var(--font-size-lg);
-  border-left: 3px solid var(--color-primary);
+  font-style: normal;
+  font-size: var(--font-size-base);
+  border-left: 1px solid var(--color-gold-dust);
   padding-left: var(--spacing-4);
-  margin: var(--spacing-8) 0;
+  margin: var(--spacing-6) 0;
   color: var(--color-text-secondary);
-  line-height: var(--line-height-loose);
+  line-height: var(--line-height-relaxed);
 }
 
 /* ============ 代码样式 ============ */

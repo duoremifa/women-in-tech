@@ -2,16 +2,16 @@
    quiet-elements.css · 宁静低压全局元素
    ============================================ */
 
-/* 引用块 - 哑光金左边框 */
+/* 引用块 - 极细哑光金微刻痕 */
 blockquote {
   background: var(--color-surface-soft);
-  border-left: var(--border-width-thick) solid var(--color-gold-dust);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  padding: var(--spacing-4) var(--spacing-6);
+  border-left: 1px solid var(--color-gold-dust);
+  border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+  padding: var(--spacing-3) var(--spacing-5);
   font-family: var(--font-family-text);
   color: var(--color-text-secondary);
   font-style: normal;
-  margin: var(--spacing-8) 0;
+  margin: var(--spacing-6) 0;
 }
 
 /* 分割线 - 哑光金虚线 */

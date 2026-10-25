@@ -164,33 +164,33 @@
    =============================== */
 
 .markdown-content blockquote {
-  margin: var(--spacing-10) 0;
-  padding: var(--spacing-6) var(--spacing-8);
+  margin: var(--spacing-8) 0;
+  padding: var(--spacing-4) var(--spacing-6);
   background: var(--color-surface-soft);
-  border-left: var(--border-width-thick) solid var(--color-primary-300);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  border-left: 1px solid var(--color-gold-dust);
+  border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
   color: var(--color-text-secondary);
-  font-style: italic;
-  font-size: var(--font-size-lg);
+  font-style: normal;
+  font-size: var(--font-size-base);
 }
 
 /* Panel */
 .panel {
-  background: var(--color-surface-secondary);
-  border: var(--border-width-thin) solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-8);
-  margin: var(--spacing-8) 0;
-  box-shadow: var(--shadow-sm);
+  background: var(--color-surface-pure);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xs);
+  padding: var(--spacing-6);
+  margin: var(--spacing-6) 0;
+  box-shadow: none;
 }
 
 /* Callout */
 .callout {
-  background: var(--color-surface-tertiary);
-  border-left: var(--border-width-thick) solid var(--color-primary-300);
-  padding: var(--spacing-5) var(--spacing-6);
-  margin: var(--spacing-8) 0;
-  border-radius: var(--radius-md);
+  background: var(--color-surface-soft);
+  border-left: 1px solid var(--color-gold-dust);
+  padding: var(--spacing-4) var(--spacing-5);
+  margin: var(--spacing-6) 0;
+  border-radius: var(--radius-xs);
 }
 
 /* ================================

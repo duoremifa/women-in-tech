@@ -198,14 +198,9 @@
 
   /* 语义化别名 —— 使用场景明确 */
   --font-family-ui: var(--font-family-sans);
-
-  /* 正文与交互：采用无衬线，中英混排极高辨识度与现代质感 */
+  --font-family-body: var(--font-family-sans);
   --font-family-text: var(--font-family-sans);
-
-  /* 大标题与诗性宣言：采用衬线体，手工纸质与典雅艺术感 */
   --font-family-heading: var(--font-family-serif);
-
-  /* 价格数字，衬线体手工感 */
   --font-family-code: var(--font-family-mono);
 
   /* 代码专用 */

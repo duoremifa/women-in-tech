@@ -605,11 +605,12 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     align-items: start;
   }
 
+  /* ===== 左侧：安静边栏 ===== */
   .sidebar {
     position: sticky;
     top: var(--spacing-8);
     padding-right: var(--spacing-8);
-    border-right: var(--border-width-thin) solid var(--color-border-divider);
+    border-right: 1px solid var(--color-border-divider);
   }
 
   .brand-group {
@@ -621,8 +622,8 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     font-size: var(--font-size-4xl);
     font-weight: var(--font-weight-light);
     color: var(--color-text-heading);
-    letter-spacing: -0.03em;
-    line-height: 1;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
     margin: 0 0 var(--spacing-2);
     text-decoration: none !important;
     border-bottom: none !important;
@@ -630,25 +631,25 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 
   .site-title .brand-slash {
     color: var(--color-gold-dust);
-    opacity: 0.7;
+    opacity: 0.75;
     font-weight: 300;
   }
 
   .site-sub {
-    font-family: var(--font-family-ui);
-    font-size: var(--font-size-xs);
-    letter-spacing: 0.1em;
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
     color: var(--color-text-tertiary);
     text-transform: lowercase;
     margin: 0;
   }
 
   .site-zh {
-    font-family: var(--font-family-body);
-    font-size: var(--font-size-sm);
+    font-family: var(--font-family-heading);
+    font-size: 14px;
     color: var(--color-text-secondary);
     margin: var(--spacing-1) 0 0;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
   }
 
   .manifesto {
@@ -657,10 +658,16 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 
   .manifesto p {
     font-family: var(--font-family-body);
-    font-size: var(--font-size-sm);
-    line-height: var(--line-height-loose);
+    font-size: 14px;
+    line-height: 1.85;
     color: var(--color-text-secondary);
     margin: 0 0 var(--spacing-4);
+    letter-spacing: 0.02em;
+  }
+
+  .manifesto.lang-en p {
+    line-height: 1.7;
+    letter-spacing: -0.005em;
   }
 
   .manifesto p:last-child {
@@ -681,26 +688,26 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 
   .who-label {
     display: block;
-    font-family: var(--font-family-ui);
-    font-size: var(--font-size-xs);
-    letter-spacing: 0.1em;
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--color-text-tertiary);
+    color: var(--color-gold-dust);
     margin-bottom: var(--spacing-2);
   }
 
   .who-desc {
     font-family: var(--font-family-body);
-    font-size: var(--font-size-xs);
-    line-height: var(--line-height-relaxed);
+    font-size: 13px;
+    line-height: 1.75;
     color: var(--color-text-secondary);
     margin: 0 0 var(--spacing-2);
   }
 
   .who-note {
     font-family: var(--font-family-body);
-    font-size: var(--font-size-xs);
-    line-height: var(--line-height-relaxed);
+    font-size: 12px;
+    line-height: 1.65;
     color: var(--color-text-tertiary);
     margin: 0;
   }
@@ -722,7 +729,9 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   }
 
   .section-heading-group {
-    margin-bottom: var(--spacing-8);
+    margin-bottom: var(--spacing-6);
+    padding-bottom: var(--spacing-4);
+    border-bottom: 1px solid var(--color-border-divider);
   }
 
   .section-title-line {
@@ -734,56 +743,63 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 
   .section-serial {
     font-family: var(--font-family-mono);
-    font-size: var(--font-size-xs);
+    font-size: 11px;
     color: var(--color-gold-dust);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
   }
 
   .section-main-title {
     font-family: var(--font-family-heading);
-    font-size: var(--font-size-2xl);
+    font-size: 1.5rem;
     font-weight: var(--font-weight-normal);
     color: var(--color-text-heading);
     margin: 0;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.01em;
+    line-height: 1.35;
   }
 
   .section-intro-text {
     font-family: var(--font-family-body);
-    font-size: var(--font-size-sm);
+    font-size: 13.5px;
     color: var(--color-text-secondary);
     margin: 0;
-    line-height: var(--line-height-relaxed);
+    line-height: 1.7;
+    letter-spacing: 0.01em;
   }
 
-  /* ===== 极简展陈面板 ===== */
+  /* ===== 极简展陈面板 (黄金分割细线，呼吸留白，悬停微淡边框) ===== */
   .editorial-panels-stack {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-4);
+    gap: 0;
   }
 
   .editorial-panel {
-    background: var(--color-surface-pure);
-    border: var(--border-width-thin) solid var(--color-border-subtle);
-    border-radius: var(--radius-sm);
-    padding: var(--spacing-6) var(--spacing-6);
+    background: transparent;
+    border: 1px solid transparent;
+    border-bottom: 1px solid var(--color-border-divider);
+    border-radius: var(--radius-xs);
+    padding: var(--spacing-6) var(--spacing-5);
     position: relative;
-    border-left: 2px solid var(--color-gold-dust);
-    transition: background var(--transition-fast), border-color var(--transition-fast);
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
+  .editorial-panel:last-child {
+    border-bottom-color: transparent;
+  }
+
+  /* 悬停时：显示非常细非常淡的边框与极轻微的微光纸白，绝无粗重左边条 */
   .editorial-panel:hover {
-    background: var(--color-surface-card);
-    border-color: var(--color-border);
-    border-left-color: var(--color-primary-dark);
+    background: var(--color-surface-pure);
+    border: 1px solid var(--color-border-subtle);
+    box-shadow: 0 4px 16px -6px rgba(38, 34, 28, 0.03);
   }
 
   .panel-top {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: var(--spacing-3);
+    margin-bottom: var(--spacing-2);
   }
 
   .panel-name-group {
@@ -794,52 +810,62 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 
   .panel-index {
     font-family: var(--font-family-mono);
-    font-size: var(--font-size-xs);
-    color: var(--color-text-tertiary);
-    opacity: 0.8;
+    font-size: 11px;
+    color: var(--color-gold-dust);
+    opacity: 0.85;
+    letter-spacing: 0.1em;
   }
 
   .panel-title {
     font-family: var(--font-family-heading);
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-medium);
+    font-size: 1.125rem;
+    font-weight: var(--font-weight-normal);
     color: var(--color-text-heading);
     margin: 0;
+    line-height: 1.4;
+    letter-spacing: 0.01em;
   }
 
   .panel-badge {
     font-family: var(--font-family-ui);
-    font-size: var(--font-size-xs);
+    font-size: 12px;
     letter-spacing: 0.04em;
     color: var(--color-text-tertiary);
   }
 
   .panel-badge.status-open {
-    color: var(--color-primary-dark);
+    color: var(--color-text-secondary);
     font-weight: var(--font-weight-medium);
   }
 
   .panel-desc {
     font-family: var(--font-family-body);
-    font-size: var(--font-size-sm);
-    line-height: var(--line-height-relaxed);
+    font-size: 13.5px;
+    line-height: 1.85;
     color: var(--color-text-secondary);
-    margin: 0;
+    margin: var(--spacing-2) 0 0;
+    letter-spacing: 0.015em;
+  }
+
+  .editorial-panel.lang-en .panel-desc {
+    line-height: 1.7;
+    letter-spacing: -0.005em;
   }
 
   .panel-footer-meta {
-    margin-top: var(--spacing-4);
-    padding-top: var(--spacing-3);
-    border-top: var(--border-width-thin) solid var(--color-border-divider);
+    margin-top: var(--spacing-3);
+    padding-top: var(--spacing-2);
+    border-top: 1px solid var(--color-border-divider);
     display: flex;
     justify-content: space-between;
     font-family: var(--font-family-ui);
-    font-size: var(--font-size-xs);
+    font-size: 11.5px;
     color: var(--color-text-tertiary);
   }
 
   .section-footer-link {
     margin-top: var(--spacing-6);
+    padding-top: var(--spacing-2);
   }
 
   .quiet-text-link {
@@ -847,18 +873,18 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     align-items: center;
     gap: var(--spacing-2);
     font-family: var(--font-family-ui);
-    font-size: var(--font-size-xs);
+    font-size: 12px;
     letter-spacing: 0.06em;
-    color: var(--color-primary-dark);
+    color: var(--color-text-secondary);
     text-decoration: none !important;
-    border-bottom: 1px solid var(--color-gold-dust) !important;
+    border-bottom: 1px solid var(--color-border-divider) !important;
     padding-bottom: 2px;
     transition: color var(--transition-fast), border-color var(--transition-fast);
   }
 
   .quiet-text-link:hover {
     color: var(--color-text-heading);
-    border-bottom-color: var(--color-text-heading) !important;
+    border-bottom-color: var(--color-gold-dust) !important;
   }
 
   .link-arrow {
@@ -870,13 +896,13 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     transform: translateX(3px);
   }
 
-  /* ===== 表单容器 ===== */
+  /* ===== 表单容器：极细 1px 微边框，无粗金线 ===== */
   .form-wrapper {
     background: var(--color-surface-pure);
-    border: var(--border-width-thin) solid var(--color-border-subtle);
-    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-xs);
     padding: var(--spacing-8);
-    border-left: 2px solid var(--color-gold-dust);
+    box-shadow: 0 2px 10px -4px rgba(38, 34, 28, 0.02);
   }
 
   .form-field {
@@ -891,13 +917,15 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     justify-content: space-between;
     align-items: baseline;
     font-family: var(--font-family-ui);
-    font-size: var(--font-size-xs);
+    font-size: 12.5px;
     font-weight: var(--font-weight-medium);
     color: var(--color-text-primary);
+    letter-spacing: 0.02em;
   }
 
   .field-hint {
-    font-size: var(--font-size-xs);
+    font-family: var(--font-family-ui);
+    font-size: 11px;
     color: var(--color-text-tertiary);
     font-weight: var(--font-weight-normal);
   }
@@ -905,12 +933,13 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   .quiet-form input[type='text'],
   .quiet-form textarea {
     width: 100%;
-    background: var(--color-surface-card);
-    border: var(--border-width-thin) solid var(--color-border);
+    background: var(--color-surface-soft);
+    border: 1px solid var(--color-border-divider);
     border-radius: var(--radius-xs);
     padding: var(--spacing-3) var(--spacing-4);
     font-family: var(--font-family-body);
-    font-size: var(--font-size-sm);
+    font-size: 13.5px;
+    line-height: 1.6;
     color: var(--color-text-primary);
     transition: border-color var(--transition-fast), background var(--transition-fast);
   }
@@ -918,12 +947,12 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   .quiet-form input[type='text']:focus,
   .quiet-form textarea:focus {
     outline: none;
-    border-color: var(--color-gold-dust);
+    border-color: var(--color-border);
     background: var(--color-surface-pure);
-    box-shadow: 0 0 0 1px var(--color-gold-dust);
+    box-shadow: none;
   }
 
-  /* 前置细金线选项列表 */
+  /* 前置细线选项列表 */
   .quiet-check-list {
     display: flex;
     flex-direction: column;
@@ -935,16 +964,16 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     align-items: flex-start;
     gap: var(--spacing-3);
     padding: var(--spacing-3) var(--spacing-4);
-    border: var(--border-width-thin) solid var(--color-border-divider);
+    border: 1px solid var(--color-border-divider);
     border-radius: var(--radius-xs);
-    background: var(--color-surface-card);
+    background: transparent;
     cursor: pointer;
     transition: all var(--transition-fast);
   }
 
   .quiet-check-row:hover {
     border-color: var(--color-border);
-    background: var(--color-surface-pure);
+    background: var(--color-surface-soft);
   }
 
   .quiet-check-row input {
@@ -954,8 +983,8 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   }
 
   .check-indicator {
-    width: 14px;
-    height: 14px;
+    width: 13px;
+    height: 13px;
     margin-top: 3px;
     flex-shrink: 0;
     border: 1px solid var(--color-border);
@@ -973,7 +1002,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 
   .quiet-check-row input:checked ~ .check-indicator {
     border-color: var(--color-gold-dust);
-    background: var(--color-primary-dark);
+    background: var(--color-text-primary);
   }
 
   .is-radio input:checked ~ .check-indicator::after {
@@ -985,8 +1014,8 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   }
 
   .quiet-check-row svg {
-    width: 10px;
-    height: 10px;
+    width: 9px;
+    height: 9px;
     stroke: var(--color-surface-pure);
     stroke-width: 1.8;
     opacity: 0;
@@ -1005,7 +1034,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 
   .check-title {
     font-family: var(--font-family-body);
-    font-size: var(--font-size-xs);
+    font-size: 13px;
     font-weight: var(--font-weight-medium);
     color: var(--color-text-primary);
   }
@@ -1029,15 +1058,15 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     justify-content: center;
     gap: var(--spacing-3);
     padding: var(--spacing-3) var(--spacing-6);
-    background: var(--color-primary-dark);
+    background: var(--color-text-primary);
     color: var(--color-surface-pure);
     border: none;
     border-radius: var(--radius-xs);
     font-family: var(--font-family-ui);
-    font-size: var(--font-size-xs);
+    font-size: 12px;
     letter-spacing: 0.08em;
     cursor: pointer;
-    transition: all var(--transition-fast);
+    transition: background var(--transition-fast);
   }
 
   .submit-btn-primary:hover {
@@ -1063,8 +1092,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     margin-top: var(--spacing-6);
     padding: var(--spacing-6);
     background: var(--color-surface-card);
-    border: var(--border-width-thin) solid var(--color-border);
-    border-left: 2px solid var(--color-gold-dust);
+    border: 1px solid var(--color-border-divider);
     border-radius: var(--radius-xs);
   }
 
@@ -1083,7 +1111,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   .receipt-msg-title {
     margin: 0;
     font-family: var(--font-family-heading);
-    font-size: var(--font-size-base);
+    font-size: 15px;
     color: var(--color-text-heading);
   }
 
@@ -1097,7 +1125,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   .receipt-note {
     margin: 0;
     font-family: var(--font-family-body);
-    font-size: var(--font-size-xs);
+    font-size: 12.5px;
     color: var(--color-text-secondary);
     line-height: var(--line-height-relaxed);
   }
@@ -1111,7 +1139,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     .sidebar {
       position: static;
       border-right: none;
-      border-bottom: var(--border-width-thin) solid var(--color-border-divider);
+      border-bottom: 1px solid var(--color-border-divider);
       padding-right: 0;
       padding-bottom: var(--spacing-8);
     }
