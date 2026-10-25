@@ -1,0 +1,85 @@
+---
+// src/components/Footer.astro
+---
+
+<footer class='footer'>
+  <div class='footer-sub'>
+    <div class='footer-signature'>
+      <span class='gold-thread-dot'>✦</span>
+      <span>wo/men in tech</span>
+    </div>
+    <span class='footer-description'>
+      women in technical · 既是女性，亦是“我们”的技术与创造联合体
+    </span>
+    <span class='footer-roles'>
+      Product Managers × Interaction Designers × Frontend Engineers
+    </span>
+    <span class='footer-privacy'>
+      © 2026 wo/men in tech. Crafted with quiet luxury, low pressure, and mutual support.
+    </span>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--surface-footer, var(--color-surface-primary));
+    padding: var(--spacing-16) var(--spacing-6) var(--spacing-12);
+    text-align: center;
+    position: relative;
+    margin-top: var(--spacing-20);
+    border-top: var(--border-width-thin) solid var(--color-border-divider);
+  }
+
+  .footer-sub {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-2);
+    opacity: 0.9;
+  }
+
+  .footer-signature {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2);
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .gold-thread-dot {
+    color: var(--color-gold-dust);
+    font-size: var(--font-size-xs);
+  }
+
+  .footer-description {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    letter-spacing: var(--letter-spacing-wide);
+  }
+
+  .footer-roles {
+    color: var(--color-primary-dark);
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.1em;
+    font-family: var(--font-family-ui);
+    text-transform: uppercase;
+    margin-top: var(--spacing-1);
+  }
+
+  .footer-privacy {
+    color: var(--color-text-tertiary);
+    font-size: var(--font-size-xs);
+    font-style: normal;
+    margin-top: var(--spacing-4);
+  }
+
+  @media (width <= 768px) {
+    .footer {
+      padding: var(--spacing-10) var(--spacing-4);
+    }
+  }
+</style>

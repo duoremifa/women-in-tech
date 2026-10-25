@@ -1,0 +1,8 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景留白（透明） -->
+  <!-- 十字交叉线 - 磨砂薰衣草，极细（16×16优化） -->
+  <line x1="2" y1="8" x2="14" y2="8" stroke="#b7aad9" stroke-width="0.5" stroke-linecap="round"/>
+  <line x1="8" y1="2" x2="8" y2="14" stroke="#b7aad9" stroke-width="0.5" stroke-linecap="round"/>
+  <!-- 中心金点 - 哑光金，极细圆点（16×16优化） -->
+  <circle cx="8" cy="8" r="1" fill="#d8cdb0" opacity="0.9"/>
+</svg>

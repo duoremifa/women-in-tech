@@ -1,0 +1,25 @@
+# Cloudflare Pages 安全头配置
+# 这个文件会被Cloudflare Pages自动应用
+
+# 全局安全头
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
+
+# 内容安全策略 (CSP)
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://tally.so; font-src 'self';
+
+# 静态资源缓存优化
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# PWA文件缓存优化
+/sw.js
+  Cache-Control: public, max-age=0, must-revalidate
+
+/manifest.webmanifest
+  Cache-Control: public, max-age=86400

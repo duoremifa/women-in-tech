@@ -1,0 +1,91 @@
+/* src/styles/base/reset.css */
+
+/* Minimal Reset based on modern best practices (including Josh Cameau's reset principles) */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  text-size-adjust: none;
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  line-height: var(--line-height-normal, 1.5);
+  margin: 0;
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings:
+    'kern' 1,
+    'liga' 1,
+    'clig' 1,
+    'calt' 1;
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-primary);
+  font-family: var(--font-family-sans);
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests a list with no semantics */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Scrollbar Styling (Minimal) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-tertiary);
+}
+
+/* View Transitions API - Smooth Page Transitions */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* 优雅减速曲线 */
+}

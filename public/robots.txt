@@ -1,0 +1,30 @@
+# 禁止所有搜索引擎爬虫收录（保护隐私，防止内容被索引）
+User-agent: *
+Disallow: /
+
+# 禁止常见数据抓取和 AI 训练爬虫
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Omgilibot
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+# 不提供 Sitemap，减少暴露

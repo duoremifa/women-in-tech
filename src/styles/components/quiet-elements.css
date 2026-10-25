@@ -1,0 +1,56 @@
+/* ============================================
+   quiet-elements.css · 宁静低压全局元素
+   ============================================ */
+
+/* 引用块 - 哑光金左边框 */
+blockquote {
+  background: var(--color-surface-soft);
+  border-left: var(--border-width-thick) solid var(--color-gold-dust);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: var(--spacing-4) var(--spacing-6);
+  font-family: var(--font-family-text);
+  color: var(--color-text-secondary);
+  font-style: normal;
+  margin: var(--spacing-8) 0;
+}
+
+/* 分割线 - 哑光金虚线 */
+hr,
+.divider {
+  border: none;
+  height: var(--border-width-thin);
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-gold-dust) 0,
+    var(--color-gold-dust) var(--spacing-1),
+    transparent var(--spacing-1),
+    transparent var(--spacing-2)
+  );
+  margin: var(--spacing-12) 0;
+}
+
+/* 链接 - 下划线悬停效果 */
+a {
+  color: var(--color-primary-dark);
+  text-decoration: none;
+  border-bottom: var(--border-width-thin) solid transparent;
+  transition: border-color var(--transition-normal);
+}
+
+a:hover {
+  border-bottom-color: var(--color-primary);
+}
+
+/* ===== 深色模式适配 ===== */
+:root.dark blockquote {
+  background: var(--color-surface-soft);
+  border-left-color: var(--color-gold-dust);
+}
+
+:root.dark a {
+  color: var(--color-primary-light);
+}
+
+:root.dark a:hover {
+  border-bottom-color: var(--color-primary-light);
+}

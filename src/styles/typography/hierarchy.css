@@ -1,0 +1,108 @@
+/* src/styles/typography/hierarchy.css */
+
+/* ============ 全局标题层级 ============ */
+
+h1,
+.h1 {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-dense);
+  letter-spacing: var(--letter-spacing-tight);
+  margin-bottom: var(--spacing-4);
+  color: var(--color-text-heading);
+}
+
+h2,
+.h2 {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  margin-top: var(--h2-spacing-top);
+  margin-bottom: var(--h2-spacing-bottom);
+  color: var(--color-text-heading);
+}
+
+h3,
+.h3 {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-normal);
+  margin-top: var(--h3-spacing-top);
+  margin-bottom: var(--h3-spacing-bottom);
+  color: var(--color-text-heading);
+}
+
+/* H4: 默认使用 UI 字体 (功能导向) */
+h4,
+.h4 {
+  font-family: var(--font-family-ui);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-wide);
+  margin-top: var(--spacing-6);
+  margin-bottom: var(--spacing-3);
+  color: var(--color-text-primary);
+}
+
+/* 内容区 H4 例外: 使用人文感字体 */
+.story-content h4,
+.article-content h4,
+.markdown-content h4,
+.prose h4 {
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-normal);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+h5,
+.h5 {
+  font-family: var(--font-family-ui);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+  margin-top: var(--spacing-4);
+  margin-bottom: var(--spacing-2);
+}
+
+h6,
+.h6 {
+  font-family: var(--font-family-ui);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-extended);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+}
+
+/* ============ 内容排版 ============ */
+
+body,
+p {
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--letter-spacing-normal);
+  margin-bottom: var(--paragraph-spacing);
+  color: var(--color-text-primary);
+}
+
+/* Lead/Intro Text: 保持人文温度感 (Wow factor) */
+.lead,
+.intro-text {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-relaxed);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--color-text-secondary);
+  max-width: 60ch;
+}

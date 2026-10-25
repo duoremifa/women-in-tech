@@ -1,0 +1,94 @@
+---
+// ReadingProgress.astro - 阅读进度条组件
+// 提供页面滚动进度指示功能，增强微交互效果
+---
+
+<!-- 阅读进度条 -->
+<div class='reading-progress' id='reading-progress'></div>
+
+<style>
+  .reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: var(--border-width-normal);
+    background: linear-gradient(
+      to right,
+      var(--progress-start-color) 0%,
+      var(--progress-end-color) 100%
+    );
+    z-index: 1000;
+    transition: width var(--transition-fast);
+  }
+
+  /* 涟漪效果容器 */
+  .reading-progress::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--ripple-size);
+    height: var(--ripple-size);
+    background: radial-gradient(
+      circle,
+      var(--ripple-color) 0%,
+      var(--ripple-color) 50%,
+      transparent 70%
+    );
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: all var(--ripple-duration) var(--transition-hover);
+    border-radius: var(--radius-full);
+  }
+
+  /* 涟漪激活状态 */
+  .reading-progress.active::after {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+</style>
+
+<script>
+  function initReadingProgress() {
+    const progressBar = document.getElementById('reading-progress');
+    if (!progressBar) return;
+
+    function updateProgress() {
+      const winScroll = document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+
+      // 更新进度条宽度和渐变
+      progressBar.style.width = scrolled + '%';
+
+      // 触发涟漪效果
+      triggerRipple();
+    }
+
+    function triggerRipple() {
+      progressBar.classList.add('active');
+      setTimeout(() => {
+        progressBar.classList.remove('active');
+      }, 300); // 使用300ms而不是变量
+    }
+
+    window.addEventListener('scroll', updateProgress);
+    updateProgress();
+
+    // 返回清理函数
+    return () => window.removeEventListener('scroll', updateProgress);
+  }
+
+  let cleanup = null;
+
+  document.addEventListener('astro:page-load', () => {
+    if (cleanup) cleanup();
+    cleanup = initReadingProgress();
+  });
+
+  document.addEventListener('astro:after-swap', () => {
+    if (cleanup) cleanup();
+    cleanup = initReadingProgress();
+  });
+</script>

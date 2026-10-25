@@ -1,0 +1,7 @@
+/* src/styles/typography/variables.css */
+/* 
+  注意：此文件已被 design-system.css 替代
+  保留此文件仅为兼容性，实际使用 design-system.css 中的定义
+*/
+
+/* 所有字体变量现在由 design-system.css 统一管理，此处留空以避免冲突 */

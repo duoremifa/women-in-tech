@@ -1,0 +1,188 @@
+/* src/styles/components/list-layout.css */
+
+/* List System & Guestbook/Message Styles */
+
+/* Guestbook Container */
+
+/* Guestbook Container removed - use .writing-list-wrapper or layout classes */
+
+/* Post/Message List Item reused structure */
+.messages-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+/* Base Message/Post Card styles are in cards.css, but specific list logic can stay here */
+.post-content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+}
+
+.post-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.post-emoji {
+  font-size: var(--font-size-2xl);
+  flex-shrink: 0;
+  line-height: var(--line-height-normal);
+}
+
+/* Load More & Empty States */
+.load-more-container {
+  margin-top: var(--spacing-8);
+  text-align: center;
+}
+
+.empty-state {
+  text-align: center;
+  padding: var(--spacing-12);
+  background: var(--color-surface-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--color-border);
+  margin-top: var(--spacing-8);
+}
+
+.empty-emoji {
+  font-size: var(--font-size-5xl);
+  display: block;
+  margin-bottom: var(--spacing-4);
+}
+
+/* Timeline (Changelog) styles migrated from components.css */
+.timeline {
+  margin: 0 auto;
+  position: relative;
+  padding-left: var(--spacing-4);
+}
+
+.version-item {
+  padding-left: var(--spacing-6);
+  margin-bottom: var(--spacing-12);
+  border-left: 2px solid var(--color-border-light);
+  position: relative;
+}
+
+.version-item::before {
+  content: '';
+  position: absolute;
+  left: -7px;
+
+  /* Micro adjustment */
+  top: 0;
+  width: var(--spacing-3);
+  height: var(--spacing-3);
+  background: var(--color-surface-primary);
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+}
+
+.version-item:first-child::before {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.version-header {
+  margin-bottom: var(--spacing-4);
+}
+
+.version-stage {
+  display: inline-block;
+  padding: var(--spacing-1) var(--spacing-2);
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  font-size: var(--font-size-xs);
+  border-radius: var(--radius-sm);
+  margin-top: var(--spacing-1);
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Tags styles migrated from components.css */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-xs);
+  font-family: var(--font-family-sans);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  line-height: 1.4;
+  border: 1px solid transparent;
+  letter-spacing: var(--letter-spacing-extended);
+}
+
+/* Base Tag */
+.tag-default {
+  background: var(--color-surface-tertiary);
+  color: var(--color-text-secondary);
+}
+
+/* Semantic Tags (using color-mix for opacity) */
+.tag-self-care,
+.tag[data-tag='self-care'] {
+  background: color-mix(in srgb, var(--color-tag-self-care), transparent 85%);
+  color: color-mix(in srgb, var(--color-tag-self-care), black 20%);
+  border-color: color-mix(in srgb, var(--color-tag-self-care), transparent 70%);
+}
+
+.tag-work,
+.tag[data-tag='work'] {
+  background: color-mix(in srgb, var(--color-tag-work), transparent 85%);
+  color: color-mix(in srgb, var(--color-tag-work), black 20%);
+  border-color: color-mix(in srgb, var(--color-tag-work), transparent 70%);
+}
+
+.tag-learning,
+.tag[data-tag='learning'] {
+  background: color-mix(in srgb, var(--color-tag-learning), transparent 85%);
+  color: color-mix(in srgb, var(--color-tag-learning), black 20%);
+  border-color: color-mix(in srgb, var(--color-tag-learning), transparent 70%);
+}
+
+.tag-productivity,
+.tag[data-tag='productivity'] {
+  background: color-mix(in srgb, var(--color-tag-productivity), transparent 85%);
+  color: color-mix(in srgb, var(--color-tag-productivity), black 20%);
+  border-color: color-mix(in srgb, var(--color-tag-productivity), transparent 70%);
+}
+
+.tag-wealth,
+.tag[data-tag='wealth'] {
+  background: color-mix(in srgb, var(--color-tag-wealth), transparent 85%);
+  color: color-mix(in srgb, var(--color-tag-wealth), black 20%);
+  border-color: color-mix(in srgb, var(--color-tag-wealth), transparent 70%);
+}
+
+.tag-reading,
+.tag[data-tag='reading'] {
+  background: color-mix(in srgb, var(--color-tag-reading), transparent 85%);
+  color: color-mix(in srgb, var(--color-tag-reading), black 20%);
+  border-color: color-mix(in srgb, var(--color-tag-reading), transparent 70%);
+}
+
+.tag-entertainment,
+.tag[data-tag='entertainment'] {
+  background: color-mix(in srgb, var(--color-tag-entertainment), transparent 85%);
+  color: color-mix(in srgb, var(--color-tag-entertainment), black 20%);
+  border-color: color-mix(in srgb, var(--color-tag-entertainment), transparent 70%);
+}
+
+.tag-sleep,
+.tag[data-tag='sleep'] {
+  background: color-mix(in srgb, var(--color-tag-sleep), transparent 85%);
+  color: color-mix(in srgb, var(--color-tag-sleep), black 20%);
+  border-color: color-mix(in srgb, var(--color-tag-sleep), transparent 70%);
+}
+
+.tag-body,
+.tag[data-tag='body'] {
+  background: color-mix(in srgb, var(--color-tag-body), transparent 85%);
+  color: color-mix(in srgb, var(--color-tag-body), black 20%);
+  border-color: color-mix(in srgb, var(--color-tag-body), transparent 70%);
+}

@@ -1,0 +1,28 @@
+# dependencies
+node_modules
+
+# build output
+dist
+.astro/
+.wrangler/
+
+# environment variables
+.env
+.env.local
+
+# logs
+*.log
+
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db
+.vercel
+
+# media
+public/audio/*.mp3
+public/audio/*.m4a
+public/audio/*.wav

@@ -1,0 +1,43 @@
+/*
+  # ── 防点击劫持 ───────────────────────────────────────────────
+  X-Frame-Options: DENY
+  # ── 防内容类型嗅探 ────────────────────────────────────────────
+  X-Content-Type-Options: nosniff
+  # ── 关闭旧版 XSS 过滤器（现代浏览器已废弃，关闭反而更安全） ──────
+  X-XSS-Protection: 0
+  # ── 强制 HTTPS，2 年，含子域，申请 preload ────────────────────
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  # ── Referrer：仅发送 Origin，不泄露完整 URL ──────────────────
+  Referrer-Policy: strict-origin-when-cross-origin
+  # ── 权限策略：关闭一切不必要的浏览器 API ─────────────────────
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=(), payment=(), usb=(), bluetooth=(), serial=(), hid=()
+  # ── CSP：白名单来源，防 XSS 和资源注入 ──────────────────────
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self' https://*.supabase.co https://jnulqcfkvzevzgczhxis.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+  # ── 不允许被嵌入任何跨域 frame ───────────────────────────────
+  X-Permitted-Cross-Domain-Policies: none
+  # ── 关闭 DNS 预取，减少泄露 ──────────────────────────────────
+  X-DNS-Prefetch-Control: off
+  # ── 跨域隔离（防 Spectre 侧信道攻击）────────────────────────
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: credentialless
+  Cross-Origin-Resource-Policy: same-origin
+  # ── 不发送 Server 信息 ────────────────────────────────────────
+  Server: .
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/manifest.webmanifest
+  Cache-Control: public, max-age=86400
+
+/sw.js
+  Cache-Control: public, max-age=0, no-cache
+
+/images/*
+  Cache-Control: public, max-age=2592000
+
+/robots.txt
+  Cache-Control: public, max-age=86400

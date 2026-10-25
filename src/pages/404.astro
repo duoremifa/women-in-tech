@@ -1,0 +1,251 @@
+---
+import Layout from '../layouts/Layout.astro';
+import GeometricVisual from '../components/GeometricVisual.astro';
+import GeometricIcon from '../components/Icon/GeometricIcon.astro';
+---
+
+<Layout
+  title='404 · 宁静迷途'
+  description='就像走进树林深处，有时候我们会迷路。没关系，让我们回到起点。'
+  width='reading'
+  ogImage='/og/og-404.png'
+>
+  <div class='not-found-page'>
+    <!-- █████████████████████████████████████████████████ -->
+    <!-- 主视觉 · 柔和数字 + 几何背景                       -->
+    <!-- █████████████████████████████████████████████████ -->
+    <section class='hero-404'>
+      <div class='hero-content'>
+        <div class='number-wrapper'>
+          <span class='number-symbol'>4</span>
+          <span class='number-symbol accent'>0</span>
+          <span class='number-symbol'>4</span>
+        </div>
+        <h1 class='hero-title-serif'>就像走进树林深处</h1>
+        <p class='hero-sub'>有时候我们会迷路。</p>
+      </div>
+      <GeometricVisual height='var(--spacing-40)' isBackground={true} opacity={0.015} />
+    </section>
+
+    <!-- █████████████████████████████████████████████████ -->
+    <!-- 安抚文案 · 三条温柔的路径                           -->
+    <!-- █████████████████████████████████████████████████ -->
+    <section class='consolation-section'>
+      <div class='quiet-card consolation-card'>
+        <div class='consolation-icon'>
+          <GeometricIcon type='resonance' size='lg' color='primary' animated />
+        </div>
+        <p class='consolation-text'>没关系，让我们回到起点，重新开始。</p>
+      </div>
+
+      <div class='action-grid'>
+        <a href='/' class='btn btn-primary btn-large'>回到问卷首页 / Back to Home</a>
+      </div>
+
+
+      <div class='footnote-404'>
+        <span class='gold-thread-mini'></span>
+        <p>
+          如果你迷路了，可以尝试返回首页。<br />
+          探索认知生态，寻找温柔的生存策略。
+        </p>
+
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  /* ============================================
+     404 页面 · 宁静迷途指南
+     完全基于设计系统变量，无硬编码
+     ============================================ */
+
+  .not-found-page {
+    padding: var(--spacing-12) 0 var(--spacing-20);
+  }
+
+  /* ----- 主视觉 ----- */
+  .hero-404 {
+    position: relative;
+    margin-bottom: var(--spacing-20);
+    min-height: var(--spacing-35);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-404 .geometric-visual {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--spacing-10);
+    height: var(--spacing-2);
+    z-index: 1;
+    opacity: 0.25;
+  }
+
+  .number-wrapper {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-6);
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-6xl);
+    font-weight: var(--font-weight-light);
+    line-height: var(--line-height-tight);
+    color: var(--color-text-heading);
+    letter-spacing: -0.05em;
+  }
+
+  .number-symbol {
+    opacity: 0.7;
+  }
+
+  .number-symbol.accent {
+    color: var(--color-primary);
+    opacity: 1;
+    transform: scale(1.05);
+    margin: 0 var(--spacing-1);
+  }
+
+  .hero-title-serif {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-light);
+    color: var(--color-text-heading);
+    line-height: var(--line-height-snug);
+    margin-bottom: var(--spacing-3);
+    letter-spacing: -0.01em;
+  }
+
+  .hero-sub {
+    font-family: var(--font-family-text);
+    font-size: var(--font-size-xl);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* ----- 安抚卡片 ----- */
+  .consolation-section {
+    max-width: 32em;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .consolation-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-10) var(--spacing-8);
+    margin-bottom: var(--spacing-10);
+    background: var(--color-surface-soft);
+    border: none;
+    box-shadow: none;
+  }
+
+  .consolation-icon {
+    margin-bottom: var(--spacing-6);
+    color: var(--color-primary);
+  }
+
+  .consolation-text {
+    font-family: var(--font-family-text);
+    font-size: var(--font-size-lg);
+    color: var(--color-text-primary);
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* ----- 行动按钮组 ----- */
+  .action-grid {
+    display: flex;
+    gap: var(--spacing-4);
+    justify-content: center;
+    margin-bottom: var(--spacing-12);
+    flex-wrap: wrap;
+  }
+
+  /* ----- 迷途印记入口 ----- */
+  .footnote-404 {
+    margin-top: var(--spacing-8);
+    padding-top: var(--spacing-8);
+    border-top: var(--border-width-thin) solid var(--color-border-divider);
+    text-align: left;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-4);
+    flex-wrap: wrap;
+  }
+
+  .gold-thread-mini {
+    display: inline-block;
+    width: var(--spacing-10);
+    height: var(--border-width-normal);
+    background: var(--color-gold-dust);
+    margin-top: var(--spacing-2);
+    flex-shrink: 0;
+  }
+
+  .footnote-404 p {
+    flex: 1;
+    font-family: var(--font-family-text);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-tertiary);
+    line-height: var(--line-height-relaxed);
+    margin: 0;
+    font-style: italic;
+    opacity: 0.8;
+  }
+
+  .footnote-404 a {
+    color: var(--color-primary-dark);
+    text-decoration: none;
+    border-bottom: var(--border-width-thin) solid transparent;
+    transition: border-color 0.2s;
+  }
+
+  .footnote-404 a:hover {
+    border-bottom-color: var(--color-primary);
+  }
+
+  /* ===== 响应式 ===== */
+  @media (width <= 640px) {
+    .number-wrapper {
+      font-size: var(--font-size-5xl);
+    }
+
+    .hero-title-serif {
+      font-size: var(--font-size-xl);
+    }
+
+    .hero-sub {
+      font-size: var(--font-size-lg);
+    }
+
+    .consolation-card {
+      padding: var(--spacing-8) var(--spacing-6);
+    }
+
+    .action-grid {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .action-grid .btn,
+    .action-grid .btn-secondary {
+      width: 100%;
+      text-align: center;
+    }
+
+    .footnote-404 {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-3);
+    }
+  }
+</style>

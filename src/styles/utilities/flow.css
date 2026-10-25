@@ -1,0 +1,29 @@
+/* src/styles/utilities/flow.css */
+
+/* Vertical Rhythm Utilities */
+
+/* Flow - 自动垂直间距 (Lobotomized Owl Pattern) */
+.flow > * + * {
+  margin-top: var(--flow-space, 1em);
+}
+
+/* Flow Variants - 不同间距级别 */
+.flow-xs {
+  --flow-space: var(--spacing-1);
+}
+
+.flow-sm {
+  --flow-space: var(--spacing-2);
+}
+
+.flow-base {
+  --flow-space: var(--spacing-4);
+}
+
+.flow-lg {
+  --flow-space: var(--spacing-6);
+}
+
+.flow-xl {
+  --flow-space: var(--spacing-8);
+}

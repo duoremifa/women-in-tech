@@ -1,0 +1,204 @@
+/* src/styles/visual/effects.css */
+:root {
+  /* ============ 动效系统 ============ */
+
+  /* 持续时间 */
+  --duration-instant: 0ms;
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+
+  /* 缓动函数 */
+  --easing-linear: linear;
+  --easing-ease: ease;
+  --easing-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* 优雅减速 */
+  --easing-ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+
+  /* 动效预设 */
+  --transition-fast: all var(--duration-fast) var(--easing-ease-out);
+  --transition-normal: all var(--duration-normal) var(--easing-ease-out);
+  --transition-slow: all var(--duration-slow) var(--easing-ease-in-out);
+
+  /* 阴影系统 */
+  --shadow-sm: 0 var(--border-width-thin) var(--radius-xs) rgb(0 0 0 / 5%);
+  --shadow-md: 0 var(--radius-sm) var(--radius-md) calc(var(--border-width-thin) * -1)
+    rgb(0 0 0 / 10%);
+  --shadow-lg: 0 calc(var(--baseline) * 1.25) calc(var(--baseline) * 1.875)
+    calc(var(--border-width-thick) * -1) rgb(0 0 0 / 10%);
+
+  /* 内阴影（极细边框替代） */
+  --shadow-inner: inset 0 0 0 1px var(--color-border-light);
+}
+
+/* 基础动画 */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(var(--spacing-2));
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* === 统一呼吸动画库 === */
+
+/* 1. 呼吸动画 - 用于时间指示器 */
+@keyframes breathe-dot {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* 2. 几何脉动动画 - 用于几何图标 */
+@keyframes breathe-geom {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+/* 3. 简单脉动动画 - 用于基础图标 */
+@keyframes breathe-simple {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* 4. 高度呼吸动画 - 用于特殊几何效果 */
+@keyframes breathe-height {
+  0%,
+  100% {
+    height: 60%;
+    opacity: 0.4;
+  }
+
+  50% {
+    height: 90%;
+    opacity: 0.9;
+  }
+}
+
+/* 应用类 */
+.animate-fade-in {
+  animation: fade-in var(--duration-normal) var(--easing-ease-out);
+}
+
+.animate-slide-up {
+  animation: slide-up var(--duration-normal) var(--easing-ease-out);
+}
+
+.animate-scale-in {
+  animation: scale-in var(--duration-normal) var(--easing-ease-out);
+}
+
+/* === 呼吸动画应用类 === */
+.animate-breathe-dot {
+  animation: breathe-dot 3s infinite ease-in-out;
+}
+
+.animate-breathe-geom {
+  animation: breathe-geom 2s infinite ease-in-out;
+}
+
+.animate-breathe-simple {
+  animation: breathe-simple 2s infinite ease-in-out;
+}
+
+.animate-breathe-height {
+  animation: breathe-height 3s infinite ease-in-out;
+}
+
+/* 动画延迟类 */
+.animate-delay-100 {
+  animation-delay: 100ms;
+}
+
+.animate-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animate-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animate-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animate-delay-500 {
+  animation-delay: 500ms;
+}
+
+/* 悬停效果 */
+.hover-lift {
+  transition: var(--transition-normal);
+}
+
+.hover-lift:hover {
+  transform: translateY(calc(var(--border-width-normal) * -1));
+}
+
+.hover-glow {
+  transition: var(--transition-normal);
+}
+
+.hover-glow:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* 减少动效支持 */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-slide-up,
+  .animate-scale-in,
+  .hover-lift,
+  .hover-glow {
+    animation: none !important;
+    transition: none !important;
+  }
+}

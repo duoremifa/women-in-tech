@@ -1,0 +1,118 @@
+---
+// src/components/Navbar.astro
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { text: '理念 (About)', href: '#about', external: false },
+  { text: '角色 (Triad)', href: '#roles', external: false },
+  { text: '活动 (Events)', href: '#events', external: false },
+  { text: '作品 (Portfolio)', href: '#portfolio', external: false },
+  { text: '预约 (RSVP)', href: '#join', external: false },
+];
+---
+
+<nav class='quiet-nav layout-reading'>
+  <!-- 左侧品牌 -->
+  <div class='nav-left'>
+    <a href='/' class:list={['brand', { active: currentPath === '/' }]}>
+      <span class='brand-main'>wo/men</span>
+      <span class='brand-sub'>in tech</span>
+    </a>
+  </div>
+
+  <!-- 右侧导航链接 -->
+  <div class='nav-right'>
+    {
+      navItems.map(item => (
+        <a
+          href={item.href}
+          class='nav-link'
+        >
+          {item.text}
+        </a>
+      ))
+    }
+  </div>
+</nav>
+
+<style>
+  /* ===== 导航容器 ===== */
+  .quiet-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--spacing-8);
+    padding-bottom: var(--spacing-6);
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    border-bottom: var(--border-width-thin) solid var(--color-border-divider);
+    margin-bottom: var(--spacing-6);
+    position: relative;
+  }
+
+  /* ===== 品牌标识 ===== */
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-2);
+    text-decoration: none;
+    color: var(--color-text-primary);
+  }
+
+  .brand-main {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-medium);
+    letter-spacing: -0.01em;
+    color: var(--color-text-heading);
+  }
+
+  .brand-sub {
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-light);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-primary-dark);
+  }
+
+  /* ===== 链接样式 ===== */
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-5);
+  }
+
+  .nav-link {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.06em;
+    border-bottom: var(--border-width-thin) solid transparent;
+    transition:
+      border-color var(--transition-normal),
+      color var(--transition-normal);
+    padding-bottom: var(--spacing-1);
+    white-space: nowrap;
+  }
+
+  .nav-link:hover {
+    border-bottom-color: var(--color-primary);
+    color: var(--color-text-primary);
+  }
+
+  @media (width <= 768px) {
+    .quiet-nav {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-4);
+      padding-bottom: var(--spacing-4);
+    }
+
+    .nav-right {
+      flex-wrap: wrap;
+      gap: var(--spacing-3);
+    }
+  }
+</style>

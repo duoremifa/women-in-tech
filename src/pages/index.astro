@@ -1,0 +1,835 @@
+---
+import Layout from '../layouts/Layout.astro';
+import GeometricVisual from '../components/GeometricVisual.astro';
+---
+
+<Layout
+  title='wo/men in tech · women in technical'
+  description='women in technical · 既是女性，亦是“我们”的技术与创造联合体。面向产品经理 (PM)、交互设计师 (IxD) 与前端工程师 (FE) 的互助、交流与作品共建空间。'
+  width='reading'
+>
+  <div class='survey-home'>
+    <div class='two-column-layout'>
+      {/* 左侧栏：理念与双语介绍 */}
+      <aside class='sidebar' id='about'>
+        <span class='gold-thread-mini'></span>
+
+        <div class='brand-group'>
+          <h1 class='site-title'>wo/men</h1>
+          <p class='site-tagline'>women in technical · 也是“我们”</p>
+        </div>
+
+        <div class='intro-section'>
+          <div class='intro-zh'>
+            <h2 class='intro-title'>关于这个空间 · About</h2>
+            <p>
+              <strong>“wo/men”</strong>，既是技术与创造领域里的女性（women in technical），也是中文里温暖坚定的<strong>“我们”</strong>。
+            </p>
+            <p>
+              面向<strong>产品经理 (PM)</strong>、<strong>交互设计师 (IxD / UI/UX)</strong> 与<strong>前端工程师 (FE)</strong>。
+            </p>
+            <p>
+              我们相信：一个人或许能走得很快，但三个角色的默契互补，能把模糊的灵感真正打磨成<strong>立得住、拿得出手、真正上线的个人作品与产品方案</strong>。
+            </p>
+            <div class='core-bullet-box'>
+              <span class='bullet-label'>核心节奏：</span>
+              <ul>
+                <li><strong>Coffee Chat</strong>：线上与线下的真诚对话，低压力、去爹味、只聊真实体悟。</li>
+                <li><strong>English Chat</strong>：定期英语技术与设计交流，在支持性环境里拓展全球化表达。</li>
+                <li><strong>作品共建</strong>：PM 逻辑 + IxD 触感 + FE 架构，合力搭建个人作品与出海工具。</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class='intro-divider'></div>
+
+          <div class='intro-en'>
+            <h2 class='intro-title'>Manifesto · EN</h2>
+            <p>
+              <strong>“wo/men in tech”</strong> is a sanctuary and co-creation laboratory bringing together female product leaders, interaction designers, and frontend engineers.
+            </p>
+            <p>
+              Bridging the gap between ideas, aesthetics, and code. No zero-sum competition or gatekeeping—only mutual elevation, craftsmanship, and real-world creations.
+            </p>
+            <p class='meta-info'>
+              Coffee Chats · English Discussions · Portfolio Co-building
+            </p>
+          </div>
+        </div>
+
+        {/* 底部装饰 */}
+        <div class='sidebar-footer'>
+          <GeometricVisual type='subtle' height='90px' />
+        </div>
+      </aside>
+
+      {/* 右侧栏：三大角色矩阵、活动形式、近期日程与预约加入 */}
+      <main class='survey-main'>
+        {/* 1. 角色协同矩阵 */}
+        <section class='content-block' id='roles'>
+          <div class='section-header'>
+            <span class='section-eyebrow'>THE TRIAD MATRIX</span>
+            <h2 class='section-heading'>三大角色 · 协同闭环</h2>
+            <p class='section-desc'>
+              告别单打独斗的瓶颈。一个好的独立作品或产品案例，需要完整的三角支点：
+            </p>
+          </div>
+
+          <div class='role-cards-grid'>
+            {/* PM 卡片 */}
+            <div class='role-card card-pm'>
+              <div class='role-badge'>PM · 产品经理</div>
+              <h3 class='role-title'>从混沌中定义秩序</h3>
+              <p class='role-detail'>
+                真实痛点挖掘、0-1 MVP 架构、核心业务闭环、需求优先级裁决。
+              </p>
+              <div class='role-synergy'>
+                <span class='synergy-tag'>在团队中贡献</span>
+                <p>清晰的商业与逻辑骨架，确保每一次敲击代码都有明确的用户价值。</p>
+              </div>
+            </div>
+
+            {/* IxD 卡片 */}
+            <div class='role-card card-ixd'>
+              <div class='role-badge'>IxD · 交互与体验设计</div>
+              <h3 class='role-title'>赋予逻辑以触感与呼吸</h3>
+              <p class='role-detail'>
+                视觉传达、设计系统 (Design Tokens)、信息层级编排、微交互动效。
+              </p>
+              <div class='role-synergy'>
+                <span class='synergy-tag'>在团队中贡献</span>
+                <p>克制而高级的视觉质感与平滑交互，让冰冷的功能变成让人流连的艺术品。</p>
+              </div>
+            </div>
+
+            {/* FE 卡片 */}
+            <div class='role-card card-fe'>
+              <div class='role-badge'>FE · 前端开发架构</div>
+              <h3 class='role-title'>把图纸精准编译进现实</h3>
+              <p class='role-detail'>
+                现代 Web 框架 (Astro/React/Vite)、组件化工程、跨端响应式、高可用性能保障。
+              </p>
+              <div class='role-synergy'>
+                <span class='synergy-tag'>在团队中贡献</span>
+                <p>严密而健壮的代码实现，让灵感与设计百分百在浏览器中鲜活运行。</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 2. 定期活动与互助机制 */}
+        <section class='content-block' id='events'>
+          <div class='section-header'>
+            <span class='section-eyebrow'>COMMUNITY RHYTHM</span>
+            <h2 class='section-heading'>我们的日常活动 · What We Do</h2>
+            <p class='section-desc'>
+              不设考核，不搞虚妄的社交攀比。只有热气腾腾的咖啡、真诚的交流与具体的作品：
+            </p>
+          </div>
+
+          <div class='events-stack'>
+            {/* 活动 1: Coffee Chat */}
+            <div class='event-item'>
+              <div class='event-icon-box'>☕</div>
+              <div class='event-text'>
+                <div class='event-title-line'>
+                  <h3 class='event-name'>Offline & Online Coffee Chat</h3>
+                  <span class='event-tag'>低压真诚 · 双周轻聚</span>
+                </div>
+                <p class='event-description'>
+                  在杭州的静谧小馆或线上视频室，喝一杯好咖啡。聊聊各自在职场里的真实卡壳、最近着迷的技术与设计工具、或者正在构思的 side project。去爹味，不评判，纯粹倾听与共鸣。
+                </p>
+              </div>
+            </div>
+
+            {/* 活动 2: English Chat */}
+            <div class='event-item'>
+              <div class='event-icon-box'>🗣️</div>
+              <div class='event-text'>
+                <div class='event-title-line'>
+                  <h3 class='event-name'>English Tech & Design Chat</h3>
+                  <span class='event-tag'>跨文化表达 · 国际视野</span>
+                </div>
+                <p class='event-description'>
+                  定期用英语探讨产品与设计案例。包含 15 分钟的轻量 Show & Tell，在温暖、包容的环境里练习用英文讲清自己的设计决策与工程方案，消除出海与外企沟通焦虑。
+                </p>
+              </div>
+            </div>
+
+            {/* 活动 3: 作品搭建共建方案 */}
+            <div class='event-item' id='portfolio'>
+              <div class='event-icon-box'>🛠️</div>
+              <div class='event-text'>
+                <div class='event-title-line'>
+                  <h3 class='event-name'>Portfolio & Side-Project Co-Building</h3>
+                  <span class='event-tag'>经验互借 · 代表作搭建</span>
+                </div>
+                <p class='event-description'>
+                  借助彼此的专业经验，不再做孤立的练习稿。PM 提供真实业务背景，IxD 打造顶奢低压视觉，FE 负责工程落地与部署，合力做出可直接展示在个人履历与 GitHub 上的代表作。
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 3. 近期活动日程 */}
+        <section class='content-block'>
+          <div class='section-header'>
+            <span class='section-eyebrow'>UPCOMING GATHERINGS</span>
+            <h2 class='section-heading'>近期活动安排</h2>
+          </div>
+
+          <div class='schedule-cards'>
+            <div class='schedule-card'>
+              <div class='schedule-date'>
+                <span class='date-number'>01</span>
+                <span class='date-label'>Coffee Chat</span>
+              </div>
+              <div class='schedule-body'>
+                <h4 class='schedule-title'>AI 时代的个人代表作策略与独立工具构想</h4>
+                <p class='schedule-meta'>形式：杭州线下静谧小店 + 同步线上接入 | 适合：PM / 设计师 / 工程师</p>
+                <p class='schedule-note'>交流重点：如何利用 AI 工具链，以最小阻力搭建具有个人辨识度的 Web 方案。</p>
+              </div>
+            </div>
+
+            <div class='schedule-card'>
+              <div class='schedule-date'>
+                <span class='date-number'>02</span>
+                <span class='date-label'>English Chat</span>
+              </div>
+              <div class='schedule-body'>
+                <h4 class='schedule-title'>Show & Tell: Walk Through Your Product or Figma in English</h4>
+                <p class='schedule-meta'>形式：线上 Meet / Zoom (40-60 mins) | 适合：希望练习国际化表达的伙伴</p>
+                <p class='schedule-note'>每人 5-10 分钟轻量展示一个自己喜欢的界面、组件或逻辑，互换反馈与鼓励。</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 4. 加入我们 / 预约交流 (RSVP Form) */}
+        <section class='content-block' id='join'>
+          <div class='section-header'>
+            <span class='section-eyebrow'>JOIN THE CIRCLE</span>
+            <h2 class='section-heading'>预约交流 · 加入“我们”</h2>
+            <p class='section-desc'>
+              如果你也是身处技术、产品或设计领域的女性，正在寻找同频、真诚且能互相托举的伙伴，欢迎随时留下你的声音：
+            </p>
+          </div>
+
+          <div class='form-wrapper'>
+            <form id='join-form' class='quiet-form'>
+              <div class='form-group'>
+                <label for='name'>怎么称呼你 (Name / Nickname)</label>
+                <input type='text' id='name' name='name' placeholder='例如：Erin / Alex' required />
+              </div>
+
+              <div class='form-group'>
+                <label for='role'>你的核心专长 (Your Craft)</label>
+                <select id='role' name='role' required>
+                  <option value='' disabled selected>请选择你的主要角色...</option>
+                  <option value='pm'>产品经理 (Product Manager)</option>
+                  <option value='ixd'>交互 / UI / UX 设计师 (Interaction Designer)</option>
+                  <option value='fe'>前端开发工程师 (Frontend Engineer)</option>
+                  <option value='cross'>全栈 / 独立创作者 (Cross-disciplinary / Indie)</option>
+                </select>
+              </div>
+
+              <div class='form-group'>
+                <label>感兴趣的活动与合作 (Select All That Apply)</label>
+                <div class='checkbox-pill-grid'>
+                  <label class='pill-checkbox'>
+                    <input type='checkbox' name='interests' value='coffee_chat' checked />
+                    <span>☕ 线下 / 线上 Coffee Chat</span>
+                  </label>
+                  <label class='pill-checkbox'>
+                    <input type='checkbox' name='interests' value='english_chat' checked />
+                    <span>🗣️ English Tech & Design Chat</span>
+                  </label>
+                  <label class='pill-checkbox'>
+                    <input type='checkbox' name='interests' value='portfolio_building' checked />
+                    <span>🛠️ 个人作品方案共建 (Portfolio Co-building)</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class='form-group'>
+                <label for='idea'>你当前正在琢磨的想法、想搭建的项目或想交流的话题 (Optional)</label>
+                <textarea
+                  id='idea'
+                  name='idea'
+                  rows='3'
+                  placeholder='例如：正在做一个海外低压工具，想找设计师伙伴打磨界面；或者想练习用英语做一次产品 demo...'
+                ></textarea>
+              </div>
+
+              <div class='form-group'>
+                <label for='contact'>联系方式 (WeChat / Email)</label>
+                <input
+                  type='text'
+                  id='contact'
+                  name='contact'
+                  placeholder='微信号或邮箱，仅用于活动组织与交流确认'
+                  required
+                />
+              </div>
+
+              <button type='submit' class='btn btn-primary submit-btn'>
+                <span>发送预约与交流意向</span>
+                <span class='btn-arrow'>→</span>
+              </button>
+
+              <div id='form-feedback' class='form-feedback' style='display: none;'>
+                <div class='feedback-card'>
+                  <span class='feedback-icon'>✦</span>
+                  <div class='feedback-text'>
+                    <h4>已收到你的预约信息！</h4>
+                    <p>感谢你的真诚加入。我们会尽快通过微信或邮件与你确认最近一期 Coffee Chat 的安排。</p>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // 简易交互：表单提交响应
+  const form = document.getElementById('join-form') as HTMLFormElement | null;
+  const feedback = document.getElementById('form-feedback');
+
+  if (form && feedback) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // 获取用户填写的表单数据
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      console.log('wo/men in tech registration:', data);
+
+      // 视觉反馈
+      feedback.style.display = 'block';
+      const submitBtn = form.querySelector('.submit-btn') as HTMLElement | null;
+      if (submitBtn) {
+        submitBtn.style.display = 'none';
+      }
+
+      // 平滑滚动至反馈卡片
+      feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }
+</script>
+
+<style>
+  .survey-home {
+    padding: var(--spacing-8) 0 var(--spacing-24);
+  }
+
+  /* ----- 左右两栏布局 ----- */
+  .two-column-layout {
+    display: grid;
+    grid-template-columns: 1fr 2.1fr;
+    gap: var(--spacing-16);
+    align-items: start;
+  }
+
+  /* ----- 左侧栏 (Sidebar) ----- */
+  .sidebar {
+    position: sticky;
+    top: var(--spacing-8);
+    padding-right: var(--spacing-8);
+    border-right: var(--border-width-thin) solid var(--color-border-divider);
+  }
+
+  .gold-thread-mini {
+    display: block;
+    width: var(--spacing-12);
+    height: var(--border-width-thin);
+    background: var(--color-gold-dust);
+    margin-bottom: var(--spacing-6);
+    opacity: 0.8;
+  }
+
+  .site-title {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-light);
+    color: var(--color-text-heading);
+    line-height: var(--line-height-tight);
+    margin-bottom: var(--spacing-2);
+    letter-spacing: -0.02em;
+  }
+
+  .site-tagline {
+    font-family: var(--font-family-text);
+    font-size: var(--font-size-base);
+    color: var(--color-primary-dark);
+    margin-bottom: var(--spacing-8);
+    line-height: var(--line-height-snug);
+  }
+
+  .intro-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+  }
+
+  .intro-title {
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-primary-dark);
+    margin-bottom: var(--spacing-3);
+  }
+
+  .intro-zh,
+  .intro-en {
+    font-family: var(--font-family-text);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-primary);
+  }
+
+  .intro-zh p,
+  .intro-en p {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-3);
+    color: var(--color-text-secondary);
+  }
+
+  .core-bullet-box {
+    background: var(--color-surface-pure);
+    border: var(--border-width-thin) solid var(--color-border-subtle);
+    border-radius: var(--radius-subtle);
+    padding: var(--spacing-4);
+    margin-top: var(--spacing-4);
+  }
+
+  .bullet-label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    display: block;
+    margin-bottom: var(--spacing-2);
+  }
+
+  .core-bullet-box ul {
+    margin: 0;
+    padding-left: var(--spacing-4);
+  }
+
+  .core-bullet-box li {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-2);
+  }
+
+  .meta-info {
+    font-size: var(--font-size-xs) !important;
+    color: var(--color-text-tertiary);
+    border-top: var(--border-width-thin) dashed var(--color-border-subtle);
+    padding-top: var(--spacing-3);
+    margin-top: var(--spacing-3);
+  }
+
+  .intro-divider {
+    height: 1px;
+    background: linear-gradient(to right, var(--color-border-divider), transparent);
+  }
+
+  .sidebar-footer {
+    margin-top: var(--spacing-12);
+    opacity: 0.6;
+  }
+
+  /* ----- 右侧主内容区域 ----- */
+  .survey-main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+  }
+
+  .content-block {
+    position: relative;
+  }
+
+  .section-header {
+    margin-bottom: var(--spacing-6);
+  }
+
+  .section-eyebrow {
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.14em;
+    color: var(--color-primary-dark);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: var(--spacing-2);
+  }
+
+  .section-heading {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-light);
+    color: var(--color-text-heading);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .section-desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* ----- 1. 角色卡片矩阵 ----- */
+  .role-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--spacing-5);
+  }
+
+  .role-card {
+    background: var(--color-surface-pure);
+    border: var(--border-width-thin) solid var(--color-border-subtle);
+    border-radius: var(--radius-subtle);
+    padding: var(--spacing-6) var(--spacing-5);
+    display: flex;
+    flex-direction: column;
+    transition: all var(--transition-normal);
+  }
+
+  .role-card:hover {
+    border-color: var(--color-primary-light);
+    background: var(--color-surface-soft);
+    transform: translateY(-2px);
+  }
+
+  .role-badge {
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.08em;
+    color: var(--color-primary-dark);
+    background: var(--color-primary-50);
+    padding: var(--spacing-1) var(--spacing-2);
+    border-radius: var(--radius-sm);
+    display: inline-block;
+    align-self: flex-start;
+    margin-bottom: var(--spacing-3);
+  }
+
+  .role-title {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-heading);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .role-detail {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-4);
+    flex-grow: 1;
+  }
+
+  .role-synergy {
+    border-top: var(--border-width-thin) solid var(--color-border-divider);
+    padding-top: var(--spacing-3);
+  }
+
+  .synergy-tag {
+    font-size: 11px;
+    color: var(--color-gold-dust);
+    font-family: var(--font-family-ui);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: var(--spacing-1);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .role-synergy p {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-tertiary);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ----- 2. 活动列表栈 ----- */
+  .events-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+
+  .event-item {
+    background: var(--color-surface-pure);
+    border: var(--border-width-thin) solid var(--color-border-subtle);
+    border-radius: var(--radius-subtle);
+    padding: var(--spacing-6);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-5);
+    transition: all var(--transition-normal);
+  }
+
+  .event-item:hover {
+    border-color: var(--color-primary);
+    background: var(--color-surface-soft);
+  }
+
+  .event-icon-box {
+    font-size: var(--font-size-2xl);
+    background: var(--color-primary-50);
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+  }
+
+  .event-text {
+    flex-grow: 1;
+  }
+
+  .event-title-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .event-name {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-heading);
+    margin: 0;
+  }
+
+  .event-tag {
+    font-size: var(--font-size-xs);
+    color: var(--color-primary-dark);
+    border: var(--border-width-thin) solid var(--color-primary-200);
+    padding: 2px var(--spacing-2);
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-pure);
+  }
+
+  .event-description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ----- 3. 近期日程 ----- */
+  .schedule-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-4);
+  }
+
+  .schedule-card {
+    background: var(--color-surface-pure);
+    border: var(--border-width-thin) solid var(--color-border-subtle);
+    border-radius: var(--radius-subtle);
+    padding: var(--spacing-5);
+    display: flex;
+    gap: var(--spacing-5);
+    align-items: center;
+  }
+
+  .schedule-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 68px;
+    padding: var(--spacing-2) var(--spacing-3);
+    background: var(--color-primary-50);
+    border-radius: var(--radius-md);
+    border: var(--border-width-thin) solid var(--color-primary-100);
+  }
+
+  .date-number {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-light);
+    color: var(--color-text-heading);
+    line-height: 1;
+  }
+
+  .date-label {
+    font-size: 10px;
+    font-family: var(--font-family-ui);
+    color: var(--color-primary-dark);
+    text-transform: uppercase;
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .schedule-body {
+    flex-grow: 1;
+  }
+
+  .schedule-title {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-base);
+    color: var(--color-text-heading);
+    margin-bottom: var(--spacing-1);
+  }
+
+  .schedule-meta {
+    font-size: var(--font-size-xs);
+    color: var(--color-primary-dark);
+    margin-bottom: var(--spacing-1);
+  }
+
+  .schedule-note {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-tertiary);
+    margin: 0;
+  }
+
+  /* ----- 4. RSVP 表单 ----- */
+  .form-wrapper {
+    background: var(--color-surface-pure);
+    border: var(--border-width-thin) solid var(--color-border-subtle);
+    border-radius: var(--radius-subtle);
+    padding: var(--spacing-8);
+  }
+
+  .quiet-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-5);
+  }
+
+  .form-group label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-2);
+    display: block;
+    letter-spacing: 0.02em;
+  }
+
+  .checkbox-pill-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+  }
+
+  .pill-checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    background: var(--color-surface-soft);
+    border: var(--border-width-thin) solid var(--color-border-divider);
+    padding: var(--spacing-2) var(--spacing-3);
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    transition: all var(--transition-fast);
+  }
+
+  .pill-checkbox:hover {
+    border-color: var(--color-primary);
+    color: var(--color-text-primary);
+  }
+
+  .pill-checkbox input {
+    width: auto;
+    margin: 0;
+    accent-color: var(--color-primary);
+  }
+
+  .submit-btn {
+    align-self: flex-start;
+    padding: var(--spacing-3) var(--spacing-8);
+    margin-top: var(--spacing-2);
+  }
+
+  .btn-arrow {
+    margin-left: var(--spacing-2);
+    transition: transform var(--transition-fast);
+  }
+
+  .submit-btn:hover .btn-arrow {
+    transform: translateX(4px);
+  }
+
+  .feedback-card {
+    background: var(--color-primary-50);
+    border: var(--border-width-thin) solid var(--color-primary-200);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-5);
+    display: flex;
+    gap: var(--spacing-4);
+    align-items: center;
+    margin-top: var(--spacing-4);
+  }
+
+  .feedback-icon {
+    font-size: var(--font-size-2xl);
+    color: var(--color-primary);
+  }
+
+  .feedback-text h4 {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-base);
+    color: var(--color-text-heading);
+    margin-bottom: var(--spacing-1);
+  }
+
+  .feedback-text p {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  /* ----- 响应式适配 ----- */
+  @media (width <= 1024px) {
+    .two-column-layout {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-10);
+    }
+
+    .sidebar {
+      position: static;
+      border-right: none;
+      border-bottom: var(--border-width-thin) solid var(--color-border-divider);
+      padding-right: 0;
+      padding-bottom: var(--spacing-8);
+    }
+  }
+
+  @media (width <= 640px) {
+    .role-cards-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .schedule-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .schedule-date {
+      flex-direction: row;
+      gap: var(--spacing-2);
+      width: 100%;
+    }
+
+    .form-wrapper {
+      padding: var(--spacing-5);
+    }
+  }
+</style>

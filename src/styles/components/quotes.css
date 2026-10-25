@@ -1,0 +1,314 @@
+/* ============================================
+   quotes.css · 宁静报价单专属样式系统
+   完全基于 design-system.css 令牌
+   ============================================ */
+
+/* 报价单容器 - 像放在托盘上的手工纸 */
+.quote-container {
+  max-width: var(--reading-width-ideal);
+  width: 100%;
+  margin: var(--spacing-12) auto;
+  background-color: var(--color-surface-card);
+  border-radius: var(--radius-subtle);
+  box-shadow: 0 12px 28px -8px rgb(38 34 28 / 4%);
+  padding: var(--spacing-12) var(--spacing-10);
+  position: relative;
+  transition: box-shadow 0.25s ease;
+}
+
+.quote-container:hover {
+  box-shadow: 0 20px 36px -12px rgb(38 34 28 / 6%);
+}
+
+/* 顶奢徽记 - 沉默的信任 */
+.crest {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: var(--spacing-10);
+  padding-bottom: var(--spacing-5);
+  border-bottom: 1px solid var(--color-border-divider);
+}
+
+.brand-mark {
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-light);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  line-height: 1;
+}
+
+.brand-mark span {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-regular);
+}
+
+.quote-year {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: var(--font-weight-light);
+}
+
+/* 主标题 - 一句承诺 */
+.quote-headline {
+  margin-bottom: var(--spacing-12);
+}
+
+.quote-headline h2 {
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-dense);
+  color: var(--color-text-heading);
+  letter-spacing: -0.01em;
+  margin-bottom: var(--spacing-4);
+}
+
+.quote-headline p {
+  font-size: var(--font-size-md, 1.05rem);
+  color: var(--color-text-secondary);
+  max-width: 80%;
+  font-weight: var(--font-weight-light);
+  border-left: var(--border-width-normal) solid var(--color-gold-dust);
+  padding-left: var(--spacing-4);
+  line-height: var(--line-height-relaxed);
+}
+
+/* 报价分类 - 菜单章节感 */
+.collection-section {
+  margin-top: var(--spacing-16);
+}
+
+.collection-tag {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-6);
+}
+
+.collection-tag h3 {
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-light);
+  color: var(--color-text-primary);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.collection-tag .divider {
+  flex: 1;
+  height: 1px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-border-subtle) 0,
+    var(--color-border-subtle) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+
+/* 报价条目 - 极简平衡 */
+.price-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: var(--spacing-5) 0;
+  border-bottom: 1px solid var(--color-border-divider);
+  transition: background 0.2s;
+}
+
+.price-item:last-of-type {
+  border-bottom: none;
+}
+
+.item-info {
+  flex: 0 1 70%;
+}
+
+.item-name {
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-md, 1.05rem);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-1);
+  letter-spacing: 0.02em;
+}
+
+.item-desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-relaxed);
+  max-width: 85%;
+}
+
+.item-price {
+  font-family: var(--font-family-price, var(--font-family-serif));
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-light);
+  color: var(--color-price);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  padding-left: var(--spacing-4);
+}
+
+.price-sub {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  margin-left: var(--spacing-2);
+  font-weight: var(--font-weight-light);
+}
+
+/* 专属卡片 - 高定工坊感 */
+.atelier-card {
+  background-color: var(--color-surface-soft);
+  border-radius: var(--radius-subtle);
+  padding: var(--spacing-6) var(--spacing-8);
+  margin-top: var(--spacing-10);
+  border: 1px solid var(--color-border-subtle);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.atelier-info h4 {
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  margin-bottom: var(--spacing-2);
+  color: var(--color-text-primary);
+}
+
+.atelier-info p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-light);
+}
+
+.atelier-price {
+  font-family: var(--font-family-price);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-light);
+  color: var(--color-primary-dark);
+}
+
+/* 摩擦许愿池 - 定制工坊邀请 */
+.benevolence {
+  margin-top: var(--spacing-16);
+  padding-top: var(--spacing-8);
+  border-top: 1px solid var(--color-border-divider);
+  display: flex;
+  gap: var(--spacing-6);
+  flex-wrap: wrap;
+}
+
+.ticket-gallery {
+  flex: 1;
+}
+
+.ticket-label {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--spacing-3);
+}
+
+.ticket-stories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+}
+
+.ticket {
+  background: var(--color-bg-page);
+  border-radius: var(--radius-pill);
+  padding: var(--spacing-2) var(--spacing-5);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-subtle);
+  font-weight: var(--font-weight-light);
+  transition: all 0.15s;
+}
+
+.ticket strong {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary-dark);
+  margin-left: var(--spacing-1);
+}
+
+.ticket:hover {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+}
+
+.footnote {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  line-height: var(--line-height-relaxed);
+  margin-top: var(--spacing-5);
+}
+
+/* 金线点缀 */
+.gold-thread {
+  width: var(--spacing-10);
+  height: var(--border-width-normal);
+  background-color: var(--color-gold-dust);
+  margin: var(--spacing-6) 0 var(--spacing-8);
+}
+
+/* 微细说明文字 */
+.micro-text {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  margin-top: var(--spacing-4);
+  font-weight: var(--font-weight-light);
+  text-align: right;
+}
+
+/* 响应式调整 */
+@media (width <=640px) {
+  .quote-container {
+    padding: var(--spacing-8) var(--spacing-6);
+  }
+
+  .item-info {
+    flex: 1;
+  }
+
+  .item-desc {
+    max-width: 100%;
+  }
+
+  .price-item {
+    flex-wrap: wrap;
+  }
+
+  .item-price {
+    padding-left: 0;
+    margin-top: var(--spacing-2);
+    width: 100%;
+  }
+
+  .atelier-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-4);
+  }
+
+  .quote-headline p {
+    max-width: 100%;
+  }
+}
+
+/* 悬停微动效 */
+@media (hover: hover) {
+  .price-item:hover {
+    background-color: rgb(var(--color-primary-rgb), 0.02);
+  }
+}

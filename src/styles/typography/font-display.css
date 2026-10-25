@@ -1,0 +1,37 @@
+/* ============================================
+   字体显示策略优化 - Google Fonts CDN版本
+   ============================================ */
+
+/* 字体加载状态管理 */
+.fonts-loading {
+  /* 字体加载中的显示状态 */
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.fonts-loaded {
+  /* 字体加载完成 */
+  opacity: 1;
+}
+
+/* 关键内容字体优化 */
+.font-critical {
+  /* 确保关键内容立即显示 */
+  font-display: block;
+}
+
+/* 非关键内容字体优化 */
+.font-non-critical {
+  /* 非关键内容快速显示 */
+  font-display: swap;
+}
+
+/* 字体回退策略 */
+.font-fallback {
+  /* 系统字体回退 */
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+}

@@ -1,0 +1,10 @@
+---
+interface Props {
+  post: any; // Post object with render function
+}
+
+const { post } = Astro.props;
+const rendered = await post.render();
+---
+
+<div class='markdown-content' set:html={rendered.Content} />

@@ -1,0 +1,101 @@
+/* src/styles/typography/interactions.css */
+
+/* ============ 链接样式 ============ */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  position: relative;
+  transition: all var(--transition-fast);
+  font-weight: var(--font-weight-medium);
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentcolor;
+  transition: width var(--transition-normal);
+  opacity: 0.5;
+}
+
+a:hover {
+  color: var(--color-primary-600);
+}
+
+a:hover::after {
+  width: 100%;
+}
+
+/* ============ 引用样式 ============ */
+blockquote {
+  font-family: var(--font-family-text);
+  font-style: italic;
+  font-size: var(--font-size-lg);
+  border-left: 3px solid var(--color-primary);
+  padding-left: var(--spacing-4);
+  margin: var(--spacing-8) 0;
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-loose);
+}
+
+/* ============ 代码样式 ============ */
+code {
+  font-family: var(--font-family-code);
+  font-size: var(--font-size-sm);
+  padding: 0.2em 0.4em;
+  background: var(--color-surface-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-primary-dark);
+  transition: all var(--transition-fast);
+}
+
+code:hover {
+  border-color: var(--color-primary-300);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+pre {
+  position: relative;
+  padding: var(--spacing-4);
+  background: var(--color-surface-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  transition: all var(--transition-normal);
+  margin-bottom: var(--spacing-6);
+}
+
+pre:hover {
+  border-color: var(--color-primary-300);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+pre::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  opacity: 0.6;
+}
+
+pre code {
+  background: transparent;
+  padding: 0;
+  border: none;
+  color: inherit;
+}
+
+pre code:hover {
+  transform: none;
+  box-shadow: none;
+}

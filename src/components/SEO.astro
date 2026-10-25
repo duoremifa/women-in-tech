@@ -1,0 +1,51 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: string;
+  type?: 'website' | 'article';
+  ogImage?: string;
+}
+
+const {
+  title,
+  description = 'wo/men in tech · women in technical · 既是女性，亦是“我们”的技术与创造联合体。面向产品经理 (PM)、交互设计师 (IxD) 与前端工程师 (FE) 的互助、交流与作品共建空间。',
+  image = '/favicon.svg',
+  canonicalURL = Astro.url.href,
+  type = 'website',
+  ogImage,
+} = Astro.props;
+
+const seoTitle = title;
+const seoDescription = description;
+const seoImage = ogImage || image;
+const authorName = 'wo/men in tech';
+const siteTitle = seoTitle;
+---
+
+<!-- Essential Meta Tags -->
+<meta charset='UTF-8' />
+<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+<meta name='generator' content={Astro.generator} />
+
+<!-- SEO Meta Tags -->
+<title>{siteTitle}</title>
+<meta name='description' content={seoDescription} />
+<link rel='canonical' href={canonicalURL} />
+
+<!-- Open Graph / Facebook -->
+<meta property='og:type' content='website' />
+<meta property='og:url' content={canonicalURL} />
+<meta property='og:title' content={siteTitle} />
+<meta property='og:description' content={seoDescription} />
+<meta property='og:image' content={new URL(seoImage, Astro.url).href} />
+
+<!-- Twitter -->
+<meta property='twitter:card' content='summary_large_image' />
+<meta property='twitter:url' content={canonicalURL} />
+<meta property='twitter:title' content={siteTitle} />
+<meta property='twitter:description' content={seoDescription} />
+<meta property='twitter:image' content={new URL(seoImage, Astro.url).href} />

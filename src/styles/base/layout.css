@@ -1,0 +1,55 @@
+/* ============================================
+   layout.css · 宁静低压 · 全站布局容器
+   与报价单 .quote-container 逻辑完全一致
+   所有页面内容必须使用 .layout-* 类包裹
+   ============================================ */
+
+/* ----- 所有布局容器基座 ----- */
+.layout-narrow,
+.layout-reading,
+.layout-standard,
+.layout-wide {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--layout-gutter, var(--spacing-4));
+  padding-right: var(--layout-gutter, var(--spacing-4));
+}
+
+/* ----- 窄版：引言、引用块、极小内容 ----- */
+.layout-narrow {
+  max-width: var(--layout-width-narrow, 40rem);
+}
+
+/* ----- 阅读宽度：文章、故事、许愿池、定价、定制、404 ----- */
+.layout-reading {
+  max-width: var(--layout-width-reading, 60rem);
+}
+
+/* ----- 标准宽度：首页卡片网格、三列布局 ----- */
+.layout-standard {
+  max-width: var(--layout-width-standard, 75rem);
+}
+
+/* ----- 宽幅：极少使用（仪表盘等）----- */
+.layout-wide {
+  max-width: var(--layout-width-wide, 90rem);
+}
+
+/* ----- 全幅：导航、页脚、通栏背景（无宽度限制）----- */
+.layout-full {
+  width: 100%;
+}
+
+/* ----- 确保 main 内直接子容器有垂直间距（可选）----- */
+main > .layout-narrow,
+main > .layout-reading,
+main > .layout-standard,
+main > .layout-wide {
+  margin-top: var(--spacing-8);
+  margin-bottom: var(--spacing-8);
+}
+
+/* ===== 响应式：移动端内边距缩进 ===== */
+
+/* 响应式内边距已由 responsive.css 统一管理 */

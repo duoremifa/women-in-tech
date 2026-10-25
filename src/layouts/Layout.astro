@@ -1,0 +1,206 @@
+---
+// src/layouts/Layout.astro - 全局布局框架
+// 职责：页面骨架、导航、主题、SEO、PWA、系统初始化、字体预加载
+// 已完成分步优化：ReadingProgress、Favicon、系统初始化、PWA注册、FontPreload
+// ============================================
+
+// ============================================
+// 导入依赖
+// ============================================
+import { ViewTransitions } from 'astro:transitions';
+import type { ComponentProps } from 'astro/types';
+
+// 全局样式
+import '../styles/main.css';
+import '../styles/markdown.css';
+
+// 组件
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import SEO from '../components/SEO.astro';
+
+import PageHeader from '../components/PageHeader.astro';
+import AntiFingerprint from '../components/AntiFingerprint.astro';
+import ReadingProgress from '../components/ReadingProgress.astro';
+import FontPreload from '../components/FontPreload.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+
+// 工具函数
+import '../utils/monitoring';
+import '../utils/geometricSystem';
+import '../utils/fontManager';
+import { initializeApp } from '../scripts/init';
+import { registerPWA } from '../scripts/pwa';
+
+// ============================================
+// Props 接口
+// ============================================
+export interface Props {
+  title?: string;
+  description?: string;
+  width?: 'narrow' | 'reading' | 'standard' | 'wide' | 'full' | 'prose';
+  header?: any; // 使用any类型避免ComponentProps错误
+  ogImage?: string; // 新增：支持页面特定的OG图
+}
+
+const {
+  title = 'Cognitive Friction',
+  description = '',
+  width = 'full',
+  header,
+  ogImage,
+} = Astro.props;
+
+// ============================================
+// 布局配置
+// ============================================
+const isProse = width === 'prose';
+const layoutMode = isProse ? 'reading' : width;
+const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
+---
+
+<!doctype html>
+<html lang='zh-CN'>
+  <head>
+    <!-- ===== SEO & 基础元数据 ===== -->
+    <SEO title={title} description={description} ogImage={ogImage} />
+    <ViewTransitions />
+    <meta name='theme-color' content='var(--color-surface-pure)' />
+
+    <!-- ===== 宁静品牌图标 ===== -->
+    <!-- 标准 favicon -->
+    <link rel='icon' type='image/x-icon' href='/favicon.ico?v=20260214' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg?v=20260214' />
+
+    <!-- 苹果设备图标 -->
+    <link rel='apple-touch-icon' sizes='180x180' href='/apple-touch-icon.png' />
+
+    <!-- PWA 图标 -->
+    <link rel='icon' type='image/png' sizes='32x32' href='/icons/icon-32.png' />
+    <link rel='icon' type='image/png' sizes='16x16' href='/icons/icon-16.png' />
+    <link rel='icon' type='image/png' sizes='192x192' href='/icons/icon-192.png' />
+    <link rel='icon' type='image/png' sizes='512x512' href='/icons/icon-512.png' />
+
+    <!-- ===== 字体预加载 ===== -->
+    <FontPreload />
+  </head>
+  <body>
+    <!-- ===== 骨架 · 顶部留白 ===== -->
+    <!-- 由 design-system 的 --spacing 系列变量控制，无需额外元素 -->
+
+    <!-- ===== 隐私保护组件（无UI，必须最先执行）===== -->
+    <AntiFingerprint />
+
+    <!-- ===== 主题切换按钮 ===== -->
+    <ThemeToggle />
+
+    <!-- ===== 导航区（持久化）===== -->
+    <div transition:persist>
+      <Navbar />
+    </div>
+
+    <!-- ===== 主要内容区 ===== -->
+    <main
+      class:list={[containerClass, { 'markdown-content': isProse }]}
+      transition:animate='slide'
+      transition:name='page'
+    >
+      {header && <PageHeader {...header} />}
+      <slot />
+    </main>
+
+    <!-- ===== 页脚区 ===== -->
+    <Footer />
+
+    <!-- ===== 功能组件 ===== -->
+    <ReadingProgress />
+
+    <!-- ===== 统一客户端初始化（事件委托 + 集中管理）===== -->
+    <script>
+      // 静态导入主题模块（Astro会自动处理路径和打包）
+      import { applyStoredTheme, toggleTheme } from '../scripts/theme';
+
+      // 统一初始化函数
+      function initApp() {
+        if (import.meta.env.DEV) console.log('🚀 initApp() called');
+
+        try {
+          applyStoredTheme(); // 应用存储的主题
+          updateThemeIcon(); // 更新按钮图标
+          if (import.meta.env.DEV) console.log('✅ initApp() completed successfully');
+        } catch (error) {
+          if (import.meta.env.DEV) console.error('❌ initApp() error:', error);
+        }
+      }
+
+      // 更新主题图标显示
+      function updateThemeIcon() {
+        const btn = document.querySelector('[data-theme-toggle]') as HTMLElement;
+        if (!btn) return;
+
+        const isDark = document.documentElement.classList.contains('dark');
+        const sunIcon = btn.querySelector('.sun-icon') as HTMLElement;
+        const moonIcon = btn.querySelector('.moon-icon') as HTMLElement;
+
+        if (sunIcon && moonIcon) {
+          if (isDark) {
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'block';
+          } else {
+            sunIcon.style.display = 'block';
+            moonIcon.style.display = 'none';
+          }
+        }
+      }
+
+      // 首次加载时初始化
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initApp);
+      } else {
+        initApp();
+      }
+
+      // Astro视图切换后重新初始化
+      document.addEventListener('astro:after-swap', () => {
+        if (import.meta.env.DEV) console.log('🔄 astro:after-swap fired, reinitializing...');
+        initApp();
+      });
+
+      // 事件委托：处理主题切换按钮点击
+      document.addEventListener('click', e => {
+        if (!e.target) return;
+        const target = e.target as HTMLElement;
+        const toggleBtn = target.closest('[data-theme-toggle]') as HTMLElement;
+        if (!toggleBtn) return;
+
+        if (import.meta.env.DEV) console.log('🎯 Theme toggle button clicked!');
+
+        try {
+          toggleTheme(); // 切换主题
+          updateThemeIcon(); // 更新图标
+          if (import.meta.env.DEV) console.log('✅ Theme toggle completed');
+        } catch (error) {
+          if (import.meta.env.DEV) console.error('❌ Theme toggle error:', error);
+        }
+      });
+
+      // 可选：监听系统主题变化
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        if (import.meta.env.DEV) console.log('🌙 System theme changed');
+        // 如果需要跟随系统，可以在这里调用相应逻辑
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  /* ===== 全局骨架样式 ===== */
+  main {
+    min-height: 60vh;
+    background-color: var(--color-bg-page);
+    padding-top: var(--spacing-8); /* 顶部留白（与导航间距） */
+    padding-bottom: var(--spacing-20); /* 底部留白（与页脚间距） */
+  }
+
+  /* 深色模式适配（由变量自动处理，无需额外代码） */
+</style>

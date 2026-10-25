@@ -1,0 +1,17 @@
+name = "friction-log-survey"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Pages配置
+pages_build_output_dir = "dist"
+
+# 环境变量
+[vars]
+CSP_NONCE = "frictionlog-csp-nonce"
+
+# 注意：如果不需要KV存储，可以注释掉以下部分
+# KV存储（如果需要会话管理）
+# [[kv_namespaces]]
+# binding = "SESSION"
+# id = "your-kv-namespace-id"
+# preview_id = "your-preview-kv-namespace-id"

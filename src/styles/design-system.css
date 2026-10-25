@@ -1,0 +1,795 @@
+/* ============================================
+   神经多样性 · 宁静低压设计系统 v2.0
+   基调：手工纸白、磨砂薰衣草、哑光金线
+   设计原则：极简、低压、触感、顶奢克制
+   专为复杂心智 · 报价单 · 宁静系统
+   ============================================ */
+
+:root {
+  /* ========================================
+     1. 色彩系统 · 绝对安静，物超所值
+        —— 替代原温暖活泼色板，保留所有结构变量
+     ======================================== */
+
+  /* ----- 背景与表面 · 纸感肌理 ----- */
+  --color-bg-page: #f8f6f2;
+
+  /* 旧米白，像手工棉纸，不反光 */
+  --color-surface-pure: #fff;
+
+  /* 纯白卡片，触感洁净 */
+  --color-surface-soft: #fefcf7;
+
+  /* 极浅奶油，用于轻微区隔 */
+  --color-surface-card: #fff;
+
+  /* 保持原变量名，用于卡片背景 */
+
+  /* ----- 边框与分割 · 近乎隐形 ----- */
+  --color-border-subtle: #eae5de;
+
+  /* 亚麻灰，比白更安静 */
+  --color-border-divider: #f0ede8;
+
+  /* 分割线，近乎透明 */
+  --color-border-light: #f1ede9;
+
+  /* 兼容原变量，现为暖灰 */
+  --color-border: #d8d2c9;
+
+  /* 更明确的边界，依然柔和 */
+
+  /* ----- 文本 · 极高可读，极低压迫 ----- */
+  --color-text-primary: #26221c;
+
+  /* 深卡其黑，柔软不刺目 */
+  --color-text-secondary: #59544b;
+
+  /* 中灰，适合辅助信息 */
+  --color-text-tertiary: #8c877d;
+
+  /* 浅灰，安静的提示 */
+  --color-text-heading: #1e1b16;
+
+  /* 标题用深褐，保持重量感 */
+
+  /* ----- 品牌主色：磨砂薰衣草 · 低饱和，像透过毛玻璃的光 ----- */
+  --color-primary: #b7aad9;
+
+  /* 核心紫灰，温柔不打扰 */
+  --color-primary-light: #f1edf7;
+
+  /* 极浅紫白 */
+  --color-primary-dark: #8f81a6;
+
+  /* 深紫灰，用于悬停/强调 */
+  --color-primary-50: #f9f7fc;
+  --color-primary-100: #f3f0fa;
+  --color-primary-200: #e8e2f5;
+  --color-primary-300: #d8ceea;
+  --color-primary-400: #c2b5dd;
+  --color-primary-500: #b7aad9;
+
+  /* 主色一致 */
+  --color-primary-600: #9e8fc2;
+  --color-primary-700: #8f81a6;
+  --color-primary-800: #6f6387;
+  --color-primary-900: #534968;
+
+  /* RGB 值（用于透明度） */
+  --color-primary-rgb: 183, 170, 217;
+
+  /* ----- 点缀色 · 哑光金，不是炫耀，是手的温度 ----- */
+  --color-gold-dust: #d8cdb0;
+
+  /* 低反光金 */
+  --color-gold-dust-light: #f0ecdd;
+
+  /* 极浅金，用于底纹 */
+  --color-gold-dust-rgb: 216, 205, 176;
+
+  /* RGB 值（用于透明度） */
+  --color-accent-warm: #d8cdb0;
+
+  /* 覆盖原温暖黄，现为哑光金 */
+  --color-accent-cool: #cbd5d0;
+
+  /* 灰绿色，替代清新绿，更安静 */
+  --color-accent-soft: #e6dbd0;
+
+  /* 柔米色，替代柔粉 */
+
+  /* ----- 次要色映射 · 确保GeometricIcon在宁静主题下显示为哑光金 ----- */
+  --color-secondary: var(--color-gold-dust);
+  --color-secondary-rgb: 216, 205, 176;
+
+  /* 用于透明度计算 */
+
+  /* ----- 功能色 · 完全去除饱和度，仅以明度区分 ----- */
+  --color-success: #c4d6cc;
+
+  /* 极浅灰绿，不兴奋 */
+  --color-error: #ecd9d4;
+
+  /* 极浅粉灰，不警报 */
+  --color-warning: #f2e6d5;
+
+  /* 浅米黄，不刺眼 */
+  --color-info: #d4dfe6;
+
+  /* 浅灰蓝，不打扰 */
+
+  /* ----- 表面色（原温暖米白基调）全部替换为安静中性色 ----- */
+  --color-surface-primary: #f8f6f2;
+
+  /* 奶油橙 → 旧米白 */
+  --color-surface-secondary: #f5f2ed;
+
+  /* 浅桃粉 → 更浅米灰 */
+  --color-surface-tertiary: #f1eee9;
+
+  /* 温暖杏 → 中米灰 */
+  --color-surface-quaternary: #faf8f4;
+
+  /* 蜜瓜色 → 极浅米白 */
+  --color-surface-quinary: #fcfaf7;
+
+  /* 玉米丝 → 暖白 */
+
+  /* ----- 遮罩层 · 极淡紫灰 ----- */
+  --overlay-backdrop: rgb(183 170 217 / 10%);
+  --overlay-backdrop-light: rgb(183 170 217 / 5%);
+  --overlay-backdrop-heavy: rgb(143 129 166 / 20%);
+
+  /* ----- 情感标签色（降饱和，降对比）----- */
+  --color-tag-self-care: #c4d6cc;
+
+  /* 薄荷绿 → 灰绿 */
+  --color-tag-work: #d8ceea;
+
+  /* 紫丁香 → 淡紫灰 */
+  --color-tag-relationship: #ecd9d4;
+
+  /* 粉玫瑰 → 粉灰 */
+  --color-tag-learning: #d4dfe6;
+
+  /* 天空蓝 → 灰蓝 */
+  --color-tag-productivity: #f2e6d5;
+
+  /* 阳光黄 → 米黄 */
+  --color-tag-wealth: #f0dccc;
+
+  /* 珊瑚橙 → 杏灰 */
+  --color-tag-housework: #dde2d0;
+
+  /* 青柠绿 → 草灰 */
+  --color-tag-reading: #cbd5e0;
+
+  /* 海蓝 → 雾蓝 */
+  --color-tag-entertainment: #f0d5d5;
+
+  /* 桃红 → 粉灰 */
+  --color-tag-sleep: #e4ddee;
+
+  /* 薰衣草 → 淡紫灰 */
+  --color-tag-body: #d2e0d4;
+
+  /* 翠绿 → 灰绿 */
+  --color-tag-urgent: #ecd9d4;
+
+  /* 柔和红 → 粉灰 */
+  --color-tag-waiting: #f2ecd9;
+
+  /* 奶油黄 → 米灰 */
+
+  /* ----- 价格高亮色 · 深卡其，稳重不轻浮 ----- */
+  --color-price: #625b4c;
+
+  /* ========================================
+     2. 字体系统 · 与宁静报价单完全一致
+        基调：Inter/Poppins 无衬线，Lora/Noto Serif 衬线
+        中文字体：Noto Serif SC，优雅回退
+   ======================================== */
+
+  /* 基础字体栈 —— 精确复制报价单，并保留中文衬线支持 */
+  --font-family-sans: 'Inter', 'Poppins', 'SF Pro Text', 'Helvetica Neue', 'Arial', sans-serif;
+  --font-family-serif: 'Lora', 'Noto Serif SC', 'Georgia', 'Times New Roman', serif;
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Consolas', monospace;
+
+  /* 项目需要，报价单未使用 */
+
+  /* 语义化别名 —— 使用场景明确 */
+  --font-family-ui: var(--font-family-sans);
+
+  /* 正文、长内容 */
+  --font-family-text: var(--font-family-serif);
+
+  /* 大标题、衬线强调 */
+  --font-family-heading: var(--font-family-serif);
+
+  /* 价格数字，衬线体手工感 */
+  --font-family-code: var(--font-family-mono);
+
+  /* 代码专用 */
+
+  /* 字重系统 */
+  --font-weight-thin: 100;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* 字号系统 - 完全保留你的精心设计 */
+  --font-size-xxs: 0.6875rem;
+
+  /* 11px */
+  --font-size-xs: 0.75rem;
+
+  /* 12px */
+  --font-size-sm: 0.875rem;
+
+  /* 14px */
+  --font-size-md: 1.05rem;
+
+  /* 16.8px - 特殊比例 */
+  --font-size-base: 1rem;
+
+  /* 16px */
+  --font-size-lg: 1.125rem;
+
+  /* 18px */
+  --font-size-xl: 1.25rem;
+
+  /* 20px */
+  --font-size-2xl: 1.5rem;
+
+  /* 24px */
+  --font-size-3xl: 1.875rem;
+
+  /* 30px */
+  --font-size-4xl: 2.25rem;
+
+  /* 36px */
+  --font-size-5xl: 3rem;
+
+  /* 48px */
+
+  /* 行高系统 - 与基线网格精确对齐 */
+  --line-height-tight: calc(var(--baseline) * 2);
+
+  /* 16px - 适合标题 */
+  --line-height-snug: calc(var(--baseline) * 2.5);
+
+  /* 20px - 紧凑正文 */
+  --line-height-normal: calc(var(--baseline) * 3);
+
+  /* 24px - 标准正文 */
+  --line-height-relaxed: calc(var(--baseline) * 3.5);
+
+  /* 28px - 舒适正文 */
+  --line-height-loose: calc(var(--baseline) * 4);
+
+  /* 32px - 宽松正文 */
+  --line-height-dense: 1.08;
+  --letter-spacing-extended: 0.036em;
+  --paragraph-spacing: 1.5em;
+  --chinese-paragraph-spacing: 1.75em;
+
+  /* ----- 字母间距 - 微调可读性 ----- */
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-heading: -0.02em;
+
+  /* 标题专用精致字距 */
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+
+  /* ========================================
+     9. 组件专用变量 · 防御性回退
+     ======================================== */
+
+  /* ----- 页脚专用变量（复用已有表面色，但独立命名以保持语义） ----- */
+  --surface-footer: var(--color-surface-primary);
+
+  /* 默认使用主表面色 */
+  --color-text-quaternary: var(--color-text-tertiary);
+
+  /* 默认使用三级文本色 */
+
+  /* ========================================
+     3. 基线网格 & 垂直节奏 · 8px统一基准
+     ======================================== */
+
+  /* 统一基线单位 - 所有间距和行高的基础 */
+  --baseline: 8px;
+
+  /* 基于基线的间距系统 - 确保垂直对齐 */
+  --spacing-0: 0;
+  --spacing-1: calc(var(--baseline) * 0.5);
+
+  /* 4px */
+  --spacing-2: calc(var(--baseline) * 1);
+
+  /* 8px */
+  --spacing-3: calc(var(--baseline) * 1.5);
+  --spacing-3-5: calc(var(--baseline) * 1.75);
+
+  /* 12px */
+  --spacing-4: calc(var(--baseline) * 2);
+
+  /* 16px */
+  --spacing-5: calc(var(--baseline) * 2.5);
+
+  /* 20px */
+  --spacing-6: calc(var(--baseline) * 3);
+
+  /* 24px */
+  --spacing-8: calc(var(--baseline) * 4);
+
+  /* 32px */
+  --spacing-10: calc(var(--baseline) * 5);
+
+  /* 40px */
+  --spacing-12: calc(var(--baseline) * 6);
+
+  /* 48px */
+  --spacing-14: calc(var(--baseline) * 7);
+
+  /* 56px */
+  --spacing-16: calc(var(--baseline) * 8);
+
+  /* 64px */
+  --spacing-20: calc(var(--baseline) * 10);
+
+  /* 80px */
+  --spacing-24: calc(var(--baseline) * 12);
+
+  /* 96px */
+
+  /* ----- 边框专用令牌 ----- */
+  --border-width-thin: 1px;
+  --border-width-normal: 2px;
+  --border-width-thick: 3px;
+
+  /* 基线网格倍数 - 用于精确对齐 */
+  --baseline-1: calc(var(--baseline) * 1);
+
+  /* 8px */
+  --baseline-2: calc(var(--baseline) * 2);
+
+  /* 16px */
+  --baseline-3: calc(var(--baseline) * 3);
+
+  /* 24px */
+  --baseline-4: calc(var(--baseline) * 4);
+
+  /* 32px */
+  --baseline-5: calc(var(--baseline) * 5);
+
+  /* 40px */
+  --baseline-6: calc(var(--baseline) * 6);
+
+  /* 48px */
+  --baseline-8: calc(var(--baseline) * 8);
+
+  /* 64px */
+  --baseline-10: calc(var(--baseline) * 10);
+
+  /* 80px */
+  --baseline-12: calc(var(--baseline) * 12);
+
+  /* 96px */
+
+  /* ========================================
+     5. 圆角系统 · 圆润与安全的触感
+     ======================================== */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-subtle: 12px;
+  --radius-pill: 999px;
+  --radius-full: 50%;
+
+  /* ========================================
+     6. 过渡动画 · 统一节奏
+     ======================================== */
+
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+  --transition-slow: 300ms ease;
+
+  /* 页面过渡动画专用 */
+  --transition-page: 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* 自然滑动 */
+  --transition-fade: 200ms ease-in-out;
+
+  /* 淡入淡出 */
+  --transition-slide: 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* 轻微上移滑动 */
+  --transition-hover: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* 柔和悬停动画 */
+
+  /* ========================================
+     12. 微交互细节 · 增强体验
+     ======================================== */
+
+  /* 按钮涟漪效果 */
+  --ripple-color: rgb(183 170 217 / 20%);
+
+  /* 磨砂薰衣草涟漪 */
+  --ripple-duration: 0.3s;
+
+  /* 涟漪持续时间 */
+  --ripple-size: 100px;
+
+  /* 涟漪最大尺寸 */
+
+  /* 阅读进度条渐变 */
+  --progress-start-color: var(--color-gold-dust);
+
+  /* 进度条起始颜色 */
+  --progress-end-color: var(--color-primary);
+
+  /* 进度条结束颜色 */
+
+  /* ========================================
+     11. 深色模式 · 细腻化优化
+     ======================================== */
+
+  /* ----- 深色背景与表面 ----- */
+  --color-bg-page-dark: #1c1b1f;
+
+  /* 深灰紫背景，带微弱噪点纹理 */
+  --color-surface-pure-dark: #2a2830;
+
+  /* 深灰蓝卡片背景 */
+  --color-surface-soft-dark: #242429;
+
+  /* 深灰蓝表面 */
+  --color-surface-card-dark: #2a2830;
+
+  /* 保持一致性 */
+
+  /* ----- 深色边框与分割 ----- */
+  --color-border-subtle-dark: #434047;
+
+  /* 深色边框，更柔和 */
+  --color-border-divider-dark: #3a3d4a;
+
+  /* 深色分割线 */
+  --color-border-light-dark: #4a5568;
+
+  /* 深色浅边框 */
+  --color-border-dark: #5a6b7a;
+
+  /* 深色主边框 */
+
+  /* ----- 深色文本 ----- */
+  --color-text-primary-dark: #e8e3e5;
+
+  /* 深色主文本 */
+  --color-text-secondary-dark: #a8a29d;
+
+  /* 深色次要文本 */
+  --color-text-tertiary-dark: #7a7268;
+
+  /* 深色三级文本 */
+  --color-text-heading-dark: #f0f0f0;
+
+  /* 深色标题文本 */
+
+  /* ----- 深色点缀色 ----- */
+  --color-gold-dust-dark: #bfb09b;
+
+  /* 暗金色细线，保持低调 */
+  --color-secondary-dark: var(--color-gold-dust-dark);
+
+  /* 深色模式下的次要色 */
+  --color-secondary-rgb-dark: 191, 176, 155;
+
+  /* 暗金色RGB值 */
+
+  /* ----- 深色功能色 ----- */
+  --color-success-dark: #2d4a3d;
+
+  /* 深色成功 */
+  --color-error-dark: #4a2d3d;
+
+  /* 深色错误 */
+  --color-warning-dark: #5a4a3d;
+
+  /* 深色警告 */
+  --color-info-dark: #3a4a5a;
+
+  /* 深色信息 */
+
+  /* ----- 深色表面色（映射） ----- */
+  --color-surface-primary-dark: #1a1d23;
+
+  /* 深色主表面 */
+  --color-surface-secondary-dark: #1f1f2b;
+
+  /* 深色次表面 */
+  --color-surface-tertiary-dark: #242429;
+
+  /* 深色三级表面 */
+  --color-surface-quaternary-dark: #1e1e2a;
+
+  /* 深色四级表面 */
+  --color-surface-quinary-dark: #1c1b1f;
+
+  /* 深色五级表面 */
+
+  /* ========================================
+     8. 字号与基线配合 · 确保垂直对齐
+     ======================================== */
+
+  /* 字号对应的推荐行高 - 基于基线网格 */
+  --line-height-xs: var(--line-height-normal);
+
+  /* 12px + 24px = 36px (4.5基线) */
+  --line-height-sm: var(--line-height-normal);
+
+  /* 14px + 24px = 38px (4.75基线) */
+  --line-height-base: var(--line-height-relaxed);
+
+  /* 16px + 28px = 44px (5.5基线) */
+  --line-height-lg: var(--line-height-relaxed);
+
+  /* 18px + 28px = 46px (5.75基线) */
+  --line-height-xl: var(--line-height-loose);
+
+  /* 20px + 32px = 52px (6.5基线) */
+  --line-height-2xl: var(--line-height-loose);
+
+  /* 24px + 32px = 56px (7基线) */
+  --line-height-3xl: calc(var(--baseline) * 5);
+
+  /* 30px + 40px = 70px (8.75基线) */
+  --line-height-4xl: calc(var(--baseline) * 6);
+
+  /* 36px + 48px = 84px (10.5基线) */
+  --line-height-5xl: calc(var(--baseline) * 8);
+
+  /* 48px + 64px = 112px (14基线) */
+
+  /* ========================================
+     9. 高级字体特性 · 提升排版精致度
+     ======================================== */
+
+  /* 数字字体特性 - 旧风格数字，增加人文感 */
+  --font-features-oldstyle: 'onum';
+
+  /* 旧风格数字 */
+  --font-features-tabular: 'tnum';
+
+  /* 等宽数字 */
+  --font-features-proportional: 'pnum';
+
+  /* 比例数字 */
+
+  /* 标点悬挂 - 增强对齐美感 */
+  --hanging-punctuation: first last;
+
+  /* 首尾标点悬挂 */
+
+  /* 字体特性组合 */
+  --font-features-body: var(--font-features-oldstyle);
+
+  /* 正文用旧风格数字 */
+  --font-features-stats: var(--font-features-tabular);
+
+  /* 统计数据用等宽数字 */
+
+  /* ========================================
+     10. 印刷质感 · 纸张纹理增强
+     ======================================== */
+
+  /* 纸张纹理背景 - 极淡的噪点效果 */
+  --texture-paper: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4' /%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.03 0' /%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E");
+  --texture-paper-light: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.6' numOctaves='3' /%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.02 0' /%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.015'/%3E%3C/svg%3E");
+  --texture-paper-dark: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4' /%3E%3CfeColorMatrix values='1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0.05 0' /%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  --texture-grain: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence baseFrequency='0.04' numOctaves='1' seed='5' /%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.03 0' /%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23grain)' opacity='0.025'/%3E%3C/svg%3E");
+
+  /* 纹理透明度控制 */
+  --texture-opacity-subtle: 0.015;
+
+  /* 极淡，几乎不可见 */
+  --texture-opacity-light: 0.02;
+
+  /* 轻微可见 */
+  --texture-opacity-medium: 0.025;
+
+  /* 适中，明显但不突兀 */
+  --texture-opacity-strong: 0.03;
+
+  /* 较强，用于强调区域 */
+
+  /* ========================================
+     7. 布局宽度系统 · 舒适阅读怀抱
+     ======================================== */
+
+  --layout-gutter: var(--spacing-4);
+
+  /* 默认边距 */
+
+  /* 布局最大宽度 - 基于阅读舒适度 */
+  --layout-width-narrow: 40rem;
+
+  /* 640px - 极窄内容 */
+  --layout-width-reading: 60rem;
+
+  /* 960px - 沉浸阅读 */
+  --layout-width-standard: 75rem;
+
+  /* 1200px - 标准内容 */
+  --layout-width-wide: 90rem;
+
+  /* 1440px - 宽幅布局 */
+}
+
+/* ============================================
+   响应式断点变量 - 移动端优先
+   ============================================ */
+:root {
+  /* 基础断点 */
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 375px;
+
+  /* iPhone SE / 折叠屏折叠状态 */
+  --breakpoint-md: 480px;
+
+  /* 小屏手机 */
+  --breakpoint-lg: 640px;
+
+  /* 中等屏手机 */
+  --breakpoint-xl: 768px;
+
+  /* 平板竖屏 */
+  --breakpoint-xxl: 1024px;
+
+  /* 平板横屏 */
+  --breakpoint-xxxl: 1280px;
+
+  /* 小型桌面 */
+
+  /* 移动端专用间距 */
+  --spacing-tight: 12px;
+
+  /* 极小屏专用 */
+
+  /* 流式字体变量 */
+  --fluid-hero-min: 1.8rem;
+  --fluid-hero-max: 2.5rem;
+  --fluid-h1-min: 1.6rem;
+  --fluid-h1-max: 2rem;
+  --fluid-h2-min: 1.4rem;
+  --fluid-h2-max: 1.75rem;
+  --fluid-h3-min: 1.2rem;
+  --fluid-h3-max: 1.25rem;
+
+  /* 流式字体应用变量 */
+  --font-size-hero-fluid: clamp(var(--fluid-hero-min), 7vw, var(--fluid-hero-max));
+  --font-size-h1-fluid: clamp(var(--fluid-h1-min), 6vw, var(--fluid-h1-max));
+  --font-size-h2-fluid: clamp(var(--fluid-h2-min), 5vw, var(--fluid-h2-max));
+  --font-size-h3-fluid: clamp(var(--fluid-h3-min), 4vw, var(--fluid-h3-max));
+}
+
+/* ============================================
+   Design Tokens - 宁静设计系统
+   ============================================ */
+:lang(zh),
+.zh-content {
+  --chinese-line-height-multiplier: 1.08;
+  --chinese-serif-letter-spacing: 0.005em;
+  --line-height-relaxed: 1.7;
+
+  /* 略增，更松弛 */
+  --paragraph-spacing: 1.75em;
+  --markdown-paragraph-spacing: 1.75em;
+}
+
+/* ============================================
+   响应式调整 · 保留
+   ============================================ */
+@media (width >=768px) {
+  :root {
+    --layout-gutter: var(--spacing-6);
+  }
+}
+
+@media (width >=1024px) {
+  :root {
+    --layout-gutter: var(--spacing-8);
+  }
+}
+
+/* ============================================
+   深色模式 · 宁静低压版（温暖夜光）
+   ============================================ */
+:root.dark {
+  /* 文本色 - 低反光，柔白 */
+  --color-text-primary: #f0ede9;
+  --color-text-secondary: #cbc6c0;
+  --color-text-tertiary: #a6a09a;
+  --color-text-heading: #faf8f5;
+
+  /* 表面色 - 深灰带紫调，不冰冷 */
+  --color-bg-page: #1c1b1f;
+  --color-surface-primary: #2a2830;
+
+  /* 统一为页脚标准色 */
+  --color-surface-secondary: #1f1f2b;
+
+  /* 深色次级背景 */
+  --color-surface-tertiary: #242429;
+
+  /* 深色三级背景 */
+  --color-surface-quaternary: #1e1e2a;
+
+  /* 深色四级背景 */
+  --color-surface-pure: #2a2830;
+  --color-surface-soft: #2f2d35;
+  --color-surface-card: #2a2830;
+
+  /* 边框 - 暗金细线 */
+  --color-border-subtle: #434047;
+  --color-border-divider: #3b3940;
+  --color-border-light: #4a4750;
+  --color-border: #5e5a64;
+
+  /* 主色 - 夜光薰衣草 */
+  --color-primary: #cbbae6;
+  --color-primary-light: #35323e;
+  --color-primary-dark: #a693cc;
+  --color-primary-50: rgb(203 186 230 / 5%);
+  --color-primary-100: rgb(203 186 230 / 10%);
+  --color-primary-200: rgb(203 186 230 / 15%);
+  --color-primary-300: rgb(203 186 230 / 20%);
+  --color-primary-400: rgb(203 186 230 / 30%);
+  --color-primary-500: #cbbae6;
+  --color-primary-600: #b09ad1;
+  --color-primary-700: #a084c2;
+  --color-primary-800: #7d689b;
+  --color-primary-900: #5e4c7a;
+  --color-primary-rgb: 203, 186, 230;
+
+  /* 点缀金 -> 暗金 */
+  --color-gold-dust: #bfb09b;
+
+  /* 深金RGB值 */
+  --color-gold-dust-rgb: 191, 176, 155;
+  --color-gold-dust-light: #4a4540;
+
+  /* 页脚变量 - 深色模式 */
+  --surface-footer: var(--color-surface-card);
+
+  /* 深色页脚背景 */
+  --color-text-quaternary: var(--color-text-tertiary);
+
+  /* 深色四级文本色 */
+
+  /* 次要色映射 · 深色模式下也使用暗金 */
+  --color-secondary: var(--color-gold-dust);
+  --color-secondary-rgb: 191, 176, 155;
+
+  /* 用于透明度计算 */
+
+  /* 功能色 - 深版 */
+  --color-success: #3f544c;
+  --color-error: #5e4a4a;
+  --color-warning: #665b4a;
+  --color-info: #43515c;
+
+  /* 价格色 - 浅金 */
+  --color-price: #e5d7c5;
+}
+
+/* ============================================
+   设计系统核心结束
+   所有组件样式已迁移至 src/styles/components/
+   ============================================ */

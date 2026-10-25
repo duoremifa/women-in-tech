@@ -1,0 +1,77 @@
+/* src/styles/components/forms.css */
+
+/* Form Components & Feedback */
+
+input,
+textarea,
+select {
+  display: block;
+  width: 100%;
+  padding: var(--spacing-3);
+  font-family: var(--font-family-ui);
+
+  /* 表单元素：UI 字体 */
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-primary);
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+/* LINEAR 风格悬停：边框高亮 */
+input:hover:not(:focus),
+textarea:hover:not(:focus),
+select:hover:not(:focus) {
+  border-color: var(--color-border-medium);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 var(--border-width-thick) var(--color-primary-light);
+}
+
+label {
+  display: block;
+  margin-bottom: var(--spacing-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+/* Form Feedback Messages (Alerts) */
+.message {
+  padding: var(--spacing-3) var(--spacing-4);
+  margin-top: var(--spacing-4);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  opacity: 1;
+}
+
+.message-success {
+  background-color: color-mix(in srgb, var(--color-success), transparent 90%);
+  color: color-mix(in srgb, var(--color-success), black 20%);
+  border: var(--border-width-thin) solid color-mix(in srgb, var(--color-success), transparent 80%);
+}
+
+.message-error {
+  background-color: color-mix(in srgb, var(--color-error), transparent 90%);
+  color: color-mix(in srgb, var(--color-error), black 20%);
+  border: var(--border-width-thin) solid color-mix(in srgb, var(--color-error), transparent 80%);
+}
+
+.message-success::before {
+  content: '🌿';
+  font-size: var(--font-size-xl);
+}
+
+.message-error::before {
+  content: '🍂';
+  font-size: var(--font-size-xl);
+}

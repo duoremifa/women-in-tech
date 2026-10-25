@@ -1,0 +1,128 @@
+/* ============================================
+   cards-quiet.css · 宁静低压卡片系统
+   完全基于 design-system.css 变量
+   ============================================ */
+
+/* ----- 所有卡片基类 ----- */
+.function-card,
+.card,
+.post-card,
+.story-card,
+.co-creator-card,
+.dashboard-card,
+.choice-card,
+.truth-card,
+.faq-card,
+.detail-card {
+  box-shadow: none;
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  background: var(--color-surface-pure);
+  border-radius: var(--radius-subtle);
+  transition:
+    border-color var(--transition-normal),
+    background var(--transition-normal),
+    transform var(--transition-normal);
+}
+
+/* 悬停效果统一 */
+.function-card:hover,
+.card:hover,
+.post-card:hover,
+.story-card:hover,
+.co-creator-card:hover,
+.dashboard-card:hover,
+.choice-card:hover,
+.truth-card:hover,
+.faq-card:hover,
+.detail-card:hover {
+  border-color: var(--color-primary-light);
+  background: var(--color-surface-soft);
+  transform: translateY(calc(var(--border-width-normal) * -1));
+  box-shadow: none;
+}
+
+/* ----- 功能卡片特有样式（首页三列）----- */
+.function-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-8) var(--spacing-6);
+  text-decoration: none;
+  color: inherit;
+}
+
+.function-icon {
+  margin-bottom: var(--spacing-5);
+  color: var(--color-primary);
+}
+
+.function-title {
+  font-family: var(--font-family-ui);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-2);
+  letter-spacing: 0.02em;
+}
+
+.function-desc {
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-4);
+}
+
+.function-link {
+  font-family: var(--font-family-ui);
+  font-size: var(--font-size-xs);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: var(--border-width-thin) solid transparent;
+  transition: border-color var(--transition-normal);
+}
+
+.function-card:hover .function-link {
+  border-bottom-color: var(--color-primary);
+}
+
+/* ----- 卡片变体（与原有类名兼容）----- */
+.post-card {
+  display: block;
+  padding: var(--spacing-6);
+}
+
+.post-title {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-2);
+}
+
+.story-card {
+  padding: var(--spacing-6);
+}
+
+.co-creator-card {
+  padding: var(--spacing-6);
+}
+
+/* ===== 深色模式适配 ===== */
+:root.dark .function-card,
+:root.dark .card,
+:root.dark .post-card,
+:root.dark .story-card,
+:root.dark .co-creator-card {
+  background: var(--color-surface-card);
+  border-color: var(--color-border-subtle);
+}
+
+:root.dark .function-card:hover,
+:root.dark .card:hover,
+:root.dark .post-card:hover,
+:root.dark .story-card:hover,
+:root.dark .co-creator-card:hover {
+  background: var(--color-surface-soft);
+  border-color: var(--color-primary-light);
+}

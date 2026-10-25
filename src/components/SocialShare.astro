@@ -1,0 +1,133 @@
+---
+import GeometricIcon from './Icon/GeometricIcon.astro';
+
+interface Props {
+  url: string;
+  title: string;
+  excerpt?: string;
+}
+
+const { url, title, excerpt } = Astro.props;
+const encodedUrl = encodeURIComponent(url);
+const encodedTitle = encodeURIComponent(title);
+
+const shareItems = [
+  { name: '复制链接', icon: 'copy', action: 'copy', url: url },
+  {
+    name: '微博',
+    icon: 'share',
+    action: 'external',
+    url: `https://service.weibo.com/share/share.php?url=${encodedUrl}&title=${encodedTitle}`,
+  },
+  {
+    name: 'X',
+    icon: 'share',
+    action: 'external',
+    url: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`,
+  },
+];
+---
+
+<div class='social-share'>
+  {
+    shareItems.map(item => (
+      <button
+        class='share-btn'
+        type='button'
+        title={item.name}
+        data-action={item.action}
+        data-url={item.action === 'copy' ? url : item.url}
+      >
+        <GeometricIcon type={item.icon as any} size='xs' color='current' />
+        <span class='share-text'>{item.name}</span>
+      </button>
+    ))
+  }
+</div>
+
+<script>
+  document.addEventListener('click', e => {
+    const btn = (e.target as HTMLElement).closest('.share-btn') as HTMLElement;
+    if (!btn) return;
+
+    const action = btn.dataset.action;
+    const url = btn.dataset.url;
+
+    if (action === 'copy' && url) {
+      navigator.clipboard
+        .writeText(url)
+        .then(() => {
+          const shareTextEl = btn.querySelector('.share-text');
+          if (shareTextEl) {
+            const originalText = shareTextEl.textContent;
+            shareTextEl.textContent = '已复制';
+            setTimeout(() => {
+              shareTextEl.textContent = originalText;
+            }, 2000);
+          }
+        })
+        .catch(() => {
+          // 降级
+          const textArea = document.createElement('textarea');
+          textArea.value = url;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+          const shareTextEl = btn.querySelector('.share-text');
+          if (shareTextEl) {
+            const originalText = shareTextEl.textContent;
+            shareTextEl.textContent = '已复制';
+            setTimeout(() => {
+              shareTextEl.textContent = originalText;
+            }, 2000);
+          }
+        });
+    } else if (action === 'external' && url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  });
+</script>
+
+<style>
+  .social-share {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+  }
+
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-1);
+    background: transparent;
+    border: none;
+    color: var(--color-text-tertiary);
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-light);
+    padding: var(--spacing-1) var(--spacing-2);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .share-btn:hover {
+    color: var(--color-primary);
+    background: var(--color-primary-light);
+  }
+
+  .share-text {
+    line-height: 1;
+  }
+
+  @media (width <= 640px) {
+    .share-text {
+      display: none;
+    }
+
+    .share-btn {
+      padding: var(--spacing-1);
+    }
+  }
+</style>

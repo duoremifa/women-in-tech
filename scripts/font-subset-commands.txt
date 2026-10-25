@@ -1,0 +1,42 @@
+# 字体子集化命令示例
+# 需要安装 pyftsubset (fonttools)
+
+# Inter 字体子集化
+pyftsubset fonts/Inter-Regular.ttf \
+  --unicodes-file=public/fonts/charset.txt \
+  --output-file=public/fonts/inter-subset.woff2 \
+  --flavor=woff2 \
+  --layout-features='*' \
+  --glyph-names \
+  --symbol-cmap \
+  --name-IDs='*'
+
+# Inter Bold 字体子集化
+pyftsubset fonts/Inter-Bold.ttf \
+  --unicodes-file=public/fonts/charset.txt \
+  --output-file=public/fonts/inter-bold-subset.woff2 \
+  --flavor=woff2 \
+  --layout-features='*' \
+  --glyph-names \
+  --symbol-cmap \
+  --name-IDs='*'
+
+# Lora 字体子集化
+pyftsubset fonts/Lora-Regular.ttf \
+  --unicodes-file=public/fonts/charset.txt \
+  --output-file=public/fonts/lora-subset.woff2 \
+  --flavor=woff2 \
+  --layout-features='*' \
+  --glyph-names \
+  --symbol-cmap \
+  --name-IDs='*'
+
+# Noto Sans SC 字体子集化
+pyftsubset fonts/NotoSansSC-Regular.ttf \
+  --unicodes-file=public/fonts/charset.txt \
+  --output-file=public/fonts/noto-sans-sc-subset.woff2 \
+  --flavor=woff2 \
+  --layout-features='*' \
+  --glyph-names \
+  --symbol-cmap \
+  --name-IDs='*'

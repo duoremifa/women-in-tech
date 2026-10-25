@@ -1,0 +1,754 @@
+/* src/styles/responsive.css - 移动端极致化响应式优化
+ * 宁静低压设计理念 · 像素级精细控制 · 极致流畅体验
+ */
+
+/* ============================================
+   断点变量定义 - 移动端优先
+   ============================================ */
+
+/* Note: Breakpoint and basic fluid typography variables are defined in design-system.css */
+
+/* ============================================
+   超小屏优化 (≤375px) - iPhone SE / 折叠屏
+   ============================================ */
+@media (width <=375px) {
+  /* ----- 字体系统流式优化 ----- */
+  .hero-title-serif {
+    font-size: var(--font-size-hero-fluid);
+    line-height: 1.1;
+  }
+
+  h1,
+  .page-title-serif {
+    font-size: var(--font-size-h1-fluid);
+    line-height: 1.1;
+  }
+
+  h2,
+  .section-title {
+    font-size: var(--font-size-h2-fluid);
+    line-height: 1.2;
+  }
+
+  h3,
+  .card-title {
+    font-size: var(--font-size-h3-fluid);
+    line-height: 1.2;
+  }
+
+  body {
+    font-size: var(--font-size-sm);
+
+    /* 略小，增加屏占比 */
+  }
+
+  /* ----- 间距系统极致微调 ----- */
+  .quiet-card,
+  .story-card,
+  .path-card,
+  .cta-card,
+  .invite-card,
+  .form-card {
+    padding: var(--spacing-tight);
+
+    /* 12px */
+  }
+
+  .grid-3-col,
+  .resonance-grid,
+  .paths-grid,
+  .cta-grid,
+  .stories-grid,
+  .testimonials-grid,
+  .map-grid,
+  .atelier-grid,
+  .custom-grid {
+    gap: var(--spacing-tight);
+
+    /* 12px */
+  }
+
+  /* ----- 布局容器 ----- */
+  .layout-narrow,
+  .layout-reading,
+  .layout-standard,
+  .layout-wide {
+    padding-left: var(--spacing-3);
+
+    /* 12px */
+    padding-right: var(--spacing-3);
+  }
+
+  /* ----- 按钮触摸优化 ----- */
+  .btn,
+  .btn-primary,
+  .btn-secondary {
+    padding: var(--spacing-2) var(--spacing-3);
+    min-height: calc(var(--baseline) * 5.5); /* 44px */
+    font-size: var(--font-size-xs);
+  }
+
+  .btn-secondary-link {
+    padding: var(--spacing-1) var(--spacing-2);
+    min-height: calc(var(--baseline) * 5.5); /* 44px */
+  }
+
+  /* ----- 网格布局强制单列 ----- */
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-tight);
+  }
+
+  /* ----- 装饰元素简化 ----- */
+  .gold-thread,
+  .gold-thread-mini {
+    margin: var(--spacing-3) 0;
+  }
+
+  .geom {
+    display: none;
+  }
+
+  /* ----- 导航优化 ----- */
+  .nav-right.mobile-expanded a {
+    padding: var(--spacing-3) 0;
+    font-size: var(--font-size-base);
+    border-bottom: var(--border-width-thin) solid var(--color-border-divider);
+  }
+
+  .nav-right.mobile-expanded a:last-child {
+    border-bottom: none;
+  }
+
+  /* ----- 表单元素 ----- */
+  input,
+  textarea,
+  select {
+    font-size: var(--font-size-base);
+
+    /* 防止 iOS 自动放大 */
+    padding: var(--spacing-2) var(--spacing-3);
+  }
+
+  /* ----- 统计卡片 ----- */
+  .origin-stats {
+    flex-direction: column;
+    gap: var(--spacing-tight);
+  }
+
+  .stat-item {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* ----- 次要元素隐藏 ----- */
+  .footer-links a:not(:first-child) {
+    display: none;
+  }
+
+  .moon,
+  .signature-icon {
+    display: none;
+  }
+}
+
+/* ============================================
+   小屏优化 (376px - 480px)
+   ============================================ */
+@media (width >=376px) and (width <=480px) {
+  /* ----- 字体流式优化 ----- */
+  .hero-title-serif {
+    font-size: var(--font-size-hero-fluid);
+    line-height: 1.2;
+  }
+
+  h1,
+  .page-title-serif {
+    font-size: var(--font-size-h1-fluid);
+    line-height: 1.2;
+  }
+
+  h2,
+  .section-title {
+    font-size: var(--font-size-h2-fluid);
+    line-height: 1.2;
+  }
+
+  h3,
+  .card-title {
+    font-size: var(--font-size-h3-fluid);
+    line-height: 1.2;
+  }
+
+  /* ----- 网格布局 ----- */
+  .benefits-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--spacing-3);
+  }
+
+  /* ----- 按钮优化 ----- */
+  .btn,
+  .btn-primary,
+  .btn-secondary {
+    padding: var(--spacing-3) var(--spacing-4);
+    min-height: calc(var(--baseline) * 5.5); /* 44px */
+    font-size: var(--font-size-sm);
+  }
+
+  .btn-secondary-link {
+    padding: var(--spacing-2) 0;
+    min-height: calc(var(--baseline) * 5.5); /* 44px */
+  }
+
+  /* ----- 卡片内边距 ----- */
+  .quiet-card,
+  .story-card,
+  .path-card,
+  .cta-card,
+  .invite-card,
+  .form-card {
+    padding: var(--spacing-4);
+  }
+}
+
+/* ============================================
+   中等屏优化 (481px - 640px)
+   ============================================ */
+@media (width >=481px) and (width <=640px) {
+  /* ----- 保持现有布局，微调间距 ----- */
+  .layout-narrow,
+  .layout-reading,
+  .layout-standard,
+  .layout-wide {
+    padding-left: var(--spacing-4);
+    padding-right: var(--spacing-4);
+  }
+
+  /* ----- 网格布局 ----- */
+  .benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-4);
+  }
+
+  /* ----- 字体保持现有比例 ----- */
+  h1,
+  .page-title-serif {
+    font-size: var(--font-size-3xl);
+    line-height: 1.2;
+  }
+
+  h2,
+  .section-title {
+    font-size: var(--font-size-2xl);
+  }
+
+  h3,
+  .card-title {
+    font-size: var(--font-size-xl);
+  }
+}
+
+/* ============================================
+   大屏移动端优化 (641px - 768px)
+   ============================================ */
+@media (width >=641px) and (width <=768px) {
+  /* ----- 布局容器 ----- */
+  .layout-narrow,
+  .layout-reading,
+  .layout-standard,
+  .layout-wide {
+    padding-left: var(--spacing-5);
+    padding-right: var(--spacing-5);
+  }
+
+  /* ----- 网格布局 ----- */
+  .benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-4);
+  }
+
+  /* ----- 字体略大 ----- */
+  body {
+    font-size: var(--font-size-base);
+  }
+
+  h1,
+  .page-title-serif {
+    font-size: var(--font-size-4xl);
+    line-height: 1.2;
+  }
+
+  h2,
+  .section-title {
+    font-size: var(--font-size-3xl);
+  }
+
+  h3,
+  .card-title {
+    font-size: var(--font-size-xl);
+  }
+}
+
+/* ============================================
+   横屏模式特殊处理
+   ============================================ */
+
+/* 手机横屏 (≤768px) */
+@media (width <=768px) and (orientation: landscape) {
+  body {
+    font-size: var(--font-size-lg);
+
+    /* 横屏略大，提高可读性 */
+  }
+
+  .hero-title-serif {
+    font-size: var(--font-size-hero-fluid);
+  }
+
+  /* 避免内容过宽 */
+  .layout-reading {
+    max-width: 90vw;
+  }
+
+  /* 统计卡片横向排列 */
+  .origin-stats {
+    flex-direction: row;
+    justify-content: center;
+    gap: var(--spacing-6);
+  }
+
+  .stat-item {
+    width: auto;
+    text-align: center;
+  }
+}
+
+/* 平板横屏 (≥768px) */
+@media (width >=768px) and (orientation: landscape) {
+  .layout-reading {
+    max-width: 85vw;
+
+    /* 避免过宽 */
+  }
+
+  /* 部分网格恢复多列 */
+  .benefits-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* 字体适中 */
+  body {
+    font-size: var(--font-size-base);
+  }
+}
+
+/* ============================================
+   折叠屏折叠状态 (≤280px)
+   ============================================ */
+@media (width <=280px) {
+  body {
+    font-size: var(--font-size-sm);
+  }
+
+  .hero-title-serif {
+    font-size: var(--font-size-3xl);
+  }
+
+  h1,
+  .page-title-serif {
+    font-size: var(--font-size-2xl);
+  }
+
+  h2,
+  .section-title {
+    font-size: var(--font-size-xl);
+  }
+
+  /* 极小屏所有按钮全宽 */
+  .btn,
+  .btn-primary,
+  .btn-secondary,
+  .btn-secondary-link {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* 极简布局 */
+  .layout-narrow,
+  .layout-reading,
+  .layout-standard,
+  .layout-wide {
+    padding-left: var(--spacing-2);
+    padding-right: var(--spacing-2);
+  }
+}
+
+/* ============================================
+   性能与无障碍优化
+   ============================================ */
+
+/* 减少动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 高对比度模式 */
+@media (prefers-contrast: high) {
+  .btn,
+  .btn-primary,
+  .btn-secondary {
+    border-width: 2px;
+  }
+}
+
+/* 深色模式优化 */
+@media (prefers-color-scheme: dark) {
+  /* 在移动端深色模式下进一步优化对比度 */
+  @media (width <=768px) {
+    .btn-secondary {
+      border-color: var(--color-gold-dust);
+    }
+  }
+}
+
+/* ============================================
+   触摸区域优化
+   ============================================ */
+@media (width <=768px) {
+  /* 确保所有可交互元素都有足够点击区域 */
+  a,
+  button {
+    min-height: calc(var(--baseline) * 5.5);
+    min-width: calc(var(--baseline) * 5.5);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 图标按钮特殊处理 */
+  .geom-icon,
+  [data-icon] {
+    min-width: calc(var(--baseline) * 5.5);
+    min-height: calc(var(--baseline) * 5.5);
+    padding: var(--spacing-1);
+  }
+
+  /* 文字链接增加点击区域 */
+  .btn-secondary-link {
+    padding: var(--spacing-2) var(--spacing-3);
+  }
+}
+
+/* ============================================
+   渲染性能优化
+   ============================================ */
+
+/* 长列表内容可见性优化 */
+.stories-grid,
+.resonance-grid,
+.testimonials-grid {
+  content-visibility: auto;
+  contain-intrinsic-size: 800px;
+}
+
+/* GPU 加速优化 */
+.hero-section,
+.card,
+.btn {
+  will-change: transform;
+}
+
+/* ============================================
+   图片与图标自适应
+   ============================================ */
+@media (width <=768px) {
+  .geom-icon {
+    max-width: 100%;
+    height: auto;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* 防止图片溢出容器 */
+  .card img,
+  .story-card img {
+    border-radius: var(--radius-sm);
+  }
+}
+
+/* ============================================
+   表单元素极致优化
+   ============================================ */
+@media (width <=768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-3);
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: var(--font-size-base);
+
+    /* 防止 iOS 自动放大 */
+    padding: var(--spacing-3) var(--spacing-4);
+    border-radius: var(--radius-sm);
+    border: var(--border-width-thin) solid var(--color-border-input);
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  /* 表单按钮全宽 */
+  .form-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ============================================
+   导航与汉堡菜单优化
+   ============================================ */
+@media (width <=768px) {
+  .nav-right.mobile-expanded {
+    background: var(--color-surface-pure);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: var(--spacing-4);
+    margin-top: var(--spacing-2);
+  }
+
+  .nav-right.mobile-expanded a {
+    padding: var(--spacing-3) 0;
+    border-bottom: var(--border-width-thin) solid var(--color-border-divider);
+    font-size: var(--font-size-lg);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    transition: color var(--duration-fast);
+  }
+
+  .nav-right.mobile-expanded a:hover {
+    color: var(--color-primary);
+  }
+
+  .nav-right.mobile-expanded a:last-child {
+    border-bottom: none;
+  }
+
+  /* 汉堡菜单按钮优化 */
+  .nav-mobile-trigger {
+    min-width: calc(var(--baseline) * 5.5);
+    min-height: calc(var(--baseline) * 5.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* ============================================
+   Markdown 内容移动端优化
+   ============================================ */
+@media (width <=768px) {
+  .markdown-content {
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+  }
+
+  .markdown-content h2,
+  .markdown-content h3,
+  .markdown-content h4,
+  .markdown-content h5,
+  .markdown-content h6 {
+    max-width: 100%;
+    padding: 0 var(--spacing-4);
+  }
+
+  .markdown-content p,
+  .markdown-content li {
+    max-width: 100%;
+    padding: 0 var(--spacing-4);
+    text-indent: 0;
+
+    /* 移动端禁用首行缩进 */
+  }
+
+  .markdown-content h2 {
+    font-size: var(--font-size-3xl);
+    margin-top: var(--spacing-16);
+    border-bottom: var(--border-width-thin) solid var(--color-border-divider);
+    padding-bottom: var(--spacing-2);
+  }
+
+  .markdown-content h3 {
+    font-size: var(--font-size-2xl);
+    margin-top: var(--spacing-12);
+  }
+
+  .markdown-content h4 {
+    font-size: var(--font-size-xl);
+    margin-top: var(--spacing-8);
+  }
+
+  .markdown-content h5 {
+    font-size: var(--font-size-lg);
+    margin-top: var(--spacing-6);
+  }
+
+  .markdown-content h6 {
+    font-size: var(--font-size-base);
+    margin-top: var(--spacing-4);
+  }
+
+  /* 代码块优化 */
+  .markdown-content pre {
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-4);
+    overflow-x: auto;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+  }
+
+  .markdown-content code {
+    font-size: var(--font-size-sm);
+    padding: 0.2em 0.4em;
+  }
+
+  /* 引用块优化 */
+  .markdown-content blockquote {
+    padding: var(--spacing-4);
+    margin: var(--spacing-6) 0;
+    border-left: 4px solid var(--color-primary);
+    background: var(--color-surface-secondary);
+    border-radius: var(--radius-sm);
+  }
+
+  /* 表格优化 */
+  .markdown-content table {
+    font-size: var(--font-size-sm);
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .markdown-content th,
+  .markdown-content td {
+    padding: var(--spacing-2) var(--spacing-3);
+  }
+}
+
+/* ============================================
+   特殊组件移动端优化
+   ============================================ */
+
+/* 禅模式移动端优化 */
+@media (width <=768px) {
+  .zen-mode-wrapper {
+    bottom: var(--spacing-4);
+    right: var(--spacing-4);
+  }
+
+  #zen-enter-btn {
+    width: calc(var(--baseline) * 5.5);
+    height: calc(var(--baseline) * 5.5);
+    font-size: var(--font-size-sm);
+  }
+
+  #zen-exit-btn {
+    top: var(--spacing-4);
+    right: var(--spacing-4);
+    width: calc(var(--baseline) * 5.5);
+    height: calc(var(--baseline) * 5.5);
+  }
+
+  .zen-controls {
+    top: var(--spacing-4);
+    right: var(--spacing-4);
+  }
+}
+
+/* 主题切换按钮移动端优化 */
+@media (width <=768px) {
+  [data-theme-toggle] {
+    min-width: calc(var(--baseline) * 5.5);
+    min-height: calc(var(--baseline) * 5.5);
+    font-size: var(--font-size-sm);
+  }
+}
+
+/* 页脚移动端优化 */
+@media (width <=768px) {
+  .footer {
+    padding: var(--spacing-8) var(--spacing-4);
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: var(--spacing-6);
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: var(--spacing-3);
+    text-align: center;
+  }
+
+  .footer-links a {
+    padding: var(--spacing-2) 0;
+  }
+}
+
+/* ============================================
+   打印样式优化
+   ============================================ */
+@media print {
+  .nav-right,
+  .zen-mode-wrapper,
+  [data-theme-toggle],
+  .hero-actions,
+  .btn {
+    display: none !important;
+  }
+
+  .layout-narrow,
+  .layout-reading,
+  .layout-standard,
+  .layout-wide {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+    color: #000;
+    background: #fff;
+  }
+
+  .markdown-content {
+    font-size: 12pt;
+  }
+
+  .markdown-content h1 {
+    font-size: 18pt;
+  }
+
+  .markdown-content h2 {
+    font-size: 16pt;
+  }
+
+  .markdown-content h3 {
+    font-size: 14pt;
+  }
+}

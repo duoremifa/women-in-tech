@@ -1,0 +1,504 @@
+---
+/**
+ * GeometricIcon.astro
+ * 升级后的业务语义几何图标系统
+ */
+import type { GeometricIconProps } from '../../types/geometric-icon';
+
+const {
+  type,
+  icon, // 兼容旧属性
+  size = 'md',
+  color = 'current',
+  animated = false,
+  class: className = '',
+}: GeometricIconProps = Astro.props;
+
+// 支持完整的尺寸体系
+const sizeVar = `var(--geom-size-${size})`;
+
+// 兼容旧API，优先使用type
+const iconType = type || icon || 'resonance';
+
+const colorMap = {
+  primary: 'var(--color-primary)',
+  secondary: 'var(--color-secondary)',
+  text: 'var(--color-text-primary)',
+  current: 'currentColor',
+};
+
+const colorValue = colorMap[color as keyof typeof colorMap] || 'currentColor';
+---
+
+<div
+  class={`geom-base geom-icon-${type} ${animated ? 'is-animated' : ''} ${className}`}
+  style={`--icon-size: ${sizeVar}; --icon-color: ${colorValue};`}
+  aria-hidden='true'
+>
+  {
+    iconType === 'resonance' && (
+      <div class='resonance-comp'>
+        <div class='geom-atom-circle' />
+        <div class='resonance-wave' />
+      </div>
+    )
+  }
+  {
+    type === 'science' && (
+      <svg viewBox='0 0 48 48' class='geom-svg' vector-effect='non-scaling-stroke'>
+        {/* DNA 双螺旋 */}
+        <path d='M12,8 Q18,12 24,8 T36,8' fill='none' stroke='currentColor' stroke-width='2' />
+        <path d='M12,16 Q18,20 24,16 T36,16' fill='none' stroke='currentColor' stroke-width='2' />
+        <path d='M12,24 Q18,28 24,24 T36,24' fill='none' stroke='currentColor' stroke-width='2' />
+        <path d='M12,32 Q18,36 24,32 T36,32' fill='none' stroke='currentColor' stroke-width='2' />
+        <line x1='12' y1='8' x2='12' y2='40' stroke='currentColor' stroke-width='2' />
+        <line x1='36' y1='8' x2='36' y2='40' stroke='currentColor' stroke-width='2' />
+      </svg>
+    )
+  }
+  {
+    type === 'growth' && (
+      <svg viewBox='0 0 48 48' class='geom-svg' vector-effect='non-scaling-stroke'>
+        {/* 生长曲线 */}
+        <path
+          d='M8,40 Q12,32 16,28 T24,16 Q28,12 32,8'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2.5'
+        />
+        <circle cx='32' cy='8' r='4' fill='currentColor' />
+        <line x1='24' y1='48' x2='24' y2='40' stroke='currentColor' stroke-width='2' />
+        <path d='M20,42 L24,48 L28,42' fill='currentColor' />
+      </svg>
+    )
+  }
+  {
+    type === 'intersect' && (
+      <svg viewBox='0 0 48 48' class='geom-svg' vector-effect='non-scaling-stroke'>
+        {/* 闪电交叉 */}
+        <path
+          d='M28,6 L18,24 L24,24 L16,42'
+          stroke='currentColor'
+          stroke-width='2.5'
+          fill='none'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+        />
+        <circle cx='24' cy='24' r='3' fill='currentColor' />
+      </svg>
+    )
+  }
+  {
+    type === 'version' && (
+      <svg viewBox='0 0 48 48' class='geom-svg' vector-effect='non-scaling-stroke'>
+        {/* 层叠卡片 */}
+        <rect
+          x='12'
+          y='12'
+          width='24'
+          height='28'
+          rx='2'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+        />
+        <rect
+          x='8'
+          y='8'
+          width='24'
+          height='28'
+          rx='2'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+          opacity='0.6'
+        />
+        <line x1='14' y1='20' x2='30' y2='20' stroke='currentColor' stroke-width='1.5' />
+        <line x1='14' y1='26' x2='28' y2='26' stroke='currentColor' stroke-width='1.5' />
+        <line x1='14' y1='32' x2='26' y2='32' stroke='currentColor' stroke-width='1.5' />
+      </svg>
+    )
+  }
+  {
+    type === 'community' && (
+      <svg viewBox='0 0 48 48' class='geom-svg' vector-effect='non-scaling-stroke'>
+        {/* 人群网络 */}
+        <circle cx='24' cy='14' r='6' fill='none' stroke='currentColor' stroke-width='2' />
+        <path
+          d='M14,28 Q19,24 24,24 Q29,24 34,28'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+        />
+        <circle cx='12' cy='32' r='4' fill='none' stroke='currentColor' stroke-width='1.5' />
+        <circle cx='36' cy='32' r='4' fill='none' stroke='currentColor' stroke-width='1.5' />
+        <line x1='16' y1='34' x2='32' y2='34' stroke='currentColor' stroke-width='1.5' />
+      </svg>
+    )
+  }
+  {
+    type === 'footprint' && (
+      <svg viewBox='0 0 48 48' class='geom-svg' vector-effect='non-scaling-stroke'>
+        {/* 脚印路径 */}
+        <ellipse
+          cx='18'
+          cy='16'
+          rx='6'
+          ry='8'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+          transform='rotate(-15 18 16)'
+        />
+        <ellipse
+          cx='30'
+          cy='32'
+          rx='6'
+          ry='8'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+          transform='rotate(15 30 32)'
+        />
+        <path
+          d='M24,8 Q24,20 24,28'
+          stroke='currentColor'
+          stroke-width='1.5'
+          stroke-dasharray='2,3'
+          opacity='0.5'
+        />
+      </svg>
+    )
+  }
+  {
+    type === 'people' && (
+      <svg viewBox='0 0 48 48' class='geom-svg' vector-effect='non-scaling-stroke'>
+        {/* 人群图标 */}
+        <circle cx='16' cy='12' r='5' fill='none' stroke='currentColor' stroke-width='2' />
+        <circle cx='32' cy='12' r='5' fill='none' stroke='currentColor' stroke-width='2' />
+        <circle cx='24' cy='20' r='5' fill='none' stroke='currentColor' stroke-width='2' />
+        <path d='M16,20 Q16,28 16,32' stroke='currentColor' stroke-width='2' />
+        <path d='M32,20 Q32,28 32,32' stroke='currentColor' stroke-width='2' />
+        <path d='M24,28 Q24,32 24,36' stroke='currentColor' stroke-width='2' />
+        <circle cx='8' cy='36' r='3' fill='none' stroke='currentColor' stroke-width='1.5' />
+        <circle cx='40' cy='36' r='3' fill='none' stroke='currentColor' stroke-width='1.5' />
+      </svg>
+    )
+  }
+  {
+    type === 'heart' && (
+      <svg viewBox='0 0 48 48' class='geom-svg' vector-effect='non-scaling-stroke'>
+        {/* 心形图标 */}
+        <path
+          d='M24,42 C24,42 6,30 6,18 C6,12 10,8 15,8 C18,8 21,10 24,13 C27,10 30,8 33,8 C38,8 42,12 42,18 C42,30 24,42 24,42 Z'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+          stroke-linejoin='round'
+        />
+      </svg>
+    )
+  }
+  {
+    type === 'like' && (
+      <svg viewBox='0 0 48 48' class='geom-svg' vector-effect='non-scaling-stroke'>
+        {/* 点赞图标 */}
+        <path
+          d='M12,20 L12,42 L20,42 L20,20 Z M22,42 L38,42 C40,42 42,40 42,38 L42,28 C42,26 40,24 38,24 L28,24 L30,14 L30,12 C30,10 28,8 26,8 L24,10 L22,20 L22,42 Z'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+          stroke-linejoin='round'
+        />
+      </svg>
+    )
+  }
+  {
+    type === 'bless' && (
+      <svg viewBox='0 0 48 48' class='geom-svg' vector-effect='non-scaling-stroke'>
+        {/* 祝福图标 (双手合十) */}
+        {/* 左手 */}
+        <path
+          d='M14,24 Q12,28 14,32 L18,40'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+          stroke-linecap='round'
+        />
+        {/* 右手 */}
+        <path
+          d='M34,24 Q36,28 34,32 L30,40'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+          stroke-linecap='round'
+        />
+        {/* 光芒 */}
+        <circle cx='24' cy='12' r='6' fill='none' stroke='currentColor' stroke-width='2' />
+        <line x1='24' y1='6' x2='24' y2='2' stroke='currentColor' stroke-width='2' />
+        <line x1='30' y1='9' x2='33' y2='6' stroke='currentColor' stroke-width='2' />
+        <line x1='18' y1='9' x2='15' y2='6' stroke='currentColor' stroke-width='2' />
+      </svg>
+    )
+  }
+  {
+    type === 'share' && (
+      <svg viewBox='0 0 48 48' class='geom-svg' vector-effect='non-scaling-stroke'>
+        {/* 分享图标 */}
+        <circle cx='12' cy='24' r='5' fill='none' stroke='currentColor' stroke-width='2' />
+        <circle cx='36' cy='12' r='5' fill='none' stroke='currentColor' stroke-width='2' />
+        <circle cx='36' cy='36' r='5' fill='none' stroke='currentColor' stroke-width='2' />
+        <line x1='17' y1='22' x2='31' y2='14' stroke='currentColor' stroke-width='2' />
+        <line x1='17' y1='26' x2='31' y2='34' stroke='currentColor' stroke-width='2' />
+      </svg>
+    )
+  }
+  {
+    type === 'link' && (
+      <svg viewBox='0 0 48 48' class='geom-svg' vector-effect='non-scaling-stroke'>
+        {/* 链接图标 */}
+        <path
+          d='M14,20 Q8,20 8,26 Q8,32 14,32 L22,32 Q28,32 28,26 Q28,20 22,20'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+          stroke-linecap='round'
+        />
+        <path
+          d='M26,16 Q32,16 32,22 Q32,28 26,28 L18,28 Q12,28 12,22 Q12,16 18,16'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+          stroke-linecap='round'
+        />
+      </svg>
+    )
+  }
+  {
+    type === 'copy' && (
+      <svg viewBox='0 0 48 48' class='geom-svg' vector-effect='non-scaling-stroke'>
+        {/* 复制图标 */}
+        <rect
+          x='8'
+          y='8'
+          width='24'
+          height='28'
+          rx='2'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+        />
+        <rect
+          x='16'
+          y='16'
+          width='24'
+          height='28'
+          rx='2'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+          opacity='0.6'
+        />
+        <line x1='22' y1='28' x2='38' y2='28' stroke='currentColor' stroke-width='1.5' />
+        <line x1='22' y1='34' x2='36' y2='34' stroke='currentColor' stroke-width='1.5' />
+        <line x1='22' y1='40' x2='34' y2='40' stroke='currentColor' stroke-width='1.5' />
+      </svg>
+    )
+  }
+  {
+    type === 'message' && (
+      <svg viewBox='0 0 48 48' class='geom-svg' vector-effect='non-scaling-stroke'>
+        {/* 留言图标 */}
+        <path
+          d='M8,12 L8,32 L16,32 L24,40 L24,32 L40,32 L40,12 Z'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+          stroke-linejoin='round'
+        />
+        <line x1='14' y1='20' x2='34' y2='20' stroke='currentColor' stroke-width='1.5' />
+        <line x1='14' y1='26' x2='28' y2='26' stroke='currentColor' stroke-width='1.5' />
+      </svg>
+    )
+  }
+  {
+    type === 'arrow-left' && (
+      <svg viewBox='0 0 48 48' class='geom-svg' vector-effect='non-scaling-stroke'>
+        {/* 左箭头 */}
+        <line x1='36' y1='24' x2='12' y2='24' stroke='currentColor' stroke-width='2' />
+        <path
+          d='M20,18 L12,24 L20,30'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+          stroke-linejoin='round'
+          stroke-linecap='round'
+        />
+      </svg>
+    )
+  }
+  {
+    type === 'arrow-right' && (
+      <svg viewBox='0 0 48 48' class='geom-svg' vector-effect='non-scaling-stroke'>
+        {/* 右箭头 */}
+        <line x1='12' y1='24' x2='36' y2='24' stroke='currentColor' stroke-width='2' />
+        <path
+          d='M28,18 L36,24 L28,30'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+          stroke-linejoin='round'
+          stroke-linecap='round'
+        />
+      </svg>
+    )
+  }
+</div>
+
+<style>
+  .geom-base {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    color: var(--icon-color);
+    transition: all var(--transition-normal);
+  }
+
+  .geom-svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .is-animated {
+    animation: breathe-simple 2s infinite ease-in-out;
+  }
+
+  /* SVG 特定动画 */
+  .geom-animated.geom-science path {
+    animation: flow 3s linear infinite;
+  }
+
+  .geom-animated.geom-growth path {
+    animation: grow 2s ease-out infinite;
+  }
+
+  .geom-animated.geom-intersect path {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .geom-animated.geom-heart path {
+    animation: heartbeat 1.5s ease-in-out infinite;
+  }
+
+  .geom-animated.geom-like path {
+    animation: thumbs-up 1s ease-in-out;
+  }
+
+  .geom-animated.geom-bless circle {
+    animation: glow 2s ease-in-out infinite;
+  }
+
+  @keyframes flow {
+    0% {
+      stroke-dashoffset: 0;
+    }
+
+    100% {
+      stroke-dashoffset: 20;
+    }
+  }
+
+  @keyframes grow {
+    0% {
+      stroke-dasharray: 0, 100;
+    }
+
+    100% {
+      stroke-dasharray: 100, 0;
+    }
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.6;
+    }
+  }
+
+  @keyframes heartbeat {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+
+    20% {
+      transform: scale(1.15);
+    }
+
+    40% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes thumbs-up {
+    0% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(calc(-1 * var(--spacing-1)));
+    }
+
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes glow {
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.6;
+      transform: scale(1.1);
+    }
+  }
+
+  /* Resonance Icon */
+  .resonance-comp {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .geom-atom-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60%;
+    height: 60%;
+    border: var(--border-width-thin) solid currentcolor;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .resonance-wave {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80%;
+    height: 80%;
+    border: var(--border-width-thin) solid currentcolor;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+  }
+</style>
