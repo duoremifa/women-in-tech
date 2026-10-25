@@ -33,7 +33,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
         <div class='sidebar-divider'></div>
 
         <div class='who-section'>
-          <span class='who-label'>面向</span>
+          <span class='who-label'>面向群体</span>
           <p class='who-desc'>
             所有在技术与创造领域工作的女性——<br />
             产品、设计、工程、研究、写作……
@@ -49,99 +49,141 @@ import GeometricVisual from '../components/GeometricVisual.astro';
         </div>
       </aside>
 
-      {/* ===== 右侧：内容区 ===== */}
+      {/* ===== 右侧：核心展陈区 ===== */}
       <main class='content-main'>
 
         {/* 1. 我们做什么 */}
         <section class='content-block' id='events'>
-          <div class='block-header-line'>
-            <span class='eyebrow'>WHAT WE DO</span>
-            <a href='/events' class='block-more-link'>手艺准则与机制 ↗</a>
+          <div class='section-heading-group'>
+            <div class='section-title-line'>
+              <span class='section-serial'>01</span>
+              <h2 class='section-main-title'>日常与创作机制</h2>
+              <span class='section-en-tag'>WHAT WE DO</span>
+            </div>
+            <p class='section-intro-text'>在商业流水线之外，守住纯粹的手艺与思考。</p>
           </div>
 
-          <div class='gathering-list'>
-            <div class='gathering-item'>
-              <div class='gathering-meta'>
-                <span class='gathering-type'>Coffee Chat</span>
-                <span class='gathering-freq'>线上 / 杭州 · 双周</span>
+          <div class='editorial-panels-stack'>
+            {/* 项目 01 */}
+            <article class='editorial-panel'>
+              <div class='panel-top'>
+                <div class='panel-name-group'>
+                  <span class='panel-index'>01</span>
+                  <h3 class='panel-title'>Coffee Chat</h3>
+                </div>
+                <span class='panel-badge'>双周 · 线上 / 杭州</span>
               </div>
-              <p class='gathering-desc'>
+              <p class='panel-desc'>
                 不是 networking。<br />
-                两三个人，把手里的咖啡喝完，<br />
-                谈谈最近在做的事——或者什么也不谈。
+                两三个人，把手里的咖啡喝完，谈谈最近在做的事——或者什么也不谈。
               </p>
-            </div>
+            </article>
 
-            <div class='gathering-item'>
-              <div class='gathering-meta'>
-                <span class='gathering-type'>English Chat</span>
-                <span class='gathering-freq'>线上 · 不定期</span>
+            {/* 项目 02 */}
+            <article class='editorial-panel'>
+              <div class='panel-top'>
+                <div class='panel-name-group'>
+                  <span class='panel-index'>02</span>
+                  <h3 class='panel-title'>English Chat</h3>
+                </div>
+                <span class='panel-badge'>双周 · 线上不定期</span>
               </div>
-              <p class='gathering-desc'>
-                用英语聊产品、设计或技术，<br />
-                一个不被评判的地方练习表达，<br />
-                没有标准答案，只有真实的体悟。
+              <p class='panel-desc'>
+                用英语聊产品、设计或技术。<br />
+                一个不被评判的地方练习表达，没有标准答案，只有真实的体悟。
               </p>
-            </div>
+            </article>
 
-            <div class='gathering-item'>
-              <div class='gathering-meta'>
-                <span class='gathering-type'>作品 · Lab</span>
-                <span class='gathering-freq'>小组制 · 慢工出细活</span>
+            {/* 项目 03 */}
+            <article class='editorial-panel'>
+              <div class='panel-top'>
+                <div class='panel-name-group'>
+                  <span class='panel-index'>03</span>
+                  <h3 class='panel-title'>作品 · Lab</h3>
+                </div>
+                <span class='panel-badge'>小组制 · 慢工出细活</span>
               </div>
-              <p class='gathering-desc'>
-                把那个一直在脑子里转的想法拿出来，<br />
-                找到懂你的人一起慢慢打磨。<br />
-                不赶 deadline，不做 MVP，只做值得的事。
+              <p class='panel-desc'>
+                把那个一直在脑子里转的想法拿出来，找到懂你的人一起慢慢打磨。<br />
+                不赶 deadline，不做为了证明什么的交付，只做值得的事。
               </p>
-            </div>
+            </article>
+          </div>
+
+          <div class='section-footer-link'>
+            <a href='/events' class='quiet-text-link'>
+              <span>阅读完整手艺准则与共建机制</span>
+              <span class='link-arrow'>→</span>
+            </a>
           </div>
         </section>
 
         {/* 2. 近期安排 */}
         <section class='content-block' id='schedule'>
-          <div class='block-header-line'>
-            <span class='eyebrow'>UPCOMING</span>
-            <a href='/upcoming' class='block-more-link'>完整排期与答疑 ↗</a>
+          <div class='section-heading-group'>
+            <div class='section-title-line'>
+              <span class='section-serial'>02</span>
+              <h2 class='section-main-title'>近期安排</h2>
+              <span class='section-en-tag'>UPCOMING</span>
+            </div>
+            <p class='section-intro-text'>小规模交流，确保每一次相聚都有充裕的聆听与表达。</p>
           </div>
 
-          <div class='schedule-list'>
-            <div class='schedule-item'>
-              <div class='schedule-left'>
-                <span class='schedule-num'>01</span>
-                <span class='schedule-tag'>Coffee Chat</span>
+          <div class='editorial-panels-stack'>
+            {/* 近期 01 */}
+            <article class='editorial-panel'>
+              <div class='panel-top'>
+                <div class='panel-name-group'>
+                  <span class='panel-index'>01</span>
+                  <h3 class='panel-title'>AI 时代，还剩下什么是属于自己的？</h3>
+                </div>
+                <span class='panel-badge status-open'>开放预约</span>
               </div>
-              <div class='schedule-right'>
-                <p class='schedule-title'>AI 时代，还剩下什么是属于自己的？</p>
-                <p class='schedule-detail'>杭州线下 + 线上同步 · 开放预约</p>
+              <p class='panel-desc'>
+                探讨如何从工业流水线的焦虑中抽离，重新发现具有个人辨识度的表达。
+              </p>
+              <div class='panel-footer-meta'>
+                <span>形式：杭州线下静谧小店 + 线上同步</span>
+                <span>双周周末 · 3-5 人</span>
               </div>
-            </div>
+            </article>
 
-            <div class='schedule-item'>
-              <div class='schedule-left'>
-                <span class='schedule-num'>02</span>
-                <span class='schedule-tag'>English Chat</span>
+            {/* 近期 02 */}
+            <article class='editorial-panel'>
+              <div class='panel-top'>
+                <div class='panel-name-group'>
+                  <span class='panel-index'>02</span>
+                  <h3 class='panel-title'>Show & Tell: Walk Me Through Something You Made</h3>
+                </div>
+                <span class='panel-badge status-open'>开放预约</span>
               </div>
-              <div class='schedule-right'>
-                <p class='schedule-title'>Show & Tell — Walk me through something you made</p>
-                <p class='schedule-detail'>线上 · 40 min · 开放预约</p>
+              <p class='panel-desc'>
+                每人 5 分钟用英文讲述一个喜欢的界面细节、动效或代码架构，安全试错。
+              </p>
+              <div class='panel-footer-meta'>
+                <span>形式：线上视频室 · 40 min</span>
+                <span>双周周中晚间</span>
               </div>
-            </div>
+            </article>
+          </div>
+
+          <div class='section-footer-link'>
+            <a href='/upcoming' class='quiet-text-link'>
+              <span>查看全部排期与答疑</span>
+              <span class='link-arrow'>→</span>
+            </a>
           </div>
         </section>
 
-        {/* 3. 加入我们 (前置极细金线手作表单) */}
+        {/* 3. 预约加入 (前置极细金线手作表单) */}
         <section class='content-block' id='join'>
-          <div class='block-header-line'>
-            <span class='eyebrow'>JOIN THE CIRCLE</span>
-            <a href='/join' class='block-more-link'>独立全屏预约函 ↗</a>
-          </div>
-
-          <div class='join-intro'>
-            <p>
-              如果你有共鸣，欢迎留下联系方式。<br />
-              我们会在下一次活动前一对一确认。
-            </p>
+          <div class='section-heading-group'>
+            <div class='section-title-line'>
+              <span class='section-serial'>03</span>
+              <h2 class='section-main-title'>预约交流 · 加入“我们”</h2>
+              <span class='section-en-tag'>JOIN THE CIRCLE</span>
+            </div>
+            <p class='section-intro-text'>如果你有共鸣，欢迎随时留下你的声音。没有评判与考核。</p>
           </div>
 
           <div class='form-wrapper'>
@@ -150,13 +192,13 @@ import GeometricVisual from '../components/GeometricVisual.astro';
               <div class='form-field'>
                 <label class='field-label' for='home-name'>
                   <span>如何称呼你</span>
-                  <span class='field-hint'>Name</span>
+                  <span class='field-hint'>Name / Nickname</span>
                 </label>
                 <input
                   type='text'
                   id='home-name'
                   name='name'
-                  placeholder='名字或昵称'
+                  placeholder='名字或习惯的称呼'
                   required
                   autocomplete='off'
                 />
@@ -174,7 +216,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                     <span class='check-indicator' aria-hidden='true'></span>
                     <div class='check-content'>
                       <span class='check-title'>设计 · 视觉传达 / 交互体验 (IxD)</span>
-                      <span class='check-note'>视觉与微交互</span>
+                      <span class='check-note'>视觉、触感与动效</span>
                     </div>
                   </label>
 
@@ -183,7 +225,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                     <span class='check-indicator' aria-hidden='true'></span>
                     <div class='check-content'>
                       <span class='check-title'>产品 · 逻辑推敲 / 独立孵化 (PM)</span>
-                      <span class='check-note'>业务与体验闭环</span>
+                      <span class='check-note'>痛点挖掘与体验闭环</span>
                     </div>
                   </label>
 
@@ -192,7 +234,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                     <span class='check-indicator' aria-hidden='true'></span>
                     <div class='check-content'>
                       <span class='check-title'>工程 · 前端架构 / 独立全栈 (FE)</span>
-                      <span class='check-note'>代码实现与部署</span>
+                      <span class='check-note'>代码实现与鲁棒工程</span>
                     </div>
                   </label>
 
@@ -201,7 +243,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                     <span class='check-indicator' aria-hidden='true'></span>
                     <div class='check-content'>
                       <span class='check-title'>研究 / 写作 / 自由创造者</span>
-                      <span class='check-note'>跨界探索</span>
+                      <span class='check-note'>深度观察与跨界表达</span>
                     </div>
                   </label>
                 </div>
@@ -221,7 +263,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                     </span>
                     <div class='check-content'>
                       <span class='check-title'>☕ Offline & Online Coffee Chat</span>
-                      <span class='check-note'>双周轻聚</span>
+                      <span class='check-note'>双周轻聚 · 低压真诚</span>
                     </div>
                   </label>
 
@@ -232,7 +274,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                     </span>
                     <div class='check-content'>
                       <span class='check-title'>🗣️ English Tech & Design Chat</span>
-                      <span class='check-note'>双周线上</span>
+                      <span class='check-note'>双周线上 · 5 min Show & Tell</span>
                     </div>
                   </label>
 
@@ -243,7 +285,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                     </span>
                     <div class='check-content'>
                       <span class='check-title'>🛠️ 作品 Lab · 慢工出细活</span>
-                      <span class='check-note'>合作打磨代表作</span>
+                      <span class='check-note'>经验互借 · 代表作打磨</span>
                     </div>
                   </label>
                 </div>
@@ -251,7 +293,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 
               <div class='form-field'>
                 <label class='field-label' for='home-idea'>
-                  <span>正在做的事，或者你觉得这里会懂的话题</span>
+                  <span>正在做的事，或者想交流的话题</span>
                   <span class='field-hint'>可留空</span>
                 </label>
                 <textarea
@@ -265,22 +307,27 @@ import GeometricVisual from '../components/GeometricVisual.astro';
               <div class='form-field'>
                 <label class='field-label' for='home-contact'>
                   <span>联系方式</span>
-                  <span class='field-hint'>微信或邮箱</span>
+                  <span class='field-hint'>微信号或邮箱 · 仅用于活动邀请</span>
                 </label>
                 <input
                   type='text'
                   id='home-contact'
                   name='contact'
-                  placeholder='微信号或邮箱'
+                  placeholder='微信号或 Email'
                   required
                   autocomplete='off'
                 />
               </div>
 
-              <button type='submit' class='submit-btn-primary' id='home-submit-btn'>
-                <span>留下联系方式</span>
-                <span class='btn-arrow'>→</span>
-              </button>
+              <div class='submit-zone'>
+                <button type='submit' class='submit-btn-primary' id='home-submit-btn'>
+                  <span>留下联系方式</span>
+                  <span class='btn-arrow'>→</span>
+                </button>
+                <span class='privacy-reassurance'>
+                  随时可退订联系 · 不作商业营销
+                </span>
+              </div>
 
               <div id='home-form-feedback' style='display: none;'>
                 <div class='feedback-receipt-box'>
@@ -485,158 +532,172 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     position: relative;
   }
 
-  .block-header-line {
+  /* ===== 章节统一标题头组 (Editorial Heading Group) ===== */
+  .section-heading-group {
+    margin-bottom: var(--spacing-6);
+  }
+
+  .section-title-line {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-3);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .section-serial {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-sm);
+    color: var(--color-gold-dust);
+    font-weight: var(--font-weight-light);
+  }
+
+  .section-main-title {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-heading);
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  .section-en-tag {
+    font-family: var(--font-family-ui);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-primary-dark);
+  }
+
+  .section-intro-text {
+    font-family: var(--font-family-text);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-tertiary);
+    margin: 0;
+    line-height: var(--line-height-normal);
+  }
+
+  /* ===== 出版级图文面板 (Editorial Panels) ===== */
+  .editorial-panels-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+
+  .editorial-panel {
+    background: var(--color-surface-pure);
+    border: var(--border-width-thin) solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-5) var(--spacing-6);
+    box-shadow: 0 1px 2px rgba(38, 34, 28, 0.02);
+    transition:
+      border-color var(--transition-fast),
+      transform var(--transition-fast),
+      box-shadow var(--transition-fast);
+  }
+
+  .editorial-panel:hover {
+    border-color: rgba(216, 205, 176, 0.6);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(216, 205, 176, 0.08);
+  }
+
+  .panel-top {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: var(--spacing-8);
+    margin-bottom: var(--spacing-3);
   }
 
-  .eyebrow {
-    font-family: var(--font-family-ui);
+  .panel-name-group {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-3);
+  }
+
+  .panel-index {
+    font-family: var(--font-family-heading);
     font-size: var(--font-size-xs);
-    letter-spacing: 0.14em;
-    color: var(--color-primary-dark);
-    text-transform: uppercase;
-    font-weight: var(--font-weight-medium);
+    color: var(--color-gold-dust);
+    font-weight: var(--font-weight-light);
   }
 
-  .block-more-link {
+  .panel-title {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-heading);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .panel-badge {
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    background: var(--color-surface-soft);
+    border: 1px solid var(--color-border-divider);
+    padding: 1px 8px;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+  }
+
+  .panel-badge.status-open {
+    color: #436956;
+    border-color: rgba(196, 214, 204, 0.5);
+    background: rgba(196, 214, 204, 0.15);
+  }
+
+  .panel-desc {
+    font-family: var(--font-family-text);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .panel-footer-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--color-border-divider);
+    padding-top: var(--spacing-3);
+    margin-top: var(--spacing-3);
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+  }
+
+  /* 章节底部跳转链接 */
+  .section-footer-link {
+    margin-top: var(--spacing-4);
+    text-align: right;
+  }
+
+  .quiet-text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
     font-family: var(--font-family-ui);
     font-size: var(--font-size-xs);
     color: var(--color-gold-dust);
-    text-decoration: none;
+    text-decoration: none !important;
     letter-spacing: 0.04em;
     transition: color var(--transition-fast);
   }
 
-  .block-more-link:hover {
+  .quiet-text-link:hover {
     color: var(--color-text-heading);
   }
 
-  /* 活动列表 */
-  .gathering-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+  .link-arrow {
+    transition: transform var(--transition-fast);
   }
 
-  .gathering-item {
-    padding: var(--spacing-7) 0;
-    border-bottom: var(--border-width-thin) solid var(--color-border-divider);
-  }
-
-  .gathering-item:first-child {
-    padding-top: 0;
-  }
-
-  .gathering-item:last-child {
-    border-bottom: none;
-  }
-
-  .gathering-meta {
-    display: flex;
-    align-items: baseline;
-    gap: var(--spacing-4);
-    margin-bottom: var(--spacing-4);
-  }
-
-  .gathering-type {
-    font-family: var(--font-family-heading);
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-light);
-    color: var(--color-text-heading);
-    letter-spacing: -0.01em;
-  }
-
-  .gathering-freq {
-    font-family: var(--font-family-ui);
-    font-size: var(--font-size-xs);
-    color: var(--color-text-tertiary);
-    letter-spacing: 0.04em;
-  }
-
-  .gathering-desc {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-secondary);
-    line-height: 1.85;
-    margin: 0;
-    max-width: 38em;
-  }
-
-  /* 安排列表 */
-  .schedule-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-5);
-  }
-
-  .schedule-item {
-    display: flex;
-    gap: var(--spacing-6);
-    align-items: flex-start;
-    padding: var(--spacing-5) var(--spacing-5);
-    background: var(--color-surface-pure);
-    border: var(--border-width-thin) solid var(--color-border-subtle);
-    border-radius: var(--radius-sm);
-  }
-
-  .schedule-left {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 56px;
-    gap: 4px;
-    padding-top: 2px;
-  }
-
-  .schedule-num {
-    font-family: var(--font-family-heading);
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-light);
-    color: var(--color-text-heading);
-    line-height: 1;
-  }
-
-  .schedule-tag {
-    font-size: 10px;
-    font-family: var(--font-family-ui);
-    color: var(--color-primary-dark);
-    letter-spacing: 0.04em;
-    text-align: center;
-  }
-
-  .schedule-right {
-    flex-grow: 1;
-  }
-
-  .schedule-title {
-    font-family: var(--font-family-heading);
-    font-size: var(--font-size-base);
-    color: var(--color-text-heading);
-    margin: 0 0 var(--spacing-2);
-    font-weight: var(--font-weight-normal);
-    letter-spacing: -0.01em;
-  }
-
-  .schedule-detail {
-    font-size: var(--font-size-xs);
-    color: var(--color-text-tertiary);
-    margin: 0;
+  .quiet-text-link:hover .link-arrow {
+    transform: translateX(3px);
   }
 
   /* 表单区 */
-  .join-intro {
-    margin-bottom: var(--spacing-6);
-  }
-
-  .join-intro p {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-secondary);
-    line-height: 1.85;
-    margin: 0;
-  }
-
   .form-wrapper {
     background: var(--color-surface-pure);
     border: var(--border-width-thin) solid var(--color-border-subtle);
@@ -647,13 +708,28 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   .quiet-form {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-7);
+    gap: var(--spacing-6);
   }
 
   .form-field {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-2);
+  }
+
+  .submit-zone {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    flex-wrap: wrap;
+    margin-top: var(--spacing-2);
+  }
+
+  .privacy-reassurance {
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.02em;
   }
 
   .feedback-receipt-box {
@@ -718,9 +794,15 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     .form-wrapper {
       padding: var(--spacing-5);
     }
-    .schedule-item {
+    .panel-top {
       flex-direction: column;
-      gap: var(--spacing-3);
+      align-items: flex-start;
+      gap: var(--spacing-1);
+    }
+    .panel-footer-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
     }
   }
 </style>
