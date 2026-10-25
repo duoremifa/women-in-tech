@@ -54,13 +54,14 @@
   /* 标题用深褐，保持重量感 */
 
   /* ----- 品牌主色：磨砂薰衣草 · 低饱和，像透过毛玻璃的光 ----- */
+  /* ----- 核心紫灰 · 品牌经典色 (wo/men in tech 标志性紫) ----- */
+  --color-brand-purple: #5e4c7a;
+  --color-brand-purple-dark: #4d3d66;
+  --color-brand-purple-soft: #7d689b;
+  --color-brand-purple-light: #b7aad9;
   --color-primary: #b7aad9;
-
-  /* 核心紫灰，温柔不打扰 */
   --color-primary-light: #f1edf7;
-
-  /* 极浅紫白 */
-  --color-primary-dark: #8f81a6;
+  --color-primary-dark: #6e558e;
 
   /* 深紫灰，用于悬停/强调 */
   --color-primary-50: #f9f7fc;
@@ -728,7 +729,11 @@
   --color-border-light: rgba(216, 205, 176, 0.18);
   --color-border: rgba(216, 205, 176, 0.28);
 
-  /* 主色 - 柔和夜光薰衣草 */
+  /* 主色 - 柔和夜光薰衣草与品牌紫 */
+  --color-brand-purple: #cbbae6;
+  --color-brand-purple-dark: #b29ed4;
+  --color-brand-purple-soft: #a084c2;
+  --color-brand-purple-light: #5e4c7a;
   --color-primary: #cbbae6;
   --color-primary-light: #2b2733;
   --color-primary-dark: #b29ed4;

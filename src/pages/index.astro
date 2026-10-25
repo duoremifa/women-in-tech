@@ -11,10 +11,10 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   <div class='page-root'>
     <div class='two-column-layout'>
 
-      {/* ===== 左侧：品牌与宣言 (Brand anchor persists identically across all languages) ===== */}
+      {/* ===== 左侧：品牌与宣言 (Brand anchor in signature brand purple) ===== */}
       <aside class='sidebar' id='about'>
 
-        {/* 永久保留的核心标识，不受中英文切换影响 */}
+        {/* 永久保留的核心标识：采用惊艳的经典品牌紫 */}
         <div class='brand-group'>
           <h1 class='site-title'>wo<span class='brand-slash'>/</span>men</h1>
           <p class='site-sub'>women in technical</p>
@@ -69,6 +69,49 @@ import GeometricVisual from '../components/GeometricVisual.astro';
             No specific titles required,<br />
             only a quiet devotion to the craft itself.
           </p>
+        </div>
+
+        {/* 冷启动快速通道 · 3 条轻巧路径 */}
+        <div class='quick-start-box'>
+          <div class='quick-start-head'>
+            <span class='gold-thread-dot'>✦</span>
+            <span class='quick-start-title lang-zh'>冷启动 · 3 条轻巧参与路径</span>
+            <span class='quick-start-title lang-en'>Getting Started · 3 Direct Paths</span>
+          </div>
+          <div class='quick-paths-stack'>
+            <button type='button' class='quick-path-btn' data-quick-action='coffee_chat'>
+              <span class='path-index'>01</span>
+              <div class='path-info'>
+                <span class='path-title lang-zh'>喝杯咖啡 · 聊最近在琢磨的事</span>
+                <span class='path-title lang-en'>Coffee Chat · Share recent pursuits</span>
+                <span class='path-meta lang-zh'>双周极小规模 · 线上 / 杭州</span>
+                <span class='path-meta lang-en'>Biweekly · 3-5 people intimate circle</span>
+              </div>
+              <span class='path-arrow'>⟶</span>
+            </button>
+
+            <button type='button' class='quick-path-btn' data-quick-action='english_chat'>
+              <span class='path-index'>02</span>
+              <div class='path-info'>
+                <span class='path-title lang-zh'>5 分钟试讲 · 练英语表达</span>
+                <span class='path-title lang-en'>Show & Tell · 5 min English Demo</span>
+                <span class='path-meta lang-zh'>双周线上 · 零审判的安全语境</span>
+                <span class='path-meta lang-en'>Virtual studio · Judgment-free space</span>
+              </div>
+              <span class='path-arrow'>⟶</span>
+            </button>
+
+            <button type='button' class='quick-path-btn' data-quick-action='portfolio_building'>
+              <span class='path-index'>03</span>
+              <div class='path-info'>
+                <span class='path-title lang-zh'>带上想法 · 找伙伴打磨作品</span>
+                <span class='path-title lang-en'>Craft Lab · Co-build signature work</span>
+                <span class='path-meta lang-zh'>慢工出细活 · 不赶工期只做精品</span>
+                <span class='path-meta lang-en'>Small cohorts · Patient craftsmanship</span>
+              </div>
+              <span class='path-arrow'>⟶</span>
+            </button>
+          </div>
         </div>
 
         <div class='sidebar-footer'>
@@ -189,21 +232,183 @@ import GeometricVisual from '../components/GeometricVisual.astro';
             </article>
           </div>
 
-          <div class='section-footer-link'>
-            <a href='/events' class='quiet-text-link'>
+          {/* 精细化调整的底部手艺准则跳转栏 */}
+          <div class='section-bottom-action'>
+            <div class='action-lead-note'>
+              <span class='gold-thread-dot'>✦</span>
+              <span class='lang-zh'>保持极小规模 · 保护深度表达与留白</span>
+              <span class='lang-en'>Intimate circles · Preserving deep craft and stillness</span>
+            </div>
+            <a href='/events' class='circle-arrow-link'>
               <span class='lang-zh'>阅读完整手艺准则与共建机制</span>
               <span class='lang-en'>Explore Craft Manifesto & Circle Norms</span>
-              <span class='link-arrow'>→</span>
+              <span class='link-arrow'>⟶</span>
             </a>
           </div>
         </section>
 
-        {/* 2. 近期安排 */}
+        {/* 2. 正在打磨的器物 · IN THE WORKSHOP (动态作品展陈与共建吸引点) */}
+        <section class='content-block' id='workshop'>
+          <div class='section-heading-group lang-zh'>
+            <div class='section-title-line'>
+              <span class='section-serial'>02</span>
+              <h2 class='section-main-title'>正在打磨的器物 · Works in Progress</h2>
+            </div>
+            <p class='section-intro-text'>
+              在商业流水线之外，我们正在推敲的独立小工具。不赶进度，只求每一处细节立得住。
+            </p>
+          </div>
+
+          <div class='section-heading-group lang-en'>
+            <div class='section-title-line'>
+              <span class='section-serial'>02</span>
+              <h2 class='section-main-title'>Works in the Workshop</h2>
+            </div>
+            <p class='section-intro-text'>
+              Deliberate side tools in active development. Free from commercial rush, focused on enduring craft.
+            </p>
+          </div>
+
+          {/* 角色视角快速切换 */}
+          <div class='workshop-filter-bar' role='tablist' aria-label='作品视角筛选'>
+            <button type='button' class='role-tab-btn is-active' data-role-filter='all'>
+              <span class='lang-zh'>全部器物</span>
+              <span class='lang-en'>All Artifacts</span>
+            </button>
+            <button type='button' class='role-tab-btn' data-role-filter='pm'>
+              <span>PM · 商业与闭环</span>
+            </button>
+            <button type='button' class='role-tab-btn' data-role-filter='ixd'>
+              <span>IxD · 触感与微动效</span>
+            </button>
+            <button type='button' class='role-tab-btn' data-role-filter='fe'>
+              <span>FE · 鲁棒与离线工程</span>
+            </button>
+          </div>
+
+          <div class='workshop-cards-stack'>
+            {/* 器物 01: FrictionLog */}
+            <article class='workshop-card' data-role='ixd fe'>
+              <div class='card-header-line'>
+                <div class='card-tag-group'>
+                  <span class='work-num'>01</span>
+                  <span class='work-status-badge'>原型推敲中 · 欢迎 PM / IxD</span>
+                </div>
+                <span class='work-triad-pills'>PM × IxD × FE</span>
+              </div>
+              <h3 class='work-title'>FrictionLog · 宁静慢节奏感知器</h3>
+              <p class='work-summary lang-zh'>
+                为复杂心智创造者设计的离线手写感知工具。杜绝社交算法与点赞刺激，专注捕获未经修饰的创作卡壳与顿悟时刻。
+              </p>
+              <p class='work-summary lang-en'>
+                A local-first reflection tool for deep creators. Zero social algorithms, zero engagement hooks—holding space for genuine creative friction.
+              </p>
+              <div class='work-breakdown-grid'>
+                <div class='breakdown-item'>
+                  <span class='breakdown-label'>PM 支点</span>
+                  <span class='breakdown-text'>非评价体系与微顿悟闭环</span>
+                </div>
+                <div class='breakdown-item'>
+                  <span class='breakdown-label'>IxD 支点</span>
+                  <span class='breakdown-text'>8px 纸感网格与金线刻痕</span>
+                </div>
+                <div class='breakdown-item'>
+                  <span class='breakdown-label'>FE 支点</span>
+                  <span class='breakdown-text'>PWA 离线存储与极速响应</span>
+                </div>
+              </div>
+              <div class='work-action-row'>
+                <button type='button' class='btn-join-work' data-work-name='FrictionLog 慢节奏感知器'>
+                  <span class='lang-zh'>认领共建角色 / 加入推敲 ⟶</span>
+                  <span class='lang-en'>Co-build this artifact ⟶</span>
+                </button>
+              </div>
+            </article>
+
+            {/* 器物 02: TypeSpec */}
+            <article class='workshop-card' data-role='ixd fe'>
+              <div class='card-header-line'>
+                <div class='card-tag-group'>
+                  <span class='work-num'>02</span>
+                  <span class='work-status-badge'>代码架构验证中 · 欢迎 FE</span>
+                </div>
+                <span class='work-triad-pills'>IxD × FE</span>
+              </div>
+              <h3 class='work-title'>TypeSpec · 手艺排版标尺</h3>
+              <p class='work-summary lang-zh'>
+                网页手艺人专用的黄金分割与衬线字距排版游标。让中英文混排拥有如同手制书籍一般的留白韵律与行气呼吸。
+              </p>
+              <p class='work-summary lang-en'>
+                A modular golden-ratio typography inspection utility, bringing bookish calm and meticulous tracking to modern web screens.
+              </p>
+              <div class='work-breakdown-grid'>
+                <div class='breakdown-item'>
+                  <span class='breakdown-label'>PM 支点</span>
+                  <span class='breakdown-text'>轻量即开即用体验</span>
+                </div>
+                <div class='breakdown-item'>
+                  <span class='breakdown-label'>IxD 支点</span>
+                  <span class='breakdown-text'>模块化尺度与黄金比例游标</span>
+                </div>
+                <div class='breakdown-item'>
+                  <span class='breakdown-label'>FE 支点</span>
+                  <span class='breakdown-text'>纯 CSS 变量流式驱动</span>
+                </div>
+              </div>
+              <div class='work-action-row'>
+                <button type='button' class='btn-join-work' data-work-name='TypeSpec 手艺排版标尺'>
+                  <span class='lang-zh'>认领共建角色 / 加入推敲 ⟶</span>
+                  <span class='lang-en'>Co-build this artifact ⟶</span>
+                </button>
+              </div>
+            </article>
+
+            {/* 器物 03: Whisper Letter */}
+            <article class='workshop-card' data-role='pm ixd'>
+              <div class='card-header-line'>
+                <div class='card-tag-group'>
+                  <span class='work-num'>03</span>
+                  <span class='work-status-badge'>概念草案阶段 · 欢迎自由加入</span>
+                </div>
+                <span class='work-triad-pills'>PM × IxD</span>
+              </div>
+              <h3 class='work-title'>Whisper Letter · 同行极简信笺</h3>
+              <p class='work-summary lang-zh'>
+                女性独立创造者之间的异步信笺交换协议。每次仅交换一份深度同行反馈，拒绝浮躁的信息流与客套夸奖。
+              </p>
+              <p class='work-summary lang-en'>
+                An asynchronous craft critique protocol for independent creators. Exchange one deep, sincere feedback letter at a time.
+              </p>
+              <div class='work-breakdown-grid'>
+                <div class='breakdown-item'>
+                  <span class='breakdown-label'>PM 支点</span>
+                  <span class='breakdown-text'>深度反馈互助闭环</span>
+                </div>
+                <div class='breakdown-item'>
+                  <span class='breakdown-label'>IxD 支点</span>
+                  <span class='breakdown-text'>火漆封蜡式异步折叠动效</span>
+                </div>
+                <div class='breakdown-item'>
+                  <span class='breakdown-label'>FE 支点</span>
+                  <span class='breakdown-text'>轻量端对端加密文本协议</span>
+                </div>
+              </div>
+              <div class='work-action-row'>
+                <button type='button' class='btn-join-work' data-work-name='Whisper Letter 同行极简信笺'>
+                  <span class='lang-zh'>认领共建角色 / 加入推敲 ⟶</span>
+                  <span class='lang-en'>Co-build this artifact ⟶</span>
+                </button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        {/* 3. 近期安排 */}
         <section class='content-block' id='schedule'>
           {/* 中文标题 */}
           <div class='section-heading-group lang-zh'>
             <div class='section-title-line'>
-              <span class='section-serial'>02</span>
+              <span class='section-serial'>03</span>
               <h2 class='section-main-title'>近期安排</h2>
             </div>
             <p class='section-intro-text'>小规模交流，确保每一次相聚都有充裕的聆听与表达。</p>
@@ -212,7 +417,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
           {/* 英文标题 */}
           <div class='section-heading-group lang-en'>
             <div class='section-title-line'>
-              <span class='section-serial'>02</span>
+              <span class='section-serial'>03</span>
               <h2 class='section-main-title'>Upcoming Gatherings</h2>
             </div>
             <p class='section-intro-text'>Intimate circles ensuring ample time for unhurried listening and honest exchange.</p>
@@ -292,21 +497,26 @@ import GeometricVisual from '../components/GeometricVisual.astro';
             </article>
           </div>
 
-          <div class='section-footer-link'>
-            <a href='/upcoming' class='quiet-text-link'>
+          <div class='section-bottom-action'>
+            <div class='action-lead-note'>
+              <span class='gold-thread-dot'>✦</span>
+              <span class='lang-zh'>席位有限 · 保持 3-5 人深度倾听</span>
+              <span class='lang-en'>Intimate gatherings · Capped at 5 participants</span>
+            </div>
+            <a href='/upcoming' class='circle-arrow-link'>
               <span class='lang-zh'>查看全部排期与答疑</span>
               <span class='lang-en'>View Full Schedule & Circle FAQ</span>
-              <span class='link-arrow'>→</span>
+              <span class='link-arrow'>⟶</span>
             </a>
           </div>
         </section>
 
-        {/* 3. 预约加入 (前置极细金线手作表单) */}
+        {/* 4. 预约加入 (前置极细金线手作表单) */}
         <section class='content-block' id='join'>
           {/* 中文标题 */}
           <div class='section-heading-group lang-zh'>
             <div class='section-title-line'>
-              <span class='section-serial'>03</span>
+              <span class='section-serial'>04</span>
               <h2 class='section-main-title'>预约交流 · 加入“我们”</h2>
             </div>
             <p class='section-intro-text'>如果你有共鸣，欢迎随时留下你的声音。没有评判与考核。</p>
@@ -315,7 +525,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
           {/* 英文标题 */}
           <div class='section-heading-group lang-en'>
             <div class='section-title-line'>
-              <span class='section-serial'>03</span>
+              <span class='section-serial'>04</span>
               <h2 class='section-main-title'>Join the Circle</h2>
             </div>
             <p class='section-intro-text'>If our ethos resonates with you, you are warmly invited to leave a note. No judgment, no assessments.</p>
@@ -409,7 +619,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                 </label>
                 <div class='quiet-check-list'>
                   <label class='quiet-check-row'>
-                    <input type='checkbox' name='interests' value='coffee_chat' checked />
+                    <input type='checkbox' name='interests' value='coffee_chat' id='interest-coffee' checked />
                     <span class='check-indicator' aria-hidden='true'>
                       <svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg>
                     </span>
@@ -422,7 +632,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                   </label>
 
                   <label class='quiet-check-row'>
-                    <input type='checkbox' name='interests' value='english_chat' checked />
+                    <input type='checkbox' name='interests' value='english_chat' id='interest-english' checked />
                     <span class='check-indicator' aria-hidden='true'>
                       <svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg>
                     </span>
@@ -435,7 +645,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                   </label>
 
                   <label class='quiet-check-row'>
-                    <input type='checkbox' name='interests' value='portfolio_building' checked />
+                    <input type='checkbox' name='interests' value='portfolio_building' id='interest-lab' checked />
                     <span class='check-indicator' aria-hidden='true'>
                       <svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg>
                     </span>
@@ -487,18 +697,22 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                 />
               </div>
 
-              <div class='submit-zone'>
+              {/* 调整后的横向精致动作条 */}
+              <div class='submit-bar'>
                 <button type='submit' class='submit-btn-primary' id='home-submit-btn'>
-                  <span class='lang-zh'>留下联系方式</span>
+                  <span class='lang-zh'>递交信笺 · 预约席位</span>
                   <span class='lang-en'>Submit Note & Reserve Seat</span>
-                  <span class='btn-arrow'>→</span>
+                  <span class='btn-arrow'>⟶</span>
                 </button>
-                <span class='privacy-reassurance lang-zh'>
-                  随时可退订联系 · 不作商业营销
-                </span>
-                <span class='privacy-reassurance lang-en'>
-                  Unsubscribe anytime · Zero commercial marketing
-                </span>
+                <div class='privacy-assurance-pill'>
+                  <span class='privacy-dot'>✦</span>
+                  <span class='privacy-text lang-zh'>
+                    随时可退订联系 · 承诺不作商业营销
+                  </span>
+                  <span class='privacy-text lang-en'>
+                    Unsubscribe anytime · Zero commercial marketing
+                  </span>
+                </div>
               </div>
 
               <div id='home-form-feedback' style='display: none;'>
@@ -526,13 +740,15 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 </Layout>
 
 <script>
-  function setupHomeForm() {
+  function setupHomeInteractions() {
     const form = document.getElementById('home-join-form') as HTMLFormElement | null;
     const feedback = document.getElementById('home-form-feedback');
     const submitBtn = document.getElementById('home-submit-btn');
     const receiptDisplay = document.getElementById('home-receipt-id');
+    const ideaInput = document.getElementById('home-idea') as HTMLTextAreaElement | null;
+    const nameInput = document.getElementById('home-name') as HTMLInputElement | null;
 
-    // 动态同步输入框 Placeholder
+    // 1. 动态同步输入框 Placeholder
     function syncPlaceholders() {
       const isEn = document.documentElement.getAttribute('data-lang') === 'en';
       document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[data-placeholder-zh]').forEach(el => {
@@ -543,6 +759,81 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     syncPlaceholders();
     window.addEventListener('site-language-change', syncPlaceholders);
 
+    // 2. 冷启动快速通道按钮联动 (Quick Path Buttons)
+    document.querySelectorAll<HTMLButtonElement>('[data-quick-action]').forEach(btn => {
+      btn.onclick = () => {
+        const action = btn.dataset.quickAction;
+        const targetCheckbox = document.querySelector<HTMLInputElement>(`input[name="interests"][value="${action}"]`);
+        if (targetCheckbox) {
+          targetCheckbox.checked = true;
+        }
+
+        const joinSection = document.getElementById('join');
+        if (joinSection) {
+          joinSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        if (nameInput) {
+          setTimeout(() => {
+            nameInput.focus();
+            nameInput.classList.add('glow-spark');
+            setTimeout(() => nameInput.classList.remove('glow-spark'), 1800);
+          }, 450);
+        }
+      };
+    });
+
+    // 3. 作品共建认领按钮联动 (Workshop Co-build Buttons)
+    document.querySelectorAll<HTMLButtonElement>('.btn-join-work').forEach(btn => {
+      btn.onclick = () => {
+        const workName = btn.dataset.workName || '';
+        if (ideaInput) {
+          const isEn = document.documentElement.getAttribute('data-lang') === 'en';
+          ideaInput.value = isEn 
+            ? `I am interested in co-building: ${workName}`
+            : `想参与《${workName}》的共建打磨，我的专长可以贡献在……`;
+        }
+
+        const labCheckbox = document.getElementById('interest-lab') as HTMLInputElement | null;
+        if (labCheckbox) labCheckbox.checked = true;
+
+        const joinSection = document.getElementById('join');
+        if (joinSection) {
+          joinSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        if (nameInput) {
+          setTimeout(() => {
+            nameInput.focus();
+            nameInput.classList.add('glow-spark');
+            setTimeout(() => nameInput.classList.remove('glow-spark'), 1800);
+          }, 450);
+        }
+      };
+    });
+
+    // 4. 作品角色视角筛选切换 (Role Filter Tabs)
+    const roleTabs = document.querySelectorAll<HTMLButtonElement>('.role-tab-btn');
+    const workCards = document.querySelectorAll<HTMLElement>('.workshop-card');
+
+    roleTabs.forEach(tab => {
+      tab.onclick = () => {
+        roleTabs.forEach(t => t.classList.remove('is-active'));
+        tab.classList.add('is-active');
+        const filter = tab.dataset.roleFilter || 'all';
+
+        workCards.forEach(card => {
+          if (filter === 'all') {
+            card.style.display = 'block';
+          } else {
+            const cardRoles = card.dataset.role || '';
+            card.style.display = cardRoles.includes(filter) ? 'block' : 'none';
+          }
+        });
+      };
+    });
+
+    // 5. 表单提交处理
     if (form && feedback) {
       form.onsubmit = async (e) => {
         e.preventDefault();
@@ -589,8 +880,8 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     }
   }
 
-  setupHomeForm();
-  document.addEventListener('astro:page-load', setupHomeForm);
+  setupHomeInteractions();
+  document.addEventListener('astro:page-load', setupHomeInteractions);
 </script>
 
 <style>
@@ -617,11 +908,12 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     margin-bottom: var(--spacing-10);
   }
 
+  /* 经典品牌紫：wo/men */
   .site-title {
     font-family: var(--font-family-heading);
     font-size: var(--font-size-4xl);
-    font-weight: var(--font-weight-light);
-    color: var(--color-text-heading);
+    font-weight: 300;
+    color: var(--color-brand-purple, #5e4c7a);
     letter-spacing: -0.025em;
     line-height: 1.1;
     margin: 0 0 var(--spacing-2);
@@ -631,23 +923,23 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 
   .site-title .brand-slash {
     color: var(--color-gold-dust);
-    opacity: 0.75;
+    opacity: 0.85;
     font-weight: 300;
   }
 
   .site-sub {
     font-family: var(--font-family-mono);
-    font-size: 11px;
+    font-size: 11.5px;
     letter-spacing: 0.12em;
-    color: var(--color-text-tertiary);
+    color: var(--color-brand-purple-soft, #7d689b);
     text-transform: lowercase;
     margin: 0;
   }
 
   .site-zh {
     font-family: var(--font-family-heading);
-    font-size: 14px;
-    color: var(--color-text-secondary);
+    font-size: 14.5px;
+    color: var(--color-brand-purple, #5e4c7a);
     margin: var(--spacing-1) 0 0;
     letter-spacing: 0.08em;
   }
@@ -683,7 +975,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   }
 
   .who-section {
-    margin-bottom: var(--spacing-10);
+    margin-bottom: var(--spacing-8);
   }
 
   .who-label {
@@ -710,6 +1002,104 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     line-height: 1.65;
     color: var(--color-text-tertiary);
     margin: 0;
+  }
+
+  /* ===== 冷启动快速通道 (Quick Start Box) ===== */
+  .quick-start-box {
+    margin: var(--spacing-8) 0;
+    padding: var(--spacing-4);
+    background: var(--color-surface-pure);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-xs);
+  }
+
+  .quick-start-head {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-3);
+  }
+
+  .quick-start-head .gold-thread-dot {
+    color: var(--color-gold-dust);
+    font-size: 10px;
+  }
+
+  .quick-start-title {
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-brand-purple, #5e4c7a);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .quick-paths-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .quick-path-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    padding: var(--spacing-2) var(--spacing-3);
+    background: var(--color-surface-soft);
+    border: 1px solid var(--color-border-divider);
+    border-radius: var(--radius-xs);
+    cursor: pointer;
+    text-align: left;
+    transition: all var(--transition-fast);
+    width: 100%;
+  }
+
+  .quick-path-btn:hover {
+    background: var(--color-surface-pure);
+    border-color: var(--color-gold-dust);
+    transform: translateX(2px);
+  }
+
+  .path-index {
+    font-family: var(--font-family-heading);
+    font-size: 13px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--color-brand-purple, #5e4c7a);
+    flex-shrink: 0;
+  }
+
+  .path-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    flex-grow: 1;
+  }
+
+  .path-title {
+    font-family: var(--font-family-ui);
+    font-size: 12px;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    line-height: 1.35;
+  }
+
+  .path-meta {
+    font-family: var(--font-family-ui);
+    font-size: 10.5px;
+    color: var(--color-text-tertiary);
+  }
+
+  .path-arrow {
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    color: var(--color-gold-dust);
+    transition: transform var(--transition-fast);
+  }
+
+  .quick-path-btn:hover .path-arrow {
+    transform: translateX(2px);
+    color: var(--color-brand-purple, #5e4c7a);
   }
 
   .sidebar-footer {
@@ -741,11 +1131,15 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     margin-bottom: var(--spacing-2);
   }
 
+  /* 遵循黄金分割比例的数字编号：18px (24 / 1.618 ≈ 15~18px) */
   .section-serial {
-    font-family: var(--font-family-mono);
-    font-size: 11px;
+    font-family: var(--font-family-heading);
+    font-size: 1.125rem;
+    font-style: italic;
+    font-weight: 300;
     color: var(--color-gold-dust);
-    letter-spacing: 0.12em;
+    letter-spacing: 0.04em;
+    line-height: 1;
   }
 
   .section-main-title {
@@ -767,7 +1161,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     letter-spacing: 0.01em;
   }
 
-  /* ===== 极简展陈面板 (黄金分割细线，呼吸留白，悬停微淡边框) ===== */
+  /* ===== 极简展陈面板 ===== */
   .editorial-panels-stack {
     display: flex;
     flex-direction: column;
@@ -788,7 +1182,6 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     border-bottom-color: transparent;
   }
 
-  /* 悬停时：显示非常细非常淡的边框与极轻微的微光纸白，绝无粗重左边条 */
   .editorial-panel:hover {
     background: var(--color-surface-pure);
     border: 1px solid var(--color-border-subtle);
@@ -808,12 +1201,16 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     gap: var(--spacing-3);
   }
 
+  /* 黄金分割面板编号：13px (18 / 1.618 ≈ 11~13px) */
   .panel-index {
-    font-family: var(--font-family-mono);
-    font-size: 11px;
+    font-family: var(--font-family-heading);
+    font-size: 0.8125rem;
+    font-style: italic;
+    font-weight: 300;
     color: var(--color-gold-dust);
-    opacity: 0.85;
-    letter-spacing: 0.1em;
+    opacity: 0.9;
+    letter-spacing: 0.04em;
+    line-height: 1;
   }
 
   .panel-title {
@@ -834,7 +1231,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   }
 
   .panel-badge.status-open {
-    color: var(--color-text-secondary);
+    color: var(--color-brand-purple, #5e4c7a);
     font-weight: var(--font-weight-medium);
   }
 
@@ -863,40 +1260,218 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     color: var(--color-text-tertiary);
   }
 
-  .section-footer-link {
-    margin-top: var(--spacing-6);
-    padding-top: var(--spacing-2);
+  /* ===== 精细化调整的手艺准则与共建机制底部栏 ===== */
+  .section-bottom-action {
+    margin-top: var(--spacing-8);
+    padding-top: var(--spacing-4);
+    border-top: 1px solid var(--color-border-divider);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-4);
   }
 
-  .quiet-text-link {
+  .action-lead-note {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    font-family: var(--font-family-ui);
+    font-size: 11.5px;
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.04em;
+  }
+
+  .action-lead-note .gold-thread-dot {
+    color: var(--color-gold-dust);
+    font-size: 10px;
+  }
+
+  .circle-arrow-link {
     display: inline-flex;
     align-items: center;
     gap: var(--spacing-2);
     font-family: var(--font-family-ui);
     font-size: 12px;
-    letter-spacing: 0.06em;
-    color: var(--color-text-secondary);
+    letter-spacing: 0.04em;
+    color: var(--color-brand-purple, #5e4c7a);
     text-decoration: none !important;
     border-bottom: 1px solid var(--color-border-divider) !important;
     padding-bottom: 2px;
-    transition: color var(--transition-fast), border-color var(--transition-fast);
+    font-weight: var(--font-weight-medium);
+    transition: all var(--transition-fast);
   }
 
-  .quiet-text-link:hover {
+  .circle-arrow-link:hover {
     color: var(--color-text-heading);
     border-bottom-color: var(--color-gold-dust) !important;
   }
 
-  .link-arrow {
-    font-family: var(--font-family-mono);
+  .circle-arrow-link .link-arrow {
     transition: transform var(--transition-fast);
   }
 
-  .quiet-text-link:hover .link-arrow {
+  .circle-arrow-link:hover .link-arrow {
     transform: translateX(3px);
   }
 
-  /* ===== 表单容器：极细 1px 微边框，无粗金线 ===== */
+  /* ===== 正在打磨的器物 (Works in Progress) ===== */
+  .workshop-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-6);
+    flex-wrap: wrap;
+  }
+
+  .role-tab-btn {
+    background: transparent;
+    border: 1px solid var(--color-border-divider);
+    border-radius: var(--radius-xs);
+    padding: 4px 10px;
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .role-tab-btn:hover {
+    color: var(--color-text-primary);
+    border-color: var(--color-border);
+  }
+
+  .role-tab-btn.is-active {
+    background: var(--color-surface-pure);
+    border-color: var(--color-brand-purple, #5e4c7a);
+    color: var(--color-brand-purple, #5e4c7a);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .workshop-cards-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+
+  .workshop-card {
+    background: var(--color-surface-pure);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-xs);
+    padding: var(--spacing-6);
+    transition: all var(--transition-fast);
+  }
+
+  .workshop-card:hover {
+    border-color: var(--color-border);
+    box-shadow: 0 4px 16px -6px rgba(38, 34, 28, 0.04);
+  }
+
+  .card-header-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-3);
+  }
+
+  .card-tag-group {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-3);
+  }
+
+  .work-num {
+    font-family: var(--font-family-heading);
+    font-size: 0.8125rem;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--color-gold-dust);
+  }
+
+  .work-status-badge {
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    color: var(--color-brand-purple, #5e4c7a);
+    background: var(--color-surface-soft);
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  .work-triad-pills {
+    font-family: var(--font-family-mono);
+    font-size: 10.5px;
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.06em;
+  }
+
+  .work-title {
+    font-family: var(--font-family-heading);
+    font-size: 1.1875rem;
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-heading);
+    margin: 0 0 var(--spacing-2);
+  }
+
+  .work-summary {
+    font-family: var(--font-family-body);
+    font-size: 13.5px;
+    line-height: 1.8;
+    color: var(--color-text-secondary);
+    margin: 0 0 var(--spacing-4);
+  }
+
+  .work-breakdown-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-3);
+    padding: var(--spacing-3) 0;
+    border-top: 1px solid var(--color-border-divider);
+    border-bottom: 1px solid var(--color-border-divider);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .breakdown-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .breakdown-label {
+    font-family: var(--font-family-ui);
+    font-size: 10.5px;
+    color: var(--color-text-tertiary);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .breakdown-text {
+    font-family: var(--font-family-body);
+    font-size: 12px;
+    color: var(--color-text-primary);
+  }
+
+  .work-action-row {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .btn-join-work {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: var(--font-family-ui);
+    font-size: 11.5px;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-brand-purple, #5e4c7a);
+    cursor: pointer;
+    border-bottom: 1px solid var(--color-border-divider);
+    transition: all var(--transition-fast);
+  }
+
+  .btn-join-work:hover {
+    color: var(--color-text-heading);
+    border-bottom-color: var(--color-gold-dust);
+  }
+
+  /* ===== 表单容器 ===== */
   .form-wrapper {
     background: var(--color-surface-pure);
     border: 1px solid var(--color-border-subtle);
@@ -941,15 +1516,21 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     font-size: 13.5px;
     line-height: 1.6;
     color: var(--color-text-primary);
-    transition: border-color var(--transition-fast), background var(--transition-fast);
+    transition: border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
   }
 
   .quiet-form input[type='text']:focus,
   .quiet-form textarea:focus {
     outline: none;
-    border-color: var(--color-border);
+    border-color: var(--color-brand-purple, #5e4c7a);
     background: var(--color-surface-pure);
     box-shadow: none;
+  }
+
+  .quiet-form input[type='text'].glow-spark {
+    border-color: var(--color-gold-dust) !important;
+    background: var(--color-surface-pure) !important;
+    box-shadow: 0 0 0 2px rgba(216, 205, 176, 0.25) !important;
   }
 
   /* 前置细线选项列表 */
@@ -1001,8 +1582,8 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   }
 
   .quiet-check-row input:checked ~ .check-indicator {
-    border-color: var(--color-gold-dust);
-    background: var(--color-text-primary);
+    border-color: var(--color-brand-purple, #5e4c7a);
+    background: var(--color-brand-purple, #5e4c7a);
   }
 
   .is-radio input:checked ~ .check-indicator::after {
@@ -1045,11 +1626,16 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     color: var(--color-text-tertiary);
   }
 
-  .submit-zone {
+  /* 调整后的横向提交栏 (Submit Bar) */
+  .submit-bar {
     margin-top: var(--spacing-8);
+    padding-top: var(--spacing-5);
+    border-top: 1px solid var(--color-border-divider);
     display: flex;
-    flex-direction: column;
-    gap: var(--spacing-3);
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-4);
+    flex-wrap: wrap;
   }
 
   .submit-btn-primary {
@@ -1058,7 +1644,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     justify-content: center;
     gap: var(--spacing-3);
     padding: var(--spacing-3) var(--spacing-6);
-    background: var(--color-text-primary);
+    background: var(--color-brand-purple, #5e4c7a);
     color: var(--color-surface-pure);
     border: none;
     border-radius: var(--radius-xs);
@@ -1066,11 +1652,11 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     font-size: 12px;
     letter-spacing: 0.08em;
     cursor: pointer;
-    transition: background var(--transition-fast);
+    transition: all var(--transition-fast);
   }
 
   .submit-btn-primary:hover {
-    background: var(--color-text-heading);
+    background: var(--color-brand-purple-dark, #4d3d66);
   }
 
   .submit-btn-primary .btn-arrow {
@@ -1081,11 +1667,19 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     transform: translateX(4px);
   }
 
-  .privacy-reassurance {
+  .privacy-assurance-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
     font-family: var(--font-family-ui);
     font-size: 11px;
     color: var(--color-text-tertiary);
-    text-align: center;
+    letter-spacing: 0.02em;
+  }
+
+  .privacy-dot {
+    color: var(--color-gold-dust);
+    font-size: 9px;
   }
 
   .feedback-receipt-box {
@@ -1142,6 +1736,9 @@ import GeometricVisual from '../components/GeometricVisual.astro';
       border-bottom: 1px solid var(--color-border-divider);
       padding-right: 0;
       padding-bottom: var(--spacing-8);
+    }
+    .work-breakdown-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>
