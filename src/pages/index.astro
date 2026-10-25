@@ -133,39 +133,39 @@ import GeometricVisual from '../components/GeometricVisual.astro';
           <div class='join-intro'>
             <p>
               如果你有共鸣，欢迎留下联系方式。<br />
-              我们会邀你参加下一次活动。
+              我们会在下一次活动前联系你。
             </p>
           </div>
 
           <div class='form-wrapper'>
             <form id='join-form' class='quiet-form'>
 
-              <div class='form-row'>
-                <label for='name'>称呼</label>
+              <div class='form-field'>
+                <label class='field-label' for='name'>如何称呼你</label>
                 <input
                   type='text'
                   id='name'
                   name='name'
-                  placeholder='Erin / Alex / 随便什么都行'
+                  placeholder='名字或昵称'
                   required
                   autocomplete='off'
                 />
               </div>
 
-              <div class='form-row'>
-                <label>你大概在做什么</label>
+              <div class='form-field'>
+                <label class='field-label'>你在从事的领域</label>
                 <div class='craft-pills' id='craft-pills'>
-                  <button type='button' class='craft-pill' data-val='design'>设计 / 视觉</button>
+                  <button type='button' class='craft-pill' data-val='design'>设计 · 视觉</button>
                   <button type='button' class='craft-pill' data-val='product'>产品</button>
-                  <button type='button' class='craft-pill' data-val='engineering'>工程 / 开发</button>
-                  <button type='button' class='craft-pill' data-val='research'>研究 / 写作</button>
+                  <button type='button' class='craft-pill' data-val='engineering'>工程 · 开发</button>
+                  <button type='button' class='craft-pill' data-val='research'>研究 · 写作</button>
                   <button type='button' class='craft-pill' data-val='other'>其他创造性工作</button>
                 </div>
                 <input type='hidden' id='craft-value' name='craft' value='' />
               </div>
 
-              <div class='form-row'>
-                <label>感兴趣的活动</label>
+              <div class='form-field'>
+                <label class='field-label'>想参与的活动</label>
                 <div class='interest-pills'>
                   <label class='interest-pill'>
                     <input type='checkbox' name='interests' value='coffee' checked />
@@ -182,23 +182,26 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                 </div>
               </div>
 
-              <div class='form-row'>
-                <label for='idea'>正在琢磨的事（可选）</label>
+              <div class='form-field'>
+                <label class='field-label' for='idea'>
+                  正在做的事，或者你觉得这里会懂的话题
+                  <span class='field-optional'>· 可留空</span>
+                </label>
                 <textarea
                   id='idea'
                   name='idea'
                   rows='2'
-                  placeholder='一个想法、一个困惑、或者只是想见见同类……'
+                  placeholder='一个未完成的作品，一个还没找到人聊的想法……'
                 ></textarea>
               </div>
 
-              <div class='form-row'>
-                <label for='contact'>微信 / 邮箱</label>
+              <div class='form-field'>
+                <label class='field-label' for='contact'>联系方式</label>
                 <input
                   type='text'
                   id='contact'
                   name='contact'
-                  placeholder='仅用于活动邀请'
+                  placeholder='微信号或邮箱'
                   required
                   autocomplete='off'
                 />
@@ -529,6 +532,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   }
 
   .join-intro p {
+    font-family: var(--font-family-text);
     font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
     line-height: 1.85;
@@ -538,7 +542,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   .form-wrapper {
     background: var(--color-surface-pure);
     border: var(--border-width-thin) solid var(--color-border-subtle);
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     padding: var(--spacing-8);
   }
 
@@ -548,18 +552,29 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     gap: var(--spacing-7);
   }
 
-  .form-row {
+  /* 每个表单字段组 */
+  .form-field {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-2);
   }
 
-  .form-row label {
+  /* 统一标签样式：完全走设计令牌 */
+  .field-label {
+    display: block;
     font-family: var(--font-family-ui);
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-medium);
     color: var(--color-text-tertiary);
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
+    line-height: var(--line-height-normal);
+  }
+
+  .field-optional {
+    font-weight: var(--font-weight-light);
+    color: var(--color-text-tertiary);
+    opacity: 0.7;
+    margin-left: var(--spacing-1);
   }
 
   /* 作品方向胶囊（单选） */
@@ -572,15 +587,20 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   .craft-pill {
     display: inline-flex;
     align-items: center;
-    padding: 0.35rem 0.9rem;
+    padding: calc(var(--spacing-1) + 2px) var(--spacing-4);
     background: transparent;
     border: var(--border-width-thin) solid var(--color-border-subtle);
     border-radius: var(--radius-pill);
     font-family: var(--font-family-ui);
     font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-normal);
     color: var(--color-text-secondary);
+    letter-spacing: 0.02em;
     cursor: pointer;
-    transition: all var(--transition-fast);
+    transition:
+      border-color var(--transition-fast),
+      background var(--transition-fast),
+      color var(--transition-fast);
   }
 
   .craft-pill:hover {
@@ -605,16 +625,22 @@ import GeometricVisual from '../components/GeometricVisual.astro';
   .interest-pill {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 0.35rem 0.9rem;
+    gap: var(--spacing-2);
+    padding: calc(var(--spacing-1) + 2px) var(--spacing-4);
     background: var(--color-surface-soft);
     border: var(--border-width-thin) solid var(--color-border-subtle);
     border-radius: var(--radius-pill);
     font-family: var(--font-family-ui);
     font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-normal);
     color: var(--color-text-secondary);
+    letter-spacing: 0.02em;
     cursor: pointer;
-    transition: all var(--transition-fast);
+    transition:
+      border-color var(--transition-fast),
+      background var(--transition-fast),
+      color var(--transition-fast);
+    user-select: none;
   }
 
   .interest-pill input[type='checkbox'] {
@@ -625,24 +651,29 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     background: var(--color-primary-50);
     border-color: var(--color-primary);
     color: var(--color-text-heading);
+    font-weight: var(--font-weight-medium);
   }
 
-  /* 提交按钮 */
+  /* 提交按钮：走全局 design token，不硬编码颜色 */
   .submit-btn {
     align-self: flex-start;
     display: inline-flex;
     align-items: center;
     gap: var(--spacing-2);
-    padding: 0.65rem var(--spacing-6);
+    padding: var(--spacing-3) var(--spacing-6);
     background: var(--color-text-heading);
     color: var(--color-bg-page);
     border: none;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     font-family: var(--font-family-ui);
     font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-normal);
     letter-spacing: 0.04em;
     cursor: pointer;
-    transition: all var(--transition-fast);
+    transition:
+      background var(--transition-fast),
+      transform var(--transition-fast),
+      opacity var(--transition-fast);
     margin-top: var(--spacing-2);
   }
 
@@ -667,28 +698,33 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     padding: var(--spacing-5);
     background: var(--color-primary-50);
     border: var(--border-width-thin) solid var(--color-primary-200);
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     margin-top: var(--spacing-4);
   }
 
   .feedback-mark {
+    font-family: var(--font-family-heading);
     color: var(--color-primary-dark);
     font-size: var(--font-size-base);
     margin-top: 1px;
+    flex-shrink: 0;
   }
 
   .feedback-title {
     font-family: var(--font-family-heading);
     font-size: var(--font-size-base);
+    font-weight: var(--font-weight-normal);
     color: var(--color-text-heading);
     margin: 0 0 var(--spacing-1);
-    font-weight: var(--font-weight-normal);
+    letter-spacing: -0.01em;
   }
 
   .feedback-note {
+    font-family: var(--font-family-ui);
     font-size: var(--font-size-xs);
     color: var(--color-text-secondary);
     margin: 0;
+    line-height: var(--line-height-normal);
   }
 
   /* ===== 响应式 ===== */
