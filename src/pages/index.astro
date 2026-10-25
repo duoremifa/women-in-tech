@@ -86,6 +86,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
             <div class='section-title-line'>
               <span class='section-serial'>01</span>
               <h2 class='section-main-title'>日常与创作机制</h2>
+              <a href='/events' class='section-page-link-pill'>手艺准则与机制 ↗</a>
             </div>
             <p class='section-intro-text'>在商业流水线之外，守住纯粹的手艺与思考。</p>
           </div>
@@ -95,6 +96,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
             <div class='section-title-line'>
               <span class='section-serial'>01</span>
               <h2 class='section-main-title'>What We Do</h2>
+              <a href='/events' class='section-page-link-pill'>Circle Norms ↗</a>
             </div>
             <p class='section-intro-text'>Holding space for pure craft and deliberate contemplation outside commercial conveyor belts.</p>
           </div>
@@ -358,6 +360,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
             <div class='section-title-line'>
               <span class='section-serial'>03</span>
               <h2 class='section-main-title'>近期安排</h2>
+              <a href='/upcoming' class='section-page-link-pill'>全部排期与答疑 ↗</a>
             </div>
             <p class='section-intro-text'>小规模交流，确保每一次相聚都有充裕的聆听与表达。</p>
           </div>
@@ -367,6 +370,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
             <div class='section-title-line'>
               <span class='section-serial'>03</span>
               <h2 class='section-main-title'>Upcoming Gatherings</h2>
+              <a href='/upcoming' class='section-page-link-pill'>Full Calendar & FAQ ↗</a>
             </div>
             <p class='section-intro-text'>Intimate circles ensuring ample time for unhurried listening and honest exchange.</p>
           </div>
@@ -376,6 +380,8 @@ import GeometricVisual from '../components/GeometricVisual.astro';
             <article class='editorial-panel'>
               <div class='panel-top'>
                 <div class='panel-name-group'>
+                  <span class='panel-index'>01</span>
+                  <span class='panel-type-tag'>Coffee Chat</span>
                   <h3 class='panel-title'>AI 时代，还剩下什么是属于自己的？</h3>
                 </div>
                 <span class='panel-badge status-open'>开放预约</span>
@@ -384,14 +390,19 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                 探讨如何从工业流水线的焦虑中抽离，重新发现具有个人辨识度的表达。
               </p>
               <div class='panel-footer-meta'>
-                <span>形式：杭州线下 + 线上同步</span>
-                <span>双周周末 · 3-5 人</span>
+                <div class='meta-specs'>
+                  <span>形式：杭州线下 + 线上同步</span>
+                  <span>双周周末 · 3-5 人</span>
+                </div>
+                <a href='#join' class='panel-rsvp-pill' data-rsvp-interest='coffee_chat'>预约此期 ⟶</a>
               </div>
             </article>
 
             <article class='editorial-panel'>
               <div class='panel-top'>
                 <div class='panel-name-group'>
+                  <span class='panel-index'>02</span>
+                  <span class='panel-type-tag'>English Chat</span>
                   <h3 class='panel-title'>Show & Tell: Walk Me Through Something You Made</h3>
                 </div>
                 <span class='panel-badge status-open'>开放预约</span>
@@ -400,8 +411,32 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                 特邀分享嘉宾用 40 分钟英文讲述一个喜欢的界面细节、动效或代码架构，安全试错，并设有充裕的 Q&A 交流环节。
               </p>
               <div class='panel-footer-meta'>
-                <span>形式：线上视频连线 · 40 min 分享 + Q&A</span>
-                <span>双周周中晚间</span>
+                <div class='meta-specs'>
+                  <span>形式：线上视频连线 · 40 min 分享 + Q&A</span>
+                  <span>双周周中晚间</span>
+                </div>
+                <a href='#join' class='panel-rsvp-pill' data-rsvp-interest='english_chat'>预约此期 ⟶</a>
+              </div>
+            </article>
+
+            <article class='editorial-panel'>
+              <div class='panel-top'>
+                <div class='panel-name-group'>
+                  <span class='panel-index'>03</span>
+                  <span class='panel-type-tag'>作品 Lab</span>
+                  <h3 class='panel-title'>第一期作品共建方案：纯粹美感与高可用架构</h3>
+                </div>
+                <span class='panel-badge status-draft'>小组筹备中</span>
+              </div>
+              <p class='panel-desc'>
+                召集 2-3 位不同专长伙伴合力打磨兼具收藏质感与实用价值的数字器物。拒绝粗糙玩具，慢工出细活。
+              </p>
+              <div class='panel-footer-meta'>
+                <div class='meta-specs'>
+                  <span>形式：异步推敲 + 周末轻度同步</span>
+                  <span>滚动开展</span>
+                </div>
+                <a href='#join' class='panel-rsvp-pill' data-rsvp-interest='portfolio_building'>表达共建意向 ⟶</a>
               </div>
             </article>
           </div>
@@ -411,6 +446,8 @@ import GeometricVisual from '../components/GeometricVisual.astro';
             <article class='editorial-panel'>
               <div class='panel-top'>
                 <div class='panel-name-group'>
+                  <span class='panel-index'>01</span>
+                  <span class='panel-type-tag'>Coffee Chat</span>
                   <h3 class='panel-title'>In the Age of AI, What Truly Remains Ours?</h3>
                 </div>
                 <span class='panel-badge status-open'>Open for RSVP</span>
@@ -419,24 +456,53 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                 Reflections on stepping away from automated pipeline anxiety to cultivate unmistakable personal expression.
               </p>
               <div class='panel-footer-meta'>
-                <span>Format: Hangzhou (In-person) + Online link</span>
-                <span>Biweekly Weekend · 3–5 Participants</span>
+                <div class='meta-specs'>
+                  <span>Format: Hangzhou + Online link</span>
+                  <span>Biweekly Weekend · 3–5 Participants</span>
+                </div>
+                <a href='#join' class='panel-rsvp-pill' data-rsvp-interest='coffee_chat'>RSVP Slot ⟶</a>
               </div>
             </article>
 
             <article class='editorial-panel'>
               <div class='panel-top'>
                 <div class='panel-name-group'>
+                  <span class='panel-index'>02</span>
+                  <span class='panel-type-tag'>English Chat</span>
                   <h3 class='panel-title'>Show & Tell: Walk Me Through Something You Made</h3>
                 </div>
                 <span class='panel-badge status-open'>Open for RSVP</span>
               </div>
               <p class='panel-desc'>
-                Featuring a guest speaker sharing a favorite interface detail, micro-interaction, or code architecture in English for 40 minutes, in a supportive setting with an open Q&A session.
+                Guest speaker sharing interface details and code architectures in English for 40 minutes, with open Q&A.
               </p>
               <div class='panel-footer-meta'>
-                <span>Format: Virtual Studio · 40 min Talk + Q&A</span>
-                <span>Biweekly Weekday Evening</span>
+                <div class='meta-specs'>
+                  <span>Format: Virtual Studio · 40 min Talk + Q&A</span>
+                  <span>Biweekly Weekday Evening</span>
+                </div>
+                <a href='#join' class='panel-rsvp-pill' data-rsvp-interest='english_chat'>RSVP Slot ⟶</a>
+              </div>
+            </article>
+
+            <article class='editorial-panel'>
+              <div class='panel-top'>
+                <div class='panel-name-group'>
+                  <span class='panel-index'>03</span>
+                  <span class='panel-type-tag'>Craft Lab</span>
+                  <h3 class='panel-title'>Cohort 01: Pure Aesthetics & Resilient Systems</h3>
+                </div>
+                <span class='panel-badge status-draft'>Cohort Forming</span>
+              </div>
+              <p class='panel-desc'>
+                Collaboratively building an enduring, refined open-source digital tool. Honoring craftsmanship at every scale.
+              </p>
+              <div class='panel-footer-meta'>
+                <div class='meta-specs'>
+                  <span>Format: Async refinement + biweekly gentle sync</span>
+                  <span>Rolling Onboarding</span>
+                </div>
+                <a href='#join' class='panel-rsvp-pill' data-rsvp-interest='portfolio_building'>Express Interest ⟶</a>
               </div>
             </article>
           </div>
@@ -784,6 +850,37 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 
         const labCheckbox = document.getElementById('interest-lab') as HTMLInputElement | null;
         if (labCheckbox) labCheckbox.checked = true;
+
+        const joinSection = document.getElementById('join');
+        if (joinSection) {
+          joinSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        if (nameInput) {
+          setTimeout(() => {
+            nameInput.focus();
+            nameInput.classList.add('glow-spark');
+            setTimeout(() => nameInput.classList.remove('glow-spark'), 1800);
+          }, 450);
+        }
+      };
+    });
+
+    // 3. 近期安排一键联动表单 (Schedule RSVP Buttons)
+    document.querySelectorAll<HTMLAnchorElement>('.panel-rsvp-pill').forEach(pill => {
+      pill.onclick = (e) => {
+        e.preventDefault();
+        const interestVal = pill.dataset.rsvpInterest || '';
+        
+        // 勾选对应活动
+        if (interestVal) {
+          const targetCb = form?.querySelector<HTMLInputElement>(`input[name='interests'][value='${interestVal}']`);
+          if (targetCb) {
+            form?.querySelectorAll<HTMLInputElement>("input[name='interests']").forEach(cb => {
+              cb.checked = (cb === targetCb);
+            });
+          }
+        }
 
         const joinSection = document.getElementById('join');
         if (joinSection) {
@@ -1306,6 +1403,23 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     font-weight: var(--font-weight-medium);
   }
 
+  .panel-badge.status-draft {
+    color: var(--color-gold-dust);
+    font-weight: var(--font-weight-normal);
+  }
+
+  .panel-type-tag {
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    background: var(--color-surface-soft);
+    border: 1px solid var(--color-border-subtle);
+    padding: 1px 7px;
+    border-radius: var(--radius-xs);
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+
   .panel-desc {
     font-family: var(--font-family-body);
     font-size: 13.5px;
@@ -1326,9 +1440,40 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     border-top: 1px solid var(--color-border-divider);
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-family: var(--font-family-ui);
     font-size: 11.5px;
     color: var(--color-text-tertiary);
+  }
+
+  .meta-specs {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+  }
+
+  .panel-rsvp-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-family-ui);
+    font-size: 11.5px;
+    color: var(--color-brand-purple, #5e4c7a);
+    text-decoration: none !important;
+    font-weight: var(--font-weight-medium);
+    padding: 2px 8px;
+    border-radius: var(--radius-pill, 9999px);
+    background: var(--color-surface-soft);
+    border: 1px solid var(--color-border-subtle);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .panel-rsvp-pill:hover {
+    color: var(--color-surface-pure);
+    background: var(--color-brand-purple, #5e4c7a);
+    border-color: var(--color-brand-purple, #5e4c7a);
+    transform: translateY(-1px);
   }
 
   /* ===== 精细化调整的手艺准则与共建机制底部栏 ===== */

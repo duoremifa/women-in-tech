@@ -584,6 +584,28 @@ import Layout from '../layouts/Layout.astro';
       };
     }
 
+    // 接收从 /upcoming 或外部链接传入的 ?interest= 参数并自动定位
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const interestParam = urlParams.get('interest');
+      if (interestParam && form) {
+        const targetCheckbox = form.querySelector<HTMLInputElement>(`input[name='interests'][value='${interestParam}']`);
+        if (targetCheckbox) {
+          form.querySelectorAll<HTMLInputElement>("input[name='interests']").forEach((cb) => {
+            cb.checked = (cb === targetCheckbox);
+          });
+          const formCard = document.querySelector('.form-card-container');
+          if (formCard) {
+            setTimeout(() => {
+              formCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              const nameInput = document.getElementById('join-name');
+              nameInput?.focus();
+            }, 300);
+          }
+        }
+      }
+    } catch (e) {}
+
     const formMountTime = Date.now();
     if (form && feedback) {
       form.onsubmit = async (e) => {

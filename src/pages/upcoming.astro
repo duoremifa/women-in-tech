@@ -80,7 +80,7 @@ import Layout from '../layouts/Layout.astro';
           </div>
 
           <div class='block-action'>
-            <a href='/join' class='btn-rsvp'>
+            <a href='/join?interest=coffee_chat' class='btn-rsvp'>
               <span class='lang-zh'>预约交流 ⟶</span>
               <span class='lang-en'>Join Conversation ⟶</span>
             </a>
@@ -131,13 +131,13 @@ import Layout from '../layouts/Layout.astro';
               </div>
               <div class='meta-col'>
                 <span class='meta-label'>Craft Audience</span>
-                <span class='meta-val'>Women seeking a relaxed, supportive space to converse in English</span>
+                <span class='meta-val'>Creators seeking a relaxed, supportive space to converse in English</span>
               </div>
             </div>
           </div>
 
           <div class='block-action'>
-            <a href='/join' class='btn-rsvp'>
+            <a href='/join?interest=english_chat' class='btn-rsvp'>
               <span class='lang-zh'>预约交流 ⟶</span>
               <span class='lang-en'>Join Conversation ⟶</span>
             </a>
@@ -180,7 +180,7 @@ import Layout from '../layouts/Layout.astro';
           <div class='lang-en'>
             <h2 class='block-title'>Cohort 01: Pure Aesthetics & Resilient Web Systems</h2>
             <p class='block-desc'>
-              Gathering 2–3 women across complementary disciplines (PM, IxD, FE) to collaboratively build an enduring, refined open-source digital tool. Honoring craftsmanship at every scale.
+              Gathering 2–3 creators across complementary disciplines (PM, IxD, FE) to collaboratively build an enduring, refined open-source digital tool. Honoring craftsmanship at every scale.
             </p>
             <div class='block-meta-grid'>
               <div class='meta-col'>
@@ -195,7 +195,7 @@ import Layout from '../layouts/Layout.astro';
           </div>
 
           <div class='block-action'>
-            <a href='/join' class='btn-rsvp'>
+            <a href='/join?interest=portfolio_building' class='btn-rsvp'>
               <span class='lang-zh'>表达共建意向 →</span>
               <span class='lang-en'>Express Interest →</span>
             </a>
@@ -233,6 +233,30 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
     </footer>
+
+    {/* 底部行动引导 */}
+    <section class='next-steps'>
+      <div class='next-card'>
+        <div class='next-text lang-zh'>
+          <h3>想直接预约交流或加入圈子？</h3>
+          <p>随时留下你的声音，或者先阅读我们的手艺准则与共建机制。</p>
+        </div>
+        <div class='next-text lang-en'>
+          <h3>Ready to Connect?</h3>
+          <p>Leave a quiet note or explore our craft manifesto and circle mechanics.</p>
+        </div>
+        <div class='next-actions'>
+          <a href='/events' class='btn-link-gold'>
+            <span class='lang-zh'>阅读日常与手艺准则 →</span>
+            <span class='lang-en'>Circle Norms →</span>
+          </a>
+          <a href='/join' class='btn-solid-dark'>
+            <span class='lang-zh'>预约加入我们</span>
+            <span class='lang-en'>Join the Circle</span>
+          </a>
+        </div>
+      </div>
+    </section>
   </div>
 </Layout>
 
@@ -475,6 +499,70 @@ import Layout from '../layouts/Layout.astro';
     line-height: var(--line-height-relaxed);
   }
 
+  /* 底部行动引导 */
+  .next-steps {
+    margin-top: var(--spacing-16);
+  }
+
+  .next-card {
+    background: var(--color-surface-pure);
+    border: var(--border-width-thin) solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-8);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-6);
+  }
+
+  .next-text h3 {
+    margin: 0 0 var(--spacing-1);
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-lg);
+    color: var(--color-text-heading);
+  }
+
+  .next-text p {
+    margin: 0;
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+  }
+
+  .next-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    flex-shrink: 0;
+  }
+
+  .btn-link-gold {
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    color: var(--color-primary-dark);
+    text-decoration: none !important;
+    border-bottom: 1px solid var(--color-gold-dust) !important;
+    padding-bottom: 2px;
+    white-space: nowrap;
+  }
+
+  .btn-solid-dark {
+    padding: var(--spacing-2) var(--spacing-5);
+    background: var(--color-primary-dark);
+    color: var(--color-surface-pure) !important;
+    border-radius: var(--radius-xs);
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    text-decoration: none !important;
+    letter-spacing: 0.04em;
+    transition: background var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  .btn-solid-dark:hover {
+    background: var(--color-text-heading);
+  }
+
   @media (max-width: 680px) {
     .page-title {
       font-size: 1.6rem;
@@ -527,6 +615,25 @@ import Layout from '../layouts/Layout.astro';
     .faq-grid {
       grid-template-columns: 1fr;
       gap: var(--spacing-5);
+    }
+
+    .next-card {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: var(--spacing-5) var(--spacing-4);
+      gap: var(--spacing-4);
+    }
+
+    .next-actions {
+      flex-direction: column;
+      width: 100%;
+      align-items: stretch;
+      gap: var(--spacing-3);
+    }
+
+    .btn-solid-dark {
+      text-align: center;
+      padding: 10px 16px;
     }
   }
 </style>
