@@ -13,7 +13,7 @@ const navItems = [
 ---
 
 <nav class='quiet-nav layout-reading'>
-  <!-- 左侧品牌：持久保留 wo/men in tech，中英保持一致 -->
+  <!-- 左侧品牌：持久保留 wo/men in tech，经典品牌紫 -->
   <div class='nav-left'>
     <a href='/' class:list={['brand', { active: currentPath === '/' }]}>
       <span class='brand-main'>wo<span class='brand-slash'>/</span>men</span>
@@ -21,7 +21,7 @@ const navItems = [
     </a>
   </div>
 
-  <!-- 右侧导航链接、语言切换与主题切换 -->
+  <!-- 右侧导航链接、语言切换微胶囊与主题切换 -->
   <div class='nav-right'>
     <div class='nav-links'>
       {
@@ -43,21 +43,20 @@ const navItems = [
 
     <div class='nav-divider'></div>
 
-    <!-- 中英双语切换器 -->
-    <div class='lang-toggle-wrap' role='group' aria-label='语言切换 / Language'>
+    <!-- 中英双语切换器 · 极简腕表级微胶囊 -->
+    <div class='lang-capsule' role='group' aria-label='语言切换 / Language'>
       <button
         type='button'
-        class='lang-toggle-btn'
+        class='lang-tab'
         id='lang-btn-zh'
         data-lang-choice='zh'
         aria-label='切换至中文'
       >
         中
       </button>
-      <span class='lang-toggle-slash' aria-hidden='true'>/</span>
       <button
         type='button'
-        class='lang-toggle-btn'
+        class='lang-tab'
         id='lang-btn-en'
         data-lang-choice='en'
         aria-label='Switch to English'
@@ -65,8 +64,6 @@ const navItems = [
         EN
       </button>
     </div>
-
-    <div class='nav-divider'></div>
 
     <ThemeToggle />
   </div>
@@ -105,7 +102,7 @@ const navItems = [
     // 初始按钮状态同步
     updateButtons(getActiveLang());
 
-    // 绑定点击事件（避免重复绑定）
+    // 绑定点击事件
     zhBtn.onclick = () => switchLang('zh');
     enBtn.onclick = () => switchLang('en');
   }
@@ -124,7 +121,7 @@ const navItems = [
     align-items: center;
     padding-top: var(--spacing-8);
     padding-bottom: var(--spacing-5);
-    border-bottom: var(--border-width-thin) solid var(--color-border-divider);
+    border-bottom: 1px solid var(--color-border-divider);
     position: relative;
   }
 
@@ -153,9 +150,9 @@ const navItems = [
   .brand-main {
     font-family: var(--font-family-heading);
     font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-medium);
+    font-weight: 400;
     letter-spacing: -0.02em;
-    color: var(--color-text-heading);
+    color: var(--color-brand-purple, #5e4c7a);
     line-height: 1;
   }
 
@@ -164,7 +161,7 @@ const navItems = [
     margin: 0 0.05em;
     font-weight: 300;
     color: var(--color-gold-dust);
-    opacity: 0.8;
+    opacity: 0.85;
     font-style: normal;
   }
 
@@ -174,20 +171,20 @@ const navItems = [
     font-weight: var(--font-weight-light);
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--color-primary-dark);
+    color: var(--color-brand-purple-soft, #7d689b);
   }
 
   /* ===== 导航右侧 ===== */
   .nav-right {
     display: flex;
     align-items: center;
-    gap: var(--spacing-4);
+    gap: var(--spacing-3);
   }
 
   .nav-links {
     display: flex;
     align-items: center;
-    gap: var(--spacing-6);
+    gap: var(--spacing-5);
   }
 
   .nav-link {
@@ -196,7 +193,7 @@ const navItems = [
     color: var(--color-text-secondary);
     text-decoration: none !important;
     border-bottom: none !important;
-    font-size: var(--font-size-sm);
+    font-size: 13px;
     letter-spacing: 0.04em;
     padding: var(--spacing-1) 0;
     position: relative;
@@ -236,48 +233,65 @@ const navItems = [
 
   .nav-divider {
     width: 1px;
-    height: 13px;
+    height: 14px;
     background: var(--color-border-divider);
+    margin: 0 var(--spacing-1);
   }
 
-  /* ===== 双语切换器 ===== */
-  .lang-toggle-wrap {
+  /* ===== 双语切换微胶囊 (Quiet Luxury Segmented Pill) ===== */
+  .lang-capsule {
     display: inline-flex;
     align-items: center;
-    gap: 3px;
+    height: 28px;
+    background: var(--color-surface-soft);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-pill);
+    padding: 2px;
+    gap: 2px;
     user-select: none;
+    box-sizing: border-box;
+    transition: border-color var(--transition-fast);
   }
 
-  .lang-toggle-slash {
-    font-size: 11px;
-    color: var(--color-text-tertiary);
-    opacity: 0.45;
+  .lang-capsule:hover {
+    border-color: var(--color-border);
   }
 
-  .lang-toggle-btn {
-    background: none;
+  .lang-tab {
+    background: transparent;
     border: none;
-    padding: 2px 4px;
-    margin: 0;
-    font-family: var(--font-family-ui);
-    font-size: 12px;
-    letter-spacing: 0.06em;
-    color: var(--color-text-tertiary);
+    outline: none;
     cursor: pointer;
-    border-radius: 2px;
-    transition: color var(--transition-fast), border-color var(--transition-fast);
-    line-height: 1;
-    border-bottom: 1px solid transparent;
+    height: 22px;
+    padding: 0 8px;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--color-text-tertiary);
+    line-height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .lang-toggle-btn:hover {
-    color: var(--color-text-heading);
+  .lang-tab:hover {
+    color: var(--color-text-primary);
   }
 
-  .lang-toggle-btn.is-active {
-    color: var(--color-text-heading);
-    font-weight: var(--font-weight-medium);
-    border-bottom-color: var(--color-gold-dust);
+  .lang-tab.is-active {
+    background: var(--color-surface-pure);
+    color: var(--color-brand-purple, #5e4c7a);
+    font-weight: 500;
+    box-shadow: 0 1px 3px rgba(38, 34, 28, 0.06);
+  }
+
+  :root.dark .lang-tab.is-active {
+    background: var(--color-surface-card);
+    color: #cbbae6;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
   }
 
   @media (width <= 640px) {
