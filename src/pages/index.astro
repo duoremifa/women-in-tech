@@ -1932,15 +1932,16 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 
   /* ============================================================
      移动端极限响应式优化 (Mobile Perfection Breakpoints)
+     严格限定在媒体查询内部，绝对不波及 Web 桌面端
      ============================================================ */
   @media (max-width: 860px) {
     .page-root {
-      padding: var(--spacing-4) 0 var(--spacing-16);
+      padding: var(--spacing-3) 0 var(--spacing-12);
     }
 
     .two-column-layout {
       grid-template-columns: 1fr;
-      gap: var(--spacing-8);
+      gap: var(--spacing-6);
     }
 
     .sidebar {
@@ -1949,39 +1950,83 @@ import GeometricVisual from '../components/GeometricVisual.astro';
       border-bottom: 1px solid var(--color-border-divider);
       padding-right: 0;
       padding-bottom: var(--spacing-6);
-      margin-bottom: var(--spacing-2);
+      margin-bottom: 0;
     }
 
-    .site-title {
-      font-size: clamp(2.2rem, 8.5vw, 2.75rem);
-    }
-
-    .manifesto {
-      font-size: 14.5px;
-      line-height: 1.8;
+    .brand-group {
       margin-bottom: var(--spacing-4);
     }
 
+    .site-title {
+      font-size: clamp(2rem, 8vw, 2.5rem);
+      line-height: 1.1;
+    }
+
+    .site-sub {
+      font-size: 11px;
+      margin-top: 3px;
+    }
+
+    .site-zh {
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .manifesto {
+      font-size: 14px;
+      line-height: 1.75;
+      margin-bottom: var(--spacing-4);
+    }
+
+    .sidebar-divider {
+      margin: var(--spacing-4) 0;
+    }
+
     .who-section {
-      margin-top: var(--spacing-4);
+      margin-top: var(--spacing-3);
+      margin-bottom: 0;
+    }
+
+    .who-desc {
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .who-note {
+      font-size: 11.5px;
     }
 
     .sidebar-footer {
       display: none;
     }
 
+    .content-main {
+      gap: var(--spacing-10); /* 40px: 消除移动端原本 128px 的过大断层 */
+    }
+
     .content-block {
-      margin-bottom: var(--spacing-12);
+      margin-bottom: 0;
     }
   }
 
   @media (max-width: 640px) {
+    .section-heading-group {
+      margin-bottom: var(--spacing-4);
+      padding-bottom: var(--spacing-3);
+    }
+
     .section-title-line {
       gap: var(--spacing-2);
+      align-items: baseline;
+    }
+
+    .section-serial {
+      font-size: 0.8125rem;
     }
 
     .section-main-title {
       font-size: 1.1875rem;
+      letter-spacing: -0.01em;
     }
 
     .section-intro-text {
@@ -1990,37 +2035,44 @@ import GeometricVisual from '../components/GeometricVisual.astro';
       margin-top: 4px;
     }
 
-    /* 01 日常卡片 */
+    /* 01 日常卡片 & 03 排期卡片精细优化 */
     .editorial-panel {
-      padding: var(--spacing-4) 0;
+      padding: 18px 0;
     }
 
     .panel-top {
-      flex-direction: column;
+      display: flex;
+      justify-content: space-between;
       align-items: flex-start;
-      gap: 6px;
-      margin-bottom: 6px;
+      gap: 10px;
+      margin-bottom: 8px;
     }
 
     .panel-title {
       font-size: 1.0625rem;
+      line-height: 1.4;
     }
 
     .panel-badge {
       font-size: 10.5px;
       padding: 2px 7px;
+      flex-shrink: 0;
+      white-space: nowrap;
     }
 
     .panel-desc {
       font-size: 13px;
       line-height: 1.75;
+      margin-bottom: 10px;
     }
 
     .panel-footer-meta {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 3px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
       font-size: 11px;
+      color: var(--color-text-tertiary);
     }
 
     .section-bottom-action {
@@ -2028,6 +2080,13 @@ import GeometricVisual from '../components/GeometricVisual.astro';
       align-items: flex-start;
       gap: var(--spacing-3);
       padding-top: var(--spacing-4);
+    }
+
+    .circle-arrow-link {
+      font-size: 12px;
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
     }
 
     /* 02 正在打磨的器物：水平滑动与卡片压缩 */
@@ -2040,8 +2099,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
       gap: 8px;
       padding-bottom: 4px;
       margin: 0 0 16px;
-      padding-left: 0;
-      padding-right: 0;
+      padding-right: 12px;
       width: 100%;
     }
 
@@ -2053,19 +2111,22 @@ import GeometricVisual from '../components/GeometricVisual.astro';
       flex-shrink: 0;
       white-space: nowrap;
       font-size: 11px;
-      padding: 5px 11px;
-      height: 28px;
+      padding: 5px 12px;
+      height: 30px;
+      touch-action: manipulation;
     }
 
     .workshop-card {
-      padding: 16px 14px;
+      padding: 18px 16px;
       margin-bottom: 14px;
     }
 
     .card-header-line {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
     }
 
     .work-title {
@@ -2076,72 +2137,132 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     .work-summary {
       font-size: 12.5px;
       line-height: 1.7;
+      margin-bottom: 12px;
     }
 
     .work-breakdown-grid {
       grid-template-columns: 1fr;
       gap: 8px;
       padding: 10px 12px;
+      background: var(--color-surface-soft);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-xs);
+      margin-bottom: 14px;
     }
 
     .breakdown-item {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
+      gap: 12px;
+    }
+
+    .breakdown-label {
+      font-size: 10.5px;
+      flex-shrink: 0;
+    }
+
+    .breakdown-text {
+      font-size: 11.5px;
+      text-align: right;
+    }
+
+    .work-action-row {
+      width: 100%;
     }
 
     .btn-join-work {
       width: 100%;
-      text-align: center;
+      display: flex;
+      align-items: center;
       justify-content: center;
       padding: 10px 14px;
       font-size: 12px;
+      min-height: 42px;
+      background: var(--color-surface-soft);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-xs);
+      color: var(--color-brand-purple, #5e4c7a);
+      text-decoration: none !important;
+      touch-action: manipulation;
+    }
+
+    .btn-join-work:active {
+      background: var(--color-surface-pure);
+      border-color: var(--color-brand-purple, #5e4c7a);
     }
 
     /* 04 表单触摸适配与 iOS 防缩放 */
     .form-wrapper {
-      padding: 20px 16px;
+      padding: 22px 16px;
       width: 100%;
       box-sizing: border-box;
     }
 
+    .field-label {
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
     .quiet-check-row {
-      padding: 12px 10px;
+      padding: 12px 12px;
       gap: 12px;
       min-height: 48px;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .quiet-check-row:active,
+    .quiet-check-row:has(input:checked) {
+      border-color: var(--color-brand-purple, #5e4c7a);
+      background: var(--color-surface-soft);
     }
 
     .check-title {
-      font-size: 12.5px;
+      font-size: 13px;
       line-height: 1.4;
     }
 
     .check-note {
-      font-size: 10.5px;
+      font-size: 11px;
     }
 
     .quiet-form input[type='text'],
     .quiet-form textarea {
       font-size: 16px; /* 防止 iOS Safari 聚焦时强制缩放视口 */
       padding: 12px 14px;
+      min-height: 46px;
+      border-radius: var(--radius-xs);
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    .quiet-form textarea {
+      min-height: 80px;
     }
 
     .submit-bar {
       flex-direction: column;
       align-items: stretch;
       gap: 12px;
+      margin-top: var(--spacing-4);
     }
 
     .submit-btn-primary {
       width: 100%;
+      height: 46px;
+      display: flex;
+      align-items: center;
       justify-content: center;
-      height: 44px;
-      font-size: 13px;
+      font-size: 13.5px;
+      border-radius: var(--radius-xs);
+      touch-action: manipulation;
     }
 
     .privacy-assurance-pill {
       justify-content: center;
-      font-size: 10.5px;
+      font-size: 11px;
+      padding: 4px 0;
     }
 
     /* 回执卡片单列全宽适配：完全消除多重嵌套产生的白边与多余间隙 */
@@ -2162,7 +2283,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     }
 
     .loop-cell {
-      padding: 14px;
+      padding: 16px 14px;
       width: 100%;
       box-sizing: border-box;
     }
@@ -2171,9 +2292,11 @@ import GeometricVisual from '../components/GeometricVisual.astro';
       width: 100%;
       text-align: center;
       justify-content: center;
-      height: 38px;
+      height: 42px;
       display: flex;
       align-items: center;
+      font-size: 12px;
+      touch-action: manipulation;
     }
 
     .wechat-field-card {
@@ -2182,7 +2305,18 @@ import GeometricVisual from '../components/GeometricVisual.astro';
       align-items: center;
       width: 100%;
       margin-top: 10px;
+      padding: 8px 12px;
       box-sizing: border-box;
+    }
+
+    .btn-copy-hairline {
+      padding: 6px 14px;
+      font-size: 12px;
+      min-height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: manipulation;
     }
 
     .receipt-footer-row {
@@ -2190,6 +2324,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
       align-items: stretch;
       gap: 12px;
       text-align: center;
+      padding-top: var(--spacing-4);
     }
 
     .receipt-remind {
@@ -2200,20 +2335,30 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 
     .btn-modify-form {
       align-self: center;
+      min-height: 36px;
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 8px;
     }
   }
 
   @media (max-width: 380px) {
     .site-title {
-      font-size: 2rem;
+      font-size: 1.875rem;
     }
     .panel-title,
     .work-title {
       font-size: 1rem;
     }
-    .btn-join-work,
-    .submit-btn-primary {
-      font-size: 12px;
+    .form-wrapper {
+      padding: 18px 12px;
+    }
+    .loop-cell {
+      padding: 12px 10px;
+    }
+    .btn-copy-hairline {
+      padding: 5px 10px;
+      font-size: 11px;
     }
   }
 </style>

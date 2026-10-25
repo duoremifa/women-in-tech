@@ -1029,21 +1029,28 @@ import Layout from '../layouts/Layout.astro';
     }
 
     .quiet-check-row {
-      padding: 12px 10px;
+      padding: 12px 12px;
       gap: 12px;
       min-height: 48px;
+    }
+
+    .quiet-check-row:active,
+    .quiet-check-row:has(input:checked) {
+      border-color: var(--color-brand-purple, #5e4c7a);
+      background: var(--color-surface-soft);
     }
 
     .quiet-form input[type='text'],
     .quiet-form textarea {
       font-size: 16px; /* 防止 iOS Safari 自动缩放视口 */
       padding: 12px 14px;
+      min-height: 46px;
     }
 
     .submit-btn-primary {
       width: 100%;
-      height: 44px;
-      font-size: 13px;
+      height: 46px;
+      font-size: 13.5px;
     }
 
     .receipt-loop-grid {
@@ -1053,7 +1060,7 @@ import Layout from '../layouts/Layout.astro';
     }
 
     .loop-cell {
-      padding: 14px;
+      padding: 16px 14px;
       width: 100%;
       box-sizing: border-box;
     }
@@ -1062,9 +1069,10 @@ import Layout from '../layouts/Layout.astro';
       width: 100%;
       text-align: center;
       justify-content: center;
-      height: 38px;
+      height: 42px;
       display: flex;
       align-items: center;
+      font-size: 12px;
     }
 
     .wechat-field-card {
@@ -1074,6 +1082,15 @@ import Layout from '../layouts/Layout.astro';
       width: 100%;
       margin-top: 10px;
       box-sizing: border-box;
+    }
+
+    .btn-copy-hairline {
+      padding: 6px 14px;
+      font-size: 12px;
+      min-height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .receipt-actions {
