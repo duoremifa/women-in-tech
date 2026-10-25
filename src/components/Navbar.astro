@@ -3,12 +3,13 @@
 // 最右侧极简双控：语言切换与深色模式切换
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isHome = currentPath === '/';
 
 const navItems = [
-  { text: '理念', en: 'Ethos', href: '/#about', id: 'about' },
-  { text: '日常', en: 'Events', href: '/#events', id: 'events' },
-  { text: '安排', en: 'Schedule', href: '/#schedule', id: 'schedule' },
-  { text: '加入', en: 'Join', href: '/#join', id: 'join' },
+  { text: '理念', en: 'Ethos', href: isHome ? '/#about' : '/', id: 'about', pagePath: '/' },
+  { text: '日常', en: 'Events', href: isHome ? '/#events' : '/events', id: 'events', pagePath: '/events' },
+  { text: '安排', en: 'Schedule', href: isHome ? '/#schedule' : '/upcoming', id: 'schedule', pagePath: '/upcoming' },
+  { text: '加入', en: 'Join', href: isHome ? '/#join' : '/join', id: 'join', pagePath: '/join' },
 ];
 ---
 
@@ -27,12 +28,13 @@ const navItems = [
       <div class='nav-links'>
         {
           navItems.map((item, index) => {
-            const isActive = index === 0;
+            const isActive = isHome ? (index === 0) : (currentPath === item.pagePath);
             return (
               <a
                 href={item.href}
                 class:list={['nav-link', { 'is-active': isActive }]}
                 data-nav-id={item.id}
+                data-page-path={item.pagePath}
               >
                 <span class='nav-link-text lang-zh'>{item.text}</span>
                 <span class='nav-link-text lang-en'>{item.en}</span>
@@ -117,8 +119,9 @@ const navItems = [
       };
     }
 
-    // 2. 首页锚点平滑滚动与联动
-    const isHomePage = window.location.pathname === '/' || window.location.pathname === '';
+    // 2. 页面与首页锚点联动
+    const currentPathname = window.location.pathname.replace(/\/$/, '') || '/';
+    const isHomePage = currentPathname === '/';
     const navLinks = document.querySelectorAll<HTMLAnchorElement>('.nav-link[data-nav-id]');
 
     function setActiveNav(id: string) {
@@ -129,6 +132,17 @@ const navItems = [
           link.classList.remove('is-active');
         }
       });
+    }
+
+    // 在二级页面根据当前路径高亮对应导航项
+    if (!isHomePage) {
+      if (currentPathname === '/events') {
+        setActiveNav('events');
+      } else if (currentPathname === '/upcoming') {
+        setActiveNav('schedule');
+      } else if (currentPathname === '/join') {
+        setActiveNav('join');
+      }
     }
 
     navLinks.forEach((link) => {

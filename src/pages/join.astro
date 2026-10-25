@@ -30,7 +30,156 @@ import Layout from '../layouts/Layout.astro';
       <div class='gold-hairline'></div>
     </header>
 
-    <div class='form-card-container'>
+    {/* 模块 1: 圈子共鸣与谁适合加入 */}
+    <section class='join-editorial-block'>
+      <div class='block-header lang-zh'>
+        <span class='block-serial'>01</span>
+        <h2 class='block-title'>寻找同频的创造者 · Resonant Companions</h2>
+        <p class='block-desc'>
+          这不是商业社交与人脉互换，我们更在意深度的倾听、未经修饰的卡壳，以及慢节奏雕琢出的作品。
+        </p>
+      </div>
+      <div class='block-header lang-en'>
+        <span class='block-serial'>01</span>
+        <h2 class='block-title'>Resonant Companions</h2>
+        <p class='block-desc'>
+          Never networking or transactional barter. We care about patient listening, genuine friction, and signature craft.
+        </p>
+      </div>
+
+      <div class='pillars-grid'>
+        <article class='pillar-card'>
+          <div class='pillar-top'>
+            <span class='pillar-tag'>PM · 产品</span>
+            <span class='pillar-accent'>✦</span>
+          </div>
+          <h3 class='pillar-name lang-zh'>独立推敲者</h3>
+          <h3 class='pillar-name lang-en'>Independent Builders</h3>
+          <p class='pillar-text lang-zh'>
+            厌倦纯 KPI 导向的数字游戏与功利催逼，渴望推敲有真实温度、能切实解决问题的独立产品与体验闭环。
+          </p>
+          <p class='pillar-text lang-en'>
+            Stepping back from artificial metrics—polishing humane, enduring product loops with care.
+          </p>
+        </article>
+
+        <article class='pillar-card'>
+          <div class='pillar-top'>
+            <span class='pillar-tag'>IxD · 交互</span>
+            <span class='pillar-accent'>✦</span>
+          </div>
+          <h3 class='pillar-name lang-zh'>界面手艺人</h3>
+          <h3 class='pillar-name lang-en'>Interface Artisans</h3>
+          <p class='pillar-text lang-zh'>
+            对 8px 网格、排版灰度、缓动曲线与纸质触感有执念，坚信微小的细节承载着对使用者的敬畏与善意。
+          </p>
+          <p class='pillar-text lang-en'>
+            Devoted to 8px grids, typographic cadence, and micro-interactions that hold genuine respect.
+          </p>
+        </article>
+
+        <article class='pillar-card'>
+          <div class='pillar-top'>
+            <span class='pillar-tag'>FE · 工程</span>
+            <span class='pillar-accent'>✦</span>
+          </div>
+          <h3 class='pillar-name lang-zh'>架构践行者</h3>
+          <h3 class='pillar-name lang-en'>System Crafts</h3>
+          <p class='pillar-text lang-zh'>
+            追求干净代码与极速首屏体验，热爱本地优先（Local-first）、PWA 与脱离沉重冗余的纯粹工程。
+          </p>
+          <p class='pillar-text lang-en'>
+            Loving clean code, sub-millisecond response, local-first architectures, and resilient engineering.
+          </p>
+        </article>
+
+        <article class='pillar-card'>
+          <div class='pillar-top'>
+            <span class='pillar-tag'>Writing · 思考</span>
+            <span class='pillar-accent'>✦</span>
+          </div>
+          <h3 class='pillar-name lang-zh'>跨界观察者</h3>
+          <h3 class='pillar-name lang-en'>Cross-disciplinary Thinkers</h3>
+          <p class='pillar-text lang-zh'>
+            游走在技术与人文交界处，用文字记录时代脉动，以冷静深刻的视角审视人与数字工具的共生关系。
+          </p>
+          <p class='pillar-text lang-en'>
+            Living between code and humanity, capturing quiet shifts with conceptual precision.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    {/* 模块 2: 四步流转闭环 */}
+    <section class='join-editorial-block'>
+      <div class='block-header lang-zh'>
+        <span class='block-serial'>02</span>
+        <h2 class='block-title'>加入机制与流转步骤 · 4-Step Rhythm</h2>
+        <p class='block-desc'>
+          我们崇尚低压与透明，从留下意向到面对面交流，每一步都清晰而从容：
+        </p>
+      </div>
+      <div class='block-header lang-en'>
+        <span class='block-serial'>02</span>
+        <h2 class='block-title'>How We Connect · 4 Steps</h2>
+        <p class='block-desc'>
+          Low pressure and completely transparent—from leaving your note to gathering together:
+        </p>
+      </div>
+
+      <div class='flow-steps-grid'>
+        <div class='flow-step'>
+          <span class='flow-num'>01</span>
+          <h4 class='flow-title lang-zh'>留下声音</h4>
+          <h4 class='flow-title lang-en'>Leave a Note</h4>
+          <p class='flow-desc lang-zh'>填写下方极简表单，告诉我们你的称呼、从事领域与正在琢磨的事（无任何门槛与评判压力）。</p>
+          <p class='flow-desc lang-en'>Share your name, craft, and what you are tinkering with via the calm form below.</p>
+        </div>
+
+        <div class='flow-step'>
+          <span class='flow-num'>02</span>
+          <h4 class='flow-title lang-zh'>日历占位与确认信</h4>
+          <h4 class='flow-title lang-en'>Calendar & Confirmation</h4>
+          <p class='flow-desc lang-zh'>系统即刻为你生成当期专属 .ics 日历邀请并发送确认信，一键导入手机或系统日历。</p>
+          <p class='flow-desc lang-en'>Instantly receive a dedicated .ics calendar invite and confirmation email to save the slot.</p>
+        </div>
+
+        <div class='flow-step'>
+          <span class='flow-num'>03</span>
+          <h4 class='flow-title lang-zh'>微信私下交流</h4>
+          <h4 class='flow-title lang-en'>WeChat Connect</h4>
+          <p class='flow-desc lang-zh'>随时添加发起人微信（daiminay），备注回执编号，可提前私下探讨正在推敲的作品或卡壳点。</p>
+          <p class='flow-desc lang-en'>Connect directly on WeChat (daiminay) with your receipt ID to discuss works-in-progress.</p>
+        </div>
+
+        <div class='flow-step'>
+          <span class='flow-num'>04</span>
+          <h4 class='flow-title lang-zh'>极小规模相见</h4>
+          <h4 class='flow-title lang-en'>Gather Intimately</h4>
+          <p class='flow-desc lang-zh'>根据排期加入 3-5 人深度倾听与推敲的 Coffee Chat 或 Show & Tell（杭州线下 / 线上连线）。</p>
+          <p class='flow-desc lang-en'>Join an intimate 3–5 person Coffee Chat or Show & Tell (Hangzhou offline or online).</p>
+        </div>
+      </div>
+    </section>
+
+    {/* 模块 3: 预约交流表单 */}
+    <section class='join-editorial-block'>
+      <div class='block-header lang-zh'>
+        <span class='block-serial'>03</span>
+        <h2 class='block-title'>填写预约交流表单 · Leave Your Note</h2>
+        <p class='block-desc'>
+          无需简历，也无需完美的作品集。随意写写最近在想的事情，或是你希望交流的切片。
+        </p>
+      </div>
+      <div class='block-header lang-en'>
+        <span class='block-serial'>03</span>
+        <h2 class='block-title'>Leave Your Note</h2>
+        <p class='block-desc'>
+          No resume, no polished portfolios. Simply share what you are exploring or questions on your mind.
+        </p>
+      </div>
+
+      <div class='form-card-container'>
       <form id='circle-join-form' class='quiet-form'>
         {/* 商业级反爬蜜罐与机器人陷阱 (视觉隐藏，爬虫秒填即被拦截) */}
         <input type='text' name='_hp' value='' tabindex='-1' autocomplete='off' aria-hidden='true' style='position:absolute;opacity:0;pointer-events:none;left:-9999px;width:1px;height:1px;' />
@@ -299,7 +448,82 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </form>
     </div>
-  </div>
+  </section>
+
+  {/* 模块 4: 加入须知与常见答疑 */}
+  <section class='join-faq-section'>
+    <div class='faq-card'>
+      <h3 class='lang-zh'>加入须知与常见答疑</h3>
+      <h3 class='lang-en'>Circle Norms & Common Questions</h3>
+
+      <div class='faq-grid lang-zh'>
+        <div class='faq-item'>
+          <h4>收费吗？有商业营销吗？</h4>
+          <p>纯公益且非商业化独立圈子，不收取任何社群费用或会员费。线下咖啡聚会各自点单，线上连线完全免费。我们严守底线，绝无商业营销或群发广告。</p>
+        </div>
+        <div class='faq-item'>
+          <h4>我暂时没有成型的代表作，可以加入吗？</h4>
+          <p>完全可以。哪怕只是一个刚刚萌芽的念头、一段创作卡壳的思考，或者一次单纯想听别人分享的愿望，真诚的倾听与提问本身就是最宝贵的手艺。</p>
+        </div>
+        <div class='faq-item'>
+          <h4>必须在杭州本地吗？</h4>
+          <p>不局限于杭州。杭州线下聚会双周举行，同时所有 Coffee Chat 与 Show & Tell 均提供线上视频室连线，无论你在哪个城市，均可从容接入。</p>
+        </div>
+        <div class='faq-item'>
+          <h4>如果不习惯高频社交，会有压力吗？</h4>
+          <p>绝无压力。我们每次聚会严格限定 3-5 人，没有职场说教，也不设强制发言环节。你可以选择畅所欲言，亦可全程安静品尝咖啡、聆听他人。</p>
+        </div>
+      </div>
+
+      <div class='faq-grid lang-en'>
+        <div class='faq-item'>
+          <h4>Are there dues or marketing?</h4>
+          <p>Zero fees or commercial marketing. For offline meetups, we simply cover our own drinks; online calls are completely free.</p>
+        </div>
+        <div class='faq-item'>
+          <h4>Can I join without a finished signature project?</h4>
+          <p>Absolutely. A budding question, a lingering design puzzle, or quiet curiosity is more than enough.</p>
+        </div>
+        <div class='faq-item'>
+          <h4>Do I need to be in Hangzhou?</h4>
+          <p>No. Offline meetups take place in Hangzhou, but all gatherings include seamless online video links for global participants.</p>
+        </div>
+        <div class='faq-item'>
+          <h4>Is there social pressure?</h4>
+          <p>Never. Capped at 3–5 participants with zero patronizing lectures. Speak or listen as you wish.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* 模块 5: 底部行动引导与回环导航 */}
+  <section class='next-steps'>
+    <div class='next-card'>
+      <div class='next-text lang-zh'>
+        <h3>探索更多圈子日常与排期</h3>
+        <p>阅读手艺准则与共建机制，或查看近期的聚会日历安排。</p>
+      </div>
+      <div class='next-text lang-en'>
+        <h3>Explore Further</h3>
+        <p>Read our craft manifesto or browse the upcoming calendar.</p>
+      </div>
+      <div class='next-actions'>
+        <a href='/events' class='btn-link-gold'>
+          <span class='lang-zh'>阅读日常与创作机制 →</span>
+          <span class='lang-en'>What We Do →</span>
+        </a>
+        <a href='/upcoming' class='btn-link-gold'>
+          <span class='lang-zh'>查看近期排期安排 →</span>
+          <span class='lang-en'>Upcoming Schedule →</span>
+        </a>
+        <a href='/' class='btn-solid-dark'>
+          <span class='lang-zh'>返回首页</span>
+          <span class='lang-en'>Back to Home</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
 </Layout>
 
 <script>
@@ -596,6 +820,252 @@ import Layout from '../layouts/Layout.astro';
     background: var(--color-gold-dust);
     opacity: 0.5;
     margin-top: var(--spacing-6);
+  }
+
+  /* ===== 二级页面核心叙事与机制模块 ===== */
+  .join-editorial-block {
+    margin-bottom: var(--spacing-16);
+  }
+
+  .block-header {
+    margin-bottom: var(--spacing-6);
+    padding-bottom: var(--spacing-3);
+    border-bottom: 1px solid var(--color-border-divider);
+  }
+
+  .block-serial {
+    font-family: var(--font-family-heading);
+    font-size: 0.8125rem;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--color-gold-dust);
+    letter-spacing: 0.04em;
+    display: block;
+    margin-bottom: var(--spacing-1);
+  }
+
+  .block-title {
+    font-family: var(--font-family-heading);
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-heading);
+    margin: 0 0 var(--spacing-2);
+    line-height: 1.35;
+    letter-spacing: 0.01em;
+  }
+
+  .block-desc {
+    font-family: var(--font-family-body);
+    font-size: 13.5px;
+    color: var(--color-text-secondary);
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  /* 4 个同频画像网格 */
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-4);
+  }
+
+  .pillar-card {
+    background: var(--color-surface-pure);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-xs);
+    padding: var(--spacing-5) var(--spacing-5);
+    transition: all 0.25s ease;
+  }
+
+  .pillar-card:hover {
+    border-color: var(--color-border-hover);
+    box-shadow: 0 4px 14px -6px rgba(38, 34, 28, 0.04);
+  }
+
+  .pillar-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-2);
+  }
+
+  .pillar-tag {
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .pillar-accent {
+    font-size: 10px;
+    color: var(--color-gold-dust);
+  }
+
+  .pillar-name {
+    font-family: var(--font-family-heading);
+    font-size: 1.0625rem;
+    color: var(--color-text-heading);
+    margin: 0 0 var(--spacing-2);
+    font-weight: var(--font-weight-normal);
+  }
+
+  .pillar-text {
+    font-family: var(--font-family-body);
+    font-size: 12.5px;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* 4 步流转步骤卡片 */
+  .flow-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-4);
+  }
+
+  .flow-step {
+    background: var(--color-surface-pure);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-xs);
+    padding: var(--spacing-5) var(--spacing-4);
+    position: relative;
+    transition: all 0.25s ease;
+  }
+
+  .flow-step:hover {
+    border-color: var(--color-border-hover);
+  }
+
+  .flow-num {
+    font-family: var(--font-family-heading);
+    font-size: 0.8125rem;
+    font-style: italic;
+    color: var(--color-gold-dust);
+    display: block;
+    margin-bottom: var(--spacing-2);
+  }
+
+  .flow-title {
+    font-family: var(--font-family-heading);
+    font-size: 13.5px;
+    color: var(--color-text-heading);
+    margin: 0 0 var(--spacing-2);
+    line-height: 1.35;
+  }
+
+  .flow-desc {
+    font-family: var(--font-family-body);
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* FAQ 模块样式 */
+  .join-faq-section {
+    margin-top: var(--spacing-16);
+    margin-bottom: var(--spacing-16);
+  }
+
+  .faq-card {
+    background: var(--color-surface-pure);
+    border: var(--border-width-thin) solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-8);
+  }
+
+  .faq-card h3 {
+    margin: 0 0 var(--spacing-6);
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-lg);
+    color: var(--color-text-heading);
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-6);
+  }
+
+  .faq-item h4 {
+    margin: 0 0 var(--spacing-2);
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-primary);
+  }
+
+  .faq-item p {
+    margin: 0;
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* 底部行动引导与回环导航 */
+  .next-steps {
+    margin-top: var(--spacing-12);
+  }
+
+  .next-card {
+    background: var(--color-surface-pure);
+    border: var(--border-width-thin) solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-8);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-6);
+  }
+
+  .next-text h3 {
+    margin: 0 0 var(--spacing-1);
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-lg);
+    color: var(--color-text-heading);
+  }
+
+  .next-text p {
+    margin: 0;
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+  }
+
+  .next-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    flex-shrink: 0;
+  }
+
+  .btn-link-gold {
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    color: var(--color-primary-dark);
+    text-decoration: none !important;
+    border-bottom: 1px solid var(--color-gold-dust) !important;
+    padding-bottom: 2px;
+    white-space: nowrap;
+  }
+
+  .btn-solid-dark {
+    padding: var(--spacing-2) var(--spacing-5);
+    background: var(--color-primary-dark);
+    color: var(--color-surface-pure) !important;
+    border-radius: var(--radius-xs);
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    text-decoration: none !important;
+    letter-spacing: 0.04em;
+    transition: background var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  .btn-solid-dark:hover {
+    background: var(--color-text-heading);
   }
 
   .form-card-container {
@@ -1032,6 +1502,57 @@ import Layout from '../layouts/Layout.astro';
   @media (max-width: 680px) {
     .page-title {
       font-size: 1.6rem;
+    }
+
+    .join-editorial-block {
+      margin-bottom: var(--spacing-10);
+    }
+
+    .block-title {
+      font-size: 1.15rem;
+    }
+
+    .pillars-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .flow-steps-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .join-faq-section {
+      margin-top: var(--spacing-10);
+      margin-bottom: var(--spacing-10);
+    }
+
+    .faq-card {
+      padding: var(--spacing-5) var(--spacing-4);
+    }
+
+    .faq-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .next-card {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: var(--spacing-5) var(--spacing-4);
+      gap: var(--spacing-4);
+    }
+
+    .next-actions {
+      flex-direction: column;
+      width: 100%;
+      align-items: stretch;
+      gap: var(--spacing-3);
+    }
+
+    .btn-solid-dark {
+      text-align: center;
+      padding: 10px 16px;
     }
 
     .form-card-container {

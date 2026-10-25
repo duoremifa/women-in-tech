@@ -462,8 +462,9 @@ import GeometricVisual from '../components/GeometricVisual.astro';
             <div class='section-title-line'>
               <span class='section-serial'>04</span>
               <h2 class='section-main-title'>预约交流 · 加入“我们”</h2>
+              <a href='/join' class='section-page-link-pill'>独立详情页 ↗</a>
             </div>
-            <p class='section-intro-text'>如果你有共鸣，欢迎随时留下你的声音。</p>
+            <p class='section-intro-text'>如果你有共鸣，欢迎随时留下你的声音。亦可进入独立二级页面查看完整共建机制。</p>
           </div>
 
           {/* 英文标题 */}
@@ -471,8 +472,9 @@ import GeometricVisual from '../components/GeometricVisual.astro';
             <div class='section-title-line'>
               <span class='section-serial'>04</span>
               <h2 class='section-main-title'>Join the Circle</h2>
+              <a href='/join' class='section-page-link-pill'>Dedicated Page ↗</a>
             </div>
-            <p class='section-intro-text'>If our ethos resonates with you, you are warmly invited to leave a note.</p>
+            <p class='section-intro-text'>If our ethos resonates with you, you are warmly invited to leave a note or explore our dedicated circle page.</p>
           </div>
 
           <div class='form-wrapper'>
@@ -728,6 +730,19 @@ import GeometricVisual from '../components/GeometricVisual.astro';
               </div>
 
             </form>
+          </div>
+
+          <div class='section-bottom-action'>
+            <div class='action-lead-note'>
+              <span class='gold-thread-dot'>✦</span>
+              <span class='lang-zh'>真诚相待 · 承诺不作任何商业营销</span>
+              <span class='lang-en'>Genuine resonance · Zero commercial marketing</span>
+            </div>
+            <a href='/join' class='circle-arrow-link'>
+              <span class='lang-zh'>进入“加入我们”二级独立页面 · 了解完整加入须知与共建机制</span>
+              <span class='lang-en'>Explore Dedicated Join Page, Circle Norms & FAQ</span>
+              <span class='link-arrow'>⟶</span>
+            </a>
           </div>
         </section>
 
@@ -1162,6 +1177,29 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     align-items: baseline;
     gap: var(--spacing-3);
     margin-bottom: var(--spacing-2);
+  }
+
+  .section-page-link-pill {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--color-brand-purple, #5e4c7a);
+    background: var(--color-surface-soft);
+    border: 1px solid var(--color-border-subtle);
+    padding: 2px 9px;
+    border-radius: var(--radius-pill, 9999px);
+    text-decoration: none !important;
+    transition: all 0.2s ease;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  .section-page-link-pill:hover {
+    border-color: var(--color-brand-purple, #5e4c7a);
+    background: var(--color-surface-pure);
+    transform: translateY(-1px);
   }
 
   /* 遵循黄金分割比例的数字编号：18px (24 / 1.618 ≈ 15~18px) */
