@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import GeometricVisual from '../components/GeometricVisual.astro';
 import { WORKS } from '../data/works';
 ---
 
@@ -8,104 +9,592 @@ import { WORKS } from '../data/works';
   description='鼓励表达创作 · 深度沟通 · 尊重专业性——在商业流水线的间隙，做一些纯粹的事。面向 PM / IxD / FE 的慢节奏创造联合体。'
   width='reading'
 >
-  <div class='landing'>
-    {/* ── 标识与一句话价值 ── */}
-    <header class='hero'>
-      <h1 class='brand'>wo<span class='brand-slash'>/</span>men</h1>
-      <p class='brand-sub'>women in technical · "我们"</p>
+  <div class='page-root'>
+    <div class='two-column-layout'>
 
-      <div lang='zh-CN' class='lang-zh'>
-        <p class='manifesto-line'>在商业流水线的间隙，做一些纯粹的事。</p>
-        <p class='manifesto-sub'>鼓励表达创作 · 深度沟通 · 尊重专业性——这就是 women in tech。</p>
+      {/* ===== 左侧：品牌与宣言 ===== */}
+      <aside class='sidebar' id='about'>
+
+        <div class='brand-group'>
+          <h1 class='site-title'>wo<span class='brand-slash'>/</span>men</h1>
+          <p class='site-sub'>women in technical</p>
+          <p class='site-zh'>"我们"</p>
+        </div>
+
+        {/* 中文版宣言 */}
+        <div class='manifesto lang-zh'>
+          <p>
+            在每一个商业项目的空隙里，<br />
+            总有一些东西是做给自己的。
+          </p>
+          <p>
+            这里是那个地方。
+          </p>
+        </div>
+
+        {/* 英文版宣言 */}
+        <div class='manifesto lang-en'>
+          <p>
+            In between every commercial sprint,<br />
+            there is always something we build for ourselves.
+          </p>
+          <p>
+            This is that sanctuary.
+          </p>
+        </div>
+
+        <div class='sidebar-divider'></div>
+
+        {/* 中文版面向群体 */}
+        <div class='who-section lang-zh'>
+          <span class='who-label'>面向群体</span>
+          <p class='who-desc'>
+            所有在技术与创造领域工作的女性——<br />
+            产品、设计、工程、研究、写作……
+          </p>
+          <p class='who-note'>
+            不需要特定头衔，<br />
+            只是对作品本身有一点执念。
+          </p>
+        </div>
+
+        {/* 英文版面向群体 */}
+        <div class='who-section lang-en'>
+          <span class='who-label'>CRAFTED FOR</span>
+          <p class='who-desc'>
+            All women creating across tech and design—<br />
+            Product, Interaction, Engineering, Research, Writing...
+          </p>
+          <p class='who-note'>
+            No specific titles required,<br />
+            only a quiet devotion to the craft itself.
+          </p>
+        </div>
+
+        <div class='sidebar-footer'>
+          <GeometricVisual type='subtle' height='72px' />
+        </div>
+      </aside>
+
+      {/* ===== 右侧：极简展陈（不再重复子页内容） ===== */}
+      <div class='content-main' role='region' aria-label='核心展陈区'>
+
+        {/* 价值主张 */}
+        <section class='intro-block'>
+          <div class='intro-line lang-zh'>
+            <p class='intro-lead'>鼓励表达创作 · 深度沟通 · 尊重专业性</p>
+            <p class='intro-sub'>这就是 women in tech——在快与喧嚣里，为手作、为深度、为专业性，留一个安静的座位。</p>
+          </div>
+          <div class='intro-line lang-en'>
+            <p class='intro-lead'>Encourage expression · Deep dialogue · Respect for craft</p>
+            <p class='intro-sub'>That is women in tech—keeping a quiet seat for craft, for depth, for professionalism, amid speed and noise.</p>
+          </div>
+        </section>
+
+        {/* 正在打磨的器物（钩子，详情在 /works） */}
+        <section class='content-block' id='works'>
+          <div class='section-heading-group lang-zh'>
+            <div class='section-title-line'>
+              <span class='section-serial'>01</span>
+              <h2 class='section-main-title'>正在打磨的器物</h2>
+            </div>
+            <p class='section-intro-text'>在商业流水线之外，慢节奏雕琢的数字器物与设计实验。</p>
+          </div>
+          <div class='section-heading-group lang-en'>
+            <div class='section-title-line'>
+              <span class='section-serial'>01</span>
+              <h2 class='section-main-title'>Works in the Workshop</h2>
+            </div>
+            <p class='section-intro-text'>Digital artifacts and craft experiments in active development.</p>
+          </div>
+
+          <div class='workshop-cards-stack'>
+            {WORKS.map(w => (
+              <a class='workshop-card' href={`/works/${w.slug}`}>
+                <div class='card-header-line'>
+                  <span class='work-status-badge'>{w.roles.map(r => r.toUpperCase()).join(' × ')}</span>
+                  <span class='work-triad-pills'>{w.status === 'prototype' ? '原型推敲中' : '概念草案'}</span>
+                </div>
+                <h3 class='work-title lang-zh'>{w.titleZh}</h3>
+                <h3 class='work-title lang-en'>{w.titleEn}</h3>
+                <p class='work-summary lang-zh'>{w.taglineZh}</p>
+                <p class='work-summary lang-en'>{w.taglineEn}</p>
+                <span class='work-cta'>
+                  <span class='lang-zh'>查看器物 ⟶</span>
+                  <span class='lang-en'>Explore ⟶</span>
+                </span>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        {/* 单 CTA */}
+        <section class='content-block cta-block'>
+          <div class='section-heading-group lang-zh'>
+            <div class='section-title-line'>
+              <span class='section-serial'>02</span>
+              <h2 class='section-main-title'>加入下一期交流</h2>
+            </div>
+            <p class='section-intro-text'>如果你有共鸣，欢迎随时留下你的声音。</p>
+          </div>
+          <div class='section-heading-group lang-en'>
+            <div class='section-title-line'>
+              <span class='section-serial'>02</span>
+              <h2 class='section-main-title'>Join the next gathering</h2>
+            </div>
+            <p class='section-intro-text'>If our ethos resonates, you are warmly invited to leave a note.</p>
+          </div>
+
+          <div class='cta-row'>
+            <a href='/join' class='cta-primary'>
+              <span class='lang-zh'>预约交流 ⟶</span>
+              <span class='lang-en'>Join the Conversation ⟶</span>
+            </a>
+            <div class='cta-secondary'>
+              <a href='/ethos' class='circle-arrow-link'>
+                <span class='lang-zh'>理念</span>
+                <span class='lang-en'>Ethos</span>
+              </a>
+              <a href='/events' class='circle-arrow-link'>
+                <span class='lang-zh'>机制</span>
+                <span class='lang-en'>Events</span>
+              </a>
+              <a href='/upcoming' class='circle-arrow-link'>
+                <span class='lang-zh'>排期</span>
+                <span class='lang-en'>Schedule</span>
+              </a>
+            </div>
+          </div>
+        </section>
+
       </div>
-      <div lang='en' class='lang-en'>
-        <p class='manifesto-line'>In the gaps between commercial sprints, we make things that are simply ours.</p>
-        <p class='manifesto-sub'>Encourage expression · Deep dialogue · Respect for craft—that is women in tech.</p>
-      </div>
-    </header>
-
-    {/* ── 三角色 ── */}
-    <section class='roles' id='roles'>
-      <a class='role-pill' href='/ethos#roles'>
-        <span class='role-mark'>PM</span>
-        <span lang='zh-CN' class='lang-zh'>产品 · 独立推敲</span>
-        <span lang='en' class='lang-en'>Product · Independent Builders</span>
-      </a>
-      <a class='role-pill' href='/ethos#roles'>
-        <span class='role-mark'>IxD</span>
-        <span lang='zh-CN' class='lang-zh'>交互 · 界面手艺</span>
-        <span lang='en' class='lang-en'>Interaction · Interface Artisans</span>
-      </a>
-      <a class='role-pill' href='/ethos#roles'>
-        <span class='role-mark'>FE</span>
-        <span lang='zh-CN' class='lang-zh'>工程 · 鲁棒架构</span>
-        <span lang='en' class='lang-en'>Engineering · System Crafts</span>
-      </a>
-    </section>
-
-    {/* ── 正在打磨（钩子）── */}
-    <section class='works-hook'>
-      <span class='section-eyebrow'>IN THE WORKSHOP · 正在打磨</span>
-      <div class='works-row'>
-        {WORKS.map(w => (
-          <a class='work-chip' href={`/works/${w.slug}`}>
-            <span class='work-name'>{w.titleEn}</span>
-            <span lang='zh-CN' class='lang-zh work-tline'>{w.taglineZh}</span>
-            <span lang='en' class='lang-en work-tline'>{w.taglineEn}</span>
-          </a>
-        ))}
-      </div>
-    </section>
-
-    {/* ── 单 CTA ── */}
-    <section class='cta'>
-      <a href='/join' class='cta-btn'>
-        <span lang='zh-CN' class='lang-zh'>加入下一期交流</span>
-        <span lang='en' class='lang-en'>Join the next gathering</span>
-        <span class='cta-arrow' aria-hidden='true'>⟶</span>
-      </a>
-      <p class='cta-foot'>
-        <span lang='zh-CN' class='lang-zh'>或先看看 <a href='/ethos'>理念</a> · <a href='/upcoming'>近期排期</a></span>
-        <span lang='en' class='lang-en'>Or explore <a href='/ethos'>ethos</a> · <a href='/upcoming'>upcoming</a></span>
-      </p>
-    </section>
+    </div>
   </div>
 </Layout>
 
 <style>
-  .landing { display: flex; flex-direction: column; gap: var(--spacing-20); padding: var(--spacing-12) 0 var(--spacing-24); max-width: 42rem; margin: 0 auto; }
+  .page-root {
+    padding: var(--spacing-6) 0 var(--spacing-24);
+  }
 
-  .hero { text-align: center; }
-  .brand { font-family: var(--font-family-heading); font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 300; color: var(--color-brand-purple, #5e4c7a); letter-spacing: -0.025em; line-height: 1.05; margin: 0; }
-  .brand-slash { color: var(--color-gold-dust); opacity: 0.85; font-weight: 300; }
-  .brand-sub { font-family: var(--font-family-mono); font-size: 11.5px; letter-spacing: 0.12em; color: var(--color-brand-purple-soft, #7d689b); text-transform: lowercase; margin: var(--spacing-2) 0 var(--spacing-8); }
-  .manifesto-line { font-family: var(--font-family-heading); font-size: var(--font-size-xl); font-weight: var(--font-weight-normal); color: var(--color-text-heading); line-height: 1.5; letter-spacing: 0.005em; margin: 0 0 var(--spacing-3); }
-  .manifesto-sub { font-family: var(--font-family-body); font-size: 14px; color: var(--color-text-secondary); line-height: 1.7; margin: 0; }
+  .two-column-layout {
+    display: grid;
+    grid-template-columns: 1fr 2.2fr;
+    gap: var(--spacing-16);
+    align-items: start;
+  }
 
-  .roles { display: flex; flex-direction: column; gap: var(--spacing-2); }
-  .role-pill { display: flex; align-items: baseline; gap: var(--spacing-3); padding: var(--spacing-3) var(--spacing-4); border: 1px solid var(--color-border-divider); border-radius: var(--radius-xs); text-decoration: none !important; transition: border-color var(--transition-fast), background var(--transition-fast); }
-  .role-pill:hover { border-color: var(--color-gold-dust); background: var(--color-surface-pure); }
-  .role-mark { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-gold-dust); letter-spacing: 0.08em; min-width: 2.5rem; }
-  .role-pill > span:nth-child(2), .role-pill > span:nth-child(3) { font-family: var(--font-family-ui); font-size: 13.5px; color: var(--color-text-primary); }
+  /* ===== 左侧：安静边栏 ===== */
+  .sidebar {
+    position: sticky;
+    top: var(--spacing-8);
+    padding-right: var(--spacing-8);
+    border-right: 1px solid var(--color-border-divider);
+  }
 
-  .works-hook { display: flex; flex-direction: column; gap: var(--spacing-4); }
-  .section-eyebrow { font-family: var(--font-family-mono); font-size: var(--font-size-xs); letter-spacing: 0.12em; color: var(--color-gold-dust); }
-  .works-row { display: flex; flex-direction: column; gap: var(--spacing-3); }
-  .work-chip { display: flex; flex-direction: column; gap: 2px; padding: var(--spacing-4) var(--spacing-5); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-xs); background: var(--color-surface-pure); text-decoration: none !important; transition: border-color var(--transition-fast); }
-  .work-chip:hover { border-color: var(--color-gold-dust); }
-  .work-name { font-family: var(--font-family-heading); font-size: 1rem; font-weight: var(--font-weight-normal); color: var(--color-text-heading); }
-  .work-tline { font-family: var(--font-family-body); font-size: 12.5px; color: var(--color-text-secondary); line-height: 1.5; }
+  .brand-group {
+    margin-bottom: var(--spacing-10);
+  }
 
-  .cta { text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--spacing-3); }
-  .cta-btn { display: inline-flex; align-items: center; gap: var(--spacing-3); padding: var(--spacing-4) var(--spacing-8); background: var(--color-brand-purple, #5e4c7a); color: var(--color-surface-pure) !important; border-radius: var(--radius-xs); font-family: var(--font-family-ui); font-size: 13px; letter-spacing: 0.08em; text-decoration: none !important; transition: background var(--transition-fast); }
-  .cta-btn:hover { background: var(--color-brand-purple-dark, #4d3d66); }
-  .cta-arrow { transition: transform var(--transition-fast); }
-  .cta-btn:hover .cta-arrow { transform: translateX(4px); }
-  .cta-foot { font-family: var(--font-family-ui); font-size: 12px; color: var(--color-text-tertiary); }
-  .cta-foot a { color: var(--color-primary-dark); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 1px; }
+  .site-title {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-4xl);
+    font-weight: 300;
+    color: var(--color-brand-purple, #5e4c7a);
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin: 0 0 var(--spacing-2);
+    text-decoration: none !important;
+    border-bottom: none !important;
+  }
 
-  @media (max-width: 680px) {
-    .landing { padding: var(--spacing-8) 0 var(--spacing-16); gap: var(--spacing-16); }
-    .manifesto-line { font-size: 1.15rem; }
+  .site-title .brand-slash {
+    color: var(--color-gold-dust);
+    opacity: 0.85;
+    font-weight: 300;
+  }
+
+  .site-sub {
+    font-family: var(--font-family-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.12em;
+    color: var(--color-brand-purple-soft, #7d689b);
+    text-transform: lowercase;
+    margin: 0;
+  }
+
+  .site-zh {
+    font-family: var(--font-family-heading);
+    font-size: 14.5px;
+    color: var(--color-brand-purple, #5e4c7a);
+    margin: var(--spacing-1) 0 0;
+    letter-spacing: 0.08em;
+  }
+
+  .manifesto {
+    margin-bottom: var(--spacing-8);
+  }
+
+  .manifesto p {
+    font-family: var(--font-family-body);
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--color-text-secondary);
+    margin: 0 0 var(--spacing-4);
+    letter-spacing: 0.02em;
+  }
+
+  .manifesto.lang-en p {
+    line-height: 1.7;
+    letter-spacing: -0.005em;
+  }
+
+  .manifesto p:last-child {
+    margin-bottom: 0;
+    color: var(--color-text-primary);
+  }
+
+  .sidebar-divider {
+    height: 1px;
+    background: var(--color-border-divider);
+    margin: var(--spacing-6) 0;
+    width: var(--spacing-8);
+  }
+
+  .who-section {
+    margin-bottom: var(--spacing-8);
+  }
+
+  .who-label {
+    display: block;
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-gold-dust);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .who-desc {
+    font-family: var(--font-family-body);
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--color-text-secondary);
+    margin: 0 0 var(--spacing-2);
+  }
+
+  .who-note {
+    font-family: var(--font-family-body);
+    font-size: 12px;
+    line-height: 1.65;
+    color: var(--color-text-tertiary);
+    margin: 0;
+  }
+
+  .sidebar-footer {
+    padding-top: var(--spacing-6);
+  }
+
+  /* ===== 右侧：核心展陈区 ===== */
+  .content-main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-20);
+  }
+
+  .intro-block {
+    padding-bottom: var(--spacing-8);
+    border-bottom: 1px solid var(--color-border-divider);
+  }
+  .intro-lead {
+    font-family: var(--font-family-heading);
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-heading);
+    letter-spacing: 0.01em;
+    margin: 0 0 var(--spacing-2);
+    line-height: 1.4;
+  }
+  .intro-sub {
+    font-family: var(--font-family-body);
+    font-size: 13.5px;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .content-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section-heading-group {
+    margin-bottom: var(--spacing-6);
+    padding-bottom: var(--spacing-4);
+    border-bottom: 1px solid var(--color-border-divider);
+  }
+
+  .section-title-line {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-3);
+    margin-bottom: var(--spacing-2);
+  }
+
+  .section-serial {
+    font-family: var(--font-family-heading);
+    font-size: 1.125rem;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--color-gold-dust);
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+
+  .section-main-title {
+    font-family: var(--font-family-heading);
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-heading);
+    margin: 0;
+    letter-spacing: 0.01em;
+    line-height: 1.35;
+  }
+
+  .section-intro-text {
+    font-family: var(--font-family-body);
+    font-size: 13.5px;
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+  }
+
+  /* 作品钩子卡片 */
+  .workshop-cards-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+  .workshop-card {
+    background: var(--color-surface-pure);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-xs);
+    padding: var(--spacing-6);
+    text-decoration: none !important;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    display: block;
+  }
+  .workshop-card:hover {
+    border-color: var(--color-gold-dust);
+    box-shadow: 0 4px 16px -6px rgba(38, 34, 28, 0.04);
+  }
+  .card-header-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-3);
+  }
+  .work-status-badge {
+    font-family: var(--font-family-ui);
+    font-size: 11px;
+    color: var(--color-brand-purple, #5e4c7a);
+    background: var(--color-surface-soft);
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+  .work-triad-pills {
+    font-family: var(--font-family-mono);
+    font-size: 10.5px;
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.06em;
+  }
+  .work-title {
+    font-family: var(--font-family-heading);
+    font-size: 1.1875rem;
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-heading);
+    margin: 0 0 var(--spacing-2);
+  }
+  .work-summary {
+    font-family: var(--font-family-body);
+    font-size: 13.5px;
+    line-height: 1.8;
+    color: var(--color-text-secondary);
+    margin: 0 0 var(--spacing-3);
+  }
+  .work-cta {
+    font-family: var(--font-family-ui);
+    font-size: 11.5px;
+    color: var(--color-brand-purple, #5e4c7a);
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* CTA */
+  .cta-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-5);
+  }
+  .cta-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-3);
+    padding: var(--spacing-4) var(--spacing-8);
+    background: var(--color-brand-purple, #5e4c7a);
+    color: var(--color-surface-pure) !important;
+    border-radius: var(--radius-xs);
+    font-family: var(--font-family-ui);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-decoration: none !important;
+    transition: background var(--transition-fast);
+    align-self: flex-start;
+  }
+  .cta-primary:hover {
+    background: var(--color-brand-purple-dark, #4d3d66);
+  }
+  .cta-secondary {
+    display: flex;
+    gap: var(--spacing-5);
+    flex-wrap: wrap;
+  }
+  .circle-arrow-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    font-family: var(--font-family-ui);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--color-brand-purple, #5e4c7a);
+    text-decoration: none !important;
+    border-bottom: 1px solid var(--color-border-divider) !important;
+    padding-bottom: 2px;
+    font-weight: var(--font-weight-medium);
+    transition: all var(--transition-fast);
+  }
+  .circle-arrow-link:hover {
+    color: var(--color-text-heading);
+    border-bottom-color: var(--color-gold-dust) !important;
+  }
+
+  /* ============================================================
+     移动端响应式
+     ============================================================ */
+  @media (max-width: 860px) {
+    .page-root {
+      padding: var(--spacing-3) 0 var(--spacing-12);
+    }
+    .two-column-layout {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-6);
+    }
+    .sidebar {
+      position: static;
+      border-right: none;
+      border-bottom: 1px solid var(--color-border-divider);
+      padding-right: 0;
+      padding-bottom: var(--spacing-6);
+      margin-bottom: 0;
+    }
+    .brand-group {
+      margin-bottom: var(--spacing-4);
+    }
+    .site-title {
+      font-size: clamp(2rem, 8vw, 2.5rem);
+      line-height: 1.1;
+    }
+    .site-sub {
+      font-size: 11px;
+      margin-top: 3px;
+    }
+    .site-zh {
+      font-size: 12px;
+      margin-top: 2px;
+    }
+    .manifesto {
+      font-size: 14px;
+      line-height: 1.75;
+      margin-bottom: var(--spacing-4);
+    }
+    .sidebar-divider {
+      margin: var(--spacing-4) 0;
+    }
+    .who-section {
+      margin-top: var(--spacing-3);
+      margin-bottom: 0;
+    }
+    .who-desc {
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    .who-note {
+      font-size: 11.5px;
+    }
+    .sidebar-footer {
+      display: none;
+    }
+    .content-main {
+      gap: var(--spacing-10);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .section-heading-group {
+      margin-bottom: var(--spacing-4);
+      padding-bottom: var(--spacing-3);
+    }
+    .section-title-line {
+      gap: var(--spacing-2);
+      align-items: baseline;
+    }
+    .section-serial {
+      font-size: 0.8125rem;
+    }
+    .section-main-title {
+      font-size: 1.1875rem;
+      letter-spacing: -0.01em;
+    }
+    .section-intro-text {
+      font-size: 12.5px;
+      line-height: 1.65;
+      margin-top: 4px;
+    }
+    .workshop-card {
+      padding: 18px 16px;
+    }
+    .work-title {
+      font-size: 1.0625rem;
+      line-height: 1.35;
+    }
+    .work-summary {
+      font-size: 12.5px;
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+    .card-header-line {
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .cta-primary {
+      width: 100%;
+      padding: var(--spacing-3) var(--spacing-6);
+      align-self: stretch;
+      min-height: 46px;
+    }
+    .cta-secondary {
+      gap: var(--spacing-4);
+    }
+  }
+
+  @media (max-width: 380px) {
+    .site-title {
+      font-size: 1.875rem;
+    }
+    .work-title {
+      font-size: 1rem;
+    }
   }
 </style>
