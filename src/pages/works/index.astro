@@ -1,0 +1,103 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { WORKS } from '../../data/works';
+
+const statusLabel: Record<string, { zh: string; en: string }> = {
+  concept: { zh: '概念草案', en: 'Concept' },
+  prototype: { zh: '原型推敲中', en: 'Prototype' },
+  building: { zh: '共建中', en: 'Building' },
+};
+---
+
+<Layout
+  title='正在打磨 · Works · wo/men in tech'
+  description='FrictionLog、TypeSpec、Whisper Letter——慢节奏雕琢的数字器物与设计实验。'
+  width='reading'
+>
+  <div class='page-container'>
+    <header class='page-header'>
+      <span class='section-eyebrow'>IN THE WORKSHOP</span>
+      <div lang='zh-CN' class='lang-zh'>
+        <h1 class='page-title'>正在打磨的器物</h1>
+        <p class='page-lead'>在商业流水线之外，我们慢节奏雕琢的数字器物与设计实验。<br />给推敲充裕的时间，让每一处细节都立得住。</p>
+      </div>
+      <div lang='en' class='lang-en'>
+        <h1 class='page-title'>Works in the Workshop</h1>
+        <p class='page-lead'>Digital artifacts and craft experiments in active development.<br />Free from commercial rush, focused on enduring craft.</p>
+      </div>
+      <div class='gold-hairline'></div>
+    </header>
+
+    <div class='works-stack'>
+      {WORKS.map(w => (
+        <a class='work-card' href={`/works/${w.slug}`}>
+          <div class='work-head'>
+            <span class='work-status'>{statusLabel[w.status].zh}</span>
+            <span class='work-roles'>{w.roles.map(r => r.toUpperCase()).join(' × ')}</span>
+          </div>
+          <h2 lang='zh-CN' class='work-title lang-zh'>{w.titleZh}</h2>
+          <h2 lang='en' class='work-title lang-en'>{w.titleEn}</h2>
+          <p lang='zh-CN' class='work-tagline lang-zh'>{w.taglineZh}</p>
+          <p lang='en' class='work-tagline lang-en'>{w.taglineEn}</p>
+          <span class='work-cta'>
+            <span lang='zh-CN' class='lang-zh'>查看器物 →</span>
+            <span lang='en' class='lang-en'>Explore →</span>
+          </span>
+        </a>
+      ))}
+    </div>
+
+    <section class='next-steps'>
+      <div class='next-card'>
+        <div lang='zh-CN' class='next-text lang-zh'>
+          <h3>想认领共建角色？</h3>
+          <p>留下你的声音，告诉我们你想投入哪一项器物的打磨。</p>
+        </div>
+        <div lang='en' class='next-text lang-en'>
+          <h3>Co-build a work?</h3>
+          <p>Leave a note and tell us which craft you would invest in.</p>
+        </div>
+        <a href='/join' class='btn-solid-dark'>
+          <span lang='zh-CN' class='lang-zh'>加入推敲</span>
+          <span lang='en' class='lang-en'>Join the Craft</span>
+        </a>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .page-container { padding: var(--spacing-6) 0 var(--spacing-20); }
+  .page-header { margin-bottom: var(--spacing-12); }
+  .section-eyebrow { font-family: var(--font-family-mono); font-size: var(--font-size-xs); letter-spacing: 0.12em; color: var(--color-gold-dust); display: block; margin-bottom: var(--spacing-2); }
+  .page-title { font-family: var(--font-family-heading); font-size: var(--font-size-3xl); font-weight: var(--font-weight-light); color: var(--color-text-heading); letter-spacing: -0.02em; margin: 0 0 var(--spacing-3); }
+  .page-lead { font-family: var(--font-family-body); font-size: var(--font-size-base); color: var(--color-text-secondary); line-height: var(--line-height-loose); margin: 0; }
+  .gold-hairline { width: var(--spacing-12); height: 1px; background: var(--color-gold-dust); opacity: 0.7; margin-top: var(--spacing-5); }
+
+  .works-stack { display: flex; flex-direction: column; gap: var(--spacing-4); }
+  .work-card {
+    display: block; background: var(--color-surface-pure); border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-xs); padding: var(--spacing-6); text-decoration: none !important;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+  .work-card:hover { border-color: var(--color-gold-dust); box-shadow: 0 4px 16px -6px rgba(38, 34, 28, 0.04); }
+  .work-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-3); }
+  .work-status { font-family: var(--font-family-ui); font-size: 11px; color: var(--color-primary-dark); background: var(--color-surface-soft); padding: 2px 8px; border-radius: 2px; }
+  .work-roles { font-family: var(--font-family-mono); font-size: 10.5px; color: var(--color-text-tertiary); letter-spacing: 0.06em; }
+  .work-title { font-family: var(--font-family-heading); font-size: 1.1875rem; font-weight: var(--font-weight-normal); color: var(--color-text-heading); margin: 0 0 var(--spacing-2); }
+  .work-tagline { font-family: var(--font-family-body); font-size: 13.5px; color: var(--color-text-secondary); line-height: 1.7; margin: 0 0 var(--spacing-3); }
+  .work-cta { font-family: var(--font-family-ui); font-size: 11.5px; color: var(--color-primary-dark); font-weight: var(--font-weight-medium); }
+
+  .next-steps { margin-top: var(--spacing-16); }
+  .next-card { background: var(--color-surface-pure); border: var(--border-width-thin) solid var(--color-border-subtle); border-radius: var(--radius-sm); padding: var(--spacing-8); display: flex; justify-content: space-between; align-items: center; gap: var(--spacing-6); }
+  .next-text h3 { margin: 0 0 var(--spacing-1); font-family: var(--font-family-heading); font-size: var(--font-size-lg); color: var(--color-text-heading); }
+  .next-text p { margin: 0; font-family: var(--font-family-body); font-size: var(--font-size-xs); color: var(--color-text-secondary); }
+  .btn-solid-dark { padding: var(--spacing-2) var(--spacing-5); background: var(--color-primary-dark); color: var(--color-surface-pure) !important; border-radius: var(--radius-xs); font-family: var(--font-family-ui); font-size: var(--font-size-xs); text-decoration: none !important; letter-spacing: 0.04em; transition: background var(--transition-fast); }
+  .btn-solid-dark:hover { background: var(--color-text-heading); }
+
+  @media (max-width: 680px) {
+    .page-title { font-size: 1.6rem; }
+    .next-card { flex-direction: column; align-items: flex-start; padding: var(--spacing-5) var(--spacing-4); gap: var(--spacing-4); }
+    .btn-solid-dark { text-align: center; padding: 10px 16px; }
+  }
+</style>

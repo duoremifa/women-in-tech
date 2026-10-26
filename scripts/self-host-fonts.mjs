@@ -91,7 +91,17 @@ async function main() {
   fs.mkdirSync(FONTS_DIR, { recursive: true });
   const allFaces = [];
   for (const { family, weights } of FAMILIES) {
-    const css = await fetchCss(family, weights);
+    let css;
+    try {
+      css = await fetchCss(family, weights);
+    } catch (err) {
+      // 网络不可达：若 fonts.css 已存在（缓存），跳过本次刷新，不阻塞 build
+      if (fs.existsSync(CSS_OUT)) {
+        console.log(`⚠ ${family}: CSS2 fetch failed (${err.message}); using cached fonts.css`);
+        return;
+      }
+      throw err;
+    }
     const faces = parseFaces(css);
     console.log(`${family}: parsed ${faces.length} @font-face blocks`);
     for (const f of faces) {

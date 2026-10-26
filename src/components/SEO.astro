@@ -37,8 +37,8 @@ const now = new Date();
 const eventNodes = GATHERINGS.map(g => ({
   '@type': 'Event',
   '@id': `https://wotech.space/#${g.id}`,
-  'name': g.summary,
-  'description': g.description,
+  'name': g.titleEn,
+  'description': g.descriptionEn,
   'eventAttendanceMode':
     g.location.type === 'VirtualLocation'
       ? 'https://schema.org/OnlineEventAttendanceMode'

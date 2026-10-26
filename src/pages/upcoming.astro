@@ -1,258 +1,213 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { GATHERINGS, upcomingGatherings, pastGatherings, type Gathering } from '../data/gatherings';
+
+const now = new Date();
+const upcoming = upcomingGatherings(now);
+const past = pastGatherings(now);
+
+const statusMeta: Record<string, { zh: string; en: string; cls: string }> = {
+  open: { zh: '开放预约中', en: 'Open for RSVP', cls: 'status-open' },
+  forming: { zh: '小组筹备中', en: 'Cohort Forming', cls: 'status-forming' },
+  full: { zh: '已满', en: 'Full', cls: 'status-full' },
+  past: { zh: '已结束', en: 'Past', cls: 'status-past' },
+};
+
+const typeLabel: Record<string, string> = { coffee: 'Coffee Chat', english: 'English Chat', lab: 'Craft Lab' };
+
+function fmtDate(iso: string, locale: string) {
+  return new Date(iso).toLocaleDateString(locale, { month: 'long', day: 'numeric', weekday: 'short' });
+}
+function fmtTime(iso: string) {
+  return new Date(iso).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Shanghai' });
+}
 ---
 
 <Layout
   title='近期安排 · Upcoming · wo/men in tech'
-  description='近期 Coffee Chat 与 English Chat 交流安排。小规模、低压力、真诚对话。'
+  description='Coffee Chat 与 Show & Tell 的真实排期。订阅日历源一次同步下期，或直接预订某一期。'
   width='reading'
 >
   <div class='page-container'>
     <header class='page-header'>
       <span class='section-eyebrow'>UPCOMING GATHERINGS</span>
-      
       <div lang='zh-CN' class='lang-zh'>
         <h1 class='page-title'>近期安排</h1>
-        <p class='page-lead'>
-          每一次聚会都保持极小规模（3-6 人），<br />
-          确保每个人都有充裕的表达时间与安静聆听的呼吸空间。
-        </p>
+        <p class='page-lead'>每一场 3–6 人 · 极小规模 · 真诚对话</p>
       </div>
-
       <div lang='en' class='lang-en'>
         <h1 class='page-title'>Upcoming Gatherings</h1>
-        <p class='page-lead'>
-          Every gathering is intentionally kept intimate (3–6 people),<br />
-          ensuring unhurried room to speak and quiet space to listen.
-        </p>
+        <p class='page-lead'>Every gathering is intentionally intimate—3 to 6 people, unhurried.</p>
       </div>
-
       <div class='gold-hairline'></div>
     </header>
 
-    <div class='schedule-cards-stack'>
-      {/* 安排 01 */}
-      <article class='schedule-block'>
-        <div class='schedule-indicator'>
-          <span class='block-num'>01</span>
-          <span class='block-type'>Coffee Chat</span>
+    {/* ── 订阅卡（webcal + 邮件）── */}
+    <section class='subscribe-card' aria-label='订阅排期'>
+      <div class='subscribe-text'>
+        <span class='sub-eyebrow'>SUBSCRIBE · 订阅</span>
+        <div lang='zh-CN' class='lang-zh'>
+          <h2>一次订阅，下期自动同步</h2>
+          <p>在系统日历订阅日历源，新排期上线自动到，过期自动撤。零打扰。</p>
         </div>
-        <div class='schedule-content'>
-          <div class='block-status-line'>
-            <span lang='zh-CN' class='status-pill status-open lang-zh'>开放预约中</span>
-            <span lang='en' class='status-pill status-open lang-en'>Open for RSVP</span>
-            <span lang='zh-CN' class='status-meta lang-zh'>双周周末 · 杭州线下 + 线上接入</span>
-            <span lang='en' class='status-meta lang-en'>Biweekly Weekend · Hangzhou + Online</span>
-          </div>
+        <div lang='en' class='lang-en'>
+          <h2>Subscribe once, stay in sync</h2>
+          <p>New slots arrive automatically in your system calendar; past ones fade out. Zero noise.</p>
+        </div>
+      </div>
+      <div class='subscribe-actions'>
+        <a class='subscribe-btn primary' href='webcal://wotech.space/gatherings.ics'>
+          <span lang='zh-CN' class='lang-zh'>＋ 订阅日历源</span>
+          <span lang='en' class='lang-en'>＋ Subscribe calendar</span>
+        </a>
+        <a class='subscribe-btn ghost' href='/join?source=upcoming-email'>
+          <span lang='zh-CN' class='lang-zh'>邮件订阅</span>
+          <span lang='en' class='lang-en'>Email notify</span>
+        </a>
+        <a class='subscribe-link' href='/gatherings.ics' download>...或下载 .ics</a>
+      </div>
+    </section>
 
-          <div lang='zh-CN' class='lang-zh'>
-            <h2 class='block-title'>AI 时代，还剩下什么是属于自己的？</h2>
-            <p class='block-desc'>
-              当生成式代码和模板能够秒级产出界面，我们对于“手艺”与“代表作”的定义正在发生怎样的变化？这一期我们坐下来，聊聊如何从工业流水线的焦虑中抽离，重新发现具有个人辨识度的表达。
-            </p>
-            <div class='block-meta-grid'>
-              <div class='meta-col'>
-                <span class='meta-label'>交流形式</span>
-                <span class='meta-val'>杭州线下 + 视频连线（线上）</span>
+    {/* ── 排期列表 ── */}
+    <div class='schedule-stack'>
+      {upcoming.map((g: Gathering) => {
+        const s = statusMeta[g.status];
+        return (
+          <article class='schedule-block'>
+            <div class='schedule-indicator'>
+              <span class='block-type'>{typeLabel[g.type]}</span>
+              <span class='block-num'>{g.type === 'coffee' ? '01' : g.type === 'english' ? '02' : '03'}</span>
+            </div>
+            <div class='schedule-content'>
+              <div class='block-status-line'>
+                <span class={`status-pill ${s.cls}`}>
+                  <span lang='zh-CN' class='lang-zh'>{s.zh}</span>
+                  <span lang='en' class='lang-en'>{s.en}</span>
+                </span>
+                <span class='status-meta'>
+                  {fmtDate(g.startIso, 'zh-CN')} {fmtTime(g.startIso)} GMT+8
+                  {g.capacity ? ` · ${g.capacity} 人` : ''}
+                </span>
               </div>
-              <div class='meta-col'>
-                <span class='meta-label'>适合对象</span>
-                <span class='meta-val'>对产品、视觉与工程有个人执念的创造者</span>
+
+              <div lang='zh-CN' class='lang-zh'>
+                <h2 class='block-title'>{g.titleZh}</h2>
+                <p class='block-desc'>{g.descriptionZh}</p>
+              </div>
+              <div lang='en' class='lang-en'>
+                <h2 class='block-title'>{g.titleEn}</h2>
+                <p class='block-desc'>{g.descriptionEn}</p>
+              </div>
+
+              <div class='block-meta-grid'>
+                <div class='meta-col'>
+                  <span class='meta-label'>形式 / Format</span>
+                  <span class='meta-val'>{g.location.type === 'VirtualLocation' ? '线上视频室' : '杭州线下 + 线上'}</span>
+                </div>
+                <div class='meta-col'>
+                  <span class='meta-label'>时间 / Time</span>
+                  <span class='meta-val'>{fmtDate(g.startIso, 'en-US')} {fmtTime(g.startIso)}–{fmtTime(g.endIso)} GMT+8</span>
+                </div>
+              </div>
+
+              <div class='block-action'>
+                {g.status === 'open' && (
+                  <>
+                    <a class='btn-ics' href={`/gatherings/${g.id}.ics`} download>
+                      <span lang='zh-CN' class='lang-zh'>加日历 .ics</span>
+                      <span lang='en' class='lang-en'>Add to calendar</span>
+                    </a>
+                    <a class='btn-rsvp' href={`/join?slot=${g.id}`}>
+                      <span lang='zh-CN' class='lang-zh'>我要这一期 ⟶</span>
+                      <span lang='en' class='lang-en'>Reserve this slot ⟶</span>
+                    </a>
+                  </>
+                )}
+                {g.status === 'forming' && (
+                  <a class='btn-rsvp' href={`/join?interest=portfolio_building&slot=${g.id}`}>
+                    <span lang='zh-CN' class='lang-zh'>表达共建意向 ⟶</span>
+                    <span lang='en' class='lang-en'>Express interest ⟶</span>
+                  </a>
+                )}
+                {g.status === 'full' && (
+                  <span class='full-note'>
+                    <span lang='zh-CN' class='lang-zh'>本期已满，可订阅日历源等候下期</span>
+                    <span lang='en' class='lang-en'>Full—subscribe the calendar feed for the next round</span>
+                  </span>
+                )}
               </div>
             </div>
-          </div>
-
-          <div lang='en' class='lang-en'>
-            <h2 class='block-title'>In the Age of AI, What Truly Remains Ours?</h2>
-            <p class='block-desc'>
-              As generative models output boilerplate interfaces in seconds, how are our definitions of personal craft and signature artifacts evolving? Let's sit together and explore stepping back from industrial anxiety to uncover distinct personal voice.
-            </p>
-            <div class='block-meta-grid'>
-              <div class='meta-col'>
-                <span class='meta-label'>Format</span>
-                <span class='meta-val'>Hangzhou (Offline) + Video Link (Online)</span>
-              </div>
-              <div class='meta-col'>
-                <span class='meta-label'>Craft Audience</span>
-                <span class='meta-val'>Creators devoted to thoughtful UI, engineering, and product</span>
-              </div>
-            </div>
-          </div>
-
-          <div class='block-action'>
-            <a href='/join?interest=coffee_chat' class='btn-rsvp'>
-              <span lang='zh-CN' class='lang-zh'>预约交流 <span aria-hidden='true'>⟶</span></span>
-              <span lang='en' class='lang-en'>Join Conversation <span aria-hidden='true'>⟶</span></span>
-            </a>
-          </div>
-        </div>
-      </article>
-
-      {/* 安排 02 */}
-      <article class='schedule-block'>
-        <div class='schedule-indicator'>
-          <span class='block-num'>02</span>
-          <span class='block-type'>English Chat</span>
-        </div>
-        <div class='schedule-content'>
-          <div class='block-status-line'>
-            <span lang='zh-CN' class='status-pill status-open lang-zh'>开放预约中</span>
-            <span lang='en' class='status-pill status-open lang-en'>Open for RSVP</span>
-            <span lang='zh-CN' class='status-meta lang-zh'>双周周中晚间 · 线上 40 min 分享 + Q&A</span>
-            <span lang='en' class='status-meta lang-en'>Biweekly Weekday Evening · Virtual 40 min Talk + Q&A</span>
-          </div>
-
-          <div lang='zh-CN' class='lang-zh'>
-            <h2 class='block-title'>Show & Tell — Walk Me Through Something You Made</h2>
-            <p class='block-desc'>
-              特邀分享嘉宾用 40 分钟英文讲述一个深有体会的界面细节、动效或代码架构。在安全宽容的交流语境里，设有充裕的 Q&A 互动环节，帮助大家跨越开口焦虑，迈出全球化表达的第一步。
-            </p>
-            <div class='block-meta-grid'>
-              <div class='meta-col'>
-                <span class='meta-label'>交流形式</span>
-                <span class='meta-val'>线上视频连线 · 40 min 分享 + Q&A 交流</span>
-              </div>
-              <div class='meta-col'>
-                <span class='meta-label'>适合对象</span>
-                <span class='meta-val'>希望在轻松语境中练习英文技术与设计交流的同行</span>
-              </div>
-            </div>
-          </div>
-
-          <div lang='en' class='lang-en'>
-            <h2 class='block-title'>Show & Tell — Walk Me Through Something You Made</h2>
-            <p class='block-desc'>
-              Featuring a guest speaker sharing a favorite interface detail, micro-interaction, or code architecture in English for 40 minutes, followed by an open Q&A session in a supportive, relaxed setting.
-            </p>
-            <div class='block-meta-grid'>
-              <div class='meta-col'>
-                <span class='meta-label'>Format</span>
-                <span class='meta-val'>Virtual Studio · 40 min Talk + Q&A</span>
-              </div>
-              <div class='meta-col'>
-                <span class='meta-label'>Craft Audience</span>
-                <span class='meta-val'>Creators seeking a relaxed, supportive space to converse in English</span>
-              </div>
-            </div>
-          </div>
-
-          <div class='block-action'>
-            <a href='/join?interest=english_chat' class='btn-rsvp'>
-              <span lang='zh-CN' class='lang-zh'>预约交流 <span aria-hidden='true'>⟶</span></span>
-              <span lang='en' class='lang-en'>Join Conversation <span aria-hidden='true'>⟶</span></span>
-            </a>
-          </div>
-        </div>
-      </article>
-
-      {/* 安排 03 */}
-      <article class='schedule-block'>
-        <div class='schedule-indicator'>
-          <span class='block-num'>03</span>
-          <span lang='zh-CN' class='block-type lang-zh'>作品 Lab</span>
-          <span lang='en' class='block-type lang-en'>Craft Lab</span>
-        </div>
-        <div class='schedule-content'>
-          <div class='block-status-line'>
-            <span lang='zh-CN' class='status-pill status-draft lang-zh'>小组筹备中</span>
-            <span lang='en' class='status-pill status-draft lang-en'>Cohort Forming</span>
-            <span lang='zh-CN' class='status-meta lang-zh'>慢节奏共建 · 滚动开展</span>
-            <span lang='en' class='status-meta lang-en'>Patient Collaboration · Rolling Onboarding</span>
-          </div>
-
-          <div lang='zh-CN' class='lang-zh'>
-            <h2 class='block-title'>第一期作品共建方案：纯粹美感与高可用架构</h2>
-            <p class='block-desc'>
-              我们计划召集 2-3 位不同专长的伙伴，利用业余时间合力完成一个真正具有收藏质感与实用价值的开源 Web 产品。拒绝粗糙玩具，把每一处间距与基线对齐做到极致。
-            </p>
-            <div class='block-meta-grid'>
-              <div class='meta-col'>
-                <span class='meta-label'>协作模式</span>
-                <span class='meta-val'>异步推敲 + 周末轻度同步</span>
-              </div>
-              <div class='meta-col'>
-                <span class='meta-label'>参与条件</span>
-                <span class='meta-val'>有一项愿意深度投入的核心专长</span>
-              </div>
-            </div>
-          </div>
-
-          <div lang='en' class='lang-en'>
-            <h2 class='block-title'>Cohort 01: Pure Aesthetics & Resilient Web Systems</h2>
-            <p class='block-desc'>
-              Gathering 2–3 creators across complementary disciplines (PM, IxD, FE) to collaboratively build an enduring, refined open-source digital tool. Honoring craftsmanship at every scale.
-            </p>
-            <div class='block-meta-grid'>
-              <div class='meta-col'>
-                <span class='meta-label'>Cadence</span>
-                <span class='meta-val'>Async refinement + biweekly gentle touchpoints</span>
-              </div>
-              <div class='meta-col'>
-                <span class='meta-label'>Prerequisite</span>
-                <span class='meta-val'>One craft area you wish to invest deliberate care into</span>
-              </div>
-            </div>
-          </div>
-
-          <div class='block-action'>
-            <a href='/join?interest=portfolio_building' class='btn-rsvp'>
-              <span lang='zh-CN' class='lang-zh'>表达共建意向 →</span>
-              <span lang='en' class='lang-en'>Express Interest →</span>
-            </a>
-          </div>
-        </div>
-      </article>
+          </article>
+        );
+      })}
     </div>
 
-    {/* 底部常见疑问 */}
+    {/* ── 回环区：已结束 + 回顾 ── */}
+    {past.length > 0 && (
+      <section class='past-section'>
+        <span class='section-eyebrow'>PAST · 已结束 · 回环</span>
+        <h2 lang='zh-CN' class='lang-zh past-title'>已结束的相聚，与回顾</h2>
+        <h2 lang='en' class='lang-en past-title'>Past Gatherings & Recaps</h2>
+        <div class='past-stack'>
+          {past.map(g => (
+            <article class='past-block'>
+              <div class='past-meta'>
+                <span class='past-type'>{typeLabel[g.type]}</span>
+                <span class='past-date'>{fmtDate(g.startIso, 'zh-CN')}</span>
+              </div>
+              <h3 lang='zh-CN' class='lang-zh'>{g.titleZh}</h3>
+              <h3 lang='en' class='lang-en'>{g.titleEn}</h3>
+              {g.reviewSlug ? (
+                <a class='review-link' href={`/reviews/${g.reviewSlug}`}>
+                  <span lang='zh-CN' class='lang-zh'>回顾 ↗</span>
+                  <span lang='en' class='lang-en'>Recap ↗</span>
+                </a>
+              ) : (
+                <span class='review-pending'>
+                  <span lang='zh-CN' class='lang-zh'>回顾整理中</span>
+                  <span lang='en' class='lang-en'>Recap pending</span>
+                </span>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {/* ── FAQ ── */}
     <footer class='faq-section'>
       <div class='faq-card'>
         <h3 lang='zh-CN' class='lang-zh'>关于活动的二三事</h3>
-        <h3 lang='en' class='lang-en'>Circle FAQ & Clarifications</h3>
-
+        <h3 lang='en' class='lang-en'>Circle FAQ</h3>
         <div lang='zh-CN' class='faq-grid lang-zh'>
-          <div class='faq-item'>
-            <h4>收费吗？</h4>
-            <p>不收取任何社群费用。线下咖啡聚会各自点单，线上活动完全免费开放。</p>
-          </div>
-          <div class='faq-item'>
-            <h4>必须说话很多吗？</h4>
-            <p>完全不用。你可以根据当天的精力和心境决定发言的频率，安静陪伴同样受到欢迎。</p>
-          </div>
+          <div class='faq-item'><h4>收费吗？</h4><p>纯公益，无任何费用。线下各自点单，线上完全免费。</p></div>
+          <div class='faq-item'><h4>必须说很多话吗？</h4><p>完全不用。安静聆听同样受到欢迎。</p></div>
         </div>
-
         <div lang='en' class='faq-grid lang-en'>
-          <div class='faq-item'>
-            <h4>Are there any fees or dues?</h4>
-            <p>None at all. In offline coffee meetups everyone simply covers their own beverage. Online gatherings are entirely free.</p>
-          </div>
-          <div class='faq-item'>
-            <h4>Am I pressured to talk a lot?</h4>
-            <p>Never. Speak as much or as little as your energy allows on the day. Quiet listening is valued equally.</p>
-          </div>
+          <div class='faq-item'><h4>Any fees?</h4><p>None. Cover your own drink offline; online is free.</p></div>
+          <div class='faq-item'><h4>Must I talk?</h4><p>Never. Quiet listening is equally valued.</p></div>
         </div>
       </div>
     </footer>
 
-    {/* 底部行动引导 */}
     <section class='next-steps'>
       <div class='next-card'>
         <div lang='zh-CN' class='next-text lang-zh'>
-          <h3>想直接预约交流或加入圈子？</h3>
-          <p>随时留下你的声音，或者先阅读我们的手艺准则与共建机制。</p>
+          <h3>想直接加入？</h3>
+          <p>留下你的声音，或先读理念与机制。</p>
         </div>
         <div lang='en' class='next-text lang-en'>
-          <h3>Ready to Connect?</h3>
-          <p>Leave a quiet note or explore our craft manifesto and circle mechanics.</p>
+          <h3>Ready to join?</h3>
+          <p>Leave a note, or read our ethos and mechanics first.</p>
         </div>
         <div class='next-actions'>
-          <a href='/events' class='btn-link-gold'>
-            <span lang='zh-CN' class='lang-zh'>阅读日常与手艺准则 →</span>
-            <span lang='en' class='lang-en'>Circle Norms →</span>
+          <a href='/ethos' class='btn-link-gold'>
+            <span lang='zh-CN' class='lang-zh'>理念 →</span>
+            <span lang='en' class='lang-en'>Ethos →</span>
           </a>
           <a href='/join' class='btn-solid-dark'>
-            <span lang='zh-CN' class='lang-zh'>预约加入我们</span>
-            <span lang='en' class='lang-en'>Join the Circle</span>
+            <span lang='zh-CN' class='lang-zh'>预约加入</span>
+            <span lang='en' class='lang-en'>Join</span>
           </a>
         </div>
       </div>
@@ -261,379 +216,97 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
-  .page-container {
-    padding: var(--spacing-6) 0 var(--spacing-20);
-  }
+  .page-container { padding: var(--spacing-6) 0 var(--spacing-20); }
+  .page-header { margin-bottom: var(--spacing-10); }
+  .section-eyebrow { font-family: var(--font-family-mono); font-size: var(--font-size-xs); letter-spacing: 0.12em; color: var(--color-gold-dust); display: block; margin-bottom: var(--spacing-2); }
+  .page-title { font-family: var(--font-family-heading); font-size: var(--font-size-3xl); font-weight: var(--font-weight-light); color: var(--color-text-heading); letter-spacing: -0.02em; margin: 0 0 var(--spacing-3); }
+  .page-lead { font-family: var(--font-family-body); font-size: var(--font-size-base); color: var(--color-text-secondary); line-height: 1.85; margin: 0; }
+  .gold-hairline { width: var(--spacing-12); height: 1px; background: var(--color-gold-dust); opacity: 0.7; margin-top: var(--spacing-5); }
 
-  .page-header {
-    margin-bottom: var(--spacing-12);
-  }
+  /* 订阅卡 */
+  .subscribe-card { background: var(--color-surface-pure); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-sm); padding: var(--spacing-6) var(--spacing-6); display: flex; justify-content: space-between; align-items: center; gap: var(--spacing-5); margin-bottom: var(--spacing-12); }
+  .sub-eyebrow { font-family: var(--font-family-mono); font-size: 11px; letter-spacing: 0.12em; color: var(--color-gold-dust); display: block; margin-bottom: var(--spacing-2); }
+  .subscribe-text h2 { font-family: var(--font-family-heading); font-size: var(--font-size-lg); font-weight: var(--font-weight-normal); color: var(--color-text-heading); margin: 0 0 var(--spacing-1); }
+  .subscribe-text p { font-family: var(--font-family-body); font-size: 13px; color: var(--color-text-secondary); line-height: 1.7; margin: 0; }
+  .subscribe-actions { display: flex; flex-direction: column; gap: var(--spacing-2); align-items: flex-end; }
+  .subscribe-btn { padding: var(--spacing-2) var(--spacing-4); border-radius: var(--radius-xs); font-family: var(--font-family-ui); font-size: 12px; text-decoration: none !important; letter-spacing: 0.04em; transition: background var(--transition-fast), border-color var(--transition-fast); white-space: nowrap; }
+  .subscribe-btn.primary { background: var(--color-brand-purple, #5e4c7a); color: var(--color-surface-pure) !important; }
+  .subscribe-btn.primary:hover { background: var(--color-brand-purple-dark, #4d3d66); }
+  .subscribe-btn.ghost { border: 1px solid var(--color-border); color: var(--color-text-primary) !important; }
+  .subscribe-btn.ghost:hover { border-color: var(--color-gold-dust); color: var(--color-primary-dark) !important; }
+  .subscribe-link { font-family: var(--font-family-ui); font-size: 11px; color: var(--color-text-tertiary); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 1px; }
 
-  .section-eyebrow {
-    font-family: var(--font-family-ui);
-    font-size: var(--font-size-xs);
-    letter-spacing: 0.16em;
-    color: var(--color-primary-dark);
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: var(--spacing-3);
-    font-weight: var(--font-weight-medium);
-  }
+  /* 排期块 */
+  .schedule-stack { display: flex; flex-direction: column; gap: 0; }
+  .schedule-block { display: grid; grid-template-columns: 90px 1fr; gap: var(--spacing-6); border-bottom: 1px solid var(--color-border-divider); padding: var(--spacing-8) var(--spacing-2); }
+  .schedule-block:last-of-type { border-bottom: none; }
+  .schedule-indicator { display: flex; flex-direction: column; gap: var(--spacing-1); border-right: 1px solid var(--color-border-divider); padding-right: var(--spacing-4); }
+  .block-type { font-family: var(--font-family-ui); font-size: 11px; color: var(--color-text-tertiary); }
+  .block-num { font-family: var(--font-family-heading); font-size: 0.8125rem; font-style: italic; font-weight: 300; color: var(--color-gold-dust); }
+  .schedule-content { display: flex; flex-direction: column; }
+  .block-status-line { display: flex; align-items: center; gap: var(--spacing-3); margin-bottom: var(--spacing-3); flex-wrap: wrap; }
+  .status-pill { font-family: var(--font-family-ui); font-size: 11px; padding: 2px 8px; border-radius: 2px; letter-spacing: 0.04em; }
+  .status-pill.status-open { background: var(--color-surface-soft); color: var(--color-primary-dark); font-weight: var(--font-weight-medium); }
+  .status-pill.status-forming { background: var(--color-surface-soft); color: var(--color-text-tertiary); }
+  .status-pill.status-full { background: var(--color-surface-soft); color: var(--color-text-tertiary); }
+  .status-meta { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-text-tertiary); }
+  .block-title { font-family: var(--font-family-heading); font-size: var(--font-size-xl); font-weight: var(--font-weight-normal); color: var(--color-text-heading); margin: 0 0 var(--spacing-2); }
+  .block-desc { font-family: var(--font-family-body); font-size: var(--font-size-sm); color: var(--color-text-secondary); line-height: 1.75; margin: 0 0 var(--spacing-4); }
+  .block-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-4); padding: var(--spacing-3) 0; border-top: 1px solid var(--color-border-divider); border-bottom: 1px solid var(--color-border-divider); margin-bottom: var(--spacing-4); }
+  .meta-col { display: flex; flex-direction: column; gap: 2px; }
+  .meta-label { font-family: var(--font-family-ui); font-size: 10.5px; color: var(--color-text-tertiary); }
+  .meta-val { font-family: var(--font-family-body); font-size: 12.5px; color: var(--color-text-primary); }
+  .block-action { display: flex; justify-content: flex-end; gap: var(--spacing-3); align-items: center; flex-wrap: wrap; }
+  .btn-ics { font-family: var(--font-family-ui); font-size: 11.5px; color: var(--color-text-secondary); text-decoration: none !important; border: 1px solid var(--color-border-divider) !important; padding: 4px 10px; border-radius: var(--radius-xs); transition: border-color var(--transition-fast), color var(--transition-fast); }
+  .btn-ics:hover { border-color: var(--color-gold-dust) !important; color: var(--color-primary-dark); }
+  .btn-rsvp { font-family: var(--font-family-ui); font-size: 11.5px; color: var(--color-primary-dark); text-decoration: none !important; border-bottom: 1px solid var(--color-gold-dust) !important; padding-bottom: 2px; font-weight: var(--font-weight-medium); transition: color var(--transition-fast); }
+  .btn-rsvp:hover { color: var(--color-text-heading); }
+  .full-note { font-family: var(--font-family-ui); font-size: 11.5px; color: var(--color-text-tertiary); font-style: italic; }
 
-  .page-title {
-    font-family: var(--font-family-heading);
-    font-size: var(--font-size-3xl);
-    font-weight: var(--font-weight-light);
-    color: var(--color-text-heading);
-    letter-spacing: -0.02em;
-    line-height: var(--line-height-tight);
-    margin: 0 0 var(--spacing-4);
-  }
+  /* 回环区 */
+  .past-section { margin-top: var(--spacing-16); padding-top: var(--spacing-10); border-top: 1px solid var(--color-border-divider); }
+  .past-title { font-family: var(--font-family-heading); font-size: var(--font-size-xl); font-weight: var(--font-weight-normal); color: var(--color-text-heading); margin: var(--spacing-2) 0 var(--spacing-5); }
+  .past-stack { display: flex; flex-direction: column; gap: var(--spacing-3); }
+  .past-block { display: grid; grid-template-columns: 1fr auto; gap: var(--spacing-4); align-items: baseline; padding: var(--spacing-4) 0; border-bottom: 1px solid var(--color-border-divider); }
+  .past-meta { display: flex; flex-direction: column; gap: 2px; }
+  .past-type { font-family: var(--font-family-ui); font-size: 10.5px; color: var(--color-gold-dust); letter-spacing: 0.06em; }
+  .past-date { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-text-tertiary); }
+  .past-block h3 { font-family: var(--font-family-heading); font-size: 1rem; font-weight: var(--font-weight-normal); color: var(--color-text-primary); margin: 0; }
+  .review-link { font-family: var(--font-family-ui); font-size: 11.5px; color: var(--color-primary-dark); text-decoration: none !important; border-bottom: 1px solid var(--color-gold-dust) !important; padding-bottom: 2px; }
+  .review-link:hover { color: var(--color-text-heading); }
+  .review-pending { font-family: var(--font-family-ui); font-size: 11px; color: var(--color-text-tertiary); font-style: italic; }
 
-  .page-lead {
-    font-family: var(--font-family-text);
-    font-size: var(--font-size-base);
-    color: var(--color-text-secondary);
-    line-height: 1.85;
-    margin: 0;
-  }
+  /* FAQ */
+  .faq-section { margin-top: var(--spacing-16); }
+  .faq-card { background: var(--color-surface-pure); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-sm); padding: var(--spacing-8); }
+  .faq-card h3 { margin: 0 0 var(--spacing-5); font-family: var(--font-family-heading); font-size: var(--font-size-lg); color: var(--color-text-heading); }
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-6); }
+  .faq-item h4 { margin: 0 0 var(--spacing-2); font-family: var(--font-family-ui); font-size: var(--font-size-sm); color: var(--color-text-primary); }
+  .faq-item p { margin: 0; font-family: var(--font-family-body); font-size: var(--font-size-xs); color: var(--color-text-secondary); line-height: 1.7; }
 
-  .gold-hairline {
-    width: 2.5rem;
-    height: 1px;
-    background: var(--color-gold-dust);
-    opacity: 0.5;
-    margin-top: var(--spacing-6);
-  }
-
-  .schedule-cards-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .schedule-block {
-    display: grid;
-    grid-template-columns: 80px 1fr;
-    gap: var(--spacing-6);
-    background: transparent;
-    border: 1px solid transparent;
-    border-bottom: 1px solid var(--color-border-divider);
-    border-radius: var(--radius-xs);
-    padding: var(--spacing-8) var(--spacing-6);
-    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .schedule-block:last-child {
-    border-bottom-color: transparent;
-  }
-
-  .schedule-block:hover {
-    background: var(--color-surface-pure);
-    border: 1px solid var(--color-border-subtle);
-    box-shadow: 0 4px 16px -6px rgba(38, 34, 28, 0.03);
-  }
-
-  .schedule-indicator {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-1);
-    border-right: var(--border-width-thin) solid var(--color-border-divider);
-    padding-right: var(--spacing-4);
-  }
-
-  .block-num {
-    font-family: var(--font-family-heading);
-    font-size: 0.8125rem;
-    font-style: italic;
-    font-weight: 300;
-    color: var(--color-gold-dust);
-    letter-spacing: 0.04em;
-    line-height: 1;
-  }
-
-  .block-type {
-    font-family: var(--font-family-ui);
-    font-size: 11px;
-    color: var(--color-text-tertiary);
-    line-height: 1.3;
-  }
-
-  .schedule-content {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .block-status-line {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-3);
-    margin-bottom: var(--spacing-2);
-  }
-
-  .status-pill {
-    font-family: var(--font-family-ui);
-    font-size: 11px;
-    padding: 2px 6px;
-    border-radius: 2px;
-    letter-spacing: 0.04em;
-  }
-
-  .status-pill.status-open {
-    background: var(--color-surface-soft);
-    color: var(--color-primary-dark);
-    font-weight: var(--font-weight-medium);
-  }
-
-  .status-pill.status-draft {
-    background: var(--color-surface-soft);
-    color: var(--color-text-tertiary);
-  }
-
-  .status-meta {
-    font-family: var(--font-family-ui);
-    font-size: 11px;
-    color: var(--color-text-tertiary);
-  }
-
-  .block-title {
-    font-family: var(--font-family-heading);
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-normal);
-    color: var(--color-text-heading);
-    margin: 0 0 var(--spacing-3);
-  }
-
-  .block-desc {
-    font-family: var(--font-family-body);
-    font-size: var(--font-size-sm);
-    color: var(--color-text-secondary);
-    line-height: var(--line-height-relaxed);
-    margin: 0 0 var(--spacing-5);
-  }
-
-  .block-meta-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-4);
-    padding: var(--spacing-4) 0;
-    border-top: var(--border-width-thin) solid var(--color-border-divider);
-    border-bottom: var(--border-width-thin) solid var(--color-border-divider);
-    margin-bottom: var(--spacing-5);
-  }
-
-  .meta-col {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .meta-label {
-    font-family: var(--font-family-ui);
-    font-size: 11px;
-    color: var(--color-text-tertiary);
-  }
-
-  .meta-val {
-    font-family: var(--font-family-body);
-    font-size: var(--font-size-xs);
-    color: var(--color-text-primary);
-  }
-
-  .block-action {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .btn-rsvp {
-    font-family: var(--font-family-ui);
-    font-size: var(--font-size-xs);
-    color: var(--color-primary-dark);
-    text-decoration: none !important;
-    border-bottom: 1px solid var(--color-gold-dust) !important;
-    padding-bottom: 2px;
-    transition: color var(--transition-fast);
-  }
-
-  .btn-rsvp:hover {
-    color: var(--color-text-heading);
-    border-bottom-color: var(--color-text-heading) !important;
-  }
-
-  .faq-section {
-    margin-top: var(--spacing-16);
-  }
-
-  .faq-card {
-    background: var(--color-surface-pure);
-    border: var(--border-width-thin) solid var(--color-border-subtle);
-    border-radius: var(--radius-sm);
-    padding: var(--spacing-8);
-  }
-
-  .faq-card h3 {
-    margin: 0 0 var(--spacing-6);
-    font-family: var(--font-family-heading);
-    font-size: var(--font-size-lg);
-    color: var(--color-text-heading);
-  }
-
-  .faq-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-6);
-  }
-
-  .faq-item h4 {
-    margin: 0 0 var(--spacing-2);
-    font-family: var(--font-family-ui);
-    font-size: var(--font-size-sm);
-    color: var(--color-text-primary);
-  }
-
-  .faq-item p {
-    margin: 0;
-    font-family: var(--font-family-body);
-    font-size: var(--font-size-xs);
-    color: var(--color-text-secondary);
-    line-height: var(--line-height-relaxed);
-  }
-
-  /* 底部行动引导 */
-  .next-steps {
-    margin-top: var(--spacing-16);
-  }
-
-  .next-card {
-    background: var(--color-surface-pure);
-    border: var(--border-width-thin) solid var(--color-border-subtle);
-    border-radius: var(--radius-sm);
-    padding: var(--spacing-8);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--spacing-6);
-  }
-
-  .next-text h3 {
-    margin: 0 0 var(--spacing-1);
-    font-family: var(--font-family-heading);
-    font-size: var(--font-size-lg);
-    color: var(--color-text-heading);
-  }
-
-  .next-text p {
-    margin: 0;
-    font-family: var(--font-family-body);
-    font-size: var(--font-size-xs);
-    color: var(--color-text-secondary);
-  }
-
-  .next-actions {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-4);
-    flex-shrink: 0;
-  }
-
-  .btn-link-gold {
-    font-family: var(--font-family-ui);
-    font-size: var(--font-size-xs);
-    color: var(--color-primary-dark);
-    text-decoration: none !important;
-    border-bottom: 1px solid var(--color-gold-dust) !important;
-    padding-bottom: 2px;
-    white-space: nowrap;
-  }
-
-  .btn-solid-dark {
-    padding: var(--spacing-2) var(--spacing-5);
-    background: var(--color-primary-dark);
-    color: var(--color-surface-pure) !important;
-    border-radius: var(--radius-xs);
-    font-family: var(--font-family-ui);
-    font-size: var(--font-size-xs);
-    text-decoration: none !important;
-    letter-spacing: 0.04em;
-    transition: background var(--transition-fast);
-    white-space: nowrap;
-  }
-
-  .btn-solid-dark:hover {
-    background: var(--color-text-heading);
-  }
+  /* CTA */
+  .next-steps { margin-top: var(--spacing-16); }
+  .next-card { background: var(--color-surface-pure); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-sm); padding: var(--spacing-8); display: flex; justify-content: space-between; align-items: center; gap: var(--spacing-6); }
+  .next-text h3 { margin: 0 0 var(--spacing-1); font-family: var(--font-family-heading); font-size: var(--font-size-lg); color: var(--color-text-heading); }
+  .next-text p { margin: 0; font-family: var(--font-family-body); font-size: var(--font-size-xs); color: var(--color-text-secondary); }
+  .next-actions { display: flex; align-items: center; gap: var(--spacing-4); flex-shrink: 0; }
+  .btn-link-gold { font-family: var(--font-family-ui); font-size: var(--font-size-xs); color: var(--color-primary-dark); text-decoration: none !important; border-bottom: 1px solid var(--color-gold-dust) !important; padding-bottom: 2px; }
+  .btn-solid-dark { padding: var(--spacing-2) var(--spacing-5); background: var(--color-primary-dark); color: var(--color-surface-pure) !important; border-radius: var(--radius-xs); font-family: var(--font-family-ui); font-size: var(--font-size-xs); text-decoration: none !important; letter-spacing: 0.04em; transition: background var(--transition-fast); }
+  .btn-solid-dark:hover { background: var(--color-text-heading); }
 
   @media (max-width: 680px) {
-    .page-title {
-      font-size: 1.6rem;
-    }
-
-    .schedule-block {
-      grid-template-columns: 1fr;
-      gap: var(--spacing-4);
-      padding: var(--spacing-5) var(--spacing-4);
-    }
-
-    .schedule-indicator {
-      border-right: none;
-      border-bottom: var(--border-width-thin) solid var(--color-border-divider);
-      padding-right: 0;
-      padding-bottom: var(--spacing-2);
-      flex-direction: row;
-      align-items: baseline;
-      gap: var(--spacing-2);
-    }
-
-    .block-status-line {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 4px;
-    }
-
-    .block-title {
-      font-size: 1.15rem;
-    }
-
-    .block-meta-grid {
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-
-    .block-action {
-      justify-content: flex-start;
-      margin-top: var(--spacing-4);
-    }
-
-    .btn-rsvp {
-      font-size: 13px;
-    }
-
-    .faq-card {
-      padding: var(--spacing-5) var(--spacing-4);
-    }
-
-    .faq-grid {
-      grid-template-columns: 1fr;
-      gap: var(--spacing-5);
-    }
-
-    .next-card {
-      flex-direction: column;
-      align-items: flex-start;
-      padding: var(--spacing-5) var(--spacing-4);
-      gap: var(--spacing-4);
-    }
-
-    .next-actions {
-      flex-direction: column;
-      width: 100%;
-      align-items: stretch;
-      gap: var(--spacing-3);
-    }
-
-    .btn-solid-dark {
-      text-align: center;
-      padding: 10px 16px;
-    }
+    .page-title { font-size: 1.6rem; }
+    .subscribe-card { flex-direction: column; align-items: stretch; padding: var(--spacing-5); }
+    .subscribe-actions { align-items: stretch; }
+    .schedule-block { grid-template-columns: 1fr; gap: var(--spacing-3); padding: var(--spacing-5) 0; }
+    .schedule-indicator { border-right: none; border-bottom: 1px solid var(--color-border-divider); padding-right: 0; padding-bottom: var(--spacing-2); flex-direction: row; align-items: baseline; gap: var(--spacing-2); }
+    .block-meta-grid { grid-template-columns: 1fr; }
+    .block-action { justify-content: flex-start; }
+    .past-block { grid-template-columns: 1fr; gap: var(--spacing-2); }
+    .faq-card { padding: var(--spacing-5); }
+    .faq-grid { grid-template-columns: 1fr; gap: var(--spacing-4); }
+    .next-card { flex-direction: column; align-items: flex-start; padding: var(--spacing-5); gap: var(--spacing-4); }
+    .next-actions { flex-direction: column; width: 100%; align-items: stretch; gap: var(--spacing-3); }
+    .btn-solid-dark { text-align: center; padding: 10px 16px; }
   }
 </style>

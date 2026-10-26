@@ -1,21 +1,20 @@
 ---
 // src/components/Navbar.astro - 宁静低奢顶部导航
-// 最右侧极简双控：语言切换与深色模式切换
+// 4 页纯文字 nav（理念/机制/排期/加入），去胶囊；语言/主题为右侧极小平铺元素。
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
-const isHome = currentPath === '/';
 
 const navItems = [
-  { text: '理念', en: 'Ethos', href: isHome ? '/#about' : '/', id: 'about', pagePath: '/' },
-  { text: '日常', en: 'Events', href: isHome ? '/#events' : '/events', id: 'events', pagePath: '/events' },
-  { text: '安排', en: 'Schedule', href: isHome ? '/#schedule' : '/upcoming', id: 'schedule', pagePath: '/upcoming' },
-  { text: '加入', en: 'Join', href: isHome ? '/#join' : '/join', id: 'join', pagePath: '/join' },
+  { text: '理念', en: 'Ethos', href: '/ethos', pagePath: '/ethos' },
+  { text: '机制', en: 'Events', href: '/events', pagePath: '/events' },
+  { text: '排期', en: 'Schedule', href: '/upcoming', pagePath: '/upcoming' },
+  { text: '加入', en: 'Join', href: '/join', pagePath: '/join' },
 ];
 ---
 
 <header class='nav-header'>
   <nav class='quiet-nav layout-reading' aria-label='Main Navigation'>
-    <!-- 左侧品牌：轻盈内敛，不与下方边栏大标题争夺视觉焦点 -->
+    <!-- 左侧品牌 -->
     <div class='nav-left'>
       <a href='/' class:list={['brand', { active: currentPath === '/' }]}>
         <span class='brand-main'>wo<span class='brand-slash'>/</span>men</span>
@@ -23,81 +22,55 @@ const navItems = [
       </a>
     </div>
 
-    <!-- 右侧联动群组：自然对齐右侧核心展陈区，留出中央广阔宁静呼吸 -->
+    <!-- 右侧：nav 链接 + 平铺语言/主题（无胶囊） -->
     <div class='nav-right-group'>
       <div class='nav-links'>
         {
-          navItems.map((item, index) => {
-            const isActive = isHome ? (index === 0) : (currentPath === item.pagePath);
+          navItems.map((item) => {
+            const isActive = currentPath === item.pagePath;
             return (
               <a
                 href={item.href}
                 class:list={['nav-link', { 'is-active': isActive }]}
-                data-nav-id={item.id}
-                data-page-path={item.pagePath}
+                aria-current={isActive ? 'page' : undefined}
               >
                 <span lang='zh-CN' class='nav-link-text lang-zh'>{item.text}</span>
                 <span lang='en' class='nav-link-text lang-en'>{item.en}</span>
-                <span class='nav-active-dot' />
               </a>
             );
           })
         }
       </div>
 
-      <span class='nav-group-divider' aria-hidden='true'></span>
+      {/* 语言切换：单文字微钮，无边框 */}
+      <button
+        type='button'
+        class='lang-toggle'
+        id='quick-lang-btn'
+        aria-label='切换到英文 / Switch to English'
+        title='切换中英文 / Switch Language'
+      >
+        <span lang='zh-CN' class='lang-opt lang-zh'>EN</span>
+        <span lang='en' class='lang-opt lang-en'>中</span>
+      </button>
 
-      <!-- 极简双控胶囊 (语言切换 + 深色切换) -->
-      <div class='minimal-ctrl-group' role='group' aria-label='Preferences'>
-        <!-- 极简单键语言切换：当前中文显示 EN，点击切换为英文；反之亦然 -->
-        <button
-          type='button'
-          class='minimal-btn lang-btn'
-          id='quick-lang-btn'
-          aria-label='切换到英文 / Switch to English'
-          title='切换中英文 / Switch Language'
-        >
-          <span lang='zh-CN' class='lang-opt lang-zh'>EN</span>
-          <span lang='en' class='lang-opt lang-en'>中</span>
-        </button>
-
-        <span class='ctrl-divider' aria-hidden='true'></span>
-
-        <!-- 极简深色模式切换 -->
-        <button
-          type='button'
-          class='minimal-btn theme-btn'
-          id='quick-theme-btn'
-          data-theme-toggle
-          aria-label='切换深色/浅色模式'
-          title='切换深色/浅色模式'
-        >
-          <svg
-            class='sun-icon'
-            width='13'
-            height='13'
-            viewBox='0 0 24 24'
-            fill='none'
-            stroke='currentColor'
-            stroke-width='1.5'
-          >
-            <circle cx='12' cy='12' r='4.5'></circle>
-            <path d='M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41'></path>
-          </svg>
-          <svg
-            class='moon-icon'
-            width='13'
-            height='13'
-            viewBox='0 0 24 24'
-            fill='none'
-            stroke='currentColor'
-            stroke-width='1.5'
-            style='display: none;'
-          >
-            <path d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'></path>
-          </svg>
-        </button>
-      </div>
+      {/* 主题切换：纯图标微钮，无边框 */}
+      <button
+        type='button'
+        class='theme-toggle'
+        id='quick-theme-btn'
+        data-theme-toggle
+        aria-label='切换深色/浅色模式'
+        title='切换深色/浅色模式'
+      >
+        <svg class='sun-icon' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5'>
+          <circle cx='12' cy='12' r='4.5'></circle>
+          <path d='M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41'></path>
+        </svg>
+        <svg class='moon-icon' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' style='display: none;'>
+          <path d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'></path>
+        </svg>
+      </button>
     </div>
   </nav>
 </header>
@@ -107,10 +80,9 @@ const navItems = [
   let scrollSpyObserver: IntersectionObserver | null = null;
 
   function setupNavControls() {
-    // 1. 极简语言切换
+    // 语言切换：单文字微钮
     const langBtn = document.getElementById('quick-lang-btn');
     if (langBtn) {
-      // 按当前语言设置可访问名（告知将切换到哪种语言）
       const syncLangAria = () => {
         const current = document.documentElement.getAttribute('data-lang') || 'zh';
         langBtn.setAttribute('aria-label', current === 'en' ? '切换到中文 / Switch to Chinese' : '切换到英文 / Switch to English');
@@ -121,85 +93,12 @@ const navItems = [
         const next = current === 'en' ? 'zh' : 'en';
         document.documentElement.setAttribute('data-lang', next);
         document.documentElement.lang = next === 'en' ? 'en' : 'zh-CN';
-        try {
-          localStorage.setItem('site_lang', next);
-        } catch (e) {}
+        try { localStorage.setItem('site_lang', next); } catch (e) {}
         syncLangAria();
         window.dispatchEvent(new CustomEvent('site-language-change', { detail: { lang: next } }));
       };
     }
-
-    // 2. 页面与首页锚点联动
-    const currentPathname = window.location.pathname.replace(/\/$/, '') || '/';
-    const isHomePage = currentPathname === '/';
-    const navLinks = document.querySelectorAll<HTMLAnchorElement>('.nav-link[data-nav-id]');
-
-    function setActiveNav(id: string) {
-      navLinks.forEach((link) => {
-        link.classList.toggle('is-active', link.dataset.navId === id);
-      });
-    }
-
-    // 在二级页面根据当前路径高亮对应导航项
-    if (!isHomePage) {
-      if (currentPathname === '/events') {
-        setActiveNav('events');
-      } else if (currentPathname === '/upcoming') {
-        setActiveNav('schedule');
-      } else if (currentPathname === '/join') {
-        setActiveNav('join');
-      }
-    }
-
-    navLinks.forEach((link) => {
-      link.onclick = (e) => {
-        const navId = link.dataset.navId;
-        if (!navId) return;
-
-        if (isHomePage) {
-          e.preventDefault();
-          if (navId === 'about') {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            history.pushState(null, '', '/');
-            setActiveNav('about');
-          } else {
-            const targetEl = document.getElementById(navId);
-            if (targetEl) {
-              targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              history.pushState(null, '', `/#${navId}`);
-              setActiveNav(navId);
-            }
-          }
-        }
-      };
-    });
-
-    // 3. 首页滚动智能监听 (Scroll Spy)
-    if (isHomePage) {
-      const sections = ['about', 'events', 'schedule', 'join'];
-      const sectionElements = sections.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
-
-      // 先清理上一轮的 observer（view-transition 重跑场景）
-      scrollSpyObserver?.disconnect();
-
-      if ('IntersectionObserver' in window && sectionElements.length > 0) {
-        scrollSpyObserver = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                setActiveNav(entry.target.id);
-              }
-            });
-          },
-          {
-            rootMargin: '-15% 0px -60% 0px',
-            threshold: 0,
-          }
-        );
-
-        sectionElements.forEach((el) => scrollSpyObserver!.observe(el));
-      }
-    }
+    // nav 项均为独立页面，active 由 SSR class 决定，无需 JS scroll-spy
   }
 
   // astro:page-load 在首屏与每次视图切换后都会触发；不再叠加 DOMContentLoaded/直接调用
@@ -286,135 +185,66 @@ const navItems = [
   .nav-links {
     display: flex;
     align-items: center;
-    gap: var(--spacing-3); /* 12px 胶囊间距，舒展通透 */
+    gap: var(--spacing-4);
   }
 
+  /* nav 链接：纯文字 + 底部金线 active（去胶囊） */
   .nav-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     color: var(--color-text-secondary);
     text-decoration: none !important;
-    border-bottom: none !important;
+    border-bottom: 2px solid transparent !important;
+    font-family: var(--font-family-ui);
     font-size: 13.5px;
     font-weight: 400;
-    letter-spacing: 0.08em;
-    padding: 6px 14px;
-    border-radius: var(--radius-pill);
+    letter-spacing: 0.06em;
+    padding: 4px 2px;
     position: relative;
-    transition: color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+    transition: color var(--transition-fast), border-color var(--transition-fast);
     white-space: nowrap;
     user-select: none;
   }
 
   .nav-link:hover {
     color: var(--color-text-heading);
-    background: var(--color-surface-soft);
   }
 
   .nav-link.is-active {
     color: var(--color-text-heading);
     font-weight: 500;
-    background: var(--color-surface-card);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    border-bottom-color: var(--color-gold-dust) !important;
   }
 
-  :root.dark .nav-link.is-active {
-    background: rgba(255, 255, 255, 0.07);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  }
-
-  .nav-active-dot {
-    position: absolute;
-    bottom: 3px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: var(--color-gold-dust);
-    opacity: 0;
-    transition: opacity var(--transition-fast);
-  }
-
-  .nav-link.is-active .nav-active-dot {
-    opacity: 1;
-  }
-
-  .nav-group-divider {
-    width: 1px;
-    height: 14px;
-    background: var(--color-border-divider);
-    opacity: 0.7;
-    margin: 0 4px;
-  }
-
-  .minimal-ctrl-group {
-    display: inline-flex;
-    align-items: center;
-    height: 26px;
-    background: var(--color-surface-soft);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-pill);
-    padding: 1px 3px;
-    box-sizing: border-box;
-    user-select: none;
-    transition: border-color var(--transition-fast), background-color var(--transition-fast);
-  }
-
-  .minimal-ctrl-group:hover {
-    border-color: var(--color-gold-dust);
-  }
-
-  .minimal-btn {
+  /* 语言/主题：平铺微钮，无边框底 */
+  .lang-toggle,
+  .theme-toggle {
     background: transparent;
     border: none;
     outline: none;
     cursor: pointer;
-    height: 22px;
-    padding: 0 7px;
+    padding: 4px 6px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: var(--radius-pill);
     color: var(--color-text-secondary);
     font-family: var(--font-family-ui);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 500;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
     line-height: 1;
-    transition: color var(--transition-fast), background-color var(--transition-fast);
+    border-radius: 0;
+    transition: color var(--transition-fast);
   }
 
-  .minimal-btn:hover {
-    color: var(--color-text-heading);
-    background: var(--color-surface-pure);
+  .lang-toggle:hover,
+  .theme-toggle:hover {
+    color: var(--color-brand-purple, #5e4c7a);
   }
 
-  .ctrl-divider {
-    width: 1px;
-    height: 10px;
-    background: var(--color-border-divider);
-    margin: 0 1px;
-    opacity: 0.8;
-  }
-
-  .theme-btn {
-    padding: 0 5px;
-    width: 22px;
-  }
-
-  :root.dark .minimal-ctrl-group {
-    border-color: rgba(216, 205, 176, 0.2);
-    background: var(--color-surface-soft);
-  }
-
-  :root.dark .minimal-ctrl-group:hover {
-    border-color: var(--color-gold-dust);
-  }
-
-  :root.dark .minimal-btn:hover {
-    background: var(--color-surface-card);
+  :root.dark .lang-toggle:hover,
+  :root.dark .theme-toggle:hover {
     color: var(--color-gold-dust);
   }
 
@@ -431,7 +261,7 @@ const navItems = [
     }
 
     .brand-sub {
-      display: none; /* 移动端收敛副标题，视觉呼吸更充裕 */
+      display: none;
     }
 
     .nav-right-group {
@@ -440,23 +270,14 @@ const navItems = [
     }
 
     .nav-links {
-      gap: 6px;
+      gap: var(--spacing-2);
     }
 
     .nav-link {
-      font-size: 12.5px;
-      letter-spacing: 0.06em;
-      padding: 5px 9px;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      padding: 4px 2px;
       white-space: nowrap;
-    }
-
-    .nav-active-dot {
-      bottom: 2px;
-    }
-
-    .nav-group-divider {
-      height: 10px;
-      margin: 0 1px;
     }
   }
 
@@ -478,30 +299,13 @@ const navItems = [
     .nav-link {
       font-size: 12px;
       letter-spacing: 0.03em;
-      padding: 4px 6px;
+      padding: 4px 2px;
     }
 
-    .minimal-ctrl-group {
-      height: 24px;
-      padding: 1px;
-    }
-
-    .minimal-btn {
-      width: 22px;
-      height: 22px;
-      min-width: 22px;
-      min-height: 22px;
-    }
-
-    .minimal-btn.lang-btn {
-      width: auto;
-      min-width: 24px;
-      padding: 0 4px;
-      font-size: 10px;
-    }
-
-    .nav-group-divider {
-      display: none;
+    .lang-toggle,
+    .theme-toggle {
+      padding: 4px 4px;
+      font-size: 11px;
     }
   }
 
@@ -516,7 +320,7 @@ const navItems = [
 
     .nav-link {
       font-size: 11px;
-      padding: 3px 5px;
+      padding: 3px 2px;
       letter-spacing: 0.02em;
     }
 

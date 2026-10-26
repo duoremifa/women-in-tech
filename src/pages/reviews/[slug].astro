@@ -1,0 +1,114 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { GATHERINGS, upcomingGatherings, type Gathering } from '../../data/gatherings';
+
+export function getStaticPaths() {
+  return GATHERINGS.filter(g => g.reviewSlug).map(g => ({
+    params: { slug: g.reviewSlug! },
+    props: { g },
+  }));
+}
+
+interface Props { g: Gathering }
+const { g } = Astro.props;
+const next = upcomingGatherings(new Date())[0];
+
+const typeLabel = g.type === 'coffee' ? 'Coffee Chat' : g.type === 'english' ? 'Show & Tell' : 'Craft Lab';
+const dateStr = new Date(g.startIso).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
+const dateStrEn = new Date(g.startIso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<Layout
+  title={`${typeLabel} · ${g.titleEn} · 回顾 · wo/men in tech`}
+  description={g.descriptionEn}
+  width='reading'
+>
+  <meta name='robots' content='noindex' />
+  <div class='page-container'>
+    <a href='/upcoming' class='back-link'>
+      <span lang='zh-CN' class='lang-zh'>← 返回排期</span>
+      <span lang='en' class='lang-en'>← Back to schedule</span>
+    </a>
+
+    <header class='page-header'>
+      <span class='section-eyebrow'>RECAP · 回顾</span>
+      <div class='meta-line'>
+        <span class='recap-type'>{typeLabel}</span>
+        <span class='recap-date' lang='zh-CN'>{dateStr}</span>
+        <span class='recap-date' lang='en'>{dateStrEn}</span>
+      </div>
+      <h1 lang='zh-CN' class='page-title lang-zh'>{g.titleZh}</h1>
+      <h1 lang='en' class='page-title lang-en'>{g.titleEn}</h1>
+      <div class='gold-hairline'></div>
+    </header>
+
+    <section class='recap-body'>
+      <div lang='zh-CN' class='lang-zh'>
+        <p>{g.reviewZh || '回顾整理中，敬请期待。'}</p>
+      </div>
+      <div lang='en' class='lang-en'>
+        <p>{g.reviewEn || 'Recap in progress—please check back soon.'}</p>
+      </div>
+    </section>
+
+    <section class='recap-voices'>
+      <span class='block-eyebrow'>VOICES · 参与者匿名感言</span>
+      <p lang='zh-CN' class='lang-zh placeholder'>感言整理中。每一期相聚后，我们会在这里留下未经修饰的只言片语。</p>
+      <p lang='en' class='lang-en placeholder'>Voices being gathered. After each gathering, we leave unvarnished fragments here.</p>
+    </section>
+
+    {next && (
+      <section class='next-steps'>
+        <div class='next-card'>
+          <div lang='zh-CN' class='next-text lang-zh'>
+            <h3>下一期相见</h3>
+            <p>{new Date(next.startIso).toLocaleDateString('zh-CN', { month: 'long', day: 'numeric' })} · {next.titleZh}</p>
+          </div>
+          <div lang='en' class='next-text lang-en'>
+            <h3>Next gathering</h3>
+            <p>{new Date(next.startIso).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })} · {next.titleEn}</p>
+          </div>
+          <a href={`/gatherings/${next.id}.ics`} class='btn-link-gold'>
+            <span lang='zh-CN' class='lang-zh'>加日历 →</span>
+            <span lang='en' class='lang-en'>Add to calendar →</span>
+          </a>
+          <a href='/join' class='btn-solid-dark'>
+            <span lang='zh-CN' class='lang-zh'>预约下一期</span>
+            <span lang='en' class='lang-en'>Join next</span>
+          </a>
+        </div>
+      </section>
+    )}
+  </div>
+</Layout>
+
+<style>
+  .page-container { padding: var(--spacing-6) 0 var(--spacing-20); max-width: 48rem; }
+  .back-link { display: inline-block; font-family: var(--font-family-ui); font-size: var(--font-size-xs); color: var(--color-text-tertiary); text-decoration: none !important; margin-bottom: var(--spacing-6); }
+  .back-link:hover { color: var(--color-primary-dark); }
+  .page-header { margin-bottom: var(--spacing-10); }
+  .section-eyebrow { font-family: var(--font-family-mono); font-size: var(--font-size-xs); letter-spacing: 0.12em; color: var(--color-gold-dust); display: block; margin-bottom: var(--spacing-2); }
+  .meta-line { display: flex; gap: var(--spacing-3); align-items: center; margin-bottom: var(--spacing-3); }
+  .recap-type { font-family: var(--font-family-ui); font-size: 11px; color: var(--color-primary-dark); background: var(--color-surface-soft); padding: 2px 8px; border-radius: 2px; }
+  .recap-date { font-family: var(--font-family-mono); font-size: 12px; color: var(--color-text-tertiary); }
+  .page-title { font-family: var(--font-family-heading); font-size: var(--font-size-3xl); font-weight: var(--font-weight-light); color: var(--color-text-heading); letter-spacing: -0.02em; margin: 0; }
+  .gold-hairline { width: var(--spacing-12); height: 1px; background: var(--color-gold-dust); opacity: 0.7; margin-top: var(--spacing-5); }
+
+  .recap-body { padding: var(--spacing-8) 0; border-bottom: 1px solid var(--color-border-divider); }
+  .recap-body p { font-family: var(--font-family-body); font-size: 15px; color: var(--color-text-secondary); line-height: 1.85; margin: 0; }
+
+  .recap-voices { padding: var(--spacing-8) 0; }
+  .block-eyebrow { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-gold-dust); letter-spacing: 0.12em; display: block; margin-bottom: var(--spacing-3); }
+  .recap-voices .placeholder { font-family: var(--font-family-body); font-size: 13px; color: var(--color-text-tertiary); line-height: 1.7; font-style: italic; margin: 0; }
+
+  .next-steps { margin-top: var(--spacing-12); }
+  .next-card { background: var(--color-surface-pure); border: var(--border-width-thin) solid var(--color-border-subtle); border-radius: var(--radius-sm); padding: var(--spacing-6); display: flex; flex-direction: column; gap: var(--spacing-3); }
+  .next-text h3 { margin: 0 0 2px; font-family: var(--font-family-heading); font-size: var(--font-size-base); color: var(--color-text-heading); }
+  .next-text p { margin: 0; font-family: var(--font-family-body); font-size: 13px; color: var(--color-text-secondary); }
+  .next-card a { align-self: flex-start; }
+  .btn-link-gold { font-family: var(--font-family-ui); font-size: var(--font-size-xs); color: var(--color-primary-dark); text-decoration: none !important; border-bottom: 1px solid var(--color-gold-dust) !important; padding-bottom: 2px; }
+  .btn-solid-dark { padding: var(--spacing-2) var(--spacing-5); background: var(--color-primary-dark); color: var(--color-surface-pure) !important; border-radius: var(--radius-xs); font-family: var(--font-family-ui); font-size: var(--font-size-xs); text-decoration: none !important; letter-spacing: 0.04em; transition: background var(--transition-fast); }
+  .btn-solid-dark:hover { background: var(--color-text-heading); }
+
+  @media (max-width: 680px) { .page-title { font-size: 1.6rem; } }
+</style>

@@ -1,7 +1,8 @@
 // src/lib/join-shared.ts
 // 表单提交闭环的共享逻辑：ICS 日历生成 + 兴趣匹配 + 校验。
 // 被 functions/api/join.ts（CF Pages Function）、astro.config.mjs（dev 中间件）、
-// src/pages/index.astro 与 join.astro（客户端 .ics 下载兜底）共用，杜绝逻辑分叉。
+// src/pages/join.astro（客户端 .ics 下载兜底）、src/pages/gatherings.ics.ts（webcal feed）
+// 与 src/pages/gatherings/[id].ics.ts（单期直订）共用，杜绝逻辑分叉。
 
 import { GATHERINGS, type Gathering } from '../data/gatherings';
 
@@ -26,8 +27,82 @@ export const VALID_INTERESTS = [
   'portfolio_building',
 ] as const;
 
-/** 主理人微信（统一字段名 wechatHandle，替代旧 wechatHost/wechatContact）。 */
+/** 主理人微信（与 gatherings.ts 的 WECHAT_HANDLE 一致）。 */
 export const WECHAT_HANDLE = 'daiminay';
+
+/** 单期 VEVENT（带 VALARM）。submissionId 用于个性化回执描述，可省。 */
+function buildVEVENT(g: Gathering, submissionId?: string): string {
+  const dtStamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+  const loc =
+    g.location.type === 'VirtualLocation'
+      ? g.location.url || '线上视频室 (活动前发放连线)'
+      : g.location.name || '杭州线下 / 线上连线';
+  const desc = submissionId
+    ? `DESCRIPTION:致同行者：\\n这是为你预留的 ${g.titleEn} 交流席位。\\n回执编号: #${submissionId}\\n形式：${g.descriptionZh}\\n微信联络：${WECHAT_HANDLE}`
+    : `DESCRIPTION:${g.descriptionZh}\\n微信联络：${WECHAT_HANDLE}`;
+  return [
+    'BEGIN:VEVENT',
+    `UID:wotech-${g.id}@wotech.space`,
+    `DTSTAMP:${dtStamp}`,
+    `DTSTART:${g.icsStartUtc}`,
+    `DTEND:${g.icsEndUtc}`,
+    `SUMMARY:${g.titleZh}`,
+    desc,
+    `LOCATION:${loc}`,
+    'STATUS:CONFIRMED',
+    'SEQUENCE:0',
+    'BEGIN:VALARM',
+    'TRIGGER:-PT30M',
+    'ACTION:DISPLAY',
+    `DESCRIPTION:wo/men in tech · ${g.titleEn} 提醒`,
+    'END:VALARM',
+    'END:VEVENT',
+  ].join('\r\n');
+}
+
+function wrapCalendar(events: string[]): string {
+  return [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//wo/men in tech//Circle Gatherings//CN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:REQUEST',
+    ...events,
+    'END:VCALENDAR',
+  ].join('\r\n');
+}
+
+/** 兴趣多事件 .ics（join 表单回执用，按兴趣取未过期的 coffee/english 期）。 */
+export function generateICS(submissionId: string, name: string, interests: string[] = []): string {
+  const addressee = name || '同行者';
+  const now = new Date();
+  const selected: Gathering[] = [];
+  if (wantsCoffeeChat(interests)) {
+    const g = GATHERINGS.find(x => x.type === 'coffee' && !isPast(x, now));
+    if (g) selected.push(g);
+  }
+  if (wantsEnglishChat(interests)) {
+    const g = GATHERINGS.find(x => x.type === 'english' && !isPast(x, now));
+    if (g) selected.push(g);
+  }
+  const events = selected.map(g => buildVEVENT(g, submissionId));
+  void addressee;
+  return wrapCalendar(events);
+}
+
+/** 单期 .ics（/gatherings/[id].ics 直订 + join 带 slot_id 时用）。 */
+export function generateSingleICS(g: Gathering, submissionId?: string): string {
+  return wrapCalendar([buildVEVENT(g, submissionId)]);
+}
+
+/** webcal feed：传入未过期排期，生成 VCALENDAR（系统日历订阅，自动滚动）。 */
+export function generateCalendarFeed(gatherings: Gathering[]): string {
+  return wrapCalendar(gatherings.map(g => buildVEVENT(g)));
+}
+
+function isPast(g: Gathering, now: Date): boolean {
+  return new Date(g.endIso).getTime() < now.getTime();
+}
 
 /** RFC 5322 简明无回溯正则，杜绝 ReDoS；长度上限 80。 */
 export function isValidEmailFormat(email: string): boolean {
@@ -56,47 +131,6 @@ export function sanitizeForWebhook(str: unknown, maxLen = 300): string {
     .replace(/[\r\n\t]+/g, ' ')
     .replace(/@(everyone|channel|here|all)/gi, '@ $1')
     .trim();
-}
-
-/** 生成 .ics 日历内容（按兴趣过滤，从 gatherings 单一数据源取日期）。 */
-export function generateICS(submissionId: string, name: string, interests: string[] = []): string {
-  const dtStamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-  const addressee = name || '同行者';
-
-  const selected: Gathering[] = [];
-  if (wantsCoffeeChat(interests)) selected.push(GATHERINGS.find(g => g.type === 'coffee')!);
-  if (wantsEnglishChat(interests)) selected.push(GATHERINGS.find(g => g.type === 'english')!);
-
-  const events = selected.map(g =>
-    [
-      'BEGIN:VEVENT',
-      `UID:wotech-${g.type === 'coffee' ? 'coffee' : 'showtell'}-${submissionId}@wotech.space`,
-      `DTSTAMP:${dtStamp}`,
-      `DTSTART:${g.icsStartUtc}`,
-      `DTEND:${g.icsEndUtc}`,
-      `SUMMARY:${g.summary}`,
-      `DESCRIPTION:致 ${addressee}：\\n这是为你预留的 ${g.type === 'coffee' ? 'Coffee Chat' : 'Show & Tell'} 交流席位。\\n回执编号: #${submissionId}\\n形式：${g.description}\\n微信联络：${WECHAT_HANDLE}`,
-      `LOCATION:${g.location.type === 'VirtualLocation' ? '线上视频室 (活动前发放连线)' : '杭州线下 / 线上连线'}`,
-      'STATUS:CONFIRMED',
-      'SEQUENCE:0',
-      'BEGIN:VALARM',
-      'TRIGGER:-PT30M',
-      'ACTION:DISPLAY',
-      `DESCRIPTION:wo/men in tech · ${g.type === 'coffee' ? 'Coffee Chat' : 'Show & Tell'} 提醒`,
-      'END:VALARM',
-      'END:VEVENT',
-    ].join('\r\n'),
-  );
-
-  return [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//wo/men in tech//Circle Gatherings//CN',
-    'CALSCALE:GREGORIAN',
-    'METHOD:REQUEST',
-    ...events,
-    'END:VCALENDAR',
-  ].join('\r\n');
 }
 
 export function getCraftLabel(craft: string): string {

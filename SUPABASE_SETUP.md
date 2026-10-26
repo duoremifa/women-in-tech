@@ -1,82 +1,69 @@
-# Supabase Setup Guide for Friction Log Survey
+# Supabase Setup Guide for wo/men in tech
 
-本项目使用 Supabase 存储匿名问卷数据。请按照以下步骤配置数据库。
+本项目用 Supabase 存储订阅者与加入意向（替代 FrictionLog 残留的 survey_responses 表）。订阅闭环：webcal 日历源（纯静态，零后端）+ 邮件订阅（存 Supabase，新排期上线批量通知）。
 
 ## 1. 创建项目
 
 1. 访问 [Supabase Dashboard](https://supabase.com/dashboard) 并登录。
-2. 点击 **New Project**。
-3. 地区推荐选择 `Singapore` 或 `Tokyo`。
-4. 等待数据库初始化完成。
+2. **New Project**；地区推荐 `Singapore` 或 `Tokyo`。
+3. 等待数据库初始化完成。
 
 ## 2. 获取 API Keys
 
-1. 在项目面板左下角，点击 **Project Settings** (齿轮图标)。
-2. 选择 **API**。
-3. 复制 `Project URL` 和 `anon public` public Key。
-4. 在项目根目录创建 `.env` 文件并填入：
+1. 项目面板左下 **Project Settings** (齿轮) → **API**。
+2. 复制 `Project URL`、`anon public` key、`service_role` key。
+3. 在 Cloudflare Pages → 项目 → Settings → Environment variables 配置：
+   - `PUBLIC_SUPABASE_URL` = Project URL
+   - `PUBLIC_SUPABASE_ANON_KEY` = anon public key（客户端可见，仅 INSERT，RLS 保护）
+   - `SUPABASE_SERVICE_ROLE_KEY` = service_role key（**仅 CF Function env，绝不入库不入前端**，用于 /api/notify 批量读订阅者）
+   - `ADMIN_TOKEN` = 自定义随机串（保护 /api/notify 触发）
+   - `RESEND_API_KEY` = Resend key（邮件发送）
+   - `EMAIL_FROM` = 发信地址（如 `wo/men in tech <invitation@wotech.space>`）
 
-```bash
-PUBLIC_SUPABASE_URL=你的_Project_URL
-PUBLIC_SUPABASE_ANON_KEY=你的_anon_public_key
-```
+> `.env.example` 已含 `PUBLIC_SUPABASE_URL` + `PUBLIC_SUPABASE_ANON_KEY`（本地开发用）。
 
-## 3. 初始化问卷表 (SQL Editor)
-
-点击左侧菜单的 **SQL Editor**，运行以下 SQL 代码：
+## 3. 初始化 subscribers 表（SQL Editor）
 
 ```sql
--- 创建问卷表
-CREATE TABLE survey_responses (
-  response_id UUID PRIMARY KEY,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  locale TEXT,
-  duration_seconds INTEGER,
-  user_agent TEXT,
-  age_group TEXT,
-  work_status TEXT,
-  work_status_other TEXT,
-  country_region TEXT,
-  nd_self_id TEXT,
-  nd_diagnosis TEXT,
-  time_fragmentation TEXT,
-  task_switch_effort TEXT,
-  main_tools_todo_apps BOOLEAN,
-  main_tools_note_tools BOOLEAN,
-  main_tools_digital_calendar BOOLEAN,
-  main_tools_paper_planner BOOLEAN,
-  main_tools_chat_apps BOOLEAN,
-  main_tools_physical_reminders BOOLEAN,
-  main_tools_in_my_head BOOLEAN,
-  main_tools_other BOOLEAN,
-  main_tools_other_text TEXT,
-  system_resets_12m TEXT,
-  satisfaction_0_10 INTEGER,
-  nps_recommend_0_10 INTEGER,
-  sla1_crumble_weeks INTEGER,
-  sla2_energy_on_system INTEGER,
-  sla3_wrong_brain_assumption INTEGER,
-  sla4_self_blame INTEGER,
-  sla5_shadow_systems INTEGER,
-  sla6_life_interruptions_vs_tools INTEGER,
-  sla7_rules_lead_to_collapse INTEGER,
-  chasing_system_freq TEXT,
-  missed_due_system_freq TEXT,
-  burden_vs_relief TEXT,
-  tools_work_why TEXT
+-- 订阅者表（邮件订阅 + 加入意向持久化）
+CREATE TABLE subscribers (
+  id UUID PRIMARY KEY DEFAULT gen_random.uuid(),
+  email TEXT,
+  wechat TEXT,
+  locale TEXT DEFAULT 'zh',
+  source TEXT,                  -- 'join' | 'rsvp' | 'subscribe-only'
+  slot_id TEXT,                 -- 从 /upcoming 轻 RSVP 带来的具体期 id
+  interests TEXT[],             -- coffee_chat / english_chat / portfolio_building
+  craft TEXT,
+  idea TEXT,
+  receipt_id TEXT UNIQUE,       -- WT-xxxxx
+  notify_email BOOLEAN DEFAULT TRUE,
+  notify_calendar BOOLEAN DEFAULT TRUE,
+  active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- 安全策略：开启 RLS
-ALTER TABLE survey_responses ENABLE ROW LEVEL SECURITY;
+ALTER TABLE subscribers ENABLE ROW LEVEL SECURITY;
 
--- 允许匿名提交 (INSERT)
-CREATE POLICY "Public Insert" ON survey_responses FOR INSERT WITH CHECK (true);
+-- 公共 INSERT（join.ts / subscribe.ts 用 anon key 写入）
+CREATE POLICY "Public Insert" ON subscribers FOR INSERT WITH CHECK (true);
 
--- 允许管理员读取 (可选：仅限鉴权用户)
--- CREATE POLICY "Admin Select" ON survey_responses FOR SELECT USING (auth.role() = 'authenticated');
+-- 读取/更新仅限 service_role（notify.ts 批量读；前端 anon key 不能读）
+-- service_role 绕过 RLS，无需额外 policy。
+
+CREATE INDEX idx_subscribers_active ON subscribers(active) WHERE active = true;
+CREATE INDEX idx_subscribers_email ON subscribers(email);
+
+-- 邮箱唯一约束（支持 upsert：同 email 合并）
+CREATE UNIQUE INDEX idx_subscribers_email_unique ON subscribers(email) WHERE email IS NOT NULL;
 ```
 
-## 4. 导出数据 (CSV)
+## 4. 退订
 
-1. 进入 **Table Editor** -> `survey_responses`。
-2. 点击 **Export** -> **Export as CSV**。
+退订逻辑（后续实现）：`/api/unsubscribe?token=<receipt_id>` → UPDATE subscribers SET active=false WHERE receipt_id=$token。MVP 阶段邮件退订链接占位，手动处理。
+
+## 5. 导出 / 管理
+
+1. 进入 **Table Editor** → `subscribers`。
+2. 可按 `source`、`active`、`locale` 筛选。
+3. 导出 CSV 用于手动联系或迁移。

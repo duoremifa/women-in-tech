@@ -4,6 +4,7 @@
 
 import {
   generateICS,
+  generateSingleICS,
   getCraftLabel,
   getInterestsLabel,
   escapeHtml,
@@ -13,6 +14,7 @@ import {
   VALID_INTERESTS,
   WECHAT_HANDLE,
 } from '../../src/lib/join-shared';
+import { getGatheringById } from '../../src/data/gatherings';
 
 function buildEmailHtml(params: {
   name: string;
@@ -345,7 +347,53 @@ export async function onRequestPost(context: any) {
 
     const craftLabel = getCraftLabel(safeCraftKey);
     const interestsLabel = getInterestsLabel(safeInterests);
-    const icsContent = generateICS(submissionId, safeName, safeInterests);
+
+    // slot_id（轻 RSVP：从 /upcoming "我要这一期" 带来）→ 用该期真实日期生成单期 .ics
+    const slotId = typeof data.slot_id === 'string' ? String(data.slot_id).slice(0, 60) : '';
+    const slotGathering = slotId ? getGatheringById(slotId) : undefined;
+    const icsContent = slotGathering
+      ? generateSingleICS(slotGathering, submissionId)
+      : generateICS(submissionId, safeName, safeInterests);
+
+    // 订阅偏好
+    const subscribeCalendar = data.subscribe_calendar !== false; // 默认 true
+    const subscribeEmail = data.subscribe_email !== false; // 默认 true
+    const oneTime = data.one_time === true || data.one_time === '1';
+    const source = typeof data.source === 'string' ? String(data.source).slice(0, 40) : 'join';
+
+    // 5.5 持久化到 Supabase subscribers（若配置了环境变量）
+    const supabaseUrl = context.env?.PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = context.env?.PUBLIC_SUPABASE_ANON_KEY;
+    if (supabaseUrl && supabaseAnonKey && !isHoneypotTriggered) {
+      try {
+        await fetch(`${supabaseUrl}/rest/v1/subscribers`, {
+          method: 'POST',
+          headers: {
+            'apikey': supabaseAnonKey,
+            'Authorization': `Bearer ${supabaseAnonKey}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal',
+          },
+          body: JSON.stringify({
+            email: isEmail ? cleanContact : null,
+            wechat: isEmail ? null : cleanContact,
+            locale: (req.headers.get('accept-language') || 'zh').startsWith('en') ? 'en' : 'zh',
+            source,
+            slot_id: slotGathering ? slotGathering.id : null,
+            interests: safeInterests,
+            craft: safeCraftKey,
+            idea: safeIdea,
+            receipt_id: submissionId,
+            notify_email: subscribeEmail && !oneTime,
+            notify_calendar: subscribeCalendar && !oneTime,
+            active: true,
+          }),
+        });
+      } catch (e) {
+        // 持久化失败不阻断主流程（Resend 仍发）
+        console.error('Supabase insert error:', e);
+      }
+    }
 
     let emailSent = false;
     let emailError: string | null = null;

@@ -10,6 +10,9 @@ Disallow: /api/
 Disallow: /_headers
 Disallow: /_astro/
 Disallow: /manifest.webmanifest
+Disallow: /reviews/
+Disallow: /gatherings.ics
+Disallow: /gatherings/
 
 # 显式放行顶级搜索引擎爬虫
 User-agent: Googlebot

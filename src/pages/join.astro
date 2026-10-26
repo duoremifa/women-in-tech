@@ -1,189 +1,43 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getGatheringById, GATHERINGS } from '../data/gatherings';
 ---
 
 <Layout
-  title='预约加入 · Join the Circle · wo/men in tech'
-  description='预约交流与加入 wo/men in tech 社群。真诚相待、相互成就。'
+  title='预约加入 · Join · wo/men in tech'
+  description='加入 wo/men in tech——鼓励表达创作、深度沟通、尊重专业性的创造联合体。一次加入，长期订阅。'
   width='reading'
 >
   <div class='page-container'>
     <header class='page-header'>
       <span class='section-eyebrow'>JOIN THE CIRCLE</span>
-
       <div lang='zh-CN' class='lang-zh'>
-        <h1 class='page-title'>预约交流 · 加入“我们”</h1>
-        <p class='page-lead'>
-          如果你在技术、设计或创造领域，正在寻找同频且相互成就的伙伴，<br />
-          欢迎随时留下你的声音。
-        </p>
+        <h1 class='page-title'>加入"我们"</h1>
+        <p class='page-lead'>鼓励表达创作 · 深度沟通 · 尊重专业性——<br />如果你在找这样的场域，欢迎留下声音。</p>
       </div>
-
       <div lang='en' class='lang-en'>
         <h1 class='page-title'>Join the Circle</h1>
-        <p class='page-lead'>
-          If you are creating across technology, design, or writing, seeking companions of mutual resonance,<br />
-          you are warmly invited to leave a note.
-        </p>
+        <p class='page-lead'>Encourage expression · Deep dialogue · Respect for craft—<br />if this resonates, leave a note.</p>
       </div>
-
       <div class='gold-hairline'></div>
     </header>
 
-    {/* 模块 1: 圈子共鸣与谁适合加入 */}
-    <section class='join-editorial-block'>
-      <div lang='zh-CN' class='block-header lang-zh'>
-        <span class='block-serial'>01</span>
-        <h2 class='block-title'>寻找同频的创造者 · Resonant Companions</h2>
-        <p class='block-desc'>
-          这不是商业社交与人脉互换，我们更在意深度的倾听、未经修饰的卡壳，以及慢节奏雕琢出的作品。
-        </p>
-      </div>
-      <div lang='en' class='block-header lang-en'>
-        <span class='block-serial'>01</span>
-        <h2 class='block-title'>Resonant Companions</h2>
-        <p class='block-desc'>
-          Never networking or transactional barter. We care about patient listening, genuine friction, and signature craft.
-        </p>
-      </div>
+    {/* slot banner（从 /upcoming "我要这一期" 带来） */}
+    <div id='slot-banner' class='slot-banner' hidden>
+      <span class='slot-eyebrow'>RESERVED SLOT · 已选期次</span>
+      <h2 id='slot-title' class='slot-title'></h2>
+      <p id='slot-meta' class='slot-meta'></p>
+      <a id='slot-ics' class='slot-ics-link' href='#' download>
+        <span lang='zh-CN' class='lang-zh'>下载该期 .ics ↗</span>
+        <span lang='en' class='lang-en'>Download slot .ics ↗</span>
+      </a>
+    </div>
 
-      <div class='pillars-grid'>
-        <article class='pillar-card'>
-          <div class='pillar-top'>
-            <span class='pillar-tag'>PM · 产品</span>
-            <span class='pillar-accent'>✦</span>
-          </div>
-          <h3 lang='zh-CN' class='pillar-name lang-zh'>独立推敲者</h3>
-          <h3 lang='en' class='pillar-name lang-en'>Independent Builders</h3>
-          <p lang='zh-CN' class='pillar-text lang-zh'>
-            厌倦纯 KPI 导向的数字游戏与功利催逼，渴望推敲有真实温度、能切实解决问题的独立产品与体验闭环。
-          </p>
-          <p lang='en' class='pillar-text lang-en'>
-            Stepping back from artificial metrics—polishing humane, enduring product loops with care.
-          </p>
-        </article>
-
-        <article class='pillar-card'>
-          <div class='pillar-top'>
-            <span class='pillar-tag'>IxD · 交互</span>
-            <span class='pillar-accent'>✦</span>
-          </div>
-          <h3 lang='zh-CN' class='pillar-name lang-zh'>界面手艺人</h3>
-          <h3 lang='en' class='pillar-name lang-en'>Interface Artisans</h3>
-          <p lang='zh-CN' class='pillar-text lang-zh'>
-            对 8px 网格、排版灰度、缓动曲线与纸质触感有执念，坚信微小的细节承载着对使用者的敬畏与善意。
-          </p>
-          <p lang='en' class='pillar-text lang-en'>
-            Devoted to 8px grids, typographic cadence, and micro-interactions that hold genuine respect.
-          </p>
-        </article>
-
-        <article class='pillar-card'>
-          <div class='pillar-top'>
-            <span class='pillar-tag'>FE · 工程</span>
-            <span class='pillar-accent'>✦</span>
-          </div>
-          <h3 lang='zh-CN' class='pillar-name lang-zh'>架构践行者</h3>
-          <h3 lang='en' class='pillar-name lang-en'>System Crafts</h3>
-          <p lang='zh-CN' class='pillar-text lang-zh'>
-            追求干净代码与极速首屏体验，热爱本地优先（Local-first）、PWA 与脱离沉重冗余的纯粹工程。
-          </p>
-          <p lang='en' class='pillar-text lang-en'>
-            Loving clean code, sub-millisecond response, local-first architectures, and resilient engineering.
-          </p>
-        </article>
-
-        <article class='pillar-card'>
-          <div class='pillar-top'>
-            <span class='pillar-tag'>Writing · 思考</span>
-            <span class='pillar-accent'>✦</span>
-          </div>
-          <h3 lang='zh-CN' class='pillar-name lang-zh'>跨界观察者</h3>
-          <h3 lang='en' class='pillar-name lang-en'>Cross-disciplinary Thinkers</h3>
-          <p lang='zh-CN' class='pillar-text lang-zh'>
-            游走在技术与人文交界处，用文字记录时代脉动，以冷静深刻的视角审视人与数字工具的共生关系。
-          </p>
-          <p lang='en' class='pillar-text lang-en'>
-            Living between code and humanity, capturing quiet shifts with conceptual precision.
-          </p>
-        </article>
-      </div>
-    </section>
-
-    {/* 模块 2: 四步流转闭环 */}
-    <section class='join-editorial-block'>
-      <div lang='zh-CN' class='block-header lang-zh'>
-        <span class='block-serial'>02</span>
-        <h2 class='block-title'>加入机制与流转步骤 · 4-Step Rhythm</h2>
-        <p class='block-desc'>
-          我们崇尚低压与透明，从留下意向到面对面交流，每一步都清晰而从容：
-        </p>
-      </div>
-      <div lang='en' class='block-header lang-en'>
-        <span class='block-serial'>02</span>
-        <h2 class='block-title'>How We Connect · 4 Steps</h2>
-        <p class='block-desc'>
-          Low pressure and completely transparent—from leaving your note to gathering together:
-        </p>
-      </div>
-
-      <div class='flow-steps-grid'>
-        <div class='flow-step'>
-          <span class='flow-num'>01</span>
-          <h4 lang='zh-CN' class='flow-title lang-zh'>留下声音</h4>
-          <h4 lang='en' class='flow-title lang-en'>Leave a Note</h4>
-          <p lang='zh-CN' class='flow-desc lang-zh'>填写下方极简表单，告诉我们你的称呼、从事领域与正在琢磨的事（无任何门槛与评判压力）。</p>
-          <p lang='en' class='flow-desc lang-en'>Share your name, craft, and what you are tinkering with via the calm form below.</p>
-        </div>
-
-        <div class='flow-step'>
-          <span class='flow-num'>02</span>
-          <h4 lang='zh-CN' class='flow-title lang-zh'>日历占位与确认信</h4>
-          <h4 lang='en' class='flow-title lang-en'>Calendar & Confirmation</h4>
-          <p lang='zh-CN' class='flow-desc lang-zh'>系统即刻为你生成当期专属 .ics 日历邀请并发送确认信，一键导入手机或系统日历。</p>
-          <p lang='en' class='flow-desc lang-en'>Instantly receive a dedicated .ics calendar invite and confirmation email to save the slot.</p>
-        </div>
-
-        <div class='flow-step'>
-          <span class='flow-num'>03</span>
-          <h4 lang='zh-CN' class='flow-title lang-zh'>微信私下交流</h4>
-          <h4 lang='en' class='flow-title lang-en'>WeChat Connect</h4>
-          <p lang='zh-CN' class='flow-desc lang-zh'>随时添加发起人微信（daiminay），备注回执编号，可提前私下探讨正在推敲的作品或卡壳点。</p>
-          <p lang='en' class='flow-desc lang-en'>Connect directly on WeChat (daiminay) with your receipt ID to discuss works-in-progress.</p>
-        </div>
-
-        <div class='flow-step'>
-          <span class='flow-num'>04</span>
-          <h4 lang='zh-CN' class='flow-title lang-zh'>极小规模相见</h4>
-          <h4 lang='en' class='flow-title lang-en'>Gather Intimately</h4>
-          <p lang='zh-CN' class='flow-desc lang-zh'>根据排期加入 3-5 人深度倾听与推敲的 Coffee Chat 或 Show & Tell（杭州线下 / 线上连线）。</p>
-          <p lang='en' class='flow-desc lang-en'>Join an intimate 3–5 person Coffee Chat or Show & Tell (Hangzhou offline or online).</p>
-        </div>
-      </div>
-    </section>
-
-    {/* 模块 3: 预约交流表单 */}
-    <section class='join-editorial-block'>
-      <div lang='zh-CN' class='block-header lang-zh'>
-        <span class='block-serial'>03</span>
-        <h2 class='block-title'>填写预约交流表单 · Leave Your Note</h2>
-        <p class='block-desc'>
-          无需简历，也无需完美的作品集。随意写写最近在想的事情，或是你希望交流的切片。
-        </p>
-      </div>
-      <div lang='en' class='block-header lang-en'>
-        <span class='block-serial'>03</span>
-        <h2 class='block-title'>Leave Your Note</h2>
-        <p class='block-desc'>
-          No resume, no polished portfolios. Simply share what you are exploring or questions on your mind.
-        </p>
-      </div>
-
-      <div class='form-card-container'>
+    <div class='form-card-container'>
       <form id='circle-join-form' class='quiet-form'>
-        {/* 商业级反爬蜜罐与机器人陷阱 (视觉隐藏，爬虫秒填即被拦截) */}
         <input type='text' name='_hp' value='' tabindex='-1' autocomplete='off' aria-label='请勿填写 / Leave this field empty' style='position:absolute;opacity:0;pointer-events:none;left:-9999px;width:1px;height:1px;' />
-        {/* 字段 1: 称呼 */}
+
+        {/* 字段 1: 称呼（始终需要） */}
         <div class='form-field'>
           <label class='field-label' for='join-name'>
             <span lang='zh-CN' class='lang-zh'>如何称呼你</span>
@@ -191,20 +45,11 @@ import Layout from '../layouts/Layout.astro';
             <span lang='zh-CN' class='field-hint lang-zh'>名字或习惯的称呼</span>
             <span lang='en' class='field-hint lang-en'>Name or preferred moniker</span>
           </label>
-          <input
-            type='text'
-            id='join-name'
-            name='name'
-            placeholder='例如：Erin 或你习惯的称呼'
-            data-placeholder-zh='例如：Erin 或你习惯的称呼'
-            data-placeholder-en='e.g., Erin or your preferred moniker'
-            required
-            autocomplete='off'
-          />
+          <input type='text' id='join-name' name='name' placeholder='例如：Erin 或你习惯的称呼' data-placeholder-zh='例如：Erin 或你习惯的称呼' data-placeholder-en='e.g., Erin or your preferred moniker' required autocomplete='off' />
         </div>
 
-        {/* 字段 2: 从事领域 (前置细金线单选列表) */}
-        <div class='form-field'>
+        {/* 字段 2: 从事领域（slot 模式下隐藏） */}
+        <div class='form-field craft-field'>
           <label class='field-label'>
             <span lang='zh-CN' class='lang-zh'>你在从事的领域</span>
             <span lang='en' class='lang-en'>Your Primary Craft</span>
@@ -212,65 +57,16 @@ import Layout from '../layouts/Layout.astro';
             <span lang='en' class='field-hint lang-en'>Single choice</span>
           </label>
           <div class='quiet-check-list' role='radiogroup' aria-label='从事领域'>
-            <label class='quiet-check-row is-radio'>
-              <input type='radio' name='craft' value='design' checked />
-              <span class='check-indicator' aria-hidden='true'></span>
-              <div class='check-content'>
-                <span lang='zh-CN' class='check-title lang-zh'>设计 · 视觉传达 / 交互体验 (IxD / UI)</span>
-                <span lang='en' class='check-title lang-en'>Design · Interaction & Visual Craft (IxD / UI)</span>
-                <span lang='zh-CN' class='check-note lang-zh'>视觉、触感与动效</span>
-                <span lang='en' class='check-note lang-en'>Visuals, typography & micro-interactions</span>
-              </div>
-            </label>
-
-            <label class='quiet-check-row is-radio'>
-              <input type='radio' name='craft' value='product' />
-              <span class='check-indicator' aria-hidden='true'></span>
-              <div class='check-content'>
-                <span lang='zh-CN' class='check-title lang-zh'>产品 · 商业逻辑 / 独立孵化 (PM)</span>
-                <span lang='en' class='check-title lang-en'>Product · Product Strategy & Independent Projects (PM)</span>
-                <span lang='zh-CN' class='check-note lang-zh'>痛点挖掘与体验闭环</span>
-                <span lang='en' class='check-note lang-en'>Problem framing & human experience loops</span>
-              </div>
-            </label>
-
-            <label class='quiet-check-row is-radio'>
-              <input type='radio' name='craft' value='engineering' />
-              <span class='check-indicator' aria-hidden='true'></span>
-              <div class='check-content'>
-                <span lang='zh-CN' class='check-title lang-zh'>工程 · 前端架构 / 独立全栈 (FE / Fullstack)</span>
-                <span lang='en' class='check-title lang-en'>Engineering · Frontend Architecture & Systems (FE)</span>
-                <span lang='zh-CN' class='check-note lang-zh'>代码实现与鲁棒工程</span>
-                <span lang='en' class='check-note lang-en'>Robust code craftsmanship and system design</span>
-              </div>
-            </label>
-
-            <label class='quiet-check-row is-radio'>
-              <input type='radio' name='craft' value='research' />
-              <span class='check-indicator' aria-hidden='true'></span>
-              <div class='check-content'>
-                <span lang='zh-CN' class='check-title lang-zh'>研究 · 用户洞察 / 写作出版 (Research / Writing)</span>
-                <span lang='en' class='check-title lang-en'>Research · User Inquiries & Writing (Research / Writing)</span>
-                <span lang='zh-CN' class='check-note lang-zh'>深度观察与概念叙事</span>
-                <span lang='en' class='check-note lang-en'>Deep cultural observation and conceptual synthesis</span>
-              </div>
-            </label>
-
-            <label class='quiet-check-row is-radio'>
-              <input type='radio' name='craft' value='other' />
-              <span class='check-indicator' aria-hidden='true'></span>
-              <div class='check-content'>
-                <span lang='zh-CN' class='check-title lang-zh'>其他创造性领域 · 自由探索者</span>
-                <span lang='en' class='check-title lang-en'>Other Creative Pursuits · Independent Explorers</span>
-                <span lang='zh-CN' class='check-note lang-zh'>跨学科独立创作者</span>
-                <span lang='en' class='check-note lang-en'>Cross-disciplinary creators and tinkerers</span>
-              </div>
-            </label>
+            <label class='quiet-check-row is-radio'><input type='radio' name='craft' value='design' checked /><span class='check-indicator' aria-hidden='true'></span><div class='check-content'><span lang='zh-CN' class='check-title lang-zh'>设计 · 视觉传达 / 交互体验 (IxD)</span><span lang='en' class='check-title lang-en'>Design · Interaction & Visual Craft</span></div></label>
+            <label class='quiet-check-row is-radio'><input type='radio' name='craft' value='product' /><span class='check-indicator' aria-hidden='true'></span><div class='check-content'><span lang='zh-CN' class='check-title lang-zh'>产品 · 商业逻辑 / 独立孵化 (PM)</span><span lang='en' class='check-title lang-en'>Product · Strategy & Independent Work</span></div></label>
+            <label class='quiet-check-row is-radio'><input type='radio' name='craft' value='engineering' /><span class='check-indicator' aria-hidden='true'></span><div class='check-content'><span lang='zh-CN' class='check-title lang-zh'>工程 · 前端架构 / 独立全栈 (FE)</span><span lang='en' class='check-title lang-en'>Engineering · Frontend & Systems</span></div></label>
+            <label class='quiet-check-row is-radio'><input type='radio' name='craft' value='research' /><span class='check-indicator' aria-hidden='true'></span><div class='check-content'><span lang='zh-CN' class='check-title lang-zh'>研究 · 用户洞察 / 写作</span><span lang='en' class='check-title lang-en'>Research · Inquiry & Writing</span></div></label>
+            <label class='quiet-check-row is-radio'><input type='radio' name='craft' value='other' /><span class='check-indicator' aria-hidden='true'></span><div class='check-content'><span lang='zh-CN' class='check-title lang-zh'>其他创造性领域</span><span lang='en' class='check-title lang-en'>Other creative pursuits</span></div></label>
           </div>
         </div>
 
-        {/* 字段 3: 感兴趣的活动 (前置细金线多选列表) */}
-        <div class='form-field'>
+        {/* 字段 3: 感兴趣的活动（slot 模式下隐藏） */}
+        <div class='form-field interests-field'>
           <span class='field-label' id='join-interests-label'>
             <span lang='zh-CN' class='lang-zh'>想参与的活动形式</span>
             <span lang='en' class='lang-en'>Gatherings of Interest</span>
@@ -278,268 +74,144 @@ import Layout from '../layouts/Layout.astro';
             <span lang='en' class='field-hint lang-en'>Multiple choice</span>
           </span>
           <div class='quiet-check-list' role='group' aria-labelledby='join-interests-label'>
-            <label class='quiet-check-row'>
-              <input type='checkbox' name='interests' value='coffee_chat' checked />
-              <span class='check-indicator' aria-hidden='true'>
-                <svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg>
-              </span>
-              <div class='check-content'>
-                <span lang='zh-CN' class='check-title lang-zh'>Coffee Chat</span>
-                <span lang='en' class='check-title lang-en'>Coffee Chat</span>
-                <span lang='zh-CN' class='check-note lang-zh'>双周轻聚 · 低压真诚</span>
-                <span lang='en' class='check-note lang-en'>Biweekly · low pressure, genuine connection</span>
-              </div>
-            </label>
-
-            <label class='quiet-check-row'>
-              <input type='checkbox' name='interests' value='english_chat' checked />
-              <span class='check-indicator' aria-hidden='true'>
-                <svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg>
-              </span>
-              <div class='check-content'>
-                <span lang='zh-CN' class='check-title lang-zh'>English Tech & Design Chat</span>
-                <span lang='en' class='check-title lang-en'>English Tech & Design Chat</span>
-                <span lang='zh-CN' class='check-note lang-zh'>跨文化表达 · 5 min Show & Tell</span>
-                <span lang='en' class='check-note lang-en'>Biweekly online · 5 min Show & Tell</span>
-              </div>
-            </label>
-
-            <label class='quiet-check-row'>
-              <input type='checkbox' name='interests' value='portfolio_building' checked />
-              <span class='check-indicator' aria-hidden='true'>
-                <svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg>
-              </span>
-              <div class='check-content'>
-                <span lang='zh-CN' class='check-title lang-zh'>作品 Lab · 慢工出细活</span>
-                <span lang='en' class='check-title lang-en'>Craft Lab</span>
-                <span lang='zh-CN' class='check-note lang-zh'>经验互借 · 代表作打磨</span>
-                <span lang='en' class='check-note lang-en'>Small cohorts · patient iteration on signature work</span>
-              </div>
-            </label>
+            <label class='quiet-check-row'><input type='checkbox' name='interests' value='coffee_chat' checked /><span class='check-indicator' aria-hidden='true'><svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg></span><div class='check-content'><span lang='zh-CN' class='check-title lang-zh'>Coffee Chat</span><span lang='en' class='check-title lang-en'>Coffee Chat</span><span lang='zh-CN' class='check-note lang-zh'>双周轻聚 · 低压真诚</span><span lang='en' class='check-note lang-en'>Biweekly · low pressure</span></div></label>
+            <label class='quiet-check-row'><input type='checkbox' name='interests' value='english_chat' checked /><span class='check-indicator' aria-hidden='true'><svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg></span><div class='check-content'><span lang='zh-CN' class='check-title lang-zh'>English Tech & Design Chat</span><span lang='en' class='check-title lang-en'>English Tech & Design Chat</span><span lang='zh-CN' class='check-note lang-zh'>双周线上 · Show & Tell</span><span lang='en' class='check-note lang-en'>Biweekly online · Show & Tell</span></div></label>
+            <label class='quiet-check-row'><input type='checkbox' name='interests' value='portfolio_building' /><span class='check-indicator' aria-hidden='true'><svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg></span><div class='check-content'><span lang='zh-CN' class='check-title lang-zh'>作品 Lab · 慢工出细活</span><span lang='en' class='check-title lang-en'>Craft Lab</span><span lang='zh-CN' class='check-note lang-zh'>经验互借 · 代表作打磨</span><span lang='en' class='check-note lang-en'>Patient iteration on signature work</span></div></label>
           </div>
         </div>
 
-        {/* 字段 4: 正在琢磨的事 */}
-        <div class='form-field'>
+        {/* 字段 4: 正在琢磨的事（slot 模式下隐藏） */}
+        <div class='form-field idea-field'>
           <label class='field-label' for='join-idea'>
-            <span lang='zh-CN' class='lang-zh'>正在做的事，或者想交流的话题</span>
-            <span lang='en' class='lang-en'>Current projects, questions, or topics you care about</span>
+            <span lang='zh-CN' class='lang-zh'>正在做的事，或想交流的话题</span>
+            <span lang='en' class='lang-en'>Current projects or topics</span>
             <span lang='zh-CN' class='field-hint lang-zh'>可留空</span>
             <span lang='en' class='field-hint lang-en'>Optional</span>
           </label>
-          <textarea
-            id='join-idea'
-            name='idea'
-            rows='3'
-            placeholder='例如：正在构思一个极简独立工具，想找设计师伙伴交流；或者想练习用英语做一次产品 demo……'
-            data-placeholder-zh='例如：正在构思一个极简独立工具，想找设计师伙伴交流；或者想练习用英语做一次产品 demo……'
-            data-placeholder-en='e.g., Working on a minimal side tool, looking for design feedback, or wanting to practice a calm demo in English...'
-          ></textarea>
+          <textarea id='join-idea' name='idea' rows='3' placeholder='例如：正在构思一个极简独立工具，想找设计师伙伴交流……' data-placeholder-zh='例如：正在构思一个极简独立工具，想找设计师伙伴交流……' data-placeholder-en='e.g., Working on a minimal side tool, looking for design feedback...'></textarea>
         </div>
 
-        {/* 字段 5: 联系方式 */}
+        {/* 字段 5: 联系方式（始终需要） */}
         <div class='form-field'>
           <label class='field-label' for='join-contact'>
             <span lang='zh-CN' class='lang-zh'>联系方式</span>
-            <span lang='en' class='lang-en'>Contact Information</span>
+            <span lang='en' class='lang-en'>Contact</span>
             <span lang='zh-CN' class='field-hint lang-zh'>微信或邮箱 · 仅用于活动邀请</span>
-            <span lang='en' class='field-hint lang-en'>WeChat ID or Email · strictly for circle invites</span>
+            <span lang='en' class='field-hint lang-en'>WeChat or Email · for invites only</span>
           </label>
-          <input
-            type='text'
-            id='join-contact'
-            name='contact'
-            placeholder='微信号或 Email'
-            data-placeholder-zh='微信号或 Email'
-            data-placeholder-en='WeChat ID or Email'
-            required
-            autocomplete='off'
-          />
+          <input type='text' id='join-contact' name='contact' placeholder='微信号或 Email' data-placeholder-zh='微信号或 Email' data-placeholder-en='WeChat ID or Email' required autocomplete='off' />
         </div>
 
-        {/* 提交按钮与状态 */}
+        {/* 订阅区（替代一次性 RSVP） */}
+        <div class='form-field subscribe-field'>
+          <span class='field-label'>
+            <span lang='zh-CN' class='lang-zh'>订阅偏好</span>
+            <span lang='en' class='lang-en'>Subscription</span>
+            <span lang='zh-CN' class='field-hint lang-zh'>一次加入 = 长期订阅</span>
+            <span lang='en' class='field-hint lang-en'>One join = lasting subscription</span>
+          </span>
+          <div class='quiet-check-list'>
+            <label class='quiet-check-row'><input type='checkbox' name='subscribe_calendar' value='1' checked /><span class='check-indicator' aria-hidden='true'><svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg></span><div class='check-content'><span lang='zh-CN' class='check-title lang-zh'>订阅日历源（webcal，自动同步下期）</span><span lang='en' class='check-title lang-en'>Subscribe calendar feed (webcal)</span><span lang='zh-CN' class='check-note lang-zh'><a class='inline-link' href='webcal://wotech.space/gatherings.ics'>点此在系统日历订阅</a></span><span lang='en' class='check-note lang-en'><a class='inline-link' href='webcal://wotech.space/gatherings.ics'>Subscribe in your calendar app</a></span></div></label>
+            <label class='quiet-check-row'><input type='checkbox' name='subscribe_email' value='1' checked /><span class='check-indicator' aria-hidden='true'><svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg></span><div class='check-content'><span lang='zh-CN' class='check-title lang-zh'>邮件订阅下一期通知</span><span lang='en' class='check-title lang-en'>Email notify on new slots</span><span lang='zh-CN' class='check-note lang-zh'>新排期上线时邮件提醒（低频）</span><span lang='en' class='check-note lang-en'>Low-frequency email on new schedule</span></div></label>
+            <label class='quiet-check-row'><input type='checkbox' name='one_time' value='1' /><span class='check-indicator' aria-hidden='true'><svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg></span><div class='check-content'><span lang='zh-CN' class='check-title lang-zh'>仅本次预约（生成 .ics，不订阅）</span><span lang='en' class='check-title lang-en'>One-time only (.ics, no subscription)</span></div></label>
+          </div>
+        </div>
+
         <div class='submit-zone'>
           <button type='submit' class='submit-btn-primary' id='submit-trigger'>
-            <span lang='zh-CN' class='lang-zh'>预约交流</span>
-            <span lang='en' class='lang-en'>Join the Conversation</span>
+            <span lang='zh-CN' class='lang-zh'>加入</span>
+            <span lang='en' class='lang-en'>Join</span>
             <span class='btn-arrow' aria-hidden='true'>⟶</span>
           </button>
           <div class='privacy-assurance-pill'>
             <span class='privacy-dot' aria-hidden='true'>✦</span>
-            <span lang='zh-CN' class='privacy-text lang-zh'>随时可退订联系 · 承诺不作商业营销</span>
-            <span lang='en' class='privacy-text lang-en'>Unsubscribe anytime · Zero commercial marketing</span>
+            <span lang='zh-CN' class='privacy-text lang-zh'>随时可退订 · 零商业营销</span>
+            <span lang='en' class='privacy-text lang-en'>Unsubscribe anytime · Zero marketing</span>
           </div>
         </div>
 
-        {/* 成功反馈回执函卡片 */}
+        {/* 回执 */}
         <div id='join-feedback' class='feedback-receipt' role='status' aria-live='polite' aria-atomic='true' style='display: none;'>
           <div class='receipt-card'>
             <div class='receipt-header'>
-              <span class='receipt-mark'>✦</span>
+              <span class='receipt-mark' aria-hidden='true'>✦</span>
               <div>
-                <h3 lang='zh-CN' class='receipt-title lang-zh'>意向已真诚记录</h3>
-                <h3 lang='en' class='receipt-title lang-en'>Received with Warmth</h3>
+                <h3 lang='zh-CN' class='receipt-title lang-zh'>已记录</h3>
+                <h3 lang='en' class='receipt-title lang-en'>Received</h3>
                 <span class='receipt-id' id='receipt-id-display'>回执编号: WT-PENDING</span>
               </div>
             </div>
-            
             <div class='receipt-desc-box'>
-              <p lang='zh-CN' class='receipt-desc lang-zh' id='join-note-text'>
-                感谢你的加入。意向已收录入社群档案。
-              </p>
-              <p lang='en' class='receipt-desc lang-en' id='join-note-text-en'>
-                Thank you for reaching out. Your note has been securely saved in our circle records.
-              </p>
+              <p lang='zh-CN' class='receipt-desc lang-zh' id='join-note-text'>感谢你的加入。意向已收录入社群档案。</p>
+              <p lang='en' class='receipt-desc lang-en' id='join-note-text-en'>Thank you for reaching out. Your note has been saved.</p>
             </div>
-
-            <div class='receipt-summary' id='receipt-summary-box'>
-              {/* 动态填充摘要 */}
-            </div>
-
-            {/* 闭环双操作区 */}
-            <div class='receipt-loop-grid'>
-              {/* 闭环 1: 日历占位 (.ics) */}
-              <div class='loop-cell'>
-                <div class='loop-cell-info'>
-                  <span lang='zh-CN' class='loop-cell-tag lang-zh'>日历占位 · .ics</span>
-                  <span lang='en' class='loop-cell-tag lang-en'>Calendar · .ics</span>
-                  <p lang='zh-CN' class='loop-cell-desc lang-zh'>包含 Coffee Chat 与 Show & Tell 交流时段，一键导入手机或系统日历。</p>
-                  <p lang='en' class='loop-cell-desc lang-en'>Includes Coffee Chat & Show & Tell slots. Import to system calendar with one click.</p>
-                </div>
-                <button type='button' class='btn-download-ics' id='join-btn-download-ics'>
-                  <span lang='zh-CN' class='lang-zh'>下载 .ics 日历邀请 ↗</span>
-                  <span lang='en' class='lang-en'>Download .ics Invite ↗</span>
+            <div class='receipt-loop'>
+              <a id='receipt-ics' class='btn-download-ics' href='#' download hidden>
+                <span lang='zh-CN' class='lang-zh'>下载 .ics ↗</span>
+                <span lang='en' class='lang-en'>Download .ics ↗</span>
+              </a>
+              <div class='wechat-field-card'>
+                <span class='wechat-label-caption' lang='zh-CN'>微信</span>
+                <code class='wechat-handle'>daiminay</code>
+                <button type='button' class='btn-copy-hairline' id='join-btn-copy-wechat' data-wechat='daiminay'>
+                  <span lang='zh-CN' class='copy-text lang-zh'>复制</span>
+                  <span lang='en' class='copy-text lang-en'>Copy</span>
                 </button>
               </div>
-
-              {/* 闭环 2: 微信联络通道 */}
-              <div class='loop-cell'>
-                <div class='loop-cell-info'>
-                  <span lang='zh-CN' class='loop-cell-tag lang-zh'>微信直接交流</span>
-                  <span lang='en' class='loop-cell-tag lang-en'>Connect via WeChat</span>
-                  <p lang='zh-CN' class='loop-cell-desc lang-zh'>如果有正在推敲的作品或想法想先聊聊，欢迎随时联系我。</p>
-                  <p lang='en' class='loop-cell-desc lang-en'>If you have a thought or project in progress you'd like to share, feel free to reach out directly.</p>
-                </div>
-                <div class='wechat-field-card'>
-                  <div class='wechat-text-col'>
-                    <span class='wechat-label-caption'>微信号</span>
-                    <code class='wechat-handle'>daiminay</code>
-                  </div>
-                  <button type='button' class='btn-copy-hairline' id='join-btn-copy-wechat' data-wechat='daiminay'>
-                    <span lang='zh-CN' class='copy-text lang-zh'>复制</span>
-                    <span lang='en' class='copy-text lang-en'>Copy</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class='receipt-actions'>
-              <button type='button' class='btn-copy-receipt' id='btn-copy-receipt'>
-                <span lang='zh-CN' class='lang-zh'>复制我的预约摘要</span>
-                <span lang='en' class='lang-en'>Copy Summary</span>
-              </button>
-              <a href='/' class='btn-back-home'>
-                <span lang='zh-CN' class='lang-zh'>返回主页</span>
-                <span lang='en' class='lang-en'>Back Home</span>
-              </a>
             </div>
           </div>
         </div>
       </form>
     </div>
-  </section>
 
-  {/* 模块 4: 加入须知与常见答疑 */}
-  <section class='join-faq-section'>
-    <div class='faq-card'>
-      <h3 lang='zh-CN' class='lang-zh'>加入须知与常见答疑</h3>
-      <h3 lang='en' class='lang-en'>Circle Norms & Common Questions</h3>
+    {/* FAQ（精简） */}
+    <section class='join-faq-section'>
+      <div class='faq-card'>
+        <h3 lang='zh-CN' class='lang-zh'>加入须知</h3>
+        <h3 lang='en' class='lang-en'>Circle Norms</h3>
+        <div lang='zh-CN' class='faq-grid lang-zh'>
+          <div class='faq-item'><h4>收费吗？</h4><p>纯公益，无任何费用。线下各自点单，线上完全免费。</p></div>
+          <div class='faq-item'><h4>没成型代表作？</h4><p>完全可以。一个萌芽的念头、一段卡壳的思考，本身就值得被听见。</p></div>
+        </div>
+        <div lang='en' class='faq-grid lang-en'>
+          <div class='faq-item'><h4>Fees?</h4><p>Zero. Offline: own drinks. Online: free.</p></div>
+          <div class='faq-item'><h4>No finished work?</h4><p>Absolutely fine. A budding thought is enough.</p></div>
+        </div>
+      </div>
+    </section>
 
-      <div lang='zh-CN' class='faq-grid lang-zh'>
-        <div class='faq-item'>
-          <h4>收费吗？有商业营销吗？</h4>
-          <p>纯公益且非商业化独立圈子，不收取任何社群费用或会员费。线下咖啡聚会各自点单，线上连线完全免费。我们严守底线，绝无商业营销或群发广告。</p>
-        </div>
-        <div class='faq-item'>
-          <h4>我暂时没有成型的代表作，可以加入吗？</h4>
-          <p>完全可以。哪怕只是一个刚刚萌芽的念头、一段创作卡壳的思考，或者一次单纯想听别人分享的愿望，真诚的倾听与提问本身就是最宝贵的手艺。</p>
-        </div>
-        <div class='faq-item'>
-          <h4>必须在杭州本地吗？</h4>
-          <p>不局限于杭州。杭州线下聚会双周举行，同时所有 Coffee Chat 与 Show & Tell 均提供线上视频室连线，无论你在哪个城市，均可从容接入。</p>
-        </div>
-        <div class='faq-item'>
-          <h4>如果不习惯高频社交，会有压力吗？</h4>
-          <p>绝无压力。我们每次聚会严格限定 3-5 人，没有职场说教，也不设强制发言环节。你可以选择畅所欲言，亦可全程安静品尝咖啡、聆听他人。</p>
+    <section class='next-steps'>
+      <div class='next-card'>
+        <div lang='zh-CN' class='next-text lang-zh'><h3>探索更多</h3><p>读理念、看机制、或查排期。</p></div>
+        <div lang='en' class='next-text lang-en'><h3>Explore</h3><p>Ethos, mechanics, or schedule.</p></div>
+        <div class='next-actions'>
+          <a href='/ethos' class='btn-link-gold'><span lang='zh-CN' class='lang-zh'>理念 →</span><span lang='en' class='lang-en'>Ethos →</span></a>
+          <a href='/upcoming' class='btn-link-gold'><span lang='zh-CN' class='lang-zh'>排期 →</span><span lang='en' class='lang-en'>Schedule →</span></a>
+          <a href='/' class='btn-solid-dark'><span lang='zh-CN' class='lang-zh'>返回首页</span><span lang='en' class='lang-en'>Home</span></a>
         </div>
       </div>
-
-      <div lang='en' class='faq-grid lang-en'>
-        <div class='faq-item'>
-          <h4>Are there dues or marketing?</h4>
-          <p>Zero fees or commercial marketing. For offline meetups, we simply cover our own drinks; online calls are completely free.</p>
-        </div>
-        <div class='faq-item'>
-          <h4>Can I join without a finished signature project?</h4>
-          <p>Absolutely. A budding question, a lingering design puzzle, or quiet curiosity is more than enough.</p>
-        </div>
-        <div class='faq-item'>
-          <h4>Do I need to be in Hangzhou?</h4>
-          <p>No. Offline meetups take place in Hangzhou, but all gatherings include seamless online video links for global participants.</p>
-        </div>
-        <div class='faq-item'>
-          <h4>Is there social pressure?</h4>
-          <p>Never. Capped at 3–5 participants with zero patronizing lectures. Speak or listen as you wish.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* 模块 5: 底部行动引导与回环导航 */}
-  <section class='next-steps'>
-    <div class='next-card'>
-      <div lang='zh-CN' class='next-text lang-zh'>
-        <h3>探索更多圈子日常与排期</h3>
-        <p>阅读手艺准则与共建机制，或查看近期的聚会日历安排。</p>
-      </div>
-      <div lang='en' class='next-text lang-en'>
-        <h3>Explore Further</h3>
-        <p>Read our craft manifesto or browse the upcoming calendar.</p>
-      </div>
-      <div class='next-actions'>
-        <a href='/events' class='btn-link-gold'>
-          <span lang='zh-CN' class='lang-zh'>阅读日常与创作机制 →</span>
-          <span lang='en' class='lang-en'>What We Do →</span>
-        </a>
-        <a href='/upcoming' class='btn-link-gold'>
-          <span lang='zh-CN' class='lang-zh'>查看近期排期安排 →</span>
-          <span lang='en' class='lang-en'>Upcoming Schedule →</span>
-        </a>
-        <a href='/' class='btn-solid-dark'>
-          <span lang='zh-CN' class='lang-zh'>返回首页</span>
-          <span lang='en' class='lang-en'>Back to Home</span>
-        </a>
-      </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
 </Layout>
 
 <script>
   import { generateICS, WECHAT_HANDLE } from '../lib/join-shared';
+  import { getGatheringById } from '../data/gatherings';
+
+  // 注：getGatheringById 在客户端是 build 期数据，仅用于读 title/date 显示 banner。
+  // 服务端校验仍以 functions/api/join.ts 为准。
 
   function setupJoinPageForm() {
     const form = document.getElementById('circle-join-form') as HTMLFormElement | null;
     const feedback = document.getElementById('join-feedback');
     const submitBtn = document.getElementById('submit-trigger');
     const receiptIdDisplay = document.getElementById('receipt-id-display');
-    const receiptSummaryBox = document.getElementById('receipt-summary-box');
-    const copyBtn = document.getElementById('btn-copy-receipt');
-    const downloadIcsBtn = document.getElementById('join-btn-download-ics');
+    const receiptIcs = document.getElementById('receipt-ics') as HTMLAnchorElement | null;
     const copyWechatBtn = document.getElementById('join-btn-copy-wechat');
 
     let currentIcsData = '';
     let currentSubId = '';
+    let activeSlotId = '';
 
     function syncPlaceholders() {
       const isEn = document.documentElement.getAttribute('data-lang') === 'en';
@@ -547,112 +219,107 @@ import Layout from '../layouts/Layout.astro';
         el.placeholder = isEn ? (el.dataset.placeholderEn || '') : (el.dataset.placeholderZh || '');
       });
     }
-
     syncPlaceholders();
-    // 跨页持久的监听只注册一次
     if (!(window as any).__wotech_join_lang_bound) {
       (window as any).__wotech_join_lang_bound = true;
       window.addEventListener('site-language-change', syncPlaceholders);
     }
 
-    let lastPayloadText = '';
+    // ── slot banner：从 /upcoming "我要这一期" 带 ?slot=<id> ──
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const slotId = params.get('slot');
+      const workSlug = params.get('work');
+      const source = params.get('source');
+      const interestParam = params.get('interest');
 
-    if (downloadIcsBtn) {
-      downloadIcsBtn.onclick = () => {
-        if (!currentIcsData) return;
-        const blob = new Blob([currentIcsData], { type: 'text/calendar;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `wotech-gathering-${currentSubId || 'invite'}.ics`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      };
-    }
+      if (slotId) {
+        const g = getGatheringById(slotId);
+        if (g) {
+          activeSlotId = slotId;
+          const banner = document.getElementById('slot-banner');
+          const titleEl = document.getElementById('slot-title');
+          const metaEl = document.getElementById('slot-meta');
+          const icsLink = document.getElementById('slot-ics') as HTMLAnchorElement | null;
+          if (banner && titleEl && metaEl && icsLink) {
+            const isEn = document.documentElement.getAttribute('data-lang') === 'en';
+            titleEl.textContent = isEn ? g.titleEn : g.titleZh;
+            const date = new Date(g.startIso).toLocaleString(isEn ? 'en-US' : 'zh-CN', { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+            metaEl.textContent = `${date} GMT+8 · ${g.location.type === 'VirtualLocation' ? (isEn ? 'Online' : '线上') : (isEn ? 'Hangzhou + Online' : '杭州 + 线上')}`;
+            icsLink.href = `/gatherings/${g.id}.ics`;
+            banner.hidden = false;
+            // slot 模式：隐藏 craft/interests/idea（slot 已隐含兴趣）
+            document.querySelector('.craft-field')?.setAttribute('hidden', '');
+            document.querySelector('.interests-field')?.setAttribute('hidden', '');
+            document.querySelector('.idea-field')?.setAttribute('hidden', '');
+          }
+        }
+      } else if (interestParam) {
+        // ?interest=portfolio_building 等仍走原逻辑（预勾选）
+        const cb = Array.from(form?.querySelectorAll<HTMLInputElement>("input[name='interests']") || [])
+          .find(el => el.value === interestParam || (interestParam === 'portfolio_building' && el.value === 'portfolio_building'));
+        if (cb) {
+          (form?.querySelectorAll<HTMLInputElement>("input[name='interests']") || []).forEach(el => { el.checked = false; });
+          cb.checked = true;
+        }
+      }
 
+      if (workSlug) {
+        const idea = document.getElementById('join-idea') as HTMLTextAreaElement | null;
+        const isEn = document.documentElement.getAttribute('data-lang') === 'en';
+        if (idea) idea.value = isEn ? `I am interested in co-building: ${workSlug}` : `想参与《${workSlug}》的共建打磨，我的专长可以贡献在……`;
+      }
+      if (source) { /* 记录来源，submit 时带上 */ }
+    } catch (e) {}
+
+    // ── copy wechat ──
     if (copyWechatBtn) {
       copyWechatBtn.onclick = async () => {
         try {
           await navigator.clipboard.writeText(WECHAT_HANDLE);
-          // 分别更新双语 span，保留 .lang-zh/.lang-en 结构
           const spans = copyWechatBtn.querySelectorAll<HTMLElement>('.copy-text');
           const originals: string[] = [];
-          spans.forEach((s, i) => {
-            originals[i] = s.textContent || '';
-            s.textContent = i === 0 ? '✓ 已复制' : '✓ Copied';
-          });
-          setTimeout(() => {
-            spans.forEach((s, i) => { s.textContent = originals[i]; });
-          }, 2500);
+          spans.forEach((s, i) => { originals[i] = s.textContent || ''; s.textContent = i === 0 ? '✓ 已复制' : '✓ Copied'; });
+          setTimeout(() => { spans.forEach((s, i) => { s.textContent = originals[i]; }); }, 2500);
         } catch (e) {}
       };
     }
-
-    // 接收从 /upcoming 或外部链接传入的 ?interest= 参数并自动定位
-    try {
-      const urlParams = new URLSearchParams(window.location.search);
-      const interestParam = urlParams.get('interest');
-      if (interestParam && form) {
-        // 用值匹配而非字符串拼选择器，杜绝选择器注入
-        const targetCheckbox = Array.from(form.querySelectorAll<HTMLInputElement>("input[name='interests']"))
-          .find(cb => cb.value === interestParam);
-        if (targetCheckbox) {
-          form.querySelectorAll<HTMLInputElement>("input[name='interests']").forEach((cb) => {
-            cb.checked = (cb === targetCheckbox);
-          });
-          const formCard = document.querySelector('.form-card-container');
-          if (formCard) {
-            setTimeout(() => {
-              formCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              const nameInput = document.getElementById('join-name');
-              nameInput?.focus();
-            }, 300);
-          }
-        }
-      }
-    } catch (e) {}
 
     const formMountTime = Date.now();
     if (form && feedback) {
       form.onsubmit = async (e) => {
         e.preventDefault();
-        
         const formData = new FormData(form);
-        const name = formData.get('name') as string;
-        const craft = formData.get('craft') as string;
-        const interests = formData.getAll('interests') as string[];
-        const idea = formData.get('idea') as string;
-        const contact = formData.get('contact') as string;
-        const hpVal = (formData.get('_hp') as string) || '';
-        const clientTimestamp = new Date().toISOString();
+        const name = String(formData.get('name') || '');
+        const craft = String(formData.get('craft') || '');
+        const interests = formData.getAll('interests').map(String);
+        const idea = String(formData.get('idea') || '');
+        const contact = String(formData.get('contact') || '').trim();
+        const hpVal = String(formData.get('_hp') || '');
+        const subscribeCalendar = formData.get('subscribe_calendar') === '1';
+        const subscribeEmail = formData.get('subscribe_email') === '1';
+        const oneTime = formData.get('one_time') === '1';
 
         const payload = {
-          name,
-          craft,
-          interests,
-          idea,
-          contact,
-          _hp: hpVal,
-          _t: formMountTime,
-          clientTimestamp,
+          name, craft, interests, idea, contact,
+          _hp: hpVal, _t: formMountTime,
+          slot_id: activeSlotId || undefined,
+          subscribe_calendar: subscribeCalendar,
+          subscribe_email: subscribeEmail,
+          one_time: oneTime,
+          source: new URLSearchParams(window.location.search).get('source') || undefined,
+          clientTimestamp: new Date().toISOString(),
         };
 
-        // 1. 会话级防重与状态记录，不持久化敏感联络信息
-        try {
-          sessionStorage.setItem('wotech_rsvp_sent', '1');
-        } catch (err) {}
+        try { sessionStorage.setItem('wotech_rsvp_sent', '1'); } catch (err) {}
 
-        // 2. 尝试向服务端 API 提交（带超时；失败给可重试反馈）
         let subId = `WT-${Date.now().toString(36).slice(-5).toUpperCase()}`;
         currentSubId = subId;
-        const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(contact || '').trim());
+        const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact);
         let emailSent = false;
         let apiFailed = false;
 
         if (submitBtn) submitBtn.setAttribute('disabled', 'true');
-
         try {
           const ctrl = new AbortController();
           const timer = setTimeout(() => ctrl.abort(), 15000);
@@ -665,1044 +332,164 @@ import Layout from '../layouts/Layout.astro';
           clearTimeout(timer);
           if (res.ok) {
             const resData = await res.json();
-            if (resData.submissionId) {
-              subId = resData.submissionId;
-              currentSubId = subId;
-            }
+            if (resData.submissionId) { subId = resData.submissionId; currentSubId = subId; }
             if (resData.emailSent !== undefined) emailSent = resData.emailSent;
           }
-        } catch (err) {
-          apiFailed = true;
-        } finally {
-          if (submitBtn) submitBtn.removeAttribute('disabled');
-        }
+        } catch (err) { apiFailed = true; }
+        finally { if (submitBtn) submitBtn.removeAttribute('disabled'); }
 
         if (apiFailed) {
           const isEn = document.documentElement.getAttribute('data-lang') === 'en';
           const noteZh = document.getElementById('join-note-text');
           const noteEn = document.getElementById('join-note-text-en');
-          if (noteZh) noteZh.textContent = '网络异常，意向暂未送达。请稍后重试，或直接添加微信 ' + WECHAT_HANDLE + ' 联系。';
-          if (noteEn) noteEn.textContent = 'Network error — your note did not reach us. Please retry shortly, or connect via WeChat at ' + WECHAT_HANDLE + '.';
+          if (noteZh) noteZh.textContent = '网络异常，意向暂未送达。请稍后重试，或直接加微信 ' + WECHAT_HANDLE + ' 联系。';
+          if (noteEn) noteEn.textContent = 'Network error—please retry shortly, or connect via WeChat at ' + WECHAT_HANDLE + '.';
           if (receiptIdDisplay) receiptIdDisplay.textContent = isEn ? 'Receipt pending (offline)' : '回执待补（离线）';
-          currentIcsData = generateICS(subId, name, interests);
-          if (feedback) {
-            feedback.style.display = 'block';
-            feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }
+          currentIcsData = activeSlotId ? '' : generateICS(subId, name, interests);
+          if (feedback) { feedback.style.display = 'block'; feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
           return;
         }
 
-        // 本地保底生成 .ics（与服务端共享同一 generateICS，杜绝逻辑分叉）
-        if (!currentIcsData) {
+        // .ics：slot 模式直链静态文件；否则本地兜底生成
+        if (activeSlotId && receiptIcs) {
+          receiptIcs.href = `/gatherings/${activeSlotId}.ics`;
+          receiptIcs.hidden = false;
+        } else if (!activeSlotId && receiptIcs) {
           currentIcsData = generateICS(subId, name, interests);
+          receiptIcs.href = '#';
+          receiptIcs.hidden = false;
+          receiptIcs.onclick = (ev) => {
+            ev.preventDefault();
+            if (!currentIcsData) return;
+            const blob = new Blob([currentIcsData], { type: 'text/calendar;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `wotech-gathering-${currentSubId || 'invite'}.ics`;
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+          };
         }
 
         const isEn = document.documentElement.getAttribute('data-lang') === 'en';
-
-        // 3. 展现回执
-        if (receiptIdDisplay) {
-          receiptIdDisplay.textContent = isEn ? `Receipt ID: #${subId}` : `回执编号: #${subId}`;
-        }
+        if (receiptIdDisplay) receiptIdDisplay.textContent = isEn ? `Receipt ID: #${subId}` : `回执编号: #${subId}`;
 
         const noteZh = document.getElementById('join-note-text');
         const noteEn = document.getElementById('join-note-text-en');
-        if (isEmail && emailSent) {
-          if (noteZh) {
-            noteZh.textContent = '已向你的邮箱 ';
-            const codeEl = document.createElement('code');
-            codeEl.textContent = contact;
-            noteZh.appendChild(codeEl);
-            noteZh.appendChild(document.createTextNode(' 发送确认信与 .ics 日历邀请（若未收到可检查垃圾箱）。'));
-          }
-          if (noteEn) {
-            noteEn.textContent = 'A confirmation letter & .ics invite have been dispatched to ';
-            const codeEl = document.createElement('code');
-            codeEl.textContent = contact;
-            noteEn.appendChild(codeEl);
-            noteEn.appendChild(document.createTextNode('.'));
-          }
+        const subscribed = subscribeCalendar || subscribeEmail;
+        if (subscribed) {
+          if (noteZh) noteZh.textContent = subscribeCalendar ? '已为你打开日历源订阅，点击上方"订阅日历源"在系统日历中添加。' : '已记录邮件订阅，新排期上线时会低频提醒。';
+          if (noteEn) noteEn.textContent = subscribeCalendar ? 'Calendar feed subscription enabled—tap "Subscribe calendar" above to add it.' : 'Email subscription recorded; low-frequency notices on new slots.';
+        } else if (isEmail && emailSent) {
+          if (noteZh) noteZh.textContent = '已向你的邮箱 ' + contact + ' 发送确认信与 .ics 日历邀请。';
+          if (noteEn) noteEn.textContent = 'A confirmation & .ics invite dispatched to ' + contact + '.';
         } else if (isEmail && !emailSent) {
-          if (noteZh) {
-            noteZh.textContent = '邮箱已记录，但确认信暂未自动发出。可直接下载下方 .ics 日历邀请，或添加微信 ';
-            const codeEl = document.createElement('code');
-            codeEl.textContent = WECHAT_HANDLE;
-            noteZh.appendChild(codeEl);
-            noteZh.appendChild(document.createTextNode(' 联系。'));
-          }
-          if (noteEn) {
-            noteEn.textContent = 'Your email is recorded, but the confirmation letter could not be sent automatically. Download the .ics invite below, or connect via WeChat at ';
-            const codeEl = document.createElement('code');
-            codeEl.textContent = WECHAT_HANDLE;
-            noteEn.appendChild(codeEl);
-            noteEn.appendChild(document.createTextNode('.'));
-          }
+          if (noteZh) noteZh.textContent = '邮箱已记录，确认信暂未发出。可下载 .ics 或加微信 ' + WECHAT_HANDLE + '。';
+          if (noteEn) noteEn.textContent = 'Email recorded; confirmation pending. Download .ics or connect via WeChat ' + WECHAT_HANDLE + '.';
         } else {
-          if (noteZh) noteZh.textContent = '感谢你的加入。意向已记录至社群档案，你可以直接下载下方日历邀请，或添加微信随时交流。';
-          if (noteEn) noteEn.textContent = 'Thank you for joining. You may download the .ics invite below or connect via WeChat to explore more.';
+          if (noteZh) noteZh.textContent = '意向已记录。可下载 .ics 或加微信 ' + WECHAT_HANDLE + ' 随时交流。';
+          if (noteEn) noteEn.textContent = 'Recorded. Download .ics or connect via WeChat ' + WECHAT_HANDLE + '.';
         }
 
-        if (receiptSummaryBox) {
-          receiptSummaryBox.textContent = '';
-          const createSummaryLine = (labelStr: string, valueStr: string, isCode = false) => {
-            const row = document.createElement('div');
-            row.className = 'summary-line';
-            const labelSpan = document.createElement('span');
-            labelSpan.textContent = labelStr;
-            row.appendChild(labelSpan);
-            const valSpan = document.createElement(isCode ? 'code' : 'span');
-            valSpan.textContent = valueStr;
-            row.appendChild(valSpan);
-            return row;
-          };
-
-          receiptSummaryBox.appendChild(createSummaryLine(isEn ? 'Moniker:' : '称呼：', name));
-          receiptSummaryBox.appendChild(createSummaryLine(isEn ? 'Craft Domain:' : '领域：', craft));
-          receiptSummaryBox.appendChild(createSummaryLine(isEn ? 'Gatherings:' : '意向活动：', interests.join(' / ') || (isEn ? 'None specified' : '未指定')));
-          receiptSummaryBox.appendChild(createSummaryLine(isEn ? 'Contact:' : '联系方式：', contact, true));
-        }
-
-        lastPayloadText = `wo/men in tech 回执 #${subId}\n称呼: ${name}\n领域: ${craft}\n意向: ${interests.join(', ')}\n联系: ${contact}`;
-
-        form.querySelectorAll<HTMLElement>('.form-field, .submit-zone').forEach((el) => {
-          el.style.display = 'none';
-        });
+        form.querySelectorAll<HTMLElement>('.form-field, .submit-zone').forEach(el => { el.style.display = 'none'; });
         feedback.style.display = 'block';
         feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       };
     }
-
-    if (copyBtn) {
-      copyBtn.onclick = () => {
-        if (!lastPayloadText) return;
-        const isEn = document.documentElement.getAttribute('data-lang') === 'en';
-        navigator.clipboard.writeText(lastPayloadText).then(() => {
-          copyBtn.textContent = isEn ? '✓ Copied' : '✓ 已复制到剪贴板';
-          setTimeout(() => {
-            copyBtn.textContent = isEn ? 'Copy Summary' : '复制我的预约摘要';
-          }, 2500);
-        });
-      };
-    }
   }
 
-  // astro:page-load 首屏与每次视图切换后均触发；不再叠加直接调用
   document.addEventListener('astro:page-load', setupJoinPageForm);
 </script>
 
 <style>
-  .page-container {
-    padding: var(--spacing-6) 0 var(--spacing-20);
-  }
-
-  .page-header {
-    margin-bottom: var(--spacing-12);
-  }
-
-  .section-eyebrow {
-    font-family: var(--font-family-ui);
-    font-size: var(--font-size-xs);
-    letter-spacing: 0.16em;
-    color: var(--color-primary-dark);
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: var(--spacing-3);
-    font-weight: var(--font-weight-medium);
-  }
-
-  .page-title {
-    font-family: var(--font-family-heading);
-    font-size: var(--font-size-3xl);
-    font-weight: var(--font-weight-light);
-    color: var(--color-text-heading);
-    letter-spacing: -0.02em;
-    line-height: var(--line-height-tight);
-    margin: 0 0 var(--spacing-4);
-  }
-
-  .page-lead {
-    font-family: var(--font-family-text);
-    font-size: var(--font-size-base);
-    color: var(--color-text-secondary);
-    line-height: 1.85;
-    margin: 0;
-  }
-
-  .gold-hairline {
-    width: 2.5rem;
-    height: 1px;
-    background: var(--color-gold-dust);
-    opacity: 0.5;
-    margin-top: var(--spacing-6);
-  }
-
-  /* ===== 二级页面核心叙事与机制模块 ===== */
-  .join-editorial-block {
-    margin-bottom: var(--spacing-16);
-  }
-
-  .block-header {
-    margin-bottom: var(--spacing-6);
-    padding-bottom: var(--spacing-3);
-    border-bottom: 1px solid var(--color-border-divider);
-  }
-
-  .block-serial {
-    font-family: var(--font-family-heading);
-    font-size: 0.8125rem;
-    font-style: italic;
-    font-weight: 300;
-    color: var(--color-gold-dust);
-    letter-spacing: 0.04em;
-    display: block;
-    margin-bottom: var(--spacing-1);
-  }
-
-  .block-title {
-    font-family: var(--font-family-heading);
-    font-size: 1.25rem;
-    font-weight: var(--font-weight-normal);
-    color: var(--color-text-heading);
-    margin: 0 0 var(--spacing-2);
-    line-height: 1.35;
-    letter-spacing: 0.01em;
-  }
-
-  .block-desc {
-    font-family: var(--font-family-body);
-    font-size: 13.5px;
-    color: var(--color-text-secondary);
-    line-height: 1.75;
-    margin: 0;
-  }
-
-  /* 4 个同频画像网格 */
-  .pillars-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-4);
-  }
-
-  .pillar-card {
-    background: var(--color-surface-pure);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-xs);
-    padding: var(--spacing-5) var(--spacing-5);
-    transition: all 0.25s ease;
-  }
-
-  .pillar-card:hover {
-    border-color: var(--color-border-hover);
-    box-shadow: 0 4px 14px -6px rgba(38, 34, 28, 0.04);
-  }
-
-  .pillar-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--spacing-2);
-  }
-
-  .pillar-tag {
-    font-family: var(--font-family-ui);
-    font-size: 11px;
-    color: var(--color-text-tertiary);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .pillar-accent {
-    font-size: 10px;
-    color: var(--color-gold-dust);
-  }
-
-  .pillar-name {
-    font-family: var(--font-family-heading);
-    font-size: 1.0625rem;
-    color: var(--color-text-heading);
-    margin: 0 0 var(--spacing-2);
-    font-weight: var(--font-weight-normal);
-  }
-
-  .pillar-text {
-    font-family: var(--font-family-body);
-    font-size: 12.5px;
-    color: var(--color-text-secondary);
-    line-height: 1.7;
-    margin: 0;
-  }
-
-  /* 4 步流转步骤卡片 */
-  .flow-steps-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--spacing-4);
-  }
-
-  .flow-step {
-    background: var(--color-surface-pure);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-xs);
-    padding: var(--spacing-5) var(--spacing-4);
-    position: relative;
-    transition: all 0.25s ease;
-  }
-
-  .flow-step:hover {
-    border-color: var(--color-border-hover);
-  }
-
-  .flow-num {
-    font-family: var(--font-family-heading);
-    font-size: 0.8125rem;
-    font-style: italic;
-    color: var(--color-gold-dust);
-    display: block;
-    margin-bottom: var(--spacing-2);
-  }
-
-  .flow-title {
-    font-family: var(--font-family-heading);
-    font-size: 13.5px;
-    color: var(--color-text-heading);
-    margin: 0 0 var(--spacing-2);
-    line-height: 1.35;
-  }
-
-  .flow-desc {
-    font-family: var(--font-family-body);
-    font-size: 12px;
-    color: var(--color-text-secondary);
-    line-height: 1.65;
-    margin: 0;
-  }
-
-  /* FAQ 模块样式 */
-  .join-faq-section {
-    margin-top: var(--spacing-16);
-    margin-bottom: var(--spacing-16);
-  }
-
-  .faq-card {
-    background: var(--color-surface-pure);
-    border: var(--border-width-thin) solid var(--color-border-subtle);
-    border-radius: var(--radius-sm);
-    padding: var(--spacing-8);
-  }
-
-  .faq-card h3 {
-    margin: 0 0 var(--spacing-6);
-    font-family: var(--font-family-heading);
-    font-size: var(--font-size-lg);
-    color: var(--color-text-heading);
-  }
-
-  .faq-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-6);
-  }
-
-  .faq-item h4 {
-    margin: 0 0 var(--spacing-2);
-    font-family: var(--font-family-ui);
-    font-size: var(--font-size-sm);
-    color: var(--color-text-primary);
-  }
-
-  .faq-item p {
-    margin: 0;
-    font-family: var(--font-family-body);
-    font-size: var(--font-size-xs);
-    color: var(--color-text-secondary);
-    line-height: var(--line-height-relaxed);
-  }
-
-  /* 底部行动引导与回环导航 */
-  .next-steps {
-    margin-top: var(--spacing-12);
-  }
-
-  .next-card {
-    background: var(--color-surface-pure);
-    border: var(--border-width-thin) solid var(--color-border-subtle);
-    border-radius: var(--radius-sm);
-    padding: var(--spacing-8);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--spacing-6);
-  }
-
-  .next-text h3 {
-    margin: 0 0 var(--spacing-1);
-    font-family: var(--font-family-heading);
-    font-size: var(--font-size-lg);
-    color: var(--color-text-heading);
-  }
-
-  .next-text p {
-    margin: 0;
-    font-family: var(--font-family-body);
-    font-size: var(--font-size-xs);
-    color: var(--color-text-secondary);
-  }
-
-  .next-actions {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-4);
-    flex-shrink: 0;
-  }
-
-  .btn-link-gold {
-    font-family: var(--font-family-ui);
-    font-size: var(--font-size-xs);
-    color: var(--color-primary-dark);
-    text-decoration: none !important;
-    border-bottom: 1px solid var(--color-gold-dust) !important;
-    padding-bottom: 2px;
-    white-space: nowrap;
-  }
-
-  .btn-solid-dark {
-    padding: var(--spacing-2) var(--spacing-5);
-    background: var(--color-primary-dark);
-    color: var(--color-surface-pure) !important;
-    border-radius: var(--radius-xs);
-    font-family: var(--font-family-ui);
-    font-size: var(--font-size-xs);
-    text-decoration: none !important;
-    letter-spacing: 0.04em;
-    transition: background var(--transition-fast);
-    white-space: nowrap;
-  }
-
-  .btn-solid-dark:hover {
-    background: var(--color-text-heading);
-  }
-
-  .form-card-container {
-    background: var(--color-surface-pure);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-xs);
-    padding: var(--spacing-10);
-    box-shadow: 0 2px 10px -4px rgba(38, 34, 28, 0.02);
-  }
-
-  .form-field {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-2);
-    margin-bottom: var(--spacing-8);
-  }
-
-  .field-label {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    font-family: var(--font-family-ui);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-text-primary);
-  }
-
-  .field-hint {
-    font-size: var(--font-size-xs);
-    color: var(--color-text-tertiary);
-    font-weight: var(--font-weight-normal);
-  }
-
-  .quiet-form input[type='text'],
-  .quiet-form textarea {
-    width: 100%;
-    background: var(--color-surface-card);
-    border: var(--border-width-thin) solid var(--color-border);
-    border-radius: var(--radius-xs);
-    padding: var(--spacing-3) var(--spacing-4);
-    font-family: var(--font-family-body);
-    font-size: var(--font-size-sm);
-    color: var(--color-text-primary);
-    transition: all var(--transition-fast);
-  }
-
-  .quiet-form input[type='text']:focus,
-  .quiet-form textarea:focus {
-    outline: none;
-    border-color: var(--color-gold-dust);
-    background: var(--color-surface-pure);
-    box-shadow: 0 0 0 1px var(--color-gold-dust);
-  }
-
-  /* 前置细金线选项设计 */
-  .quiet-check-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-2);
-  }
-
-  .quiet-check-row {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--spacing-3);
-    padding: var(--spacing-3) var(--spacing-4);
-    border: var(--border-width-thin) solid var(--color-border-divider);
-    border-radius: var(--radius-xs);
-    background: var(--color-surface-card);
-    cursor: pointer;
-    transition: all var(--transition-fast);
-  }
-
-  .quiet-check-row:hover {
-    border-color: var(--color-border);
-    background: var(--color-surface-pure);
-  }
-
-  .quiet-check-row input {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  /* 自定义控件键盘焦点：原生 input 视觉隐藏，焦点环落到整行 */
-  .quiet-check-row:has(input:focus-visible) {
-    border-color: var(--color-brand-purple, #5e4c7a);
-    box-shadow: 0 0 0 1px var(--color-brand-purple, #5e4c7a);
-  }
-
-  .check-indicator {
-    width: 14px;
-    height: 14px;
-    margin-top: 3px;
-    flex-shrink: 0;
-    border: 1px solid var(--color-border);
-    border-radius: 2px;
-    background: var(--color-surface-pure);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: all var(--transition-fast);
-  }
-
-  .is-radio .check-indicator {
-    border-radius: 50%;
-  }
-
-  .quiet-check-row input:checked ~ .check-indicator {
-    border-color: var(--color-gold-dust);
-    background: var(--color-primary-dark);
-  }
-
-  .is-radio input:checked ~ .check-indicator::after {
-    content: '';
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: var(--color-surface-pure);
-  }
-
-  .quiet-check-row svg {
-    width: 10px;
-    height: 10px;
-    stroke: var(--color-surface-pure);
-    stroke-width: 1.8;
-    opacity: 0;
-    transition: opacity var(--transition-fast);
-  }
-
-  .quiet-check-row input:checked ~ .check-indicator svg {
-    opacity: 1;
-  }
-
-  .check-content {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .check-title {
-    font-family: var(--font-family-body);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-text-primary);
-  }
-
-  .check-note {
-    font-family: var(--font-family-ui);
-    font-size: 11px;
-    color: var(--color-text-tertiary);
-  }
-
-  .submit-zone {
-    margin-top: var(--spacing-8);
-    padding-top: var(--spacing-5);
-    border-top: 1px solid var(--color-border-divider);
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: var(--spacing-4);
-    flex-wrap: wrap;
-  }
-
-  .submit-btn-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--spacing-3);
-    padding: var(--spacing-3) var(--spacing-6);
-    background: var(--color-primary-dark);
-    color: var(--color-surface-pure);
-    border: none;
-    border-radius: var(--radius-xs);
-    font-family: var(--font-family-ui);
-    font-size: var(--font-size-xs);
-    letter-spacing: 0.08em;
-    cursor: pointer;
-    transition: all var(--transition-fast);
-  }
-
-  .submit-btn-primary:hover {
-    background: var(--color-text-heading);
-  }
-
-  .submit-btn-primary .btn-arrow {
-    transition: transform var(--transition-fast);
-  }
-
-  .submit-btn-primary:hover .btn-arrow {
-    transform: translateX(4px);
-  }
-
-  .privacy-assurance-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-2);
-    font-family: var(--font-family-ui);
-    font-size: 11px;
-    color: var(--color-text-tertiary);
-    letter-spacing: 0.02em;
-  }
-
-  .privacy-dot {
-    color: var(--color-gold-dust);
-    font-size: 9px;
-  }
-
-  /* 成功回执 */
-  .feedback-receipt {
-    margin-top: 0;
-    width: 100%;
-  }
-
-  .receipt-card {
-    background: transparent;
-    border: none;
-    border-radius: 0;
-    padding: 0;
-  }
-
-  .receipt-header {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-4);
-    margin-bottom: var(--spacing-4);
-    padding-bottom: var(--spacing-4);
-    border-bottom: 1px solid var(--color-border-divider);
-  }
-
-  .receipt-mark {
-    color: var(--color-gold-dust);
-    font-size: var(--font-size-base);
-  }
-
-  .receipt-title {
-    margin: 0;
-    font-family: var(--font-family-heading);
-    font-size: var(--font-size-base);
-    color: var(--color-text-heading);
-  }
-
-  .receipt-id {
-    display: block;
-    font-family: var(--font-family-mono);
-    font-size: 11px;
-    color: var(--color-text-tertiary);
-    margin-top: 2px;
-  }
-
-  .receipt-desc {
-    font-family: var(--font-family-body);
-    font-size: var(--font-size-xs);
-    color: var(--color-text-secondary);
-    line-height: var(--line-height-relaxed);
-    margin: 0 0 var(--spacing-4);
-    word-break: break-word;
-    overflow-wrap: break-word;
-  }
-
-  .receipt-desc code {
-    font-family: var(--font-family-mono);
-    background: var(--color-surface-soft);
-    padding: 2px 7px;
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-xs);
-    font-size: 12px;
-    color: var(--color-brand-purple, #5e4c7a);
-    word-break: break-all;
-    overflow-wrap: anywhere;
-    max-width: 100%;
-    display: inline;
-  }
-
-  .receipt-summary {
-    background: var(--color-surface-pure);
-    border: var(--border-width-thin) solid var(--color-border-divider);
-    border-radius: var(--radius-xs);
-    padding: var(--spacing-3) var(--spacing-4);
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-2);
-    font-family: var(--font-family-ui);
-    font-size: 11px;
-    margin-bottom: var(--spacing-5);
-  }
-
-  :global(.summary-line) {
-    display: flex;
-    justify-content: space-between;
-    color: var(--color-text-secondary);
-  }
-
-  :global(.summary-line code) {
-    font-family: var(--font-family-mono);
-    color: var(--color-primary-dark);
-  }
-
-  .receipt-loop-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-4);
-    margin: var(--spacing-5) 0 var(--spacing-6);
-  }
-
-  .loop-cell {
-    background: var(--color-surface-soft);
-    border: 1px solid var(--color-border-subtle);
-    padding: var(--spacing-4);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: border-color var(--transition-fast);
-  }
-
-  .loop-cell:hover {
-    border-color: var(--color-gold-dust);
-  }
-
-  .loop-cell-info {
-    margin-bottom: var(--spacing-3);
-  }
-
-  .loop-cell-tag {
-    display: inline-block;
-    font-family: var(--font-family-ui);
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-brand-purple, #5e4c7a);
-    margin-bottom: var(--spacing-1);
-    font-weight: 500;
-  }
-
-  .loop-cell-desc {
-    margin: 0;
-    font-family: var(--font-family-body);
-    font-size: 11.5px;
-    color: var(--color-text-secondary);
-    line-height: 1.5;
-  }
-
-  .btn-download-ics {
-    align-self: flex-start;
-    background: transparent;
-    border: 1px solid var(--color-gold-dust);
-    color: var(--color-gold-dust);
-    padding: 6px 12px;
-    font-family: var(--font-family-ui);
-    font-size: 11px;
-    cursor: pointer;
-    border-radius: var(--radius-xs);
-    transition: all 0.2s ease;
-  }
-
-  .btn-download-ics:hover {
-    background: var(--color-gold-dust);
-    color: #fff;
-  }
-
-  .wechat-field-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 12px;
-    background: var(--color-surface-pure);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-xs);
-    margin-top: auto;
-    transition: border-color var(--transition-fast);
-  }
-
-  .wechat-field-card:hover {
-    border-color: var(--color-gold-dust);
-  }
-
-  .wechat-text-col {
-    display: flex;
-    align-items: baseline;
-    gap: var(--spacing-2);
-  }
-
-  .wechat-label-caption {
-    font-family: var(--font-family-ui);
-    font-size: 11px;
-    color: var(--color-text-tertiary);
-    letter-spacing: 0.04em;
-  }
-
-  .wechat-handle {
-    font-family: var(--font-family-mono);
-    font-size: 13.5px;
-    font-weight: 500;
-    color: var(--color-text-heading);
-    letter-spacing: 0.03em;
-    background: none;
-    border: none;
-    padding: 0;
-  }
-
-  .btn-copy-hairline {
-    background: transparent;
-    border: 1px solid var(--color-border-divider);
-    color: var(--color-text-secondary);
-    font-family: var(--font-family-ui);
-    font-size: 11px;
-    padding: 3px 10px;
-    border-radius: var(--radius-xs);
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .btn-copy-hairline:hover {
-    border-color: var(--color-gold-dust);
-    color: var(--color-gold-dust);
-    background: var(--color-surface-soft);
-  }
-
-  .receipt-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: var(--spacing-4);
-    border-top: 1px solid var(--color-border-divider);
-  }
-
-  .btn-copy-receipt {
-    background: none;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-xs);
-    padding: var(--spacing-2) var(--spacing-4);
-    font-family: var(--font-family-ui);
-    font-size: 11px;
-    color: var(--color-text-secondary);
-    cursor: pointer;
-    transition: all var(--transition-fast);
-  }
-
-  .btn-copy-receipt:hover {
-    color: var(--color-text-heading);
-    border-color: var(--color-gold-dust);
-  }
-
-  .btn-back-home {
-    font-family: var(--font-family-ui);
-    font-size: 11px;
-    color: var(--color-primary-dark);
-    text-decoration: none !important;
-    border-bottom: 1px solid var(--color-gold-dust) !important;
-  }
+  .page-container { padding: var(--spacing-6) 0 var(--spacing-20); max-width: 46rem; margin: 0 auto; }
+  .page-header { margin-bottom: var(--spacing-10); }
+  .section-eyebrow { font-family: var(--font-family-mono); font-size: var(--font-size-xs); letter-spacing: 0.12em; color: var(--color-gold-dust); display: block; margin-bottom: var(--spacing-2); }
+  .page-title { font-family: var(--font-family-heading); font-size: var(--font-size-3xl); font-weight: var(--font-weight-light); color: var(--color-text-heading); letter-spacing: -0.02em; margin: 0 0 var(--spacing-3); }
+  .page-lead { font-family: var(--font-family-body); font-size: var(--font-size-base); color: var(--color-text-secondary); line-height: 1.8; margin: 0; }
+  .gold-hairline { width: var(--spacing-12); height: 1px; background: var(--color-gold-dust); opacity: 0.7; margin-top: var(--spacing-5); }
+
+  /* slot banner */
+  .slot-banner { background: var(--color-surface-pure); border: 1px solid var(--color-gold-dust); border-radius: var(--radius-sm); padding: var(--spacing-5) var(--spacing-6); margin-bottom: var(--spacing-8); }
+  .slot-eyebrow { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-gold-dust); letter-spacing: 0.1em; display: block; margin-bottom: var(--spacing-2); }
+  .slot-title { font-family: var(--font-family-heading); font-size: var(--font-size-lg); font-weight: var(--font-weight-normal); color: var(--color-text-heading); margin: 0 0 var(--spacing-1); }
+  .slot-meta { font-family: var(--font-family-mono); font-size: 12px; color: var(--color-text-secondary); margin: 0 0 var(--spacing-3); }
+  .slot-ics-link { font-family: var(--font-family-ui); font-size: 12px; color: var(--color-primary-dark); text-decoration: none !important; border-bottom: 1px solid var(--color-gold-dust) !important; padding-bottom: 2px; }
+
+  /* form */
+  .form-card-container { background: var(--color-surface-pure); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-sm); padding: var(--spacing-8); }
+  .form-field { display: flex; flex-direction: column; gap: var(--spacing-2); margin-bottom: var(--spacing-6); }
+  .form-field[hidden] { display: none; }
+  .field-label { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--font-family-ui); font-size: 12.5px; font-weight: var(--font-weight-medium); color: var(--color-text-primary); letter-spacing: 0.02em; }
+  .field-hint { font-family: var(--font-family-ui); font-size: 11px; color: var(--color-text-tertiary); font-weight: var(--font-weight-normal); }
+  .quiet-form input[type='text'], .quiet-form textarea { width: 100%; background: var(--color-surface-soft); border: 1px solid var(--color-border-divider); border-radius: var(--radius-xs); padding: var(--spacing-3) var(--spacing-4); font-family: var(--font-family-body); font-size: 13.5px; line-height: 1.6; color: var(--color-text-primary); transition: border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast); box-sizing: border-box; }
+  .quiet-form input[type='text']:focus, .quiet-form textarea:focus { outline: none; border-color: var(--color-brand-purple, #5e4c7a); background: var(--color-surface-pure); box-shadow: none; }
+  .quiet-check-list { display: flex; flex-direction: column; gap: var(--spacing-2); }
+  .quiet-check-row { display: flex; align-items: flex-start; gap: var(--spacing-3); padding: var(--spacing-3) var(--spacing-4); border: 1px solid var(--color-border-divider); border-radius: var(--radius-xs); background: transparent; cursor: pointer; transition: all var(--transition-fast); }
+  .quiet-check-row:hover { border-color: var(--color-border); background: var(--color-surface-soft); }
+  .quiet-check-row input { position: absolute; opacity: 0; pointer-events: none; }
+  .quiet-check-row:has(input:focus-visible) { border-color: var(--color-brand-purple, #5e4c7a); box-shadow: 0 0 0 1px var(--color-brand-purple, #5e4c7a); }
+  .check-indicator { width: 13px; height: 13px; margin-top: 3px; flex-shrink: 0; border: 1px solid var(--color-border); border-radius: 2px; background: var(--color-surface-pure); display: inline-flex; align-items: center; justify-content: center; transition: all var(--transition-fast); }
+  .is-radio .check-indicator { border-radius: 50%; }
+  .quiet-check-row input:checked ~ .check-indicator { border-color: var(--color-brand-purple, #5e4c7a); background: var(--color-brand-purple, #5e4c7a); }
+  .is-radio input:checked ~ .check-indicator::after { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--color-surface-pure); }
+  .quiet-check-row svg { width: 9px; height: 9px; stroke: var(--color-surface-pure); stroke-width: 1.8; opacity: 0; transition: opacity var(--transition-fast); }
+  .quiet-check-row input:checked ~ .check-indicator svg { opacity: 1; }
+  .check-content { display: flex; flex-direction: column; gap: 2px; }
+  .check-title { font-family: var(--font-family-body); font-size: 13px; font-weight: var(--font-weight-medium); color: var(--color-text-primary); }
+  .check-note { font-family: var(--font-family-ui); font-size: 11px; color: var(--color-text-tertiary); }
+  .inline-link { color: var(--color-primary-dark); text-decoration: underline; }
+
+  .submit-zone { margin-top: var(--spacing-8); padding-top: var(--spacing-5); border-top: 1px solid var(--color-border-divider); display: flex; align-items: center; gap: var(--spacing-4); flex-wrap: wrap; }
+  .submit-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: var(--spacing-3); padding: var(--spacing-3) var(--spacing-6); background: var(--color-brand-purple, #5e4c7a); color: var(--color-surface-pure); border: none; border-radius: var(--radius-xs); font-family: var(--font-family-ui); font-size: 12px; letter-spacing: 0.08em; cursor: pointer; transition: all var(--transition-fast); }
+  .submit-btn-primary:hover { background: var(--color-brand-purple-dark, #4d3d66); }
+  .submit-btn-primary .btn-arrow { transition: transform var(--transition-fast); }
+  .submit-btn-primary:hover .btn-arrow { transform: translateX(4px); }
+  .privacy-assurance-pill { display: inline-flex; align-items: center; gap: var(--spacing-2); font-family: var(--font-family-ui); font-size: 11px; color: var(--color-text-tertiary); }
+  .privacy-dot { color: var(--color-gold-dust); font-size: 9px; }
+
+  /* receipt */
+  .feedback-receipt { margin-top: var(--spacing-6); }
+  .receipt-card { background: var(--color-surface-soft); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-sm); padding: var(--spacing-6); }
+  .receipt-header { display: flex; align-items: center; gap: var(--spacing-4); margin-bottom: var(--spacing-4); padding-bottom: var(--spacing-4); border-bottom: 1px solid var(--color-border-divider); }
+  .receipt-mark { color: var(--color-gold-dust); font-size: 1.25rem; }
+  .receipt-title { margin: 0; font-family: var(--font-family-heading); font-size: 1.0625rem; color: var(--color-text-heading); }
+  .receipt-id { margin: 2px 0 0; font-family: var(--font-family-mono); font-size: 11.5px; color: var(--color-gold-dust); letter-spacing: 0.05em; }
+  .receipt-desc-box { margin: var(--spacing-2) 0 var(--spacing-5); }
+  .receipt-desc { margin: 0; font-family: var(--font-family-body); font-size: 13px; color: var(--color-text-secondary); line-height: 1.7; word-break: break-word; }
+  .receipt-loop { display: flex; gap: var(--spacing-3); align-items: center; flex-wrap: wrap; }
+  .btn-download-ics { background: transparent; border: 1px solid var(--color-gold-dust); color: var(--color-gold-dust); padding: 7px 14px; font-family: var(--font-family-ui); font-size: 11.5px; text-decoration: none !important; border-radius: var(--radius-xs); transition: all 0.2s ease; }
+  .btn-download-ics:hover { background: var(--color-gold-dust); color: var(--color-surface-pure) !important; }
+  .wechat-field-card { display: flex; align-items: center; gap: var(--spacing-2); padding: 6px 12px; background: var(--color-surface-pure); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-xs); }
+  .wechat-label-caption { font-family: var(--font-family-ui); font-size: 10px; color: var(--color-text-tertiary); letter-spacing: 0.04em; }
+  .wechat-handle { font-family: var(--font-family-mono); font-size: 13px; font-weight: 500; color: var(--color-text-heading); background: none; border: none; padding: 0; }
+  .btn-copy-hairline { background: transparent; border: 1px solid var(--color-border-divider); color: var(--color-text-secondary); font-family: var(--font-family-ui); font-size: 11px; padding: 3px 10px; border-radius: var(--radius-xs); cursor: pointer; transition: all 0.2s ease; }
+  .btn-copy-hairline:hover { border-color: var(--color-gold-dust); color: var(--color-gold-dust); }
+
+  /* FAQ */
+  .join-faq-section { margin-top: var(--spacing-12); }
+  .faq-card { background: var(--color-surface-pure); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-sm); padding: var(--spacing-6); }
+  .faq-card h3 { margin: 0 0 var(--spacing-5); font-family: var(--font-family-heading); font-size: var(--font-size-lg); color: var(--color-text-heading); }
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-5); }
+  .faq-item h4 { margin: 0 0 var(--spacing-2); font-family: var(--font-family-ui); font-size: var(--font-size-sm); color: var(--color-text-primary); }
+  .faq-item p { margin: 0; font-family: var(--font-family-body); font-size: 12px; color: var(--color-text-secondary); line-height: 1.7; }
+
+  /* CTA */
+  .next-steps { margin-top: var(--spacing-12); }
+  .next-card { background: var(--color-surface-pure); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-sm); padding: var(--spacing-6); display: flex; justify-content: space-between; align-items: center; gap: var(--spacing-5); }
+  .next-text h3 { margin: 0 0 var(--spacing-1); font-family: var(--font-family-heading); font-size: var(--font-size-lg); color: var(--color-text-heading); }
+  .next-text p { margin: 0; font-family: var(--font-family-body); font-size: 12px; color: var(--color-text-secondary); }
+  .next-actions { display: flex; align-items: center; gap: var(--spacing-3); flex-shrink: 0; flex-wrap: wrap; }
+  .btn-link-gold { font-family: var(--font-family-ui); font-size: var(--font-size-xs); color: var(--color-primary-dark); text-decoration: none !important; border-bottom: 1px solid var(--color-gold-dust) !important; padding-bottom: 2px; }
+  .btn-solid-dark { padding: var(--spacing-2) var(--spacing-5); background: var(--color-primary-dark); color: var(--color-surface-pure) !important; border-radius: var(--radius-xs); font-family: var(--font-family-ui); font-size: var(--font-size-xs); text-decoration: none !important; letter-spacing: 0.04em; transition: background var(--transition-fast); }
+  .btn-solid-dark:hover { background: var(--color-text-heading); }
 
   @media (max-width: 680px) {
-    .page-title {
-      font-size: 1.6rem;
-    }
-
-    .join-editorial-block {
-      margin-bottom: var(--spacing-10);
-    }
-
-    .block-title {
-      font-size: 1.15rem;
-    }
-
-    .pillars-grid {
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    .flow-steps-grid {
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    .join-faq-section {
-      margin-top: var(--spacing-10);
-      margin-bottom: var(--spacing-10);
-    }
-
-    .faq-card {
-      padding: var(--spacing-5) var(--spacing-4);
-    }
-
-    .faq-grid {
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-
-    .next-card {
-      flex-direction: column;
-      align-items: flex-start;
-      padding: var(--spacing-5) var(--spacing-4);
-      gap: var(--spacing-4);
-    }
-
-    .next-actions {
-      flex-direction: column;
-      width: 100%;
-      align-items: stretch;
-      gap: var(--spacing-3);
-    }
-
-    .btn-solid-dark {
-      text-align: center;
-      padding: 10px 16px;
-    }
-
-    .form-card-container {
-      padding: 20px 16px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .feedback-receipt {
-      margin-top: 0;
-      padding: 0;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .receipt-card {
-      padding: 0;
-      background: transparent;
-      border: none;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .quiet-check-row {
-      padding: 12px 12px;
-      gap: 12px;
-      min-height: 48px;
-    }
-
-    .quiet-check-row:active,
-    .quiet-check-row:has(input:checked) {
-      border-color: var(--color-brand-purple, #5e4c7a);
-      background: var(--color-surface-soft);
-    }
-
-    .check-content {
-      min-width: 0;
-      flex: 1;
-    }
-
-    .quiet-form input[type='text'],
-    .quiet-form textarea {
-      font-size: 16px; /* 防止 iOS Safari 自动缩放视口 */
-      padding: 12px 14px;
-      min-height: 46px;
-    }
-
-    .submit-zone {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 12px;
-      margin-top: var(--spacing-4);
-    }
-
-    .submit-btn-primary {
-      width: 100%;
-      height: 46px;
-      font-size: 13.5px;
-    }
-
-    .privacy-assurance-pill {
-      justify-content: center;
-    }
-
-    .receipt-loop-grid {
-      grid-template-columns: 1fr;
-      gap: 12px;
-      width: 100%;
-    }
-
-    .loop-cell {
-      padding: 16px 14px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .btn-download-ics {
-      width: 100%;
-      text-align: center;
-      justify-content: center;
-      height: 42px;
-      display: flex;
-      align-items: center;
-      font-size: 12px;
-    }
-
-    .wechat-field-card {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      margin-top: 10px;
-      box-sizing: border-box;
-    }
-
-    .btn-copy-hairline {
-      padding: 6px 14px;
-      font-size: 12px;
-      min-height: 32px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .receipt-actions {
-      flex-direction: column;
-      gap: 12px;
-      align-items: stretch;
-    }
-
-    .btn-copy-receipt {
-      width: 100%;
-      text-align: center;
-      padding: 10px 14px;
-    }
-
-    .btn-back-home {
-      text-align: center;
-      padding-top: 4px;
-    }
+    .page-title { font-size: 1.6rem; }
+    .form-card-container { padding: var(--spacing-5); }
+    .faq-grid { grid-template-columns: 1fr; }
+    .next-card { flex-direction: column; align-items: flex-start; }
+    .next-actions { flex-direction: column; width: 100%; align-items: stretch; }
+    .btn-solid-dark { text-align: center; padding: 10px 16px; }
   }
 </style>
