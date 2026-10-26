@@ -1,271 +1,154 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { GATHERINGS } from '../data/gatherings';
-
-const upcoming = GATHERINGS.filter(g => g.status !== 'past').length;
 ---
 
 <Layout
   title='理念 · Ethos · wo/men in tech'
-  description='鼓励表达创作 · 深度沟通 · 尊重专业性——这就是 women in tech。在快与喧嚣里，为手作、为深度、为专业性，留一个安静的座位。'
+  description='鼓励表达创作 · 深度沟通 · 尊重专业性——这就是 women in tech。'
   width='reading'
 >
-  <div class='page-container'>
-    <header class='page-header'>
-      <span class='section-eyebrow'>ETHOS</span>
-      <div lang='zh-CN' class='lang-zh'>
-        <h1 class='page-title'>理念</h1>
-        <p class='page-lead'>鼓励表达创作 · 深度沟通 · 尊重专业性——<br />这就是 women in tech。</p>
-      </div>
-      <div lang='en' class='lang-en'>
-        <h1 class='page-title'>Ethos</h1>
-        <p class='page-lead'>Encourage expression · Deep dialogue · Respect for craft—<br />that is what women in tech means.</p>
-      </div>
-      <div class='gold-hairline'></div>
+  <article class='ethos'>
+    <header class='ethos-head'>
+      <span class='eyebrow'>ETHOS</span>
+      <h1 lang='zh-CN' class='lang-zh'>理念</h1>
+      <h1 lang='en' class='lang-en'>Ethos</h1>
+      <p class='value'>
+        <span lang='zh-CN' class='lang-zh'>鼓励表达创作 · 深度沟通 · 尊重专业性——这就是 women in tech。</span>
+        <span lang='en' class='lang-en'>Encourage expression · Deep dialogue · Respect for craft—<br />that is what women in tech means.</span>
+      </p>
     </header>
 
-    {/* ── Manifesto ── */}
-    <section class='ethos-block' id='manifesto'>
-      <span class='block-serial'>01</span>
-      <h2 lang='zh-CN' class='lang-zh'>宣言 · Manifesto</h2>
-      <h2 lang='en' class='lang-en'>Manifesto</h2>
+    <span class='rule' aria-hidden='true'></span>
+
+    <section class='manifesto'>
       <div lang='zh-CN' class='lang-zh'>
-        <p>在每一个商业项目的空隙里，总有一些东西是做给自己的。</p>
-        <p>这里是那个地方。我们做的不全是 KPI 之下的数字游戏，而是那些——哪怕很小、哪怕慢——值得被署上自己名字的器物与交流。</p>
-        <p>给推敲留出时间，让灵感自然生长。</p>
+        <p>在每一个商业项目的空隙里，<br />总有一些东西是做给自己的。</p>
+        <p>这里是那个地方。</p>
       </div>
       <div lang='en' class='lang-en'>
-        <p>In the gaps between every commercial sprint, there is always something we build for ourselves.</p>
-        <p>This is that sanctuary. Not metric-chasing, but the small, slow things—artifacts and exchanges worthy of our own names.</p>
-        <p>Giving work the time it deserves, letting intuition settle into enduring craft.</p>
+        <p>In between every commercial sprint,<br />there is always something we build for ourselves.</p>
+        <p>This is that sanctuary.</p>
       </div>
     </section>
 
-    {/* ── 上等愿 · Aspiration ── */}
-    <section class='ethos-block' id='aspiration'>
-      <span class='block-serial'>02</span>
-      <h2 lang='zh-CN' class='lang-zh'>上等愿 · Aspiration</h2>
-      <h2 lang='en' class='lang-en'>Aspiration</h2>
+    <span class='rule' aria-hidden='true'></span>
+
+    <section class='who'>
+      <span class='eyebrow'>
+        <span lang='zh-CN' class='lang-zh'>面向群体</span>
+        <span lang='en' class='lang-en'>Crafted For</span>
+      </span>
       <div lang='zh-CN' class='lang-zh'>
-        <p class='lead'>我们不只是"女性技术社群"。</p>
-        <p>在这个秒级生成模板的时代，<strong>专业的表达</strong>与<strong>深度的沟通</strong>变得稀缺。我们想守住它们。</p>
-        <p><strong>鼓励表达创作</strong>——不是因为作品已经完美，而是因为那句还没说出口的"我在做这件事"，值得被接住。萌芽的念头、卡壳的推敲、未完成的草稿，都值得一个被认真聆听的场域。</p>
-        <p><strong>深度沟通</strong>——不是 networking 的交换价值，是两个人把手里的咖啡喝完，把一个界面细节、一段代码架构、一个产品取舍，聊到它真正值得被聊的深度。三到五人，留白，低压。</p>
-        <p><strong>尊重专业性</strong>——PM 的逻辑闭环、IxD 的 8px 执念、FE 的鲁棒工程，都该被尊重、被看见、被署名。我们拒绝粗制滥造，拒绝"差不多就行"。</p>
-        <p class='lead'>这是 women in tech——不是身份标签，是一种立场：<br />在快与喧嚣里，为手作、为深度、为专业性，留一个安静的座位。</p>
+        <p>所有在技术与创造领域工作的女性——产品、设计、工程、研究、写作……</p>
+        <p class='quiet'>不需要特定头衔，<br />只是对作品本身有一点执念。</p>
       </div>
       <div lang='en' class='lang-en'>
-        <p class='lead'>We are not merely a "women in technology community."</p>
-        <p>In an age of second-second generated templates, <strong>professional expression</strong> and <strong>deep dialogue</strong> have grown scarce. We intend to hold them.</p>
-        <p><strong>Encourage expression</strong>—not because the work is finished, but because the unspoken "I am making this" deserves to be caught. A budding thought, a stuck deliberation, an unfinished draft—each merits a field of patient listening.</p>
-        <p><strong>Deep dialogue</strong>—never the transactional barter of networking, but two people finishing their coffee and taking an interface detail, a code architecture, or a product tradeoff to the depth it truly deserves. Three to five people. White space. Low pressure.</p>
-        <p><strong>Respect for craft</strong>—a PM's logic loop, an IxD's 8px devotion, an FE's robust engineering—all deserve to be respected, seen, and authored. We refuse boilerplate. We refuse "good enough."</p>
-        <p class='lead'>This is women in tech—not an identity label, but a stance:<br />in speed and noise, keeping a quiet seat for craft, for depth, for professionalism.</p>
+        <p>All women creating across tech and design—product, design, engineering, research, writing…</p>
+        <p class='quiet'>No specific titles required,<br />only a quiet devotion to the craft itself.</p>
       </div>
     </section>
 
-    {/* ── 面向群体 · Roles ── */}
-    <section class='ethos-block' id='roles'>
-      <span class='block-serial'>03</span>
-      <h2 lang='zh-CN' class='lang-zh'>面向群体 · Who Belongs</h2>
-      <h2 lang='en' class='lang-en'>Who Belongs</h2>
-      <div class='roles-grid'>
-        <article class='role-card'>
-          <span class='role-tag'>PM</span>
-          <h3 lang='zh-CN' class='lang-zh'>独立推敲者</h3>
-          <h3 lang='en' class='lang-en'>Independent Builders</h3>
-          <p lang='zh-CN' class='lang-zh'>厌倦纯 KPI 导向的数字游戏，渴望推敲有真实温度、能切实解决问题的产品闭环。</p>
-          <p lang='en' class='lang-en'>Stepping back from artificial metrics—polishing humane, enduring product loops.</p>
-        </article>
-        <article class='role-card'>
-          <span class='role-tag'>IxD</span>
-          <h3 lang='zh-CN' class='lang-zh'>界面手艺人</h3>
-          <h3 lang='en' class='lang-en'>Interface Artisans</h3>
-          <p lang='zh-CN' class='lang-zh'>对 8px 网格、排版灰度、缓动曲线与纸质触感有执念，相信细节承载对使用者的善意。</p>
-          <p lang='en' class='lang-en'>Devoted to 8px grids, typographic cadence, micro-interactions of genuine respect.</p>
-        </article>
-        <article class='role-card'>
-          <span class='role-tag'>FE</span>
-          <h3 lang='zh-CN' class='lang-zh'>架构践行者</h3>
-          <h3 lang='en' class='lang-en'>System Crafts</h3>
-          <p lang='zh-CN' class='lang-zh'>追求干净代码与极速首屏，热爱本地优先、PWA 与脱离沉重冗余的纯粹工程。</p>
-          <p lang='en' class='lang-en'>Loving clean code, sub-millisecond response, local-first, resilient engineering.</p>
-        </article>
-        <article class='role-card'>
-          <span class='role-tag'>Writing</span>
-          <h3 lang='zh-CN' class='lang-zh'>跨界观察者</h3>
-          <h3 lang='en' class='lang-en'>Cross-disciplinary Thinkers</h3>
-          <p lang='zh-CN' class='lang-zh'>游走在技术与人文交界，用文字记录时代脉动，审视人与数字工具的共生关系。</p>
-          <p lang='en' class='lang-en'>Living between code and humanity, capturing quiet shifts with conceptual precision.</p>
-        </article>
-      </div>
-      <p lang='zh-CN' class='lang-zh role-foot'>不需要特定头衔，只是对作品本身有一点执念。</p>
-      <p lang='en' class='lang-en role-foot'>No specific titles required—only a quiet devotion to the craft itself.</p>
+    <span class='rule' aria-hidden='true'></span>
+
+    <section class='principles'>
+      <p lang='zh-CN' class='lang-zh'>真诚平等 · 低压倾听 · 保护留白 · 慢工署名</p>
+      <p lang='en' class='lang-en'>Grounded · Low-pressure · White space · Authored craft</p>
     </section>
 
-    {/* ── 原则 · Principles ── */}
-    <section class='ethos-block' id='principles'>
-      <span class='block-serial'>04</span>
-      <h2 lang='zh-CN' class='lang-zh'>原则 · Principles</h2>
-      <h2 lang='en' class='lang-en'>Principles</h2>
-      <div class='principles-row'>
-        <div class='principle'>
-          <span class='principle-mark' aria-hidden='true'>✦</span>
-          <h3 lang='zh-CN' class='lang-zh'>真诚平等</h3>
-          <h3 lang='en' class='lang-en'>Grounded Presence</h3>
-          <p lang='zh-CN' class='lang-zh'>不作职场说教与高下评断，只呈现真实的体悟与探索。</p>
-          <p lang='en' class='lang-en'>No patronizing lectures; only genuine curiosity and unhurried craft experience.</p>
-        </div>
-        <div class='principle'>
-          <span class='principle-mark' aria-hidden='true'>✦</span>
-          <h3 lang='zh-CN' class='lang-zh'>低压倾听</h3>
-          <h3 lang='en' class='lang-en'>Low-Pressure Presence</h3>
-          <p lang='zh-CN' class='lang-zh'>可以畅所欲言，也可以全程安静聆听。</p>
-          <p lang='en' class='lang-en'>Speak whenever moved, or simply listen quietly from start to finish.</p>
-        </div>
-        <div class='principle'>
-          <span class='principle-mark' aria-hidden='true'>✦</span>
-          <h3 lang='zh-CN' class='lang-zh'>保护留白</h3>
-          <h3 lang='en' class='lang-en'>Preserving White Space</h3>
-          <p lang='zh-CN' class='lang-zh'>不设既定结论，让思考自然发酵。</p>
-          <p lang='en' class='lang-en'>Never rushing toward predetermined conclusions; space for organic serendipity.</p>
-        </div>
-        <div class='principle'>
-          <span class='principle-mark' aria-hidden='true'>✦</span>
-          <h3 lang='zh-CN' class='lang-zh'>慢工署名</h3>
-          <h3 lang='en' class='lang-en'>Authored Craft</h3>
-          <p lang='zh-CN' class='lang-zh'>所有合作方案完全归属于创作者本人，可直接作为独立代表作。</p>
-          <p lang='en' class='lang-en'>All shared artifacts remain entirely authored by their creators as signature work.</p>
-        </div>
-      </div>
-    </section>
-
-    {/* ── CTA ── */}
-    <section class='next-steps'>
-      <div class='next-card'>
-        <div lang='zh-CN' class='next-text lang-zh'>
-          <h3>看看机制，或挑一期排期</h3>
-          <p>了解 Coffee Chat / English Chat / Craft Lab 的运作，或直接看近期安排。</p>
-        </div>
-        <div lang='en' class='next-text lang-en'>
-          <h3>Explore the mechanics or a gathering</h3>
-          <p>See how Coffee Chat, English Chat, and Craft Lab work—or browse upcoming slots.</p>
-        </div>
-        <div class='next-actions'>
-          <a href='/events' class='btn-link-gold'>
-            <span lang='zh-CN' class='lang-zh'>机制 · What We Do →</span>
-            <span lang='en' class='lang-en'>What We Do →</span>
-          </a>
-          <a href='/upcoming' class='btn-solid-dark'>
-            <span lang='zh-CN' class='lang-zh'>近期安排</span>
-            <span lang='en' class='lang-en'>Upcoming</span>
-          </a>
-        </div>
-      </div>
-    </section>
-  </div>
+    <nav class='ethos-nav'>
+      <a href='/events'>机制</a>
+      <a href='/upcoming'>排期</a>
+      <a href='/join'>加入</a>
+    </nav>
+  </article>
 </Layout>
 
 <style>
-  .page-container { padding: var(--spacing-6) 0 var(--spacing-20); }
-  .page-header { margin-bottom: var(--spacing-12); }
-  .section-eyebrow {
-    font-family: var(--font-family-mono); font-size: var(--font-size-xs);
-    letter-spacing: 0.12em; color: var(--color-gold-dust);
-    display: block; margin-bottom: var(--spacing-2);
-  }
-  .page-title {
-    font-family: var(--font-family-heading); font-size: var(--font-size-3xl);
-    font-weight: var(--font-weight-light); color: var(--color-text-heading);
-    letter-spacing: -0.02em; margin: 0 0 var(--spacing-3);
-  }
-  .page-lead {
-    font-family: var(--font-family-body); font-size: var(--font-size-base);
-    color: var(--color-text-secondary); line-height: var(--line-height-loose); margin: 0;
-  }
-  .gold-hairline { width: var(--spacing-12); height: 1px; background: var(--color-gold-dust); opacity: 0.7; margin-top: var(--spacing-5); }
-
-  .ethos-block {
-    padding: var(--spacing-12) 0; border-bottom: 1px solid var(--color-border-divider);
-  }
-  .ethos-block:last-of-type { border-bottom: none; }
-  .block-serial {
-    font-family: var(--font-family-heading); font-size: 0.8125rem; font-style: italic;
-    font-weight: 300; color: var(--color-gold-dust); letter-spacing: 0.04em; display: block; margin-bottom: var(--spacing-2);
-  }
-  .ethos-block h2 {
-    font-family: var(--font-family-heading); font-size: var(--font-size-2xl);
-    font-weight: var(--font-weight-normal); color: var(--color-text-heading);
-    margin: 0 0 var(--spacing-5); letter-spacing: 0.01em;
-  }
-  .ethos-block p {
-    font-family: var(--font-family-body); font-size: 15px; color: var(--color-text-secondary);
-    line-height: 1.85; margin: 0 0 var(--spacing-4); letter-spacing: 0.01em;
-  }
-  .ethos-block p.lead { color: var(--color-text-primary); font-size: 16px; }
-  .ethos-block strong { color: var(--color-text-primary); font-weight: var(--font-weight-medium); }
-
-  .roles-grid {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--spacing-4); margin-bottom: var(--spacing-5);
-  }
-  .role-card {
-    background: var(--color-surface-pure); border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-xs); padding: var(--spacing-5);
-  }
-  .role-tag {
-    font-family: var(--font-family-mono); font-size: 11px; color: var(--color-gold-dust);
-    letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: var(--spacing-2);
-  }
-  .role-card h3 {
-    font-family: var(--font-family-heading); font-size: 1rem; font-weight: var(--font-weight-normal);
-    color: var(--color-text-heading); margin: 0 0 var(--spacing-2);
-  }
-  .role-card p {
-    font-family: var(--font-family-body); font-size: 13px; color: var(--color-text-secondary);
-    line-height: 1.7; margin: 0;
-  }
-  .role-foot { color: var(--color-text-tertiary); font-size: 13px; font-style: italic; }
-
-  .principles-row {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--spacing-5);
-  }
-  .principle { padding: var(--spacing-2) 0; }
-  .principle-mark { color: var(--color-gold-dust); font-size: 11px; }
-  .principle h3 {
-    font-family: var(--font-family-heading); font-size: 1.05rem; font-weight: var(--font-weight-normal);
-    color: var(--color-text-primary); margin: var(--spacing-1) 0 var(--spacing-2);
-  }
-  .principle p {
-    font-family: var(--font-family-body); font-size: 13px; color: var(--color-text-secondary);
-    line-height: 1.7; margin: 0;
+  .ethos {
+    max-width: 34rem;
+    margin: 0 auto;
+    padding: var(--spacing-20) 0 var(--spacing-24);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--spacing-8);
   }
 
-  .next-steps { margin-top: var(--spacing-16); }
-  .next-card {
-    background: var(--color-surface-pure); border: var(--border-width-thin) solid var(--color-border-subtle);
-    border-radius: var(--radius-sm); padding: var(--spacing-8);
-    display: flex; justify-content: space-between; align-items: center; gap: var(--spacing-6);
+  .ethos-head { display: flex; flex-direction: column; align-items: center; gap: var(--spacing-3); }
+  .eyebrow {
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--color-gold-dust);
+    text-transform: uppercase;
   }
-  .next-text h3 { margin: 0 0 var(--spacing-1); font-family: var(--font-family-heading); font-size: var(--font-size-lg); color: var(--color-text-heading); }
-  .next-text p { margin: 0; font-family: var(--font-family-body); font-size: var(--font-size-xs); color: var(--color-text-secondary); }
-  .next-actions { display: flex; align-items: center; gap: var(--spacing-4); flex-shrink: 0; }
-  .btn-link-gold {
-    font-family: var(--font-family-ui); font-size: var(--font-size-xs); color: var(--color-primary-dark);
-    text-decoration: none !important; border-bottom: 1px solid var(--color-gold-dust) !important; padding-bottom: 2px;
+  .ethos-head h1 {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-light);
+    color: var(--color-text-heading);
+    letter-spacing: -0.02em;
+    margin: 0;
   }
-  .btn-solid-dark {
-    padding: var(--spacing-2) var(--spacing-5); background: var(--color-primary-dark);
-    color: var(--color-surface-pure) !important; border-radius: var(--radius-xs);
-    font-family: var(--font-family-ui); font-size: var(--font-size-xs); text-decoration: none !important;
-    letter-spacing: 0.04em; transition: background var(--transition-fast); white-space: nowrap;
+  .value {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin: var(--spacing-2) 0 0;
+    max-width: 30rem;
   }
-  .btn-solid-dark:hover { background: var(--color-text-heading); }
+
+  .rule {
+    display: block;
+    width: var(--spacing-8);
+    height: 1px;
+    background: var(--color-gold-dust);
+    opacity: 0.5;
+  }
+
+  .manifesto p,
+  .who p {
+    font-family: var(--font-family-body);
+    font-size: 14.5px;
+    color: var(--color-text-secondary);
+    line-height: 1.85;
+    margin: 0 0 var(--spacing-3);
+    letter-spacing: 0.01em;
+  }
+  .manifesto p:last-child,
+  .who p:last-child { margin-bottom: 0; }
+  .manifesto p:last-child,
+  .who p.quiet { color: var(--color-text-tertiary); font-size: 13.5px; }
+
+  .who { display: flex; flex-direction: column; align-items: center; gap: var(--spacing-3); }
+  .who .eyebrow { color: var(--color-text-tertiary); }
+
+  .principles p {
+    font-family: var(--font-family-ui);
+    font-size: 13px;
+    color: var(--color-text-primary);
+    letter-spacing: 0.06em;
+    margin: 0;
+  }
+
+  .ethos-nav { display: flex; gap: var(--spacing-5); margin-top: var(--spacing-2); }
+  .ethos-nav a {
+    font-family: var(--font-family-ui);
+    font-size: 12px;
+    color: var(--color-primary-dark);
+    text-decoration: none !important;
+    border-bottom: 1px solid var(--color-border-divider) !important;
+    padding-bottom: 2px;
+    transition: border-color var(--transition-fast);
+  }
+  .ethos-nav a:hover { border-bottom-color: var(--color-gold-dust) !important; }
 
   @media (max-width: 680px) {
-    .page-title { font-size: 1.6rem; }
-    .roles-grid, .principles-row { grid-template-columns: 1fr; }
-    .next-card { flex-direction: column; align-items: flex-start; padding: var(--spacing-5) var(--spacing-4); gap: var(--spacing-4); }
-    .next-actions { flex-direction: column; width: 100%; align-items: stretch; gap: var(--spacing-3); }
-    .btn-solid-dark { text-align: center; padding: 10px 16px; }
+    .ethos { padding: var(--spacing-16) 0 var(--spacing-20); gap: var(--spacing-6); }
+    .ethos-head h1 { font-size: 1.6rem; }
+    .value { font-size: 14px; }
   }
 </style>
