@@ -87,34 +87,49 @@ async function download(url, dest) {
   return buf.length;
 }
 
+/** 写一个最小 fonts.css（无 @font-face），让 <link> 不 404、字体回退到系统栈。 */
+function writeFallbackCss(reason) {
+  if (fs.existsSync(CSS_OUT)) return; // 已有真字体缓存则不覆盖
+  fs.writeFileSync(
+    CSS_OUT,
+    `/* fonts.css fallback: ${reason}. 自托管字体生成失败（构建机无法访问 Google Fonts），\n   暂用系统字体回退。本地或可联网环境重跑 \`npm run fonts\` 即可恢复自托管 woff2。 */\n`,
+  );
+  console.log(`⚠ wrote fallback fonts.css (${reason}); build proceeds with system fonts.`);
+}
+
 async function main() {
   fs.mkdirSync(FONTS_DIR, { recursive: true });
   const allFaces = [];
-  for (const { family, weights } of FAMILIES) {
-    let css;
-    try {
-      css = await fetchCss(family, weights);
-    } catch (err) {
-      // 网络不可达：若 fonts.css 已存在（缓存），跳过本次刷新，不阻塞 build
-      if (fs.existsSync(CSS_OUT)) {
-        console.log(`⚠ ${family}: CSS2 fetch failed (${err.message}); using cached fonts.css`);
-        return;
+  try {
+    for (const { family, weights } of FAMILIES) {
+      const css = await fetchCss(family, weights);
+      const faces = parseFaces(css);
+      console.log(`${family}: parsed ${faces.length} @font-face blocks`);
+      for (const f of faces) {
+        const localName = `${slug(family)}-${f.weight}-${slug(f.subset)}.woff2`;
+        const dest = path.join(FONTS_DIR, localName);
+        if (!fs.existsSync(dest)) {
+          const size = await download(f.url, dest);
+          console.log(`  ✓ ${localName} (${size} B) [${f.subset}]`);
+        } else {
+          console.log(`  • ${localName} (exists) [${f.subset}]`);
+        }
+        allFaces.push({ ...f, family, localPath: `/fonts/${localName}` });
       }
-      throw err;
     }
-    const faces = parseFaces(css);
-    console.log(`${family}: parsed ${faces.length} @font-face blocks`);
-    for (const f of faces) {
-      const localName = `${slug(family)}-${f.weight}-${slug(f.subset)}.woff2`;
-      const dest = path.join(FONTS_DIR, localName);
-      if (!fs.existsSync(dest)) {
-        const size = await download(f.url, dest);
-        console.log(`  ✓ ${localName} (${size} B) [${f.subset}]`);
-      } else {
-        console.log(`  • ${localName} (exists) [${f.subset}]`);
-      }
-      allFaces.push({ ...f, family, localPath: `/fonts/${localName}` });
+  } catch (err) {
+    // 联网失败：有缓存则用缓存，无缓存则写 fallback css，绝不阻断 build
+    if (fs.existsSync(CSS_OUT)) {
+      console.log(`⚠ font fetch failed (${err.message}); using cached fonts.css`);
+      return;
     }
+    writeFallbackCss(err.message);
+    return;
+  }
+
+  if (allFaces.length === 0) {
+    writeFallbackCss('no faces parsed');
+    return;
   }
 
   // 生成本地 @font-face CSS
@@ -146,6 +161,8 @@ async function main() {
 }
 
 main().catch(err => {
-  console.error('✗', err);
-  process.exit(1);
+  // 兜底：即使 main 内部异常漏出，也不让 build 崩
+  try { writeFallbackCss(`unexpected: ${err && err.message || err}`); } catch (e) {}
+  console.error('✗ self-host-fonts failed (non-blocking):', err);
+  // 不 exit(1)：prebuild 失败时让 astro build 继续（系统字体回退）
 });

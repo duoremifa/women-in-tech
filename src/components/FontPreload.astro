@@ -3,25 +3,22 @@
 // 字体文件由 scripts/self-host-fonts.mjs 从 Google Fonts CSS2 下载至 /fonts/
 // @font-face 声明见 /fonts/fonts.css（保留 unicode-range 按需加载，CJK 仅在用到时取）
 // 仅预加载首屏关键 latin 子集；其余子集由浏览器按 unicode-range 自动按需拉取
+// build 期检查 woff2 是否存在（prebuild 联网失败回退模式时不发 preload，避免 404）
+import fs from 'node:fs';
+import path from 'node:path';
+
+const interLatin = path.join(process.cwd(), 'public/fonts/inter-400-latin.woff2');
+const loraLatin = path.join(process.cwd(), 'public/fonts/lora-400-latin.woff2');
+const hasInter = fs.existsSync(interLatin);
+const hasLora = fs.existsSync(loraLatin);
 ---
 
-<!-- 关键字体预加载 · Inter 400 latin（正文无衬线） -->
-<link
-  rel='preload'
-  href='/fonts/inter-400-latin.woff2'
-  as='font'
-  type='font/woff2'
-  crossorigin
-/>
-
-<!-- 关键字体预加载 · Lora 400 latin（衬线标题拉丁字符） -->
-<link
-  rel='preload'
-  href='/fonts/lora-400-latin.woff2'
-  as='font'
-  type='font/woff2'
-  crossorigin
-/>
+{hasInter && (
+  <link rel='preload' href='/fonts/inter-400-latin.woff2' as='font' type='font/woff2' crossorigin />
+)}
+{hasLora && (
+  <link rel='preload' href='/fonts/lora-400-latin.woff2' as='font' type='font/woff2' crossorigin />
+)}
 
 <!-- 字体样式表（含全部 @font-face 与 unicode-range 切分，浏览器按需取子集） -->
 <link rel='stylesheet' href='/fonts/fonts.css' media='print' onload="this.media='all'" />
