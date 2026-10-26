@@ -1,0 +1,67 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const all = (await getCollection('writing', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<Layout
+  title='田野手记 · Writing · wo/men in tech'
+  description='以同行者视角对独立女性创造者做深度访谈的非虚构长文。'
+  width='reading'
+>
+  <div class='page-container'>
+    <header class='page-header'>
+      <span class='section-eyebrow'>WRITING · 田野手记</span>
+      <h1 class='page-title'>田野手记</h1>
+      <p class='page-lead'>以同行者视角，对独立女性创造者做深度访谈，写非虚构长文。<br />不是媒体报道，是带着"听见卡住的声音"视角的田野记录。</p>
+      <div class='gold-hairline'></div>
+    </header>
+
+    <div class='writing-list'>
+      {all.map(w => (
+        <a class='writing-row' href={`/writing/${w.id}/`}>
+          <span class='w-date'>{w.data.pubDate.toLocaleDateString('zh-CN', { year:'numeric', month:'long' })}</span>
+          <div class='w-content'>
+            <h2 class='w-title'>{w.data.title}</h2>
+            {w.data.subject && <span class='w-subject'>{w.data.subject}</span>}
+            {w.data.excerpt && <p class='w-excerpt'>{w.data.excerpt}</p>}
+          </div>
+          {w.data.tags && w.data.tags.length > 0 && (
+            <div class='w-tags'>{w.data.tags.map(t => <span class='w-tag'>{t}</span>)}</div>
+          )}
+        </a>
+      ))}
+    </div>
+
+    {all.length === 0 && <p class='empty-note'>月更长文，筹备中。</p>}
+  </div>
+</Layout>
+
+<style>
+  .page-container { padding: var(--spacing-6) 0 var(--spacing-20); max-width: 46rem; margin: 0 auto; }
+  .page-header { margin-bottom: var(--spacing-12); }
+  .section-eyebrow { font-family: var(--font-family-mono); font-size: var(--font-size-xs); letter-spacing: 0.12em; color: var(--color-gold-dust); display: block; margin-bottom: var(--spacing-2); }
+  .page-title { font-family: var(--font-family-heading); font-size: var(--font-size-3xl); font-weight: var(--font-weight-light); color: var(--color-text-heading); letter-spacing: -0.02em; margin: 0 0 var(--spacing-3); }
+  .page-lead { font-family: var(--font-family-body); font-size: var(--font-size-base); color: var(--color-text-secondary); line-height: 1.8; margin: 0; }
+  .gold-hairline { width: var(--spacing-12); height: 1px; background: var(--color-gold-dust); opacity: 0.7; margin-top: var(--spacing-5); }
+
+  .writing-list { display: flex; flex-direction: column; }
+  .writing-row { display: grid; grid-template-columns: 7rem 1fr auto; gap: var(--spacing-5); align-items: baseline; padding: var(--spacing-5) 0; border-bottom: 1px solid var(--color-border-divider); text-decoration: none !important; transition: background var(--transition-fast); }
+  .writing-row:hover { background: var(--color-surface-pure); }
+  .w-date { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-text-tertiary); }
+  .w-content { display: flex; flex-direction: column; gap: var(--spacing-1); }
+  .w-title { font-family: var(--font-family-heading); font-size: 1.1rem; font-weight: var(--font-weight-normal); color: var(--color-text-heading); margin: 0; line-height: 1.35; }
+  .w-subject { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-gold-dust); letter-spacing: 0.04em; }
+  .w-excerpt { font-family: var(--font-family-body); font-size: 12.5px; color: var(--color-text-secondary); line-height: 1.65; margin: 0; }
+  .w-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+  .w-tag { font-family: var(--font-family-ui); font-size: 10px; color: var(--color-text-tertiary); background: var(--color-surface-soft); padding: 1px 6px; border-radius: 2px; }
+
+  .empty-note { font-family: var(--font-family-body); font-size: 14px; color: var(--color-text-tertiary); font-style: italic; }
+
+  @media (max-width: 680px) {
+    .page-title { font-size: 1.6rem; }
+    .writing-row { grid-template-columns: 1fr; gap: var(--spacing-2); }
+  }
+</style>

@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import GeometricVisual from '../components/GeometricVisual.astro';
+import LatestEpisode from '../components/LatestEpisode.astro';
 import { WORKS } from '../data/works';
 ---
 
@@ -91,6 +92,9 @@ import { WORKS } from '../data/works';
           </div>
         </section>
 
+        {/* 最新一期播客（钩子，详情在 /podcast） */}
+        <LatestEpisode />
+
         {/* 正在打磨的器物（钩子，详情在 /works） */}
         <section class='content-block' id='works'>
           <div class='section-heading-group lang-zh'>
@@ -151,6 +155,14 @@ import { WORKS } from '../data/works';
               <span class='lang-en'>Join the Conversation ⟶</span>
             </a>
             <div class='cta-secondary'>
+              <a href='/podcast' class='circle-arrow-link'>
+                <span class='lang-zh'>播客</span>
+                <span class='lang-en'>Podcast</span>
+              </a>
+              <a href='/writing' class='circle-arrow-link'>
+                <span class='lang-zh'>手记</span>
+                <span class='lang-en'>Writing</span>
+              </a>
               <a href='/ethos' class='circle-arrow-link'>
                 <span class='lang-zh'>理念</span>
                 <span class='lang-en'>Ethos</span>

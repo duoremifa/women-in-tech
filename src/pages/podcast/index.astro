@@ -1,0 +1,117 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const all = (await getCollection('podcast', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const latest = all[0];
+const rest = all.slice(1);
+const PODCAST_NAME = 'Friction Log · women-in-tech 实录';
+const RSS_URL = 'https://wotech.space/podcast/rss.xml';
+---
+
+<Layout
+  title={`${PODCAST_NAME} · wo/men in tech`}
+  description='wo/men in tech 社群对谈实录——听见女性创造者的卡壳、顿悟与署名执念。'
+  width='reading'
+>
+  <div class='page-container'>
+    <header class='page-header'>
+      <span class='section-eyebrow'>PODCAST · 播客</span>
+      <h1 class='page-title'>{PODCAST_NAME}</h1>
+      <p class='page-lead'>
+        不是媒体采访，是社群的<span lang='zh-CN'>对谈实录</span>。<br />
+        每一期相聚之后，把那些安静的推敲、未经修饰的卡壳、署名的执念，用声音留下来。
+      </p>
+      <div class='gold-hairline'></div>
+    </header>
+
+    {/* 订阅 */}
+    <section class='subscribe-row'>
+      <a class='sub-btn primary' href={RSS_URL}>
+        <span lang='zh-CN'>订阅 RSS</span>
+        <span lang='en'>Subscribe RSS</span>
+      </a>
+      <span class='sub-or'>
+        <span lang='zh-CN'>或稍后在 Apple Podcasts / Spotify / 小宇宙上线</span>
+        <span lang='en'>Coming to Apple / Spotify / Xiaoyuzhou</span>
+      </span>
+    </section>
+
+    {/* 最新一期大卡 */}
+    {latest && (
+      <a class='latest-card' href={`/podcast/${latest.id}/`}>
+        {latest.data.cover && <img class='latest-cover' src={latest.data.cover} alt='' loading='lazy' />}
+        <div class='latest-info'>
+          <span class='latest-eyebrow'>
+            {latest.data.comingSoon ? '即将上线 · Coming soon' : '最新一期 · Latest'}
+          </span>
+          <h2 class='latest-title'>{latest.data.title}</h2>
+          {latest.data.excerpt && <p class='latest-excerpt'>{latest.data.excerpt}</p>}
+          <div class='latest-meta'>
+            <span>{latest.data.pubDate.toLocaleDateString('zh-CN', { year:'numeric', month:'long', day:'numeric' })}</span>
+            {latest.data.duration && <span>· {latest.data.duration}</span>}
+            <span>· 主播 {latest.data.hosts.join('、')}</span>
+          </div>
+        </div>
+      </a>
+    )}
+
+    {/* 期次列表 */}
+    {rest.length > 0 && (
+      <div class='ep-list'>
+        {rest.map(ep => (
+          <a class='ep-row' href={`/podcast/${ep.id}/`}>
+            <span class='ep-date'>{ep.data.pubDate.toLocaleDateString('zh-CN', { month:'2-digit', day:'2-digit' })}</span>
+            <span class='ep-title'>{ep.data.title}</span>
+            {ep.data.duration && <span class='ep-dur'>{ep.data.duration}</span>}
+          </a>
+        ))}
+      </div>
+    )}
+
+    {all.length === 0 && (
+      <p class='empty-note'>播客筹备中，订阅 RSS 第一期上线自动到。</p>
+    )}
+  </div>
+</Layout>
+
+<style>
+  .page-container { padding: var(--spacing-6) 0 var(--spacing-20); max-width: 46rem; margin: 0 auto; }
+  .page-header { margin-bottom: var(--spacing-10); }
+  .section-eyebrow { font-family: var(--font-family-mono); font-size: var(--font-size-xs); letter-spacing: 0.12em; color: var(--color-gold-dust); display: block; margin-bottom: var(--spacing-2); }
+  .page-title { font-family: var(--font-family-heading); font-size: var(--font-size-3xl); font-weight: var(--font-weight-light); color: var(--color-text-heading); letter-spacing: -0.02em; margin: 0 0 var(--spacing-3); }
+  .page-lead { font-family: var(--font-family-body); font-size: var(--font-size-base); color: var(--color-text-secondary); line-height: 1.8; margin: 0; }
+  .gold-hairline { width: var(--spacing-12); height: 1px; background: var(--color-gold-dust); opacity: 0.7; margin-top: var(--spacing-5); }
+
+  .subscribe-row { display: flex; align-items: center; gap: var(--spacing-4); margin-bottom: var(--spacing-12); flex-wrap: wrap; }
+  .sub-btn { padding: var(--spacing-2) var(--spacing-5); border-radius: var(--radius-xs); font-family: var(--font-family-ui); font-size: 12px; text-decoration: none !important; letter-spacing: 0.04em; transition: background var(--transition-fast); }
+  .sub-btn.primary { background: var(--color-brand-purple, #5e4c7a); color: var(--color-surface-pure) !important; }
+  .sub-btn.primary:hover { background: var(--color-brand-purple-dark, #4d3d66); }
+  .sub-or { font-family: var(--font-family-ui); font-size: 11px; color: var(--color-text-tertiary); }
+
+  .latest-card { display: flex; gap: var(--spacing-6); padding: var(--spacing-6); background: var(--color-surface-pure); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-sm); text-decoration: none !important; transition: border-color var(--transition-fast), box-shadow var(--transition-fast); margin-bottom: var(--spacing-10); }
+  .latest-card:hover { border-color: var(--color-gold-dust); box-shadow: 0 4px 16px -6px rgba(38,34,28,0.05); }
+  .latest-cover { width: 140px; height: 140px; object-fit: cover; border-radius: var(--radius-xs); flex-shrink: 0; }
+  .latest-info { display: flex; flex-direction: column; gap: var(--spacing-2); }
+  .latest-eyebrow { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-gold-dust); letter-spacing: 0.1em; }
+  .latest-title { font-family: var(--font-family-heading); font-size: var(--font-size-xl); font-weight: var(--font-weight-normal); color: var(--color-text-heading); margin: 0; line-height: 1.35; }
+  .latest-excerpt { font-family: var(--font-family-body); font-size: 13.5px; color: var(--color-text-secondary); line-height: 1.7; margin: 0; }
+  .latest-meta { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-text-tertiary); margin-top: auto; }
+
+  .ep-list { display: flex; flex-direction: column; }
+  .ep-row { display: flex; align-items: baseline; gap: var(--spacing-4); padding: var(--spacing-4) 0; border-bottom: 1px solid var(--color-border-divider); text-decoration: none !important; transition: background var(--transition-fast); }
+  .ep-row:hover { background: var(--color-surface-pure); }
+  .ep-date { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-text-tertiary); min-width: 3rem; }
+  .ep-title { font-family: var(--font-family-heading); font-size: 1rem; font-weight: var(--font-weight-normal); color: var(--color-text-primary); flex: 1; }
+  .ep-dur { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-text-tertiary); }
+
+  .empty-note { font-family: var(--font-family-body); font-size: 14px; color: var(--color-text-tertiary); font-style: italic; }
+
+  @media (max-width: 680px) {
+    .page-title { font-size: 1.6rem; }
+    .latest-card { flex-direction: column; padding: var(--spacing-5); }
+    .latest-cover { width: 100%; height: 200px; }
+    .ep-row { flex-wrap: wrap; gap: var(--spacing-2); }
+  }
+</style>

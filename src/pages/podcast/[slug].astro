@@ -1,0 +1,112 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const all = await getCollection('podcast', ({ data }) => !data.draft);
+  const sorted = all.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  return sorted.map((ep, i) => ({
+    params: { slug: ep.id },
+    props: { ep, prev: sorted[i - 1] ?? null, next: sorted[i + 1] ?? null },
+  }));
+}
+
+const { ep, prev, next } = Astro.props;
+const { Content } = await ep.render();
+const dateStr = ep.data.pubDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<Layout
+  title={`${ep.data.title} · ${'Friction Log · women-in-tech 实录'}`}
+  description={ep.data.excerpt || ep.data.title}
+  width='reading'
+>
+  {ep.data.draft && <meta name='robots' content='noindex' />}
+  <div class='page-container'>
+    <a href='/podcast' class='back-link'>
+      <span lang='zh-CN'>← 返回播客</span>
+      <span lang='en'>← Back to podcast</span>
+    </a>
+
+    <header class='ep-head'>
+      <span class='section-eyebrow'>
+        {ep.data.comingSoon ? '即将上线 · COMING SOON' : `EPISODE ${ep.data.season}`}
+      </span>
+      <h1 class='ep-title'>{ep.data.title}</h1>
+      <div class='ep-meta'>
+        <span>{dateStr}</span>
+        {ep.data.duration && <span>· {ep.data.duration}</span>}
+        <span>· 主播 {ep.data.hosts.join('、')}</span>
+      </div>
+    </header>
+
+    {/* 音频播放器（音频上线后） */}
+    {ep.data.audio && !ep.data.comingSoon ? (
+      <audio class='ep-audio' controls preload='metadata' src={ep.data.audio}></audio>
+    ) : (
+      <p class='audio-pending'>
+        <span lang='zh-CN'>音频即将上线</span>
+        <span lang='en'>Audio coming soon</span>
+      </p>
+    )}
+
+    {/* 平台订阅 */}
+    {!ep.data.comingSoon && (ep.data.xiaoyuzhou || ep.data.spotify || ep.data.apple) && (
+      <div class='platforms'>
+        {ep.data.xiaoyuzhou && <a class='plat-link' href={ep.data.xiaoyuzhou} target='_blank' rel='noopener'>小宇宙 ↗</a>}
+        {ep.data.spotify && <a class='plat-link' href={ep.data.spotify} target='_blank' rel='noopener'>Spotify ↗</a>}
+        {ep.data.apple && <a class='plat-link' href={ep.data.apple} target='_blank' rel='noopener'>Apple Podcasts ↗</a>}
+      </div>
+    )}
+
+    {/* Shownotes */}
+    <article class='shownotes'>
+      <Content />
+    </article>
+
+    {/* 上一期/下一期 */}
+    {(prev || next) && (
+      <nav class='ep-nav'>
+        {prev && <a class='ep-nav-link prev' href={`/podcast/${prev.id}/`}><span class='nav-label'>← 上一期</span><span class='nav-title'>{prev.data.title}</span></a>}
+        {next && <a class='ep-nav-link next' href={`/podcast/${next.id}/`}><span class='nav-label'>下一期 →</span><span class='nav-title'>{next.data.title}</span></a>}
+      </nav>
+    )}
+  </div>
+</Layout>
+
+<style>
+  .page-container { padding: var(--spacing-6) 0 var(--spacing-20); max-width: 44rem; margin: 0 auto; }
+  .back-link { display: inline-block; font-family: var(--font-family-ui); font-size: var(--font-size-xs); color: var(--color-text-tertiary); text-decoration: none !important; margin-bottom: var(--spacing-6); }
+  .back-link:hover { color: var(--color-primary-dark); }
+
+  .ep-head { margin-bottom: var(--spacing-6); }
+  .section-eyebrow { font-family: var(--font-family-mono); font-size: 11px; letter-spacing: 0.12em; color: var(--color-gold-dust); display: block; margin-bottom: var(--spacing-2); }
+  .ep-title { font-family: var(--font-family-heading); font-size: var(--font-size-3xl); font-weight: var(--font-weight-light); color: var(--color-text-heading); letter-spacing: -0.02em; margin: 0 0 var(--spacing-3); line-height: 1.3; }
+  .ep-meta { font-family: var(--font-family-mono); font-size: 12px; color: var(--color-text-tertiary); }
+
+  .ep-audio { width: 100%; margin-bottom: var(--spacing-6); }
+  .audio-pending { font-family: var(--font-family-body); font-size: 13px; color: var(--color-text-tertiary); font-style: italic; padding: var(--spacing-4); background: var(--color-surface-soft); border-radius: var(--radius-xs); margin-bottom: var(--spacing-6); }
+
+  .platforms { display: flex; gap: var(--spacing-3); margin-bottom: var(--spacing-8); flex-wrap: wrap; }
+  .plat-link { font-family: var(--font-family-ui); font-size: 12px; color: var(--color-primary-dark); text-decoration: none !important; border: 1px solid var(--color-border-divider); padding: 4px 10px; border-radius: var(--radius-xs); transition: border-color var(--transition-fast); }
+  .plat-link:hover { border-color: var(--color-gold-dust); }
+
+  .shownotes { font-family: var(--font-family-body); font-size: 15px; color: var(--color-text-secondary); line-height: 1.85; }
+  .shownotes :global(h2) { font-family: var(--font-family-heading); font-size: 1.15rem; font-weight: var(--font-weight-normal); color: var(--color-text-heading); margin: var(--spacing-6) 0 var(--spacing-3); }
+  .shownotes :global(h3) { font-family: var(--font-family-heading); font-size: 1rem; color: var(--color-text-heading); margin: var(--spacing-5) 0 var(--spacing-2); }
+  .shownotes :global(p) { margin: 0 0 var(--spacing-4); }
+  .shownotes :global(ul) { padding-left: var(--spacing-5); margin: 0 0 var(--spacing-4); }
+  .shownotes :global(li) { margin: 0 0 var(--spacing-2); }
+  .shownotes :global(a) { color: var(--color-primary-dark); text-decoration: underline; text-underline-offset: 2px; }
+
+  .ep-nav { margin-top: var(--spacing-12); padding-top: var(--spacing-6); border-top: 1px solid var(--color-border-divider); display: flex; gap: var(--spacing-6); flex-wrap: wrap; }
+  .ep-nav-link { display: flex; flex-direction: column; gap: 2px; text-decoration: none !important; flex: 1; min-width: 0; }
+  .ep-nav-link.next { text-align: right; }
+  .nav-label { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-gold-dust); }
+  .nav-title { font-family: var(--font-family-heading); font-size: 13.5px; color: var(--color-text-primary); }
+
+  @media (max-width: 680px) {
+    .ep-title { font-size: 1.5rem; }
+    .ep-nav-link.next { text-align: left; }
+  }
+</style>

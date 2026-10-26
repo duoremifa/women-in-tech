@@ -2,6 +2,29 @@
 // 双周交流活动单一数据源（多期、状态化、可滚动）。
 // schedule 页、join 的 .ics、webcal feed、JSON-LD、邮件通知均从此取。
 // 过期自动 past → /upcoming 回环区 + webcal 滚出；review* 字段支撑"相见后回环"框架。
+//
+// ── 维护方式（不用本地 IDE）──────────────────────────────────
+// 1. 直接在 GitHub 网页编辑此文件（github.com/duoremifa/women-in-tech）：
+//    点 src/data/gatherings.ts → Edit → 复制一个现有 Gathering 对象 → 改字段 → Commit。
+// 2. push 后 Cloudflare 自动重建，新期次日历/排期/JSON-LD 全部同步。
+// 3. .ics / webcal feed / functions/api/join.ts 都读此文件，单一源，改一处全同步。
+//
+// 新增一期模板（复制到 GATHERINGS 数组，改字段）：
+//   {
+//     id: 'coffee-2026-12-06',        // 唯一，格式 <type>-<yyyy-mm-dd>
+//     type: 'coffee',                  // 'coffee' | 'english' | 'lab'
+//     titleZh: '...', titleEn: '...',
+//     startIso: '2026-12-06T14:30:00+08:00',  // 带时区 ISO
+//     endIso:   '2026-12-06T16:00:00+08:00',
+//     icsStartUtc: '20261206T063000Z',          // UTC，YYYYMMDDTHHMMSSZ
+//     icsEndUtc:   '20261206T080000Z',
+//     status: 'open',                 // 'open' | 'forming' | 'full' | 'past'
+//     location: { type:'Place', name:'杭州线下 + 线上', addressLocality:'Hangzhou', addressCountry:'CN' },
+//     descriptionZh: '...', descriptionEn: '...',
+//     capacity: 5,
+//   }
+// 已过期后：status 改 'past'，加 reviewZh/reviewEn/reviewSlug 进回环区。
+// ────────────────────────────────────────────────────────────
 
 export type GatheringStatus = 'open' | 'forming' | 'full' | 'past';
 
