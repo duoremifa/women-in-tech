@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import CalendarAdd from '../components/CalendarAdd.astro';
 import { getGatheringById, GATHERINGS } from '../data/gatherings';
 ---
 
@@ -110,10 +111,13 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
             <span lang='zh-CN' class='field-hint lang-zh'>一次加入 = 长期订阅</span>
             <span lang='en' class='field-hint lang-en'>One join = lasting subscription</span>
           </span>
+          <div class='cal-add-wrap'>
+            <CalendarAdd />
+          </div>
           <div class='quiet-check-list'>
-            <label class='quiet-check-row'><input type='checkbox' name='subscribe_calendar' value='1' checked /><span class='check-indicator' aria-hidden='true'><svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg></span><div class='check-content'><span lang='zh-CN' class='check-title lang-zh'>订阅日历源（webcal，自动同步下期）</span><span lang='en' class='check-title lang-en'>Subscribe calendar feed (webcal)</span><span lang='zh-CN' class='check-note lang-zh'><a class='inline-link' href='webcal://wotech.space/gatherings.ics'>点此在系统日历订阅</a></span><span lang='en' class='check-note lang-en'><a class='inline-link' href='webcal://wotech.space/gatherings.ics'>Subscribe in your calendar app</a></span></div></label>
-            <label class='quiet-check-row'><input type='checkbox' name='subscribe_email' value='1' checked /><span class='check-indicator' aria-hidden='true'><svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg></span><div class='check-content'><span lang='zh-CN' class='check-title lang-zh'>邮件订阅下一期通知</span><span lang='en' class='check-title lang-en'>Email notify on new slots</span><span lang='zh-CN' class='check-note lang-zh'>新排期上线时邮件提醒（低频）</span><span lang='en' class='check-note lang-en'>Low-frequency email on new schedule</span></div></label>
-            <label class='quiet-check-row'><input type='checkbox' name='one_time' value='1' /><span class='check-indicator' aria-hidden='true'><svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg></span><div class='check-content'><span lang='zh-CN' class='check-title lang-zh'>仅本次预约（生成 .ics，不订阅）</span><span lang='en' class='check-title lang-en'>One-time only (.ics, no subscription)</span></div></label>
+            <label class='quiet-check-row'><input type='checkbox' name='subscribe_calendar' value='1' checked /><span class='check-indicator' aria-hidden='true'><svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg></span><div class='check-content'><span lang='zh-CN' class='check-title lang-zh'>自动同步全部排期</span><span lang='en' class='check-title lang-en'>Auto-sync all slots</span><span lang='zh-CN' class='check-note lang-zh'>用上方按钮把日历源加到我的日历 App</span><span lang='en' class='check-note lang-en'>Use the button above to add the feed to your calendar</span></div></label>
+            <label class='quiet-check-row'><input type='checkbox' name='subscribe_email' value='1' checked /><span class='check-indicator' aria-hidden='true'><svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg></span><div class='check-content'><span lang='zh-CN' class='check-title lang-zh'>新排期上线时邮件提醒我</span><span lang='en' class='check-title lang-en'>Email me on new slots</span><span lang='zh-CN' class='check-note lang-zh'>低频，仅新排期上线时</span><span lang='en' class='check-note lang-en'>Low-frequency, only on new schedule</span></div></label>
+            <label class='quiet-check-row'><input type='checkbox' name='one_time' value='1' /><span class='check-indicator' aria-hidden='true'><svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg></span><div class='check-content'><span lang='zh-CN' class='check-title lang-zh'>仅本次预约，不订阅</span><span lang='en' class='check-title lang-en'>One-time only, no subscription</span></div></label>
           </div>
         </div>
 
@@ -378,8 +382,8 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
         const noteEn = document.getElementById('join-note-text-en');
         const subscribed = subscribeCalendar || subscribeEmail;
         if (subscribed) {
-          if (noteZh) noteZh.textContent = subscribeCalendar ? '已为你打开日历源订阅，点击上方"订阅日历源"在系统日历中添加。' : '已记录邮件订阅，新排期上线时会低频提醒。';
-          if (noteEn) noteEn.textContent = subscribeCalendar ? 'Calendar feed subscription enabled—tap "Subscribe calendar" above to add it.' : 'Email subscription recorded; low-frequency notices on new slots.';
+          if (noteZh) noteZh.textContent = subscribeCalendar ? '已为你打开日历订阅，点上方"添加到我的日历"把日历源加到你的日历 App。' : '已记录邮件订阅，新排期上线时会低频提醒。';
+          if (noteEn) noteEn.textContent = subscribeCalendar ? 'Calendar subscription enabled—tap "Add to my calendar" above to add it to your calendar app.' : 'Email subscription recorded; low-frequency notices on new slots.';
         } else if (isEmail && emailSent) {
           if (noteZh) noteZh.textContent = '已向你的邮箱 ' + contact + ' 发送确认信与 .ics 日历邀请。';
           if (noteEn) noteEn.textContent = 'A confirmation & .ics invite dispatched to ' + contact + '.';
@@ -424,6 +428,7 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
   .field-hint { font-family: var(--font-family-ui); font-size: 11px; color: var(--color-text-tertiary); font-weight: var(--font-weight-normal); }
   .quiet-form input[type='text'], .quiet-form textarea { width: 100%; background: var(--color-surface-soft); border: 1px solid var(--color-border-divider); border-radius: var(--radius-xs); padding: var(--spacing-3) var(--spacing-4); font-family: var(--font-family-body); font-size: 13.5px; line-height: 1.6; color: var(--color-text-primary); transition: border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast); box-sizing: border-box; }
   .quiet-form input[type='text']:focus, .quiet-form textarea:focus { outline: none; border-color: var(--color-brand-purple, #5e4c7a); background: var(--color-surface-pure); box-shadow: none; }
+  .subscribe-field .cal-add-wrap { margin-bottom: var(--spacing-4); }
   .quiet-check-list { display: flex; flex-direction: column; gap: var(--spacing-2); }
   .quiet-check-row { display: flex; align-items: flex-start; gap: var(--spacing-3); padding: var(--spacing-3) var(--spacing-4); border: 1px solid var(--color-border-divider); border-radius: var(--radius-xs); background: transparent; cursor: pointer; transition: all var(--transition-fast); }
   .quiet-check-row:hover { border-color: var(--color-border); background: var(--color-surface-soft); }

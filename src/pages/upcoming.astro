@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import CalendarAdd from '../components/CalendarAdd.astro';
 import { GATHERINGS, upcomingGatherings, pastGatherings, type Gathering } from '../data/gatherings';
 
 const now = new Date();
@@ -56,15 +57,15 @@ function fmtTime(iso: string) {
         </div>
       </div>
       <div class='subscribe-actions'>
-        <a class='subscribe-btn primary' href='webcal://wotech.space/gatherings.ics'>
-          <span lang='zh-CN' class='lang-zh'>＋ 订阅日历源</span>
-          <span lang='en' class='lang-en'>＋ Subscribe calendar</span>
-        </a>
-        <a class='subscribe-btn ghost' href='/join?source=upcoming-email'>
-          <span lang='zh-CN' class='lang-zh'>邮件订阅</span>
-          <span lang='en' class='lang-en'>Email notify</span>
-        </a>
-        <a class='subscribe-link' href='/gatherings.ics' download>...或下载 .ics</a>
+        <CalendarAdd />
+        <form class='email-sub' id='upcoming-email-sub'>
+          <input type='email' name='email' required autocomplete='email' placeholder='你的邮箱 / your email' aria-label='邮箱 / email' />
+          <button type='submit' class='email-sub-btn'>
+            <span lang='zh-CN' class='lang-zh'>提醒我</span>
+            <span lang='en' class='lang-en'>Notify me</span>
+          </button>
+        </form>
+        <p class='email-sub-msg' id='upcoming-email-msg' role='status' aria-live='polite'></p>
       </div>
     </section>
 
@@ -114,12 +115,12 @@ function fmtTime(iso: string) {
                 {g.status === 'open' && (
                   <>
                     <a class='btn-ics' href={`/gatherings/${g.id}.ics`} download>
-                      <span lang='zh-CN' class='lang-zh'>加日历 .ics</span>
-                      <span lang='en' class='lang-en'>Add to calendar</span>
+                      <span lang='zh-CN' class='lang-zh'>加这一期到日历</span>
+                      <span lang='en' class='lang-en'>Add this slot</span>
                     </a>
                     <a class='btn-rsvp' href={`/join?slot=${g.id}`}>
-                      <span lang='zh-CN' class='lang-zh'>我要这一期 ⟶</span>
-                      <span lang='en' class='lang-en'>Reserve this slot ⟶</span>
+                      <span lang='zh-CN' class='lang-zh'>预留这一期席位 ⟶</span>
+                      <span lang='en' class='lang-en'>Reserve a seat ⟶</span>
                     </a>
                   </>
                 )}
@@ -215,6 +216,46 @@ function fmtTime(iso: string) {
   </div>
 </Layout>
 
+<script>
+  function setupEmailSub() {
+    const form = document.getElementById('upcoming-email-sub') as HTMLFormElement | null;
+    const msg = document.getElementById('upcoming-email-msg');
+    if (!form || (form as any).__bound) return;
+    (form as any).__bound = true;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = (form.querySelector('input[type=email]') as HTMLInputElement).value.trim();
+      if (!email) return;
+      const btn = form.querySelector('button[type=submit]') as HTMLButtonElement;
+      if (btn) btn.disabled = true;
+      const isEn = document.documentElement.getAttribute('data-lang') === 'en';
+      try {
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), 12000);
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, source: 'upcoming', locale: isEn ? 'en' : 'zh' }),
+          signal: ctrl.signal,
+        });
+        clearTimeout(timer);
+        if (res.ok) {
+          if (msg) msg.textContent = isEn ? '✓ Subscribed — low-frequency notices only.' : '✓ 已订阅，仅低频提醒。';
+          (form.querySelector('input[type=email]') as HTMLInputElement).value = '';
+        } else {
+          if (msg) msg.textContent = isEn ? 'Subscription failed, please retry.' : '订阅失败，请重试。';
+        }
+      } catch (err) {
+        if (msg) msg.textContent = isEn ? 'Network error — please retry later.' : '网络异常，请稍后重试。';
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    });
+  }
+  setupEmailSub();
+  document.addEventListener('astro:page-load', setupEmailSub);
+</script>
+
 <style>
   .page-container { padding: var(--spacing-6) 0 var(--spacing-20); }
   .page-header { margin-bottom: var(--spacing-10); }
@@ -235,6 +276,34 @@ function fmtTime(iso: string) {
   .subscribe-btn.ghost { border: 1px solid var(--color-border); color: var(--color-text-primary) !important; }
   .subscribe-btn.ghost:hover { border-color: var(--color-gold-dust); color: var(--color-primary-dark) !important; }
   .subscribe-link { font-family: var(--font-family-ui); font-size: 11px; color: var(--color-text-tertiary); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 1px; }
+
+  /* 邮件提醒迷你表单 */
+  .email-sub { display: flex; gap: var(--spacing-2); align-items: stretch; }
+  .email-sub input[type='email'] {
+    background: var(--color-surface-soft);
+    border: 1px solid var(--color-border-divider);
+    border-radius: var(--radius-xs);
+    padding: 6px 10px;
+    font-family: var(--font-family-body);
+    font-size: 12px;
+    color: var(--color-text-primary);
+    min-width: 160px;
+    box-sizing: border-box;
+  }
+  .email-sub input[type='email']:focus { outline: none; border-color: var(--color-brand-purple, #5e4c7a); }
+  .email-sub-btn {
+    padding: 6px 14px;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    border-radius: var(--radius-xs);
+    font-family: var(--font-family-ui);
+    font-size: 12px;
+    cursor: pointer;
+    transition: border-color var(--transition-fast), color var(--transition-fast);
+  }
+  .email-sub-btn:hover { border-color: var(--color-gold-dust); color: var(--color-primary-dark); }
+  .email-sub-msg { font-family: var(--font-family-ui); font-size: 11px; color: var(--color-text-tertiary); margin-top: var(--spacing-1); min-height: 1em; }
 
   /* 排期块 */
   .schedule-stack { display: flex; flex-direction: column; gap: 0; }

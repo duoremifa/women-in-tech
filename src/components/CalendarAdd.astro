@@ -1,0 +1,169 @@
+---
+// src/components/CalendarAdd.astro
+// 平台感知的"添加到日历"组件：webcal 订阅源（全部排期自动同步）。
+// - iOS / macOS Safari → webcal://（Apple Calendar 原生订阅）
+// - Android → Google Calendar add-by-URL（系统不认 webcal，需走 Google）
+// - 其他/桌面 → webcal（Outlook/Thunderbird）+ .ics 下载兜底
+// 用 <details> 原生下拉，免 JS 框架；is:inline 脚本按 UA 设 href + 提示文案。
+---
+
+<details class='cal-add'>
+  <summary class='cal-trigger' aria-label='添加到我的日历'>
+    <span class='cal-trigger-icon' aria-hidden='true'>📅</span>
+    <span lang='zh-CN' class='lang-zh'>添加到我的日历</span>
+    <span lang='en' class='lang-en'>Add to my calendar</span>
+  </summary>
+  <div class='cal-menu' role='menu'>
+    <a class='cal-opt primary' id='cal-sync' href='#' role='menuitem'>
+      <span class='cal-opt-title'>
+        <span lang='zh-CN' class='lang-zh'>自动同步全部排期</span>
+        <span lang='en' class='lang-en'>Subscribe all (auto-sync)</span>
+      </span>
+      <span class='cal-opt-hint' id='cal-sync-hint'>
+        <span lang='zh-CN' class='lang-zh'>新排期自动到，过期自动撤</span>
+        <span lang='en' class='lang-en'>New slots auto-arrive; past ones fade</span>
+      </span>
+    </a>
+    <a class='cal-opt' href='/gatherings.ics' download role='menuitem'>
+      <span class='cal-opt-title'>
+        <span lang='zh-CN' class='lang-zh'>下载 .ics 文件</span>
+        <span lang='en' class='lang-en'>Download .ics file</span>
+      </span>
+      <span class='cal-opt-hint'>
+        <span lang='zh-CN' class='lang-zh'>手动导入任意日历 App</span>
+        <span lang='en' class='lang-en'>Import manually into any calendar</span>
+      </span>
+    </a>
+    <p class='cal-foot' id='cal-foot'></p>
+  </div>
+</details>
+
+<style>
+  .cal-add {
+    position: relative;
+    display: inline-block;
+  }
+  .cal-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-2) var(--spacing-4);
+    background: var(--color-brand-purple, #5e4c7a);
+    color: var(--color-surface-pure) !important;
+    border: none;
+    border-radius: var(--radius-xs);
+    font-family: var(--font-family-ui);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    transition: background var(--transition-fast);
+  }
+  .cal-trigger::-webkit-details-marker { display: none; }
+  .cal-add[open] > .cal-trigger { background: var(--color-brand-purple-dark, #4d3d66); }
+  .cal-trigger-icon { font-size: 13px; }
+
+  .cal-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    min-width: 280px;
+    background: var(--color-surface-pure);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 8px 24px -8px rgba(38, 34, 28, 0.12);
+    padding: var(--spacing-2);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .cal-opt {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--spacing-2) var(--spacing-3);
+    border-radius: var(--radius-xs);
+    text-decoration: none !important;
+    transition: background var(--transition-fast);
+  }
+  .cal-opt:hover, .cal-opt:focus-visible {
+    background: var(--color-surface-soft);
+    outline: none;
+  }
+  .cal-opt.primary .cal-opt-title { color: var(--color-brand-purple, #5e4c7a); }
+  .cal-opt-title {
+    font-family: var(--font-family-ui);
+    font-size: 12.5px;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+  }
+  .cal-opt-hint {
+    font-family: var(--font-family-body);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    line-height: 1.4;
+  }
+  .cal-foot {
+    margin: var(--spacing-1) var(--spacing-3) 0;
+    padding-top: var(--spacing-2);
+    border-top: 1px solid var(--color-border-divider);
+    font-family: var(--font-family-body);
+    font-size: 10.5px;
+    color: var(--color-text-tertiary);
+    line-height: 1.5;
+  }
+  .cal-foot:empty { display: none; }
+
+  :root.dark .cal-menu {
+    background: var(--color-surface-card-dark, #2a2830);
+    border-color: var(--color-border-subtle-dark, #434047);
+  }
+
+  @media (max-width: 680px) {
+    .cal-menu {
+      left: 0;
+      right: 0;
+      min-width: 0;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    function setupCalAdd() {
+      var ua = navigator.userAgent || '';
+      var platform = navigator.platform || '';
+      var isIOS = /iPad|iPhone|iPod/.test(ua) || (platform === 'MacIntel' && (navigator.maxTouchPoints || 0) > 1);
+      var isMac = /Macintosh/.test(ua) && !isIOS;
+      var isAndroid = /Android/i.test(ua);
+      var link = document.getElementById('cal-sync');
+      var foot = document.getElementById('cal-foot');
+      if (!link) return;
+      var feedHttps = 'https://wotech.space/gatherings.ics';
+      var webcal = 'webcal://wotech.space/gatherings.ics';
+      if (isIOS || isMac) {
+        link.setAttribute('href', webcal);
+        if (foot) {
+          foot.lang = 'zh-CN';
+          foot.textContent = '将用系统日历（Apple Calendar）订阅。';
+        }
+      } else if (isAndroid) {
+        link.setAttribute('href', 'https://calendar.google.com/calendar/r?cid=' + encodeURIComponent(feedHttps));
+        if (foot) {
+          foot.lang = 'zh-CN';
+          foot.textContent = '将用 Google 日历订阅（安卓系统不识别 webcal）。';
+        }
+      } else {
+        link.setAttribute('href', webcal);
+        if (foot) {
+          foot.lang = 'zh-CN';
+          foot.textContent = 'Outlook / Thunderbird 等桌面日历可订阅；安卓用户请用上方 Google 日历。';
+        }
+      }
+    }
+    setupCalAdd();
+    document.addEventListener('astro:page-load', setupCalAdd);
+  })();
+</script>
