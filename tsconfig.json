@@ -3,15 +3,6 @@
   "compilerOptions": {
     "strict": true,
     "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/styles/*": ["./src/styles/*"],
-      "@/utils/*": ["./src/utils/*"],
-      "@/content/*": ["./src/content/*"],
-      "@/layouts/*": ["./src/layouts/*"],
-      "@/pages/*": ["./src/pages/*"]
-    },
     "allowJs": true,
     "checkJs": false,
     "esModuleInterop": true,
@@ -20,12 +11,11 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "moduleResolution": "node",
     "target": "ES2022",
     "module": "ESNext",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "types": ["@types/node"]
   },
-  "include": [".astro/types.d.ts", "**/*", "*.astro", "*.ts", "*.tsx", "*.js", "*.jsx"],
-  "exclude": ["dist", "node_modules", ".vercel", ".astro"]
+  "include": [".astro/types.d.ts", "src/**/*", "functions/**/*", "scripts/**/*", "*.ts"],
+  "exclude": ["dist", "node_modules", ".vercel", ".astro", "eslint.config.mjs", ".stylelintrc.mjs", "astro.config.mjs"]
 }

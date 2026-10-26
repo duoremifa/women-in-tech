@@ -33,7 +33,7 @@ class FontManager {
    * 更新字体加载状态类
    */
   private updateFontClasses(): void {
-    const hasAllFonts = this.loadedFonts.size >= 3; // Inter, Lora, Noto Sans SC
+    const hasAllFonts = this.loadedFonts.size >= 3; // Inter, Lora, Noto Serif SC
     document.documentElement.classList.toggle('fonts-loaded', hasAllFonts);
     document.documentElement.classList.toggle('fonts-loading', !hasAllFonts);
   }
@@ -69,7 +69,7 @@ class FontManager {
       { family: 'Inter', weight: '400' },
       { family: 'Inter', weight: '600' },
       { family: 'Lora', weight: '400' },
-      { family: 'Noto Sans SC', weight: '400' },
+      { family: 'Noto Serif SC', weight: '400' },
     ];
 
     for (const font of fonts) {
@@ -118,7 +118,7 @@ class FontManager {
   private markAllFontsLoaded(): void {
     this.loadedFonts.add('Inter');
     this.loadedFonts.add('Lora');
-    this.loadedFonts.add('Noto Sans SC');
+    this.loadedFonts.add('Noto Serif SC');
     this.updateFontClasses();
   }
 

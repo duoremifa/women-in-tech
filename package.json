@@ -9,26 +9,54 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/self-host-fonts.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "clean": "rm -rf dist .astro",
     "astro": "astro",
-    "type-check": "astro check"
+    "type-check": "astro check",
+    "lint": "eslint . && stylelint \"src/**/*.{css,astro}\"",
+    "lint:fix": "eslint . --fix && stylelint \"src/**/*.{css,astro}\" --fix",
+    "format": "prettier --write .",
+    "fonts": "node scripts/self-host-fonts.mjs",
+    "prepare": "husky || true"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,mjs,cjs}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{astro,css}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
-    "@astrojs/cloudflare": "^12.6.12",
     "@astrojs/sitemap": "^3.7.0",
     "@vite-pwa/astro": "^1.2.0",
     "astro": "^5.7.0",
-    "js-yaml": "^4.1.1",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@types/node": "^22.0.0",
     "cssnano": "^7.1.2",
+    "eslint": "^9.39.4",
+    "eslint-config-prettier": "^9.1.2",
+    "husky": "^9.1.0",
     "lightningcss": "^1.31.1",
+    "lint-staged": "^15.2.0",
+    "postcss-html": "^1.7.0",
     "prettier": "^3.8.1",
     "prettier-plugin-astro": "^0.14.1",
-    "vite-plugin-pwa": "^1.2.0"
+    "stylelint": "^16.0.0",
+    "stylelint-config-standard": "^36.0.0",
+    "typescript-eslint": "^8.72.0",
+    "vite-plugin-pwa": "^1.2.0",
+    "workbox-cacheable-response": "^7.3.0",
+    "workbox-expiration": "^7.3.0",
+    "workbox-precaching": "^7.3.0",
+    "workbox-routing": "^7.3.0",
+    "workbox-strategies": "^7.3.0"
   }
 }

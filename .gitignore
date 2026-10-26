@@ -26,3 +26,7 @@ Thumbs.db
 public/audio/*.mp3
 public/audio/*.m4a
 public/audio/*.wav
+
+# 自托管字体由 scripts/self-host-fonts.mjs 在 prebuild 阶段生成，不入库
+public/fonts/*.woff2
+public/fonts/fonts.css

@@ -22,7 +22,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
         </div>
 
         {/* 中文版宣言 */}
-        <div class='manifesto lang-zh'>
+        <div lang='zh-CN' class='manifesto lang-zh'>
           <p>
             在每一个商业项目的空隙里，<br />
             总有一些东西是做给自己的。
@@ -33,7 +33,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
         </div>
 
         {/* 英文版宣言 */}
-        <div class='manifesto lang-en'>
+        <div lang='en' class='manifesto lang-en'>
           <p>
             In between every commercial sprint,<br />
             there is always something we build for ourselves.
@@ -46,7 +46,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
         <div class='sidebar-divider'></div>
 
         {/* 中文版面向群体 */}
-        <div class='who-section lang-zh'>
+        <div lang='zh-CN' class='who-section lang-zh'>
           <span class='who-label'>面向群体</span>
           <p class='who-desc'>
             所有在技术与创造领域工作的女性——<br />
@@ -59,7 +59,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
         </div>
 
         {/* 英文版面向群体 */}
-        <div class='who-section lang-en'>
+        <div lang='en' class='who-section lang-en'>
           <span class='who-label'>CRAFTED FOR</span>
           <p class='who-desc'>
             All women creating across tech and design—<br />
@@ -77,12 +77,12 @@ import GeometricVisual from '../components/GeometricVisual.astro';
       </aside>
 
       {/* ===== 右侧：核心展陈区 ===== */}
-      <main class='content-main'>
+      <div class='content-main' role='region' aria-label='核心展陈区'>
 
         {/* 1. 我们做什么 */}
         <section class='content-block' id='events'>
           {/* 中文标题 */}
-          <div class='section-heading-group lang-zh'>
+          <div lang='zh-CN' class='section-heading-group lang-zh'>
             <div class='section-title-line'>
               <span class='section-serial'>01</span>
               <h2 class='section-main-title'>日常与创作机制</h2>
@@ -91,7 +91,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
           </div>
 
           {/* 英文标题 */}
-          <div class='section-heading-group lang-en'>
+          <div lang='en' class='section-heading-group lang-en'>
             <div class='section-title-line'>
               <span class='section-serial'>01</span>
               <h2 class='section-main-title'>What We Do</h2>
@@ -100,7 +100,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
           </div>
 
           {/* 中文展陈内容 */}
-          <div class='editorial-panels-stack lang-zh'>
+          <div lang='zh-CN' class='editorial-panels-stack lang-zh'>
             <article class='editorial-panel'>
               <div class='panel-top'>
                 <div class='panel-name-group'>
@@ -142,7 +142,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
           </div>
 
           {/* 英文展陈内容 */}
-          <div class='editorial-panels-stack lang-en'>
+          <div lang='en' class='editorial-panels-stack lang-en'>
             <article class='editorial-panel'>
               <div class='panel-top'>
                 <div class='panel-name-group'>
@@ -186,21 +186,21 @@ import GeometricVisual from '../components/GeometricVisual.astro';
           {/* 精细化调整的底部手艺准则跳转栏 */}
           <div class='section-bottom-action'>
             <div class='action-lead-note'>
-              <span class='gold-thread-dot'>✦</span>
-              <span class='lang-zh'>保持极小规模 · 保护深度表达与留白</span>
-              <span class='lang-en'>Intimate circles · Preserving deep craft and stillness</span>
+              <span class='gold-thread-dot' aria-hidden='true'>✦</span>
+              <span lang='zh-CN' class='lang-zh'>保持极小规模 · 保护深度表达与留白</span>
+              <span lang='en' class='lang-en'>Intimate circles · Preserving deep craft and stillness</span>
             </div>
             <a href='/events' class='circle-arrow-link'>
-              <span class='lang-zh'>阅读完整手艺准则与共建机制</span>
-              <span class='lang-en'>Explore Craft Manifesto & Circle Norms</span>
-              <span class='link-arrow'>⟶</span>
+              <span lang='zh-CN' class='lang-zh'>阅读完整手艺准则与共建机制</span>
+              <span lang='en' class='lang-en'>Explore Craft Manifesto & Circle Norms</span>
+              <span class='link-arrow' aria-hidden='true'>⟶</span>
             </a>
           </div>
         </section>
 
         {/* 2. 正在打磨的器物 · IN THE WORKSHOP (动态作品展陈与共建吸引点) */}
         <section class='content-block' id='workshop'>
-          <div class='section-heading-group lang-zh'>
+          <div lang='zh-CN' class='section-heading-group lang-zh'>
             <div class='section-title-line'>
               <span class='section-serial'>02</span>
               <h2 class='section-main-title'>正在打磨的器物 · Works in Progress</h2>
@@ -210,7 +210,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
             </p>
           </div>
 
-          <div class='section-heading-group lang-en'>
+          <div lang='en' class='section-heading-group lang-en'>
             <div class='section-title-line'>
               <span class='section-serial'>02</span>
               <h2 class='section-main-title'>Works in the Workshop</h2>
@@ -220,19 +220,19 @@ import GeometricVisual from '../components/GeometricVisual.astro';
             </p>
           </div>
 
-          {/* 角色视角快速切换 */}
-          <div class='workshop-filter-bar' role='tablist' aria-label='作品视角筛选'>
-            <button type='button' class='role-tab-btn is-active' data-role-filter='all'>
-              <span class='lang-zh'>全部器物</span>
-              <span class='lang-en'>All Artifacts</span>
+          {/* 角色视角快速切换（筛选器，非标签页） */}
+          <div class='workshop-filter-bar' role='group' aria-label='作品视角筛选'>
+            <button type='button' class='role-tab-btn is-active' aria-pressed='true' data-role-filter='all'>
+              <span lang='zh-CN' class='lang-zh'>全部器物</span>
+              <span lang='en' class='lang-en'>All Artifacts</span>
             </button>
-            <button type='button' class='role-tab-btn' data-role-filter='pm'>
+            <button type='button' class='role-tab-btn' aria-pressed='false' data-role-filter='pm'>
               <span>PM · 商业与闭环</span>
             </button>
-            <button type='button' class='role-tab-btn' data-role-filter='ixd'>
+            <button type='button' class='role-tab-btn' aria-pressed='false' data-role-filter='ixd'>
               <span>IxD · 触感与微动效</span>
             </button>
-            <button type='button' class='role-tab-btn' data-role-filter='fe'>
+            <button type='button' class='role-tab-btn' aria-pressed='false' data-role-filter='fe'>
               <span>FE · 鲁棒与离线工程</span>
             </button>
           </div>
@@ -247,10 +247,10 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                 <span class='work-triad-pills'>PM × IxD × FE</span>
               </div>
               <h3 class='work-title'>FrictionLog · 宁静慢节奏感知器</h3>
-              <p class='work-summary lang-zh'>
+              <p lang='zh-CN' class='work-summary lang-zh'>
                 为复杂心智创造者设计的离线手写感知器物。杜绝社交算法与点赞刺激，专注捕获未经修饰的创作卡壳与顿悟时刻。
               </p>
-              <p class='work-summary lang-en'>
+              <p lang='en' class='work-summary lang-en'>
                 A local-first reflection tool for deep creators. Zero social algorithms, zero engagement hooks—holding space for genuine creative friction.
               </p>
               <div class='work-breakdown-grid'>
@@ -269,8 +269,8 @@ import GeometricVisual from '../components/GeometricVisual.astro';
               </div>
               <div class='work-action-row'>
                 <button type='button' class='btn-join-work' data-work-name='FrictionLog 慢节奏感知器'>
-                  <span class='lang-zh'>认领共建角色 / 加入推敲 ⟶</span>
-                  <span class='lang-en'>Co-build this artifact ⟶</span>
+                  <span lang='zh-CN' class='lang-zh'>认领共建角色 / 加入推敲 ⟶</span>
+                  <span lang='en' class='lang-en'>Co-build this artifact ⟶</span>
                 </button>
               </div>
             </article>
@@ -284,10 +284,10 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                 <span class='work-triad-pills'>IxD × FE</span>
               </div>
               <h3 class='work-title'>TypeSpec · 手艺排版标尺</h3>
-              <p class='work-summary lang-zh'>
+              <p lang='zh-CN' class='work-summary lang-zh'>
                 网页手艺人专用的黄金分割与衬线字距排版游标。让中英文混排拥有如同手制书籍一般的留白韵律与行气呼吸。
               </p>
-              <p class='work-summary lang-en'>
+              <p lang='en' class='work-summary lang-en'>
                 A modular golden-ratio typography inspection utility, bringing bookish calm and meticulous tracking to modern web screens.
               </p>
               <div class='work-breakdown-grid'>
@@ -306,8 +306,8 @@ import GeometricVisual from '../components/GeometricVisual.astro';
               </div>
               <div class='work-action-row'>
                 <button type='button' class='btn-join-work' data-work-name='TypeSpec 手艺排版标尺'>
-                  <span class='lang-zh'>认领共建角色 / 加入推敲 ⟶</span>
-                  <span class='lang-en'>Co-build this artifact ⟶</span>
+                  <span lang='zh-CN' class='lang-zh'>认领共建角色 / 加入推敲 ⟶</span>
+                  <span lang='en' class='lang-en'>Co-build this artifact ⟶</span>
                 </button>
               </div>
             </article>
@@ -321,10 +321,10 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                 <span class='work-triad-pills'>PM × IxD</span>
               </div>
               <h3 class='work-title'>Whisper Letter · 同行极简信笺</h3>
-              <p class='work-summary lang-zh'>
+              <p lang='zh-CN' class='work-summary lang-zh'>
                 女性独立创造者之间的异步信笺交换协议。每次仅交换一份深度同行反馈，拒绝浮躁的信息流与客套夸奖。
               </p>
-              <p class='work-summary lang-en'>
+              <p lang='en' class='work-summary lang-en'>
                 An asynchronous craft critique protocol for independent creators. Exchange one deep, sincere feedback letter at a time.
               </p>
               <div class='work-breakdown-grid'>
@@ -343,8 +343,8 @@ import GeometricVisual from '../components/GeometricVisual.astro';
               </div>
               <div class='work-action-row'>
                 <button type='button' class='btn-join-work' data-work-name='Whisper Letter 同行极简信笺'>
-                  <span class='lang-zh'>认领共建角色 / 加入推敲 ⟶</span>
-                  <span class='lang-en'>Co-build this artifact ⟶</span>
+                  <span lang='zh-CN' class='lang-zh'>认领共建角色 / 加入推敲 ⟶</span>
+                  <span lang='en' class='lang-en'>Co-build this artifact ⟶</span>
                 </button>
               </div>
             </article>
@@ -354,7 +354,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
         {/* 3. 近期安排 */}
         <section class='content-block' id='schedule'>
           {/* 中文标题 */}
-          <div class='section-heading-group lang-zh'>
+          <div lang='zh-CN' class='section-heading-group lang-zh'>
             <div class='section-title-line'>
               <span class='section-serial'>03</span>
               <h2 class='section-main-title'>近期安排</h2>
@@ -363,7 +363,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
           </div>
 
           {/* 英文标题 */}
-          <div class='section-heading-group lang-en'>
+          <div lang='en' class='section-heading-group lang-en'>
             <div class='section-title-line'>
               <span class='section-serial'>03</span>
               <h2 class='section-main-title'>Upcoming Gatherings</h2>
@@ -372,7 +372,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
           </div>
 
           {/* 中文排期内容 */}
-          <div class='editorial-panels-stack lang-zh'>
+          <div lang='zh-CN' class='editorial-panels-stack lang-zh'>
             <article class='editorial-panel'>
               <div class='panel-top'>
                 <div class='panel-name-group'>
@@ -429,7 +429,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
           </div>
 
           {/* 英文排期内容 */}
-          <div class='editorial-panels-stack lang-en'>
+          <div lang='en' class='editorial-panels-stack lang-en'>
             <article class='editorial-panel'>
               <div class='panel-top'>
                 <div class='panel-name-group'>
@@ -487,14 +487,14 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 
           <div class='section-bottom-action'>
             <div class='action-lead-note'>
-              <span class='gold-thread-dot'>✦</span>
-              <span class='lang-zh'>极小规模 · 保持 3-5 人深度倾听</span>
-              <span class='lang-en'>Intimate gatherings · Capped at 5 participants</span>
+              <span class='gold-thread-dot' aria-hidden='true'>✦</span>
+              <span lang='zh-CN' class='lang-zh'>极小规模 · 保持 3-5 人深度倾听</span>
+              <span lang='en' class='lang-en'>Intimate gatherings · Capped at 5 participants</span>
             </div>
             <a href='/upcoming' class='circle-arrow-link'>
-              <span class='lang-zh'>查看全部排期与答疑</span>
-              <span class='lang-en'>View Full Schedule & Circle FAQ</span>
-              <span class='link-arrow'>⟶</span>
+              <span lang='zh-CN' class='lang-zh'>查看全部排期与答疑</span>
+              <span lang='en' class='lang-en'>View Full Schedule & Circle FAQ</span>
+              <span class='link-arrow' aria-hidden='true'>⟶</span>
             </a>
           </div>
         </section>
@@ -502,7 +502,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
         {/* 4. 预约加入 (前置极细金线手作表单) */}
         <section class='content-block' id='join'>
           {/* 中文标题 */}
-          <div class='section-heading-group lang-zh'>
+          <div lang='zh-CN' class='section-heading-group lang-zh'>
             <div class='section-title-line'>
               <span class='section-serial'>04</span>
               <h2 class='section-main-title'>预约交流 · 加入“我们”</h2>
@@ -511,7 +511,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
           </div>
 
           {/* 英文标题 */}
-          <div class='section-heading-group lang-en'>
+          <div lang='en' class='section-heading-group lang-en'>
             <div class='section-title-line'>
               <span class='section-serial'>04</span>
               <h2 class='section-main-title'>Join the Circle</h2>
@@ -522,15 +522,15 @@ import GeometricVisual from '../components/GeometricVisual.astro';
           <div class='form-wrapper'>
             <form id='home-join-form' class='quiet-form'>
               {/* 商业级反爬蜜罐与机器人陷阱 (视觉隐藏，爬虫秒填即被拦截) */}
-              <input type='text' name='_hp' value='' tabindex='-1' autocomplete='off' aria-hidden='true' style='position:absolute;opacity:0;pointer-events:none;left:-9999px;width:1px;height:1px;' />
+              <input type='text' name='_hp' value='' tabindex='-1' autocomplete='off' aria-label='请勿填写 / Leave this field empty' style='position:absolute;opacity:0;pointer-events:none;left:-9999px;width:1px;height:1px;' />
 
               {/* 字段 1: 称呼 */}
               <div class='form-field'>
                 <label class='field-label' for='home-name'>
-                  <span class='lang-zh'>如何称呼你</span>
-                  <span class='lang-en'>What should we call you</span>
-                  <span class='field-hint lang-zh'>名字或习惯的称呼</span>
-                  <span class='field-hint lang-en'>Name or preferred moniker</span>
+                  <span lang='zh-CN' class='lang-zh'>如何称呼你</span>
+                  <span lang='en' class='lang-en'>What should we call you</span>
+                  <span lang='zh-CN' class='field-hint lang-zh'>名字或习惯的称呼</span>
+                  <span lang='en' class='field-hint lang-en'>Name or preferred moniker</span>
                 </label>
                 <input
                   type='text'
@@ -547,20 +547,20 @@ import GeometricVisual from '../components/GeometricVisual.astro';
               {/* 字段 2: 前置细金线单选 */}
               <div class='form-field'>
                 <label class='field-label'>
-                  <span class='lang-zh'>你在从事的领域</span>
-                  <span class='lang-en'>Your Primary Craft</span>
-                  <span class='field-hint lang-zh'>单选</span>
-                  <span class='field-hint lang-en'>Single choice</span>
+                  <span lang='zh-CN' class='lang-zh'>你在从事的领域</span>
+                  <span lang='en' class='lang-en'>Your Primary Craft</span>
+                  <span lang='zh-CN' class='field-hint lang-zh'>单选</span>
+                  <span lang='en' class='field-hint lang-en'>Single choice</span>
                 </label>
                 <div class='quiet-check-list' role='radiogroup' aria-label='从事领域'>
                   <label class='quiet-check-row is-radio'>
                     <input type='radio' name='craft' value='design' checked />
                     <span class='check-indicator' aria-hidden='true'></span>
                     <div class='check-content'>
-                      <span class='check-title lang-zh'>设计 · 视觉传达 / 交互体验 (IxD)</span>
-                      <span class='check-title lang-en'>Design · Interaction & Visual Craft (IxD)</span>
-                      <span class='check-note lang-zh'>视觉、触感与动效</span>
-                      <span class='check-note lang-en'>Visuals, typography & micro-interactions</span>
+                      <span lang='zh-CN' class='check-title lang-zh'>设计 · 视觉传达 / 交互体验 (IxD)</span>
+                      <span lang='en' class='check-title lang-en'>Design · Interaction & Visual Craft (IxD)</span>
+                      <span lang='zh-CN' class='check-note lang-zh'>视觉、触感与动效</span>
+                      <span lang='en' class='check-note lang-en'>Visuals, typography & micro-interactions</span>
                     </div>
                   </label>
 
@@ -568,10 +568,10 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                     <input type='radio' name='craft' value='product' />
                     <span class='check-indicator' aria-hidden='true'></span>
                     <div class='check-content'>
-                      <span class='check-title lang-zh'>产品 · 逻辑推敲 / 独立孵化 (PM)</span>
-                      <span class='check-title lang-en'>Product · Product Thinking & Independent Work (PM)</span>
-                      <span class='check-note lang-zh'>痛点挖掘与体验闭环</span>
-                      <span class='check-note lang-en'>Problem framing & human experience loops</span>
+                      <span lang='zh-CN' class='check-title lang-zh'>产品 · 逻辑推敲 / 独立孵化 (PM)</span>
+                      <span lang='en' class='check-title lang-en'>Product · Product Thinking & Independent Work (PM)</span>
+                      <span lang='zh-CN' class='check-note lang-zh'>痛点挖掘与体验闭环</span>
+                      <span lang='en' class='check-note lang-en'>Problem framing & human experience loops</span>
                     </div>
                   </label>
 
@@ -579,10 +579,10 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                     <input type='radio' name='craft' value='engineering' />
                     <span class='check-indicator' aria-hidden='true'></span>
                     <div class='check-content'>
-                      <span class='check-title lang-zh'>工程 · 前端架构 / 独立全栈 (FE)</span>
-                      <span class='check-title lang-en'>Engineering · Frontend Architecture & Systems (FE)</span>
-                      <span class='check-note lang-zh'>代码实现与鲁棒工程</span>
-                      <span class='check-note lang-en'>Clean code, robust craftsmanship</span>
+                      <span lang='zh-CN' class='check-title lang-zh'>工程 · 前端架构 / 独立全栈 (FE)</span>
+                      <span lang='en' class='check-title lang-en'>Engineering · Frontend Architecture & Systems (FE)</span>
+                      <span lang='zh-CN' class='check-note lang-zh'>代码实现与鲁棒工程</span>
+                      <span lang='en' class='check-note lang-en'>Clean code, robust craftsmanship</span>
                     </div>
                   </label>
 
@@ -590,10 +590,10 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                     <input type='radio' name='craft' value='other' />
                     <span class='check-indicator' aria-hidden='true'></span>
                     <div class='check-content'>
-                      <span class='check-title lang-zh'>研究 / 写作 / 自由创造者</span>
-                      <span class='check-title lang-en'>Research / Writing / Independent Creators</span>
-                      <span class='check-note lang-zh'>深度观察与跨界表达</span>
-                      <span class='check-note lang-en'>Deep synthesis & cross-disciplinary inquiries</span>
+                      <span lang='zh-CN' class='check-title lang-zh'>研究 / 写作 / 自由创造者</span>
+                      <span lang='en' class='check-title lang-en'>Research / Writing / Independent Creators</span>
+                      <span lang='zh-CN' class='check-note lang-zh'>深度观察与跨界表达</span>
+                      <span lang='en' class='check-note lang-en'>Deep synthesis & cross-disciplinary inquiries</span>
                     </div>
                   </label>
                 </div>
@@ -601,23 +601,23 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 
               {/* 字段 3: 前置细金线多选 */}
               <div class='form-field'>
-                <label class='field-label'>
-                  <span class='lang-zh'>想参与的活动</span>
-                  <span class='lang-en'>Gatherings of Interest</span>
-                  <span class='field-hint lang-zh'>多选</span>
-                  <span class='field-hint lang-en'>Multiple choice</span>
-                </label>
-                <div class='quiet-check-list'>
+                <span class='field-label' id='home-interests-label'>
+                  <span lang='zh-CN' class='lang-zh'>想参与的活动</span>
+                  <span lang='en' class='lang-en'>Gatherings of Interest</span>
+                  <span lang='zh-CN' class='field-hint lang-zh'>多选</span>
+                  <span lang='en' class='field-hint lang-en'>Multiple choice</span>
+                </span>
+                <div class='quiet-check-list' role='group' aria-labelledby='home-interests-label'>
                   <label class='quiet-check-row'>
                     <input type='checkbox' name='interests' value='coffee_chat' id='interest-coffee' checked />
                     <span class='check-indicator' aria-hidden='true'>
                       <svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg>
                     </span>
                     <div class='check-content'>
-                      <span class='check-title lang-zh'>Coffee Chat</span>
-                      <span class='check-title lang-en'>Coffee Chat</span>
-                      <span class='check-note lang-zh'>双周轻聚 · 低压真诚</span>
-                      <span class='check-note lang-en'>Biweekly · low pressure, genuine connection</span>
+                      <span lang='zh-CN' class='check-title lang-zh'>Coffee Chat</span>
+                      <span lang='en' class='check-title lang-en'>Coffee Chat</span>
+                      <span lang='zh-CN' class='check-note lang-zh'>双周轻聚 · 低压真诚</span>
+                      <span lang='en' class='check-note lang-en'>Biweekly · low pressure, genuine connection</span>
                     </div>
                   </label>
 
@@ -627,10 +627,10 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                       <svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg>
                     </span>
                     <div class='check-content'>
-                      <span class='check-title lang-zh'>English Tech & Design Chat</span>
-                      <span class='check-title lang-en'>English Tech & Design Chat</span>
-                      <span class='check-note lang-zh'>双周线上 · 5 min Show & Tell</span>
-                      <span class='check-note lang-en'>Biweekly online · 5 min Show & Tell</span>
+                      <span lang='zh-CN' class='check-title lang-zh'>English Tech & Design Chat</span>
+                      <span lang='en' class='check-title lang-en'>English Tech & Design Chat</span>
+                      <span lang='zh-CN' class='check-note lang-zh'>双周线上 · 5 min Show & Tell</span>
+                      <span lang='en' class='check-note lang-en'>Biweekly online · 5 min Show & Tell</span>
                     </div>
                   </label>
 
@@ -640,10 +640,10 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                       <svg viewBox='0 0 12 12' fill='none'><path d='M2.5 6L5 8.5L9.5 3.5'/></svg>
                     </span>
                     <div class='check-content'>
-                      <span class='check-title lang-zh'>作品 Lab · 慢工出细活</span>
-                      <span class='check-title lang-en'>Craft Lab</span>
-                      <span class='check-note lang-zh'>经验互借 · 代表作打磨</span>
-                      <span class='check-note lang-en'>Small cohorts · patient iteration on signature work</span>
+                      <span lang='zh-CN' class='check-title lang-zh'>作品 Lab · 慢工出细活</span>
+                      <span lang='en' class='check-title lang-en'>Craft Lab</span>
+                      <span lang='zh-CN' class='check-note lang-zh'>经验互借 · 代表作打磨</span>
+                      <span lang='en' class='check-note lang-en'>Small cohorts · patient iteration on signature work</span>
                     </div>
                   </label>
                 </div>
@@ -652,10 +652,10 @@ import GeometricVisual from '../components/GeometricVisual.astro';
               {/* 字段 4: 正在做的事 */}
               <div class='form-field'>
                 <label class='field-label' for='home-idea'>
-                  <span class='lang-zh'>正在做的事，或者想交流的话题</span>
-                  <span class='lang-en'>Current projects, questions, or topics you care about</span>
-                  <span class='field-hint lang-zh'>可留空</span>
-                  <span class='field-hint lang-en'>Optional</span>
+                  <span lang='zh-CN' class='lang-zh'>正在做的事，或者想交流的话题</span>
+                  <span lang='en' class='lang-en'>Current projects, questions, or topics you care about</span>
+                  <span lang='zh-CN' class='field-hint lang-zh'>可留空</span>
+                  <span lang='en' class='field-hint lang-en'>Optional</span>
                 </label>
                 <textarea
                   id='home-idea'
@@ -670,10 +670,10 @@ import GeometricVisual from '../components/GeometricVisual.astro';
               {/* 字段 5: 联系方式 */}
               <div class='form-field'>
                 <label class='field-label' for='home-contact'>
-                  <span class='lang-zh'>联系方式</span>
-                  <span class='lang-en'>Contact Information</span>
-                  <span class='field-hint lang-zh'>微信号或邮箱 · 仅用于活动邀请</span>
-                  <span class='field-hint lang-en'>WeChat ID or Email · strictly for circle invites</span>
+                  <span lang='zh-CN' class='lang-zh'>联系方式</span>
+                  <span lang='en' class='lang-en'>Contact Information</span>
+                  <span lang='zh-CN' class='field-hint lang-zh'>微信号或邮箱 · 仅用于活动邀请</span>
+                  <span lang='en' class='field-hint lang-en'>WeChat ID or Email · strictly for circle invites</span>
                 </label>
                 <input
                   type='text'
@@ -690,36 +690,36 @@ import GeometricVisual from '../components/GeometricVisual.astro';
               {/* 调整后的横向精致动作条 */}
               <div class='submit-bar'>
                 <button type='submit' class='submit-btn-primary' id='home-submit-btn'>
-                  <span class='lang-zh'>预约交流</span>
-                  <span class='lang-en'>Join the Conversation</span>
-                  <span class='btn-arrow'>⟶</span>
+                  <span lang='zh-CN' class='lang-zh'>预约交流</span>
+                  <span lang='en' class='lang-en'>Join the Conversation</span>
+                  <span class='btn-arrow' aria-hidden='true'>⟶</span>
                 </button>
                 <div class='privacy-assurance-pill'>
-                  <span class='privacy-dot'>✦</span>
-                  <span class='privacy-text lang-zh'>
+                  <span class='privacy-dot' aria-hidden='true'>✦</span>
+                  <span lang='zh-CN' class='privacy-text lang-zh'>
                     随时可退订联系 · 承诺不作商业营销
                   </span>
-                  <span class='privacy-text lang-en'>
+                  <span lang='en' class='privacy-text lang-en'>
                     Unsubscribe anytime · Zero commercial marketing
                   </span>
                 </div>
               </div>
 
-              <div id='home-form-feedback' class='feedback-receipt-box' style='display: none;'>
+              <div id='home-form-feedback' class='feedback-receipt-box' role='status' aria-live='polite' aria-atomic='true' style='display: none;'>
                 <div class='receipt-head'>
-                  <span class='receipt-icon'>✦</span>
+                  <span class='receipt-icon' aria-hidden='true'>✦</span>
                   <div>
-                    <h4 class='receipt-msg-title lang-zh'>意向已静默送达</h4>
-                    <h4 class='receipt-msg-title lang-en'>Received with Warmth</h4>
+                    <h4 lang='zh-CN' class='receipt-msg-title lang-zh'>意向已静默送达</h4>
+                    <h4 lang='en' class='receipt-msg-title lang-en'>Received with Warmth</h4>
                     <p class='receipt-id-tag' id='home-receipt-id'>回执编号: WT-PENDING</p>
                   </div>
                 </div>
 
                 <div class='receipt-status-banner'>
-                  <p class='receipt-note lang-zh' id='home-note-text'>
+                  <p lang='zh-CN' class='receipt-note lang-zh' id='home-note-text'>
                     意向已收录入社群档案。
                   </p>
-                  <p class='receipt-note lang-en' id='home-note-text-en'>
+                  <p lang='en' class='receipt-note lang-en' id='home-note-text-en'>
                     Your note has been securely saved in our circle records.
                   </p>
                 </div>
@@ -729,44 +729,44 @@ import GeometricVisual from '../components/GeometricVisual.astro';
                   {/* 闭环 1: 日历占位 (.ics) */}
                   <div class='loop-cell'>
                     <div class='loop-cell-info'>
-                      <span class='loop-cell-tag lang-zh'>日历占位 · .ics</span>
-                      <span class='loop-cell-tag lang-en'>Calendar · .ics</span>
-                      <p class='loop-cell-desc lang-zh'>包含双周 Coffee Chat 与 Show & Tell 交流时段，一键导入手机系统日历。</p>
-                      <p class='loop-cell-desc lang-en'>Includes Coffee Chat & Show & Tell slots. Import to system calendar with one click.</p>
+                      <span lang='zh-CN' class='loop-cell-tag lang-zh'>日历占位 · .ics</span>
+                      <span lang='en' class='loop-cell-tag lang-en'>Calendar · .ics</span>
+                      <p lang='zh-CN' class='loop-cell-desc lang-zh'>包含双周 Coffee Chat 与 Show & Tell 交流时段，一键导入手机系统日历。</p>
+                      <p lang='en' class='loop-cell-desc lang-en'>Includes Coffee Chat & Show & Tell slots. Import to system calendar with one click.</p>
                     </div>
                     <button type='button' class='btn-download-ics' id='home-btn-download-ics'>
-                      <span class='lang-zh'>下载 .ics 日历邀请 ↗</span>
-                      <span class='lang-en'>Download .ics Invite ↗</span>
+                      <span lang='zh-CN' class='lang-zh'>下载 .ics 日历邀请 ↗</span>
+                      <span lang='en' class='lang-en'>Download .ics Invite ↗</span>
                     </button>
                   </div>
 
                   {/* 闭环 2: 微信联络通道 */}
                   <div class='loop-cell'>
                     <div class='loop-cell-info'>
-                      <span class='loop-cell-tag lang-zh'>微信直接交流</span>
-                      <span class='loop-cell-tag lang-en'>Connect via WeChat</span>
-                      <p class='loop-cell-desc lang-zh'>如果有正在推敲的作品或想法想先聊聊，欢迎随时联系我。</p>
-                      <p class='loop-cell-desc lang-en'>If you have a thought or project in progress you'd like to share, feel free to reach out directly.</p>
+                      <span lang='zh-CN' class='loop-cell-tag lang-zh'>微信直接交流</span>
+                      <span lang='en' class='loop-cell-tag lang-en'>Connect via WeChat</span>
+                      <p lang='zh-CN' class='loop-cell-desc lang-zh'>如果有正在推敲的作品或想法想先聊聊，欢迎随时联系我。</p>
+                      <p lang='en' class='loop-cell-desc lang-en'>If you have a thought or project in progress you'd like to share, feel free to reach out directly.</p>
                     </div>
                     <div class='wechat-field-card'>
                       <div class='wechat-text-col'>
                         <span class='wechat-label-caption'>微信号</span>
                         <code class='wechat-handle'>daiminay</code>
                       </div>
-                      <button type='button' class='btn-copy-hairline' id='home-btn-copy-wechat' data-wechat='daiminay' aria-label='复制微信号'>
-                        <span class='copy-text lang-zh'>复制</span>
-                        <span class='copy-text lang-en'>Copy</span>
+                      <button type='button' class='btn-copy-hairline' id='home-btn-copy-wechat' data-wechat='daiminay'>
+                        <span lang='zh-CN' class='copy-text lang-zh'>复制</span>
+                        <span lang='en' class='copy-text lang-en'>Copy</span>
                       </button>
                     </div>
                   </div>
                 </div>
 
                 <div class='receipt-footer-row'>
-                  <span class='receipt-remind lang-zh'>添加微信时请备注回执编号，我们将邀你进入当期交流。</span>
-                  <span class='receipt-remind lang-en'>Please include your receipt ID when connecting.</span>
+                  <span lang='zh-CN' class='receipt-remind lang-zh'>添加微信时请备注回执编号，我们将邀你进入当期交流。</span>
+                  <span lang='en' class='receipt-remind lang-en'>Please include your receipt ID when connecting.</span>
                   <button type='button' class='btn-modify-form' id='home-btn-modify-form'>
-                    <span class='lang-zh'>修改或重填 ↺</span>
-                    <span class='lang-en'>Edit note ↺</span>
+                    <span lang='zh-CN' class='lang-zh'>修改或重填 ↺</span>
+                    <span lang='en' class='lang-en'>Edit note ↺</span>
                   </button>
                 </div>
               </div>
@@ -775,12 +775,14 @@ import GeometricVisual from '../components/GeometricVisual.astro';
           </div>
         </section>
 
-      </main>
+      </div>
     </div>
   </div>
 </Layout>
 
 <script>
+  import { generateICS, WECHAT_HANDLE } from '../lib/join-shared';
+
   function setupHomeInteractions() {
     const form = document.getElementById('home-join-form') as HTMLFormElement | null;
     const feedback = document.getElementById('home-form-feedback');
@@ -798,7 +800,11 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     }
 
     syncPlaceholders();
-    window.addEventListener('site-language-change', syncPlaceholders);
+    // 跨页持久的监听只注册一次（view-transition 重跑 setup 时不再叠加）
+    if (!(window as any).__wotech_home_lang_bound) {
+      (window as any).__wotech_home_lang_bound = true;
+      window.addEventListener('site-language-change', syncPlaceholders);
+    }
 
     // 2. 作品共建认领按钮联动 (Workshop Co-build Buttons)
     document.querySelectorAll<HTMLButtonElement>('.btn-join-work').forEach(btn => {
@@ -835,8 +841,12 @@ import GeometricVisual from '../components/GeometricVisual.astro';
 
     roleTabs.forEach(tab => {
       tab.onclick = () => {
-        roleTabs.forEach(t => t.classList.remove('is-active'));
+        roleTabs.forEach(t => {
+          t.classList.remove('is-active');
+          t.setAttribute('aria-pressed', 'false');
+        });
         tab.classList.add('is-active');
+        tab.setAttribute('aria-pressed', 'true');
         const filter = tab.dataset.roleFilter || 'all';
 
         workCards.forEach(card => {
@@ -876,16 +886,17 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     if (copyWechatBtn) {
       copyWechatBtn.onclick = async () => {
         try {
-          await navigator.clipboard.writeText('daiminay');
-          const isEn = document.documentElement.getAttribute('data-lang') === 'en';
-          const label = copyWechatBtn.querySelector('.copy-text');
-          if (label) {
-            const original = label.textContent;
-            label.textContent = isEn ? '✓ Copied' : '✓ 已复制';
-            setTimeout(() => {
-              label.textContent = original;
-            }, 2500);
-          }
+          await navigator.clipboard.writeText(WECHAT_HANDLE);
+          // 分别更新双语 span，保留 .lang-zh/.lang-en 结构供语言切换
+          const spans = copyWechatBtn.querySelectorAll<HTMLElement>('.copy-text');
+          const originals: string[] = [];
+          spans.forEach((s, i) => {
+            originals[i] = s.textContent || '';
+            s.textContent = i === 0 ? '✓ 已复制' : '✓ Copied';
+          });
+          setTimeout(() => {
+            spans.forEach((s, i) => { s.textContent = originals[i]; });
+          }, 2500);
         } catch (e) {}
       };
     }
@@ -935,82 +946,52 @@ import GeometricVisual from '../components/GeometricVisual.astro';
         currentSubId = subId;
         const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactVal);
         let emailSent = false;
+        let apiFailed = false;
 
-        // 发送至 API
+        // 发送至 API（带超时；失败不掩盖，给用户可重试的反馈）
         try {
           if (submitBtn) submitBtn.setAttribute('disabled', 'true');
+          const ctrl = new AbortController();
+          const timer = setTimeout(() => ctrl.abort(), 15000);
           const res = await fetch('/api/join', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
+            signal: ctrl.signal,
           });
+          clearTimeout(timer);
           if (res.ok) {
             const resData = await res.json();
             if (resData.submissionId) subId = resData.submissionId;
             currentSubId = subId;
-            if (resData.icsContent) currentIcsData = resData.icsContent;
             if (resData.emailSent !== undefined) emailSent = resData.emailSent;
           }
-        } catch (err) {}
+        } catch (err) {
+          apiFailed = true;
+        } finally {
+          if (submitBtn) submitBtn.removeAttribute('disabled');
+        }
 
-        // 本地保底生成 .ics (按意向独立生成真实活动项)
+        // 网络失败：不展示"已收录"假成功，给可重试反馈
+        if (apiFailed) {
+          const isEn = document.documentElement.getAttribute('data-lang') === 'en';
+          const noteZh = document.getElementById('home-note-text');
+          const noteEn = document.getElementById('home-note-text-en');
+          if (noteZh) noteZh.textContent = '网络异常，意向暂未送达。请稍后重试，或直接添加微信 ' + WECHAT_HANDLE + ' 联系。';
+          if (noteEn) noteEn.textContent = 'Network error — your note did not reach us. Please retry shortly, or connect via WeChat at ' + WECHAT_HANDLE + '.';
+          if (receiptDisplay) receiptDisplay.textContent = isEn ? 'Receipt pending (offline)' : '回执待补（离线）';
+          // 仍生成 .ics 供下载（本地兜底）
+          currentIcsData = generateICS(subId, nameVal, interestsVal);
+          if (feedback) {
+            feedback.style.display = 'block';
+            feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+          return;
+        }
+
+        // 本地保底生成 .ics（与服务端共享同一 generateICS，杜绝逻辑分叉）
         if (!currentIcsData) {
-          const dt = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-          const wantsCoffee = interestsVal.includes('coffee') || interestsVal.length === 0;
-          const wantsEnglish = interestsVal.includes('english') || interestsVal.length === 0;
-          const events: string[] = [];
-
-          if (wantsCoffee) {
-            events.push([
-              'BEGIN:VEVENT',
-              `UID:wotech-coffee-${subId}@wotech.space`,
-              `DTSTAMP:${dt}`,
-              'DTSTART:20261108T063000Z', // 2026-11-08 (双周周日) 14:30 GMT+8
-              'DTEND:20261108T080000Z',   // 2026-11-08 (双周周日) 16:00 GMT+8
-              'SUMMARY:wo/men in tech · Coffee Chat（双周轻聚）',
-              `DESCRIPTION:致 ${nameVal || '同行者'}：\\n这是为你预留的 Coffee Chat 交流席位。\\n回执编号: #${subId}\\n形式：杭州线下 + 线上接入\\n微信联络：daiminay`,
-              'LOCATION:杭州线下 / 线上连线',
-              'STATUS:CONFIRMED',
-              'SEQUENCE:0',
-              'BEGIN:VALARM',
-              'TRIGGER:-PT30M',
-              'ACTION:DISPLAY',
-              'DESCRIPTION:wo/men in tech · Coffee Chat 提醒',
-              'END:VALARM',
-              'END:VEVENT',
-            ].join('\r\n'));
-          }
-
-          if (wantsEnglish) {
-            events.push([
-              'BEGIN:VEVENT',
-              `UID:wotech-showtell-${subId}@wotech.space`,
-              `DTSTAMP:${dt}`,
-              'DTSTART:20261111T120000Z', // 2026-11-11 (双周周三晚间) 20:00 GMT+8
-              'DTEND:20261111T124500Z',   // 2026-11-11 (双周周三晚间) 20:45 GMT+8
-              'SUMMARY:wo/men in tech · Show & Tell 英文技术与设计交流',
-              `DESCRIPTION:致 ${nameVal || '同行者'}：\\n这是为你预留的 Show & Tell 交流席位。\\n回执编号: #${subId}\\n形式：40 min 英文界面细节与代码架构分享 + Q&A\\n微信联络：daiminay`,
-              'LOCATION:线上视频室 (活动前发放连线)',
-              'STATUS:CONFIRMED',
-              'SEQUENCE:0',
-              'BEGIN:VALARM',
-              'TRIGGER:-PT30M',
-              'ACTION:DISPLAY',
-              'DESCRIPTION:wo/men in tech · Show & Tell 提醒',
-              'END:VALARM',
-              'END:VEVENT',
-            ].join('\r\n'));
-          }
-
-          currentIcsData = [
-            'BEGIN:VCALENDAR',
-            'VERSION:2.0',
-            'PRODID:-//wo/men in tech//Circle Gatherings//CN',
-            'CALSCALE:GREGORIAN',
-            'METHOD:REQUEST',
-            ...events,
-            'END:VCALENDAR',
-          ].join('\r\n');
+          currentIcsData = generateICS(subId, nameVal, interestsVal);
         }
 
         const isEn = document.documentElement.getAttribute('data-lang') === 'en';
@@ -1021,7 +1002,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
         // 更新状态说明
         const noteZh = document.getElementById('home-note-text');
         const noteEn = document.getElementById('home-note-text-en');
-        if (isEmail) {
+        if (isEmail && emailSent) {
           if (noteZh) {
             noteZh.textContent = '已向你的邮箱 ';
             const codeEl = document.createElement('code');
@@ -1033,6 +1014,22 @@ import GeometricVisual from '../components/GeometricVisual.astro';
             noteEn.textContent = 'A confirmation letter & .ics invite have been dispatched to ';
             const codeEl = document.createElement('code');
             codeEl.textContent = contactVal;
+            noteEn.appendChild(codeEl);
+            noteEn.appendChild(document.createTextNode('.'));
+          }
+        } else if (isEmail && !emailSent) {
+          // 邮箱有效但确认信未送达（服务端 Resend 未配置或失败）
+          if (noteZh) {
+            noteZh.textContent = '邮箱已记录，但确认信暂未自动发出。可直接下载下方 .ics 日历邀请，或添加微信 ';
+            const codeEl = document.createElement('code');
+            codeEl.textContent = WECHAT_HANDLE;
+            noteZh.appendChild(codeEl);
+            noteZh.appendChild(document.createTextNode(' 联系。'));
+          }
+          if (noteEn) {
+            noteEn.textContent = 'Your email is recorded, but the confirmation letter could not be sent automatically. Download the .ics invite below, or connect via WeChat at ';
+            const codeEl = document.createElement('code');
+            codeEl.textContent = WECHAT_HANDLE;
             noteEn.appendChild(codeEl);
             noteEn.appendChild(document.createTextNode('.'));
           }
@@ -1055,7 +1052,7 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     }
   }
 
-  setupHomeInteractions();
+  // astro:page-load 首屏与每次视图切换后均触发；不再叠加直接调用，避免双初始化
   document.addEventListener('astro:page-load', setupHomeInteractions);
 </script>
 
@@ -1656,6 +1653,12 @@ import GeometricVisual from '../components/GeometricVisual.astro';
     position: absolute;
     opacity: 0;
     pointer-events: none;
+  }
+
+  /* 自定义控件键盘焦点：原生 input 视觉隐藏，焦点环落到整行 */
+  .quiet-check-row:has(input:focus-visible) {
+    border-color: var(--color-brand-purple, #5e4c7a);
+    box-shadow: 0 0 0 1px var(--color-brand-purple, #5e4c7a);
   }
 
   .check-indicator {

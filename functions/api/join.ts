@@ -1,86 +1,18 @@
 // functions/api/join.ts - Cloudflare Pages Function
 // 闭环处理：表单提交 -> 生成回执 -> (若留邮箱) 触发 Resend 确认信 + .ics 日历占位附件 -> 邮件/Webhook 同步发起人
+// 共享逻辑（ICS 生成、兴趣匹配、校验、清洗）抽至 src/lib/join-shared.ts，与 dev 中间件、客户端兜底共用。
 
-function generateICS(submissionId: string, name: string, interests: string[] = []): string {
-  const dtStamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-  const wantsCoffee = interests.includes('coffee') || interests.length === 0;
-  const wantsEnglish = interests.includes('english') || interests.length === 0;
-  const events: string[] = [];
-
-  if (wantsCoffee) {
-    events.push([
-      'BEGIN:VEVENT',
-      `UID:wotech-coffee-${submissionId}@wotech.space`,
-      `DTSTAMP:${dtStamp}`,
-      'DTSTART:20261108T063000Z', // 2026-11-08 (双周周日) 14:30 GMT+8
-      'DTEND:20261108T080000Z',   // 2026-11-08 (双周周日) 16:00 GMT+8
-      'SUMMARY:wo/men in tech · Coffee Chat（双周轻聚）',
-      `DESCRIPTION:致 ${name || '同行者'}：\\n这是为你预留的 Coffee Chat 交流席位。\\n回执编号: #${submissionId}\\n形式：杭州线下 + 线上接入\\n微信联络：daiminay`,
-      'LOCATION:杭州线下 / 线上连线',
-      'STATUS:CONFIRMED',
-      'SEQUENCE:0',
-      'BEGIN:VALARM',
-      'TRIGGER:-PT30M',
-      'ACTION:DISPLAY',
-      'DESCRIPTION:wo/men in tech · Coffee Chat 提醒',
-      'END:VALARM',
-      'END:VEVENT',
-    ].join('\r\n'));
-  }
-
-  if (wantsEnglish) {
-    events.push([
-      'BEGIN:VEVENT',
-      `UID:wotech-showtell-${submissionId}@wotech.space`,
-      `DTSTAMP:${dtStamp}`,
-      'DTSTART:20261111T120000Z', // 2026-11-11 (双周周三晚间) 20:00 GMT+8
-      'DTEND:20261111T124500Z',   // 2026-11-11 (双周周三晚间) 20:45 GMT+8
-      'SUMMARY:wo/men in tech · Show & Tell 英文技术与设计交流',
-      `DESCRIPTION:致 ${name || '同行者'}：\\n这是为你预留的 Show & Tell 交流席位。\\n回执编号: #${submissionId}\\n形式：40 min 英文界面细节与代码架构分享 + Q&A\\n微信联络：daiminay`,
-      'LOCATION:线上视频室 (活动前发放连线)',
-      'STATUS:CONFIRMED',
-      'SEQUENCE:0',
-      'BEGIN:VALARM',
-      'TRIGGER:-PT30M',
-      'ACTION:DISPLAY',
-      'DESCRIPTION:wo/men in tech · Show & Tell 提醒',
-      'END:VALARM',
-      'END:VEVENT',
-    ].join('\r\n'));
-  }
-
-  return [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//wo/men in tech//Circle Gatherings//CN',
-    'CALSCALE:GREGORIAN',
-    'METHOD:REQUEST',
-    ...events,
-    'END:VCALENDAR',
-  ].join('\r\n');
-}
-
-function getCraftLabel(craft: string): string {
-  const map: Record<string, string> = {
-    design: '设计 · 视觉传达 / 交互体验 (IxD)',
-    product: '产品 · 逻辑推敲 / 独立孵化 (PM)',
-    engineering: '工程 · 前端架构 / 独立全栈 (FE)',
-    research: '研究 · 用户洞察 / 深度写作',
-    other: '跨界探索 / 独立创造者',
-  };
-  return map[craft] || craft || '未指定';
-}
-
-function getInterestsLabel(interests: string[] = []): string {
-  const map: Record<string, string> = {
-    coffee: 'Coffee Chat (双周轻聚)',
-    english: 'English Chat (40 min 试讲 + Q&A)',
-    lab: '作品 · Lab (慢节奏打磨代表作)',
-    view: '静默观察 / 先行了解',
-  };
-  if (!interests || interests.length === 0) return '未勾选特定项';
-  return interests.map(k => map[k] || k).join('、');
-}
+import {
+  generateICS,
+  getCraftLabel,
+  getInterestsLabel,
+  escapeHtml,
+  sanitizeForWebhook,
+  isValidEmailFormat,
+  VALID_CRAFTS,
+  VALID_INTERESTS,
+  WECHAT_HANDLE,
+} from '../../src/lib/join-shared';
 
 function buildEmailHtml(params: {
   name: string;
@@ -342,33 +274,6 @@ function isOriginAllowed(originHeader: string | null, refererHeader: string | nu
   }
 }
 
-function escapeHtml(str: any, maxLen = 500): string {
-  if (typeof str !== 'string') return '';
-  return str
-    .slice(0, maxLen)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#x27;')
-    .trim();
-}
-
-function sanitizeForWebhook(str: any, maxLen = 300): string {
-  if (typeof str !== 'string') return '';
-  return str
-    .slice(0, maxLen)
-    .replace(/[\r\n\t]+/g, ' ')
-    .replace(/@(everyone|channel|here|all)/gi, '@ $1')
-    .trim();
-}
-
-function isValidEmailFormat(email: string): boolean {
-  if (!email || email.length > 80) return false;
-  // RFC 5322 简明无回溯正则，杜绝多项式回溯攻击 (ReDoS)
-  return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/.test(email);
-}
-
 export async function onRequestPost(context: any) {
   const req = context.request;
 
@@ -414,7 +319,7 @@ export async function onRequestPost(context: any) {
         submissionId,
         isEmail: false,
         emailSent: false,
-        wechatHost: 'daiminay',
+        wechatHandle: WECHAT_HANDLE,
         message: '意向已收录',
         timestamp: submissionTime,
       });
@@ -426,13 +331,11 @@ export async function onRequestPost(context: any) {
       return secureJsonResponse({ error: '请提供姓名与联系方式' }, 400);
     }
 
-    // 5. 白名单校验与输入深度清洗
-    const VALID_CRAFTS = ['design', 'product', 'engineering', 'research', 'other'];
-    const safeCraftKey = VALID_CRAFTS.includes(String(craft)) ? String(craft) : 'other';
+    // 5. 白名单校验与输入深度清洗（VALID_CRAFTS/VALID_INTERESTS 来自 join-shared）
+    const safeCraftKey = (VALID_CRAFTS as readonly string[]).includes(String(craft)) ? String(craft) : 'other';
 
-    const VALID_INTERESTS = ['coffee', 'english', 'lab', 'view', 'coffee_chat', 'english_chat', 'portfolio_building'];
     const safeInterests = Array.isArray(interests)
-      ? interests.filter(i => typeof i === 'string' && VALID_INTERESTS.includes(i)).slice(0, 5)
+      ? interests.filter((i: unknown) => typeof i === 'string' && (VALID_INTERESTS as readonly string[]).includes(i)).slice(0, 5)
       : [];
 
     const safeName = escapeHtml(name, 40);
@@ -593,7 +496,7 @@ export async function onRequestPost(context: any) {
       submissionId,
       isEmail,
       emailSent,
-      wechatHost: 'daiminay',
+      wechatHandle: WECHAT_HANDLE,
       message: '意向已收录',
       timestamp: submissionTime,
     });

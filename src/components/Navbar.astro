@@ -36,8 +36,8 @@ const navItems = [
                 data-nav-id={item.id}
                 data-page-path={item.pagePath}
               >
-                <span class='nav-link-text lang-zh'>{item.text}</span>
-                <span class='nav-link-text lang-en'>{item.en}</span>
+                <span lang='zh-CN' class='nav-link-text lang-zh'>{item.text}</span>
+                <span lang='en' class='nav-link-text lang-en'>{item.en}</span>
                 <span class='nav-active-dot' />
               </a>
             );
@@ -54,11 +54,11 @@ const navItems = [
           type='button'
           class='minimal-btn lang-btn'
           id='quick-lang-btn'
-          aria-label='Toggle Language'
+          aria-label='切换到英文 / Switch to English'
           title='切换中英文 / Switch Language'
         >
-          <span class='lang-opt lang-zh'>EN</span>
-          <span class='lang-opt lang-en'>中</span>
+          <span lang='zh-CN' class='lang-opt lang-zh'>EN</span>
+          <span lang='en' class='lang-opt lang-en'>中</span>
         </button>
 
         <span class='ctrl-divider' aria-hidden='true'></span>
@@ -103,10 +103,19 @@ const navItems = [
 </header>
 
 <script>
+  // 模块级持有 IntersectionObserver，跨 view-transition 重跑时先 disconnect，杜绝泄漏
+  let scrollSpyObserver: IntersectionObserver | null = null;
+
   function setupNavControls() {
     // 1. 极简语言切换
     const langBtn = document.getElementById('quick-lang-btn');
     if (langBtn) {
+      // 按当前语言设置可访问名（告知将切换到哪种语言）
+      const syncLangAria = () => {
+        const current = document.documentElement.getAttribute('data-lang') || 'zh';
+        langBtn.setAttribute('aria-label', current === 'en' ? '切换到中文 / Switch to Chinese' : '切换到英文 / Switch to English');
+      };
+      syncLangAria();
       langBtn.onclick = () => {
         const current = document.documentElement.getAttribute('data-lang') || 'zh';
         const next = current === 'en' ? 'zh' : 'en';
@@ -115,6 +124,7 @@ const navItems = [
         try {
           localStorage.setItem('site_lang', next);
         } catch (e) {}
+        syncLangAria();
         window.dispatchEvent(new CustomEvent('site-language-change', { detail: { lang: next } }));
       };
     }
@@ -126,11 +136,7 @@ const navItems = [
 
     function setActiveNav(id: string) {
       navLinks.forEach((link) => {
-        if (link.dataset.navId === id) {
-          link.classList.add('is-active');
-        } else {
-          link.classList.remove('is-active');
-        }
+        link.classList.toggle('is-active', link.dataset.navId === id);
       });
     }
 
@@ -173,8 +179,11 @@ const navItems = [
       const sections = ['about', 'events', 'schedule', 'join'];
       const sectionElements = sections.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
 
+      // 先清理上一轮的 observer（view-transition 重跑场景）
+      scrollSpyObserver?.disconnect();
+
       if ('IntersectionObserver' in window && sectionElements.length > 0) {
-        const observer = new IntersectionObserver(
+        scrollSpyObserver = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
@@ -188,14 +197,13 @@ const navItems = [
           }
         );
 
-        sectionElements.forEach((el) => observer.observe(el));
+        sectionElements.forEach((el) => scrollSpyObserver!.observe(el));
       }
     }
   }
 
-  setupNavControls();
+  // astro:page-load 在首屏与每次视图切换后都会触发；不再叠加 DOMContentLoaded/直接调用
   document.addEventListener('astro:page-load', setupNavControls);
-  document.addEventListener('DOMContentLoaded', setupNavControls);
 </script>
 
 <style>

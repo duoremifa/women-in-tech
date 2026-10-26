@@ -1,6 +1,21 @@
 // theme.ts - 主题管理脚本（纯逻辑，幂等操作）
 // 负责：主题应用、切换、存储读取（不涉及DOM事件绑定）
 
+function safeGet(key: string): string | null {
+  try {
+    return localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+function safeSet(key: string, val: string): void {
+  try {
+    localStorage.setItem(key, val);
+  } catch {
+    /* 隐私模式或存储禁用，静默回退 */
+  }
+}
+
 export function applyTheme(theme: 'light' | 'dark') {
   const root = document.documentElement;
   const isDark = theme === 'dark';
@@ -10,23 +25,15 @@ export function applyTheme(theme: 'light' | 'dark') {
   root.classList.toggle('light', !isDark);
 
   // 存储用户选择
-  localStorage.setItem('theme', theme);
+  safeSet('theme', theme);
 
-  // 更新 theme-color meta
-  const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-  const bgColor = getComputedStyle(document.documentElement)
-    .getPropertyValue('--color-surface-primary')
-    .trim();
-  if (themeColorMeta && bgColor) {
-    themeColorMeta.setAttribute('content', bgColor);
-  }
+  // theme-color meta 由 Layout 静态声明为 light/dark 媒体查询对，
+  // 浏览器按 prefers-color-scheme 自动选取，无需 JS 覆盖。
 
   // 深色模式下添加背景纹理
-  if (isDark) {
-    root.style.backgroundImage = 'var(--texture-paper-dark)';
-  } else {
-    root.style.backgroundImage = 'var(--texture-paper-light)';
-  }
+  root.style.backgroundImage = isDark
+    ? 'var(--texture-paper-dark)'
+    : 'var(--texture-paper-light)';
 
   // 实验性主题支持
   applyExperimentalTheme();
@@ -38,7 +45,7 @@ export function toggleTheme() {
 }
 
 export function applyStoredTheme() {
-  const stored = localStorage.getItem('theme');
+  const stored = safeGet('theme');
   if (stored === 'dark' || stored === 'light') {
     applyTheme(stored);
   } else {
@@ -50,7 +57,7 @@ export function applyStoredTheme() {
 
 export function applySystemTheme(theme: 'light' | 'dark') {
   // 仅在没有用户偏好时应用系统主题
-  if (!localStorage.getItem('theme')) {
+  if (!safeGet('theme')) {
     applyTheme(theme);
   }
 }

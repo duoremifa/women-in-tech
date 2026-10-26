@@ -31,6 +31,41 @@ const absoluteImageUrl = rawImage.startsWith('http')
   ? rawImage
   : new URL(rawImage, 'https://wotech.space').href;
 
+// 活动结构化数据从单一数据源 gatherings 取；过期活动标 EventCompleted
+import { GATHERINGS, isGatheringPast } from '../data/gatherings';
+const now = new Date();
+const eventNodes = GATHERINGS.map(g => ({
+  '@type': 'Event',
+  '@id': `https://wotech.space/#${g.id}`,
+  'name': g.summary,
+  'description': g.description,
+  'eventAttendanceMode':
+    g.location.type === 'VirtualLocation'
+      ? 'https://schema.org/OnlineEventAttendanceMode'
+      : 'https://schema.org/MixedEventAttendanceMode',
+  'eventStatus': isGatheringPast(g, now)
+    ? 'https://schema.org/EventCompleted'
+    : 'https://schema.org/EventScheduled',
+  'startDate': g.startIso,
+  'endDate': g.endIso,
+  'location':
+    g.location.type === 'VirtualLocation'
+      ? { '@type': 'VirtualLocation', url: g.location.url }
+      : [
+          {
+            '@type': 'Place',
+            'name': g.location.name,
+            'address': {
+              '@type': 'PostalAddress',
+              'addressLocality': g.location.addressLocality,
+              'addressCountry': g.location.addressCountry,
+            },
+          },
+          { '@type': 'VirtualLocation', url: 'https://wotech.space/#schedule' },
+        ],
+  'organizer': { '@id': 'https://wotech.space/#organization' },
+}));
+
 // 结构化数据 Schema.org
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -65,51 +100,7 @@ const jsonLd = {
         'https://github.com/duoremifa/women-in-tech',
       ],
     },
-    {
-      '@type': 'Event',
-      '@id': 'https://wotech.space/#coffee-chat',
-      'name': 'wo/men in tech · Coffee Chat（双周轻聚）',
-      'description': '3-5人双周轻聚，面对面交流作品、设计细节与近期思考。',
-      'eventAttendanceMode': 'https://schema.org/MixedEventAttendanceMode',
-      'eventStatus': 'https://schema.org/EventScheduled',
-      'startDate': '2026-11-08T14:30:00+08:00',
-      'endDate': '2026-11-08T16:00:00+08:00',
-      'location': [
-        {
-          '@type': 'Place',
-          'name': '杭州线下',
-          'address': {
-            '@type': 'PostalAddress',
-            'addressLocality': 'Hangzhou',
-            'addressCountry': 'CN',
-          },
-        },
-        {
-          '@type': 'VirtualLocation',
-          'url': 'https://wotech.space/#schedule',
-        },
-      ],
-      'organizer': {
-        '@id': 'https://wotech.space/#organization',
-      },
-    },
-    {
-      '@type': 'Event',
-      '@id': 'https://wotech.space/#show-and-tell',
-      'name': 'wo/men in tech · Show & Tell（英文技术与设计交流）',
-      'description': '双周周中晚间 40 分钟英文深度分享、界面细节推敲与自由试错。',
-      'eventAttendanceMode': 'https://schema.org/OnlineEventAttendanceMode',
-      'eventStatus': 'https://schema.org/EventScheduled',
-      'startDate': '2026-11-11T20:00:00+08:00',
-      'endDate': '2026-11-11T20:45:00+08:00',
-      'location': {
-        '@type': 'VirtualLocation',
-        'url': 'https://wotech.space/#schedule',
-      },
-      'organizer': {
-        '@id': 'https://wotech.space/#organization',
-      },
-    },
+    ...eventNodes,
   ],
 };
 ---
@@ -132,9 +123,9 @@ const jsonLd = {
 <meta name='bingbot' content='index, follow, max-snippet:-1, max-image-preview:large' />
 <meta name='baiduspider' content='index, follow' />
 
-<!-- 多语言 / 国际化 hreflang -->
+<!-- 多语言 / 国际化 hreflang：站点语言由 JS+localStorage 切换，无独立 en URL，
+     故仅声明 zh-CN 与 x-default，避免向搜索引擎发送错误的 hreflang 信号 -->
 <link rel='alternate' hreflang='zh-CN' href='https://wotech.space/' />
-<link rel='alternate' hreflang='en' href='https://wotech.space/' />
 <link rel='alternate' hreflang='x-default' href='https://wotech.space/' />
 
 <!-- Open Graph / Facebook / Instagram / 微信 / 微博 / LinkedIn -->
@@ -152,19 +143,14 @@ const jsonLd = {
 <meta property='og:locale' content='zh_CN' />
 <meta property='og:locale:alternate' content='en_US' />
 
-<!-- Twitter / X 大图卡片 (兼容 name 与 property 规范) -->
+<!-- Twitter / X 大图卡片（Twitter Cards 规范用 name 属性，property 变体非标准且冗余，已移除） -->
 <meta name='twitter:card' content='summary_large_image' />
-<meta property='twitter:card' content='summary_large_image' />
 <meta name='twitter:site' content='@wotech_space' />
 <meta name='twitter:creator' content='@wotech_space' />
 <meta name='twitter:url' content={canonicalURL} />
-<meta property='twitter:url' content={canonicalURL} />
 <meta name='twitter:title' content={fullTitle} />
-<meta property='twitter:title' content={fullTitle} />
 <meta name='twitter:description' content={description} />
-<meta property='twitter:description' content={description} />
 <meta name='twitter:image' content={absoluteImageUrl} />
-<meta property='twitter:image' content={absoluteImageUrl} />
 <meta name='twitter:image:alt' content='wo/men in tech · 相互成就' />
 
 <!-- 移动与品牌色彩 -->

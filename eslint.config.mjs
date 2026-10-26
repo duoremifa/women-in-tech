@@ -40,15 +40,6 @@ export default [
     },
   },
   {
-    files: ['**/*.astro'],
-    rules: {
-      // Skip ESLint for Astro files for now
-    },
-    languageOptions: {
-      // Skip parsing for Astro files
-    },
-  },
-  {
     files: ['scripts/**/*.js'],
     languageOptions: {
       globals: {
@@ -88,7 +79,8 @@ export default [
       '.astro/**',
       '.wrangler/**',
       '**/*.d.ts',
+      // .astro 文件由 Astro 编译器处理；待引入 astro-eslint-parser 后再纳入 lint
       '**/*.astro',
-    ],
+    },
   },
 ];

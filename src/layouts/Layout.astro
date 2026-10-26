@@ -8,7 +8,6 @@
 // 导入依赖
 // ============================================
 import { ViewTransitions } from 'astro:transitions';
-import type { ComponentProps } from 'astro/types';
 
 // 全局样式
 import '../styles/main.css';
@@ -20,17 +19,12 @@ import Footer from '../components/Footer.astro';
 import SEO from '../components/SEO.astro';
 
 import PageHeader from '../components/PageHeader.astro';
-import AntiFingerprint from '../components/AntiFingerprint.astro';
 import ReadingProgress from '../components/ReadingProgress.astro';
 import FontPreload from '../components/FontPreload.astro';
-import ThemeToggle from '../components/ThemeToggle.astro';
 
-// 工具函数
-import '../utils/monitoring';
-import '../utils/geometricSystem';
-import '../utils/fontManager';
-import { initializeApp } from '../scripts/init';
-import { registerPWA } from '../scripts/pwa';
+// 注意：utils（monitoring/geometricSystem/fontManager）与 scripts（init/pwa/theme）
+// 必须在客户端 <script> 内 import 才会真正执行——frontmatter 的 import 仅构建期运行，
+// 不产生客户端 JS。见 <body> 底部统一初始化脚本。
 
 // ============================================
 // Props 接口
@@ -71,10 +65,29 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
         } catch (e) {}
       })();
     </script>
+    <!-- 提前应用主题，消除深色模式 FOUC（首屏前同步执行） -->
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme');
+          if (t !== 'dark' && t !== 'light') {
+            t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+          var isDark = t === 'dark';
+          var r = document.documentElement;
+          r.classList.toggle('dark', isDark);
+          r.classList.toggle('light', !isDark);
+          r.style.backgroundImage = isDark
+            ? 'var(--texture-paper-dark)'
+            : 'var(--texture-paper-light)';
+        } catch (e) {}
+      })();
+    </script>
     <!-- ===== SEO & 基础元数据 ===== -->
     <SEO title={title} description={description} ogImage={ogImage} />
     <ViewTransitions />
-    <meta name='theme-color' content='var(--color-surface-pure)' />
+    <meta name='theme-color' content='#f7f5f0' media='(prefers-color-scheme: light)' />
+    <meta name='theme-color' content='#151413' media='(prefers-color-scheme: dark)' />
 
     <!-- ===== 宁静品牌图标 ===== -->
     <!-- 标准 favicon -->
@@ -94,11 +107,11 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
     <FontPreload />
   </head>
   <body>
-    <!-- ===== 骨架 · 顶部留白 ===== -->
-    <!-- 由 design-system 的 --spacing 系列变量控制，无需额外元素 -->
-
-    <!-- ===== 隐私保护组件（无UI，必须最先执行）===== -->
-    <AntiFingerprint />
+    <!-- ===== 键盘 / 屏幕阅读器跳转链接（首个可聚焦元素） ===== -->
+    <a href='#main-content' class='skip-link sr-only'>
+      <span lang='zh-CN' class='lang-zh'>跳到主要内容</span>
+      <span lang='en' class='lang-en'>Skip to content</span>
+    </a>
 
     <!-- ===== 导航区（持久化）===== -->
     <div transition:persist>
@@ -107,6 +120,8 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
 
     <!-- ===== 主要内容区 ===== -->
     <main
+      id='main-content'
+      tabindex='-1'
       class:list={[containerClass, { 'markdown-content': isProse }]}
       transition:animate='slide'
       transition:name='page'
@@ -123,20 +138,38 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
 
     <!-- ===== 统一客户端初始化（事件委托 + 集中管理）===== -->
     <script>
-      // 静态导入主题模块（Astro会自动处理路径和打包）
-      import { applyStoredTheme, toggleTheme } from '../scripts/theme';
+      // 主题、系统初始化、PWA 注册统一在此 import（客户端真正执行）
+      import { applyStoredTheme, toggleTheme, applySystemTheme } from '../scripts/theme';
+      import { initializeApp } from '../scripts/init';
+      import { registerPWA } from '../scripts/pwa';
 
-      // 统一初始化函数
-      function initApp() {
-        if (import.meta.env.DEV) console.log('🚀 initApp() called');
+      // 跨页持久的全局监听只注册一次，杜绝 view-transition 切换后累积
+      if (!(window as any).__wotech_bootstrap) {
+        (window as any).__wotech_bootstrap = true;
 
-        try {
-          applyStoredTheme(); // 应用存储的主题
-          updateThemeIcon(); // 更新按钮图标
-          if (import.meta.env.DEV) console.log('✅ initApp() completed successfully');
-        } catch (error) {
-          if (import.meta.env.DEV) console.error('❌ initApp() error:', error);
-        }
+        // 事件委托：主题切换按钮（全局，含 transition:persist 的 Navbar）
+        document.addEventListener('click', e => {
+          if (!e.target) return;
+          const target = e.target as HTMLElement;
+          const toggleBtn = target.closest('[data-theme-toggle]') as HTMLElement;
+          if (!toggleBtn) return;
+          try {
+            toggleTheme();
+            updateThemeIcon();
+          } catch (error) {
+            if (import.meta.env.DEV) console.error('Theme toggle error:', error);
+          }
+        });
+
+        // 系统主题变化（仅当用户未显式选择时跟随）
+        const mq = window.matchMedia('(prefers-color-scheme: dark)');
+        mq.addEventListener('change', (e: MediaQueryListEvent) => {
+          try {
+            if (!localStorage.getItem('theme')) applySystemTheme(e.matches ? 'dark' : 'light');
+          } catch (err) {
+            if (import.meta.env.DEV) console.error('System theme apply error:', err);
+          }
+        });
       }
 
       // 更新主题图标显示
@@ -145,60 +178,74 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
         document.querySelectorAll<HTMLElement>('[data-theme-toggle]').forEach(btn => {
           const sunIcon = btn.querySelector('.sun-icon') as HTMLElement | null;
           const moonIcon = btn.querySelector('.moon-icon') as HTMLElement | null;
-
           if (sunIcon && moonIcon) {
-            if (isDark) {
-              sunIcon.style.display = 'none';
-              moonIcon.style.display = 'block';
-            } else {
-              sunIcon.style.display = 'block';
-              moonIcon.style.display = 'none';
-            }
+            sunIcon.style.display = isDark ? 'none' : 'block';
+            moonIcon.style.display = isDark ? 'block' : 'none';
           }
         });
       }
 
-      // 首次加载时初始化
+      // 统一初始化：主题 + 系统初始化 + PWA
+      function initApp() {
+        if (import.meta.env.DEV) console.log('🚀 initApp() called');
+        try {
+          applyStoredTheme();
+          updateThemeIcon();
+          initializeApp();
+          registerPWA();
+          if (import.meta.env.DEV) console.log('✅ initApp() completed successfully');
+        } catch (error) {
+          if (import.meta.env.DEV) console.error('❌ initApp() error:', error);
+        }
+      }
+
+      // 首次加载
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initApp);
       } else {
         initApp();
       }
 
-      // Astro视图切换后重新初始化
+      // Astro 视图切换后：重跑初始化 + 焦点落到新页 main（无障碍）
       document.addEventListener('astro:after-swap', () => {
         if (import.meta.env.DEV) console.log('🔄 astro:after-swap fired, reinitializing...');
         initApp();
-      });
-
-      // 事件委托：处理主题切换按钮点击
-      document.addEventListener('click', e => {
-        if (!e.target) return;
-        const target = e.target as HTMLElement;
-        const toggleBtn = target.closest('[data-theme-toggle]') as HTMLElement;
-        if (!toggleBtn) return;
-
-        if (import.meta.env.DEV) console.log('🎯 Theme toggle button clicked!');
-
-        try {
-          toggleTheme(); // 切换主题
-          updateThemeIcon(); // 更新图标
-          if (import.meta.env.DEV) console.log('✅ Theme toggle completed');
-        } catch (error) {
-          if (import.meta.env.DEV) console.error('❌ Theme toggle error:', error);
+        const main = document.getElementById('main-content');
+        if (main) {
+          main.setAttribute('tabindex', '-1');
+          main.focus({ preventScroll: true });
         }
-      });
-
-      // 可选：监听系统主题变化
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-        if (import.meta.env.DEV) console.log('🌙 System theme changed');
-        // 如果需要跟随系统，可以在这里调用相应逻辑
       });
     </script>
   </body>
 </html>
 
 <style>
+  /* ===== 跳到主要内容（键盘 / 屏幕阅读器） ===== */
+  .skip-link {
+    position: fixed;
+    top: var(--spacing-2);
+    left: var(--spacing-2);
+    z-index: 1000;
+    transform: translateY(-150%);
+    transition: transform var(--transition-fast);
+    padding: var(--spacing-2) var(--spacing-4);
+    background: var(--color-surface-pure);
+    border: 1px solid var(--color-brand-purple, #5e4c7a);
+    border-radius: var(--radius-xs);
+    color: var(--color-brand-purple, #5e4c7a);
+    font-family: var(--font-family-ui);
+    font-size: var(--font-size-xs);
+    text-decoration: none !important;
+    box-shadow: 0 2px 8px -2px rgba(38, 34, 28, 0.12);
+  }
+  .skip-link:focus,
+  .skip-link:focus-visible {
+    transform: translateY(0);
+    outline: 2px solid var(--color-brand-purple, #5e4c7a);
+    outline-offset: 2px;
+  }
+
   /* ===== 全局骨架样式 ===== */
   main {
     min-height: 60vh;

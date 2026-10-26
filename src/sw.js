@@ -21,10 +21,10 @@ self.addEventListener('message', event => {
 registerRoute(
   ({ request }) => request.destination === 'font',
   new CacheFirst({
-    cacheName: 'frictionlog-font-cache-v1',
+    cacheName: 'wotech-font-cache-v1',
     plugins: [
       new ExpirationPlugin({
-        maxEntries: 10,
+        maxEntries: 20,
         maxAgeSeconds: 60 * 60 * 24 * 365, // 1 Year
       }),
       new CacheableResponsePlugin({
@@ -38,7 +38,7 @@ registerRoute(
 registerRoute(
   ({ request }) => request.destination === 'image',
   new StaleWhileRevalidate({
-    cacheName: 'frictionlog-image-cache-v1',
+    cacheName: 'wotech-image-cache-v1',
     plugins: [
       new ExpirationPlugin({
         maxEntries: 50,
@@ -52,11 +52,10 @@ registerRoute(
 );
 
 // 3. 页面文档 (NetworkFirst) - 确保内容最新，离线时回退到缓存
-// 对于记录类应用，确保用户看到最新的自己很重要
 registerRoute(
   ({ request }) => request.mode === 'navigate',
   new NetworkFirst({
-    cacheName: 'frictionlog-pages-cache-v1',
+    cacheName: 'wotech-pages-cache-v1',
     plugins: [
       new CacheableResponsePlugin({
         statuses: [200],
@@ -69,7 +68,7 @@ registerRoute(
 registerRoute(
   ({ request }) => request.destination === 'script' || request.destination === 'style',
   new StaleWhileRevalidate({
-    cacheName: 'frictionlog-static-cache-v1',
+    cacheName: 'wotech-static-cache-v1',
     plugins: [
       new CacheableResponsePlugin({
         statuses: [0, 200],
@@ -78,18 +77,21 @@ registerRoute(
   })
 );
 
-// 5. 安全清理：定期清理过期缓存
+// 5. 安全清理：定期清理过期缓存；clients.claim 让新 SW 立即接管已开标签页
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
+    (async () => {
+      const cacheNames = await caches.keys();
+      await Promise.all(
         cacheNames.map(cacheName => {
-          // 只保留当前版本的缓存
-          if (cacheName.startsWith('frictionlog-') && !cacheName.includes('-v1')) {
+          // 只保留当前版本的 wotech-* 缓存
+          if (cacheName.startsWith('wotech-') && !cacheName.includes('-v1')) {
             return caches.delete(cacheName);
           }
+          return undefined;
         })
       );
-    })
+      await self.clients.claim();
+    })()
   );
 });

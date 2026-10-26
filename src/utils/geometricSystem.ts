@@ -4,24 +4,11 @@
  * 特点：持久化到 localStorage，页面刷新自动匹配阶段，矢量图标，可定制动画
  */
 
-export type IconType =
-  | 'resonance'
-  | 'science'
-  | 'growth'
-  | 'version'
-  | 'community'
-  | 'footprint'
-  | 'intersect'
-  | 'circle'
-  | 'line'
-  | 'start'
-  | 'box'
-  | 'people'
-  | 'steps'
-  | 'write'
-  | 'heart'
-  | 'like'
-  | 'bless';
+import { safeGet, safeSet } from './safeStorage';
+import type { IconType } from '../types/geometric-icon';
+
+export type { IconType };
+
 export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type IconColor = 'primary' | 'secondary' | 'text' | 'current';
 export type AnimationType = 'pulse' | 'breathe' | 'rotate' | 'none';
@@ -251,7 +238,7 @@ export function getGeometricStage(
   // 如果没有提供 count，从 localStorage 读取（仅在客户端）
   let actualCount = count;
   if (actualCount === undefined && typeof window !== 'undefined') {
-    actualCount = parseInt(localStorage.getItem(config.key) || '0', 10);
+    actualCount = parseInt(safeGet(config.key) || '0', 10);
   } else if (actualCount === undefined) {
     actualCount = 0;
   }
@@ -276,10 +263,10 @@ export function incrementGeometricCount(
   // 仅在客户端执行
   if (typeof window === 'undefined') return null;
 
-  const currentCount = parseInt(localStorage.getItem(config.key) || '0', 10);
+  const currentCount = parseInt(safeGet(config.key) || '0', 10);
   const newCount = currentCount + 1;
 
-  localStorage.setItem(config.key, newCount.toString());
+  safeSet(config.key, newCount.toString());
 
   return getGeometricStage(type, newCount);
 }
@@ -297,7 +284,7 @@ export function setGeometricCount(
   // 仅在客户端执行
   if (typeof window === 'undefined') return getGeometricStage(type, count);
 
-  localStorage.setItem(config.key, count.toString());
+  safeSet(config.key, count.toString());
 
   return getGeometricStage(type, count);
 }
@@ -373,5 +360,5 @@ export function migrateFromEmojiSystem() {
   // 这里可以添加从旧 emoji 系统迁移数据的逻辑
   // 例如：读取旧的 localStorage 键并转换为新格式
   // 暂时保留函数结构以备将来使用
-  console.log('Migration function ready for future implementation');
+  if (import.meta.env.DEV) console.log('Migration function ready for future implementation');
 }

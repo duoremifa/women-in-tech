@@ -1,5 +1,6 @@
 ---
 import GeometricIcon from './Icon/GeometricIcon.astro';
+import type { IconType } from '../types/geometric-icon';
 
 interface Props {
   url: string;
@@ -11,7 +12,14 @@ const { url, title, excerpt } = Astro.props;
 const encodedUrl = encodeURIComponent(url);
 const encodedTitle = encodeURIComponent(title);
 
-const shareItems = [
+interface ShareItem {
+  name: string;
+  icon: IconType;
+  action: 'copy' | 'external';
+  url: string;
+}
+
+const shareItems: ShareItem[] = [
   { name: '复制链接', icon: 'copy', action: 'copy', url: url },
   {
     name: '微博',
@@ -35,11 +43,12 @@ const shareItems = [
         class='share-btn'
         type='button'
         title={item.name}
+        aria-label={item.name}
         data-action={item.action}
         data-url={item.action === 'copy' ? url : item.url}
       >
-        <GeometricIcon type={item.icon as any} size='xs' color='current' />
-        <span class='share-text'>{item.name}</span>
+        <GeometricIcon type={item.icon} size='xs' color='current' />
+        <span class='share-text' aria-live='polite'>{item.name}</span>
       </button>
     ))
   }

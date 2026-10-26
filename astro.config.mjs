@@ -17,10 +17,6 @@ export default defineConfig({
   },
 
   vite: {
-    define: {
-      'import.meta.env.CSP_NONCE': JSON.stringify(process.env.CSP_NONCE || 'womenintech-csp-nonce'),
-    },
-
     plugins: [
       {
         name: 'dev-api-join-handler',
@@ -47,8 +43,8 @@ export default defineConfig({
 
                   const dtStamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
                   const userInterests = Array.isArray(interests) ? interests : [];
-                  const wantsCoffee = userInterests.includes('coffee') || userInterests.length === 0;
-                  const wantsEnglish = userInterests.includes('english') || userInterests.length === 0;
+                  const wantsCoffee = userInterests.includes('coffee_chat') || userInterests.includes('coffee') || userInterests.length === 0;
+                  const wantsEnglish = userInterests.includes('english_chat') || userInterests.includes('english') || userInterests.length === 0;
                   const events = [];
 
                   if (wantsCoffee) {
@@ -141,14 +137,14 @@ export default defineConfig({
                       submissionId,
                       isEmail,
                       emailSent,
-                      wechatContact: 'daiminay',
+                      wechatHandle: 'daiminay',
                       message: '意向已收录',
                       timestamp: new Date().toISOString(),
                     })
                   );
                 } catch (err) {
                   res.statusCode = 500;
-                  res.end(JSON.stringify({ error: err.message }));
+                  res.end(JSON.stringify({ error: '提交解析异常，请稍候重试' }));
                 }
               });
               return;
@@ -173,7 +169,7 @@ export default defineConfig({
                 minifySelectors: true,
                 minifyParams: true,
                 mergeRules: true,
-                sortProperties: true,
+                sortProperties: false,
                 reduceIdents: false,
                 shortIdents: false,
               },
@@ -184,15 +180,6 @@ export default defineConfig({
     },
 
     build: {
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            vendor: ['@vite-pwa/astro'],
-            pwa: ['vite-plugin-pwa'],
-            css: ['lightningcss', 'cssnano'],
-          },
-        },
-      },
       minify: 'esbuild',
       cssCodeSplit: true,
       sourcemap: false,
@@ -213,7 +200,6 @@ export default defineConfig({
     sitemap({
       changefreq: 'weekly',
       priority: 0.9,
-      lastmod: new Date(),
     }),
     AstroPWA({
       registerType: 'autoUpdate',

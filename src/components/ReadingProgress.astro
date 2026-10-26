@@ -3,8 +3,8 @@
 // 提供页面滚动进度指示功能，增强微交互效果
 ---
 
-<!-- 阅读进度条 -->
-<div class='reading-progress' id='reading-progress'></div>
+<!-- 阅读进度条（纯装饰，对辅助技术隐藏） -->
+<div class='reading-progress' id='reading-progress' aria-hidden='true'></div>
 
 <style>
   .reading-progress {
@@ -79,12 +79,8 @@
 
   let cleanup: (() => void) | undefined = undefined;
 
+  // astro:page-load 在首屏与每次视图切换后均触发；after-swap 会与之重复，故只保留 page-load
   document.addEventListener('astro:page-load', () => {
-    if (cleanup) cleanup();
-    cleanup = initReadingProgress();
-  });
-
-  document.addEventListener('astro:after-swap', () => {
     if (cleanup) cleanup();
     cleanup = initReadingProgress();
   });
