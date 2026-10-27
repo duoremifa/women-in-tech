@@ -122,23 +122,23 @@ import { WORKS } from '../data/works';
           <div class='section-heading-group lang-zh'>
             <div class='section-title-line'>
               <span class='section-serial'>01</span>
-              <h2 class='section-main-title'>正在打磨的器物</h2>
+              <h2 class='section-main-title'>正在打磨的方向</h2>
             </div>
-            <p class='section-intro-text'>在商业流水线之外，慢节奏雕琢的数字器物与设计实验。</p>
+            <p class='section-intro-text'>四个手作方向，公益先行，每个都在找第一个打样项目。</p>
           </div>
           <div class='section-heading-group lang-en'>
             <div class='section-title-line'>
               <span class='section-serial'>01</span>
-              <h2 class='section-main-title'>Works in the Workshop</h2>
+              <h2 class='section-main-title'>In the Workshop</h2>
             </div>
-            <p class='section-intro-text'>Digital artifacts and craft experiments in active development.</p>
+            <p class='section-intro-text'>Four craft directions, public-welfare first, each seeking its first sample project.</p>
           </div>
 
           <div class='workshop-cards-stack'>
             {WORKS.map(w => (
               <a class='workshop-card' href={`/works/${w.slug}`}>
                 <div class='card-header-line'>
-                  <span class='work-status-badge'>{w.roles.map(r => r.toUpperCase()).join(' × ')}</span>
+                  <span class='work-status-badge'>{w.craftZh}</span>
                   <span class='work-triad-pills'>{w.status === 'prototype' ? '原型推敲中' : '概念草案'}</span>
                 </div>
                 <h3 class='work-title lang-zh'>{w.titleZh}</h3>
@@ -146,7 +146,7 @@ import { WORKS } from '../data/works';
                 <p class='work-summary lang-zh'>{w.taglineZh}</p>
                 <p class='work-summary lang-en'>{w.taglineEn}</p>
                 <span class='work-cta'>
-                  <span class='lang-zh'>查看器物 ⟶</span>
+                  <span class='lang-zh'>看看这个方向 ⟶</span>
                   <span class='lang-en'>Explore ⟶</span>
                 </span>
               </a>

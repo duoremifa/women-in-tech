@@ -11,19 +11,19 @@ const statusLabel: Record<string, { zh: string; en: string }> = {
 
 <Layout
   title='正在打磨 · Works · wo/men in tech'
-  description='TypeSpec、Whisper Letter——慢节奏雕琢的数字器物与设计实验。'
+  description='四个手作方向——录音灌注、拍摄宣传、网页手作、品牌社群。公益先行，每个都在找第一个打样项目。'
   width='reading'
 >
   <div class='page-container'>
     <header class='page-header'>
       <span class='section-eyebrow'>IN THE WORKSHOP</span>
       <div lang='zh-CN' class='lang-zh'>
-        <h1 class='page-title'>正在打磨的器物</h1>
-        <p class='page-lead'>在商业流水线之外，我们慢节奏雕琢的数字器物与设计实验。<br />给推敲充裕的时间，让每一处细节都立得住。</p>
+        <h1 class='page-title'>正在打磨的方向</h1>
+        <p class='page-lead'>在商业流水线之外，我们慢节奏打磨的四个手作方向——录音、拍摄、网页、社群。<br />给推敲充裕的时间，让每一处都立得住。</p>
       </div>
       <div lang='en' class='lang-en'>
-        <h1 class='page-title'>Works in the Workshop</h1>
-        <p class='page-lead'>Digital artifacts and craft experiments in active development.<br />Free from commercial rush, focused on enduring craft.</p>
+        <h1 class='page-title'>In the Workshop</h1>
+        <p class='page-lead'>Four craft directions outside the commercial conveyor—audio, visual, web, and brand.<br />Free from rush, built to endure.</p>
       </div>
       <div class='gold-hairline'></div>
     </header>
@@ -33,14 +33,14 @@ const statusLabel: Record<string, { zh: string; en: string }> = {
         <a class='work-card' href={`/works/${w.slug}`}>
           <div class='work-head'>
             <span class='work-status'>{statusLabel[w.status].zh}</span>
-            <span class='work-roles'>{w.roles.map(r => r.toUpperCase()).join(' × ')}</span>
+            <span class='work-roles'>{w.craftZh}</span>
           </div>
           <h2 lang='zh-CN' class='work-title lang-zh'>{w.titleZh}</h2>
           <h2 lang='en' class='work-title lang-en'>{w.titleEn}</h2>
           <p lang='zh-CN' class='work-tagline lang-zh'>{w.taglineZh}</p>
           <p lang='en' class='work-tagline lang-en'>{w.taglineEn}</p>
           <span class='work-cta'>
-            <span lang='zh-CN' class='lang-zh'>查看器物 →</span>
+            <span lang='zh-CN' class='lang-zh'>看看这个方向 →</span>
             <span lang='en' class='lang-en'>Explore →</span>
           </span>
         </a>
@@ -50,16 +50,16 @@ const statusLabel: Record<string, { zh: string; en: string }> = {
     <section class='next-steps'>
       <div class='next-card'>
         <div lang='zh-CN' class='next-text lang-zh'>
-          <h3>想认领共建角色？</h3>
-          <p>留下你的声音，告诉我们你想投入哪一项器物的打磨。</p>
+          <h3>想一起打磨？</h3>
+          <p>留下你的声音，告诉我们你想投入哪个方向。</p>
         </div>
         <div lang='en' class='next-text lang-en'>
-          <h3>Co-build a work?</h3>
-          <p>Leave a note and tell us which craft you would invest in.</p>
+          <h3>Co-build a direction?</h3>
+          <p>Leave a note and tell us which direction you would invest in.</p>
         </div>
-        <a href='/join' class='btn btn--solid'>
-          <span lang='zh-CN' class='lang-zh'>加入推敲</span>
-          <span lang='en' class='lang-en'>Join the Craft</span>
+        <a href='/join' class='btn-solid-dark'>
+          <span lang='zh-CN' class='lang-zh'>我想参与</span>
+          <span lang='en' class='lang-en'>I want in</span>
         </a>
       </div>
     </section>

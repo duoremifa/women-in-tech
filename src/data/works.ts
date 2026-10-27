@@ -1,8 +1,9 @@
 // src/data/works.ts
-// 正在打磨的器物（Craft Lab 候选）。当前为占位，详情页 /works/[slug] 先搭框架。
+// 正在打磨的方向（四个手作方向，公益先行）。
+// 每个方向在找第一个打样项目，其他人可选择加入共建。
+// 详情页 /works/[slug] 先搭框架，等真实打样项目落地再补原型与图。
 
 export type WorkStatus = 'concept' | 'prototype' | 'building';
-export type WorkRole = 'pm' | 'ixd' | 'fe';
 
 export interface Work {
   slug: string;
@@ -11,7 +12,9 @@ export interface Work {
   taglineZh: string;
   taglineEn: string;
   status: WorkStatus;
-  roles: WorkRole[];
+  /** 手作方向分类标签（替代原 tech-only roles 枚举） */
+  craftZh: string;
+  craftEn: string;
   ethosZh: string;
   ethosEn: string;
   cobuildHintZh: string;
@@ -20,30 +23,60 @@ export interface Work {
 
 export const WORKS: Work[] = [
   {
-    slug: 'typespec',
-    titleZh: 'TypeSpec · 手艺排版标尺',
-    titleEn: 'TypeSpec · Typography Calliper',
-    taglineZh: '网页手艺人专用的黄金分割与衬线字距排版游标',
-    taglineEn: 'A modular golden-ratio typography inspection utility',
+    slug: 'sound-field',
+    titleZh: '声场 · 独立音乐人录音灌注',
+    titleEn: 'Sound Field · Recording for Independent Musicians',
+    taglineZh: '为有自己作品的独立音乐人，从话筒摆位到母带灌注的完整陪伴。',
+    taglineEn: 'From mic placement to mastering—end-to-end care for independent musicians with original work.',
     status: 'concept',
-    roles: ['ixd', 'fe'],
-    ethosZh: '让中英文混排拥有如同手制书籍一般的留白韵律与行气呼吸。把排版当手艺，而非默认值。',
-    ethosEn: 'Bringing bookish calm and meticulous tracking to modern web screens. Treating typography as craft, not default.',
-    cobuildHintZh: 'PM 负责即开即用体验；IxD 负责模块化尺度与黄金比例游标；FE 负责纯 CSS 变量流式驱动。',
-    cobuildHintEn: 'PM owns the instant-use loop; IxD owns modular scale + golden-ratio callipers; FE owns pure CSS-variable fluid driving.',
+    craftZh: '录音灌注',
+    craftEn: 'Audio',
+    ethosZh: '把声音当手艺——每一帧都经得起回放，不靠响度讨好耳朵。',
+    ethosEn: 'Treating sound as craft—every frame holds up to replay, never flattering the ear with loudness.',
+    cobuildHintZh: '我负责录音工程与母带陪伴；欢迎乐手带来未完成的曲子，或调音师一起打磨频段。',
+    cobuildHintEn: 'I cover recording engineering and mastering accompaniment; musicians bring unfinished tracks, or engineers co-shape the frequency map.',
   },
   {
-    slug: 'whisper-letter',
-    titleZh: 'Whisper Letter · 同行极简信笺',
-    titleEn: 'Whisper Letter · Peer Critique Protocol',
-    taglineZh: '女性独立创造者之间的异步信笺交换协议',
-    taglineEn: 'An asynchronous craft critique protocol for independent creators',
+    slug: 'on-set',
+    titleZh: '现场 · 拍摄与定位',
+    titleEn: 'On Set · Shooting & Positioning',
+    taglineZh: '为独立品牌与作品，从定位到画面的拍摄宣传。',
+    taglineEn: 'From positioning to frame—shooting and promotion for independent brands and works.',
     status: 'concept',
-    roles: ['pm', 'ixd'],
-    ethosZh: '每次仅交换一份深度同行反馈，拒绝浮躁的信息流与客套夸奖。一封信的耐心，胜过一百条点赞。',
-    ethosEn: 'Exchange one deep, sincere feedback letter at a time. The patience of one letter outweighs a hundred likes.',
-    cobuildHintZh: 'PM 负责深度反馈互助闭环；IxD 负责火漆封蜡式异步折叠动效；FE 负责轻量端对端加密文本协议。',
-    cobuildHintEn: 'PM owns the deep-feedback loop; IxD owns the wax-seal async folding motion; FE owns lightweight E2E text protocol.',
+    craftZh: '拍摄宣传',
+    craftEn: 'Visual',
+    ethosZh: '不拍流水线广告，只拍配得上作品本身的画面。',
+    ethosEn: 'No conveyor-belt ads—only frames worthy of the work itself.',
+    cobuildHintZh: '我负责定位与现场；欢迎摄影师、导演或品牌主一起把画面做对。',
+    cobuildHintEn: 'I handle positioning and on-set direction; photographers, directors, or brand owners co-shoot the right frame.',
+  },
+  {
+    slug: 'web-craft',
+    titleZh: '网页 · 手作页面与作品集',
+    titleEn: 'Web · Hand-made Pages & Portfolios',
+    taglineZh: '为独立创造者做页面、做产品、做自己的网页作品集。',
+    taglineEn: 'Pages, products, and portfolio sites for independent creators.',
+    status: 'concept',
+    craftZh: '网页手作',
+    craftEn: 'Web',
+    ethosZh: '把网页当器物打磨——每一行字、每一帧动效都经得起审视。',
+    ethosEn: 'Polishing the web like an artifact—every line and motion frame holds up to scrutiny.',
+    cobuildHintZh: '我负责前端与排版；欢迎设计师一起把审美做对，或产品一起把逻辑想清。',
+    cobuildHintEn: 'I own frontend and typography; designers co-own the aesthetics, or PMs co-think the logic.',
+  },
+  {
+    slug: 'circle-plays',
+    titleZh: '社群 · 品牌与玩法',
+    titleEn: 'Circle · Brand & Plays',
+    taglineZh: '为有独立工作室的品牌，打磨具体到可执行的社群玩法。',
+    taglineEn: 'Concrete, executable community plays for independent studio brands.',
+    status: 'concept',
+    craftZh: '品牌社群',
+    craftEn: 'Brand',
+    ethosZh: '不做泛社群，只为独立品牌打磨具体到能落地的玩法。',
+    ethosEn: 'No generic communities—only plays concrete enough to land for one independent brand.',
+    cobuildHintZh: '我负责玩法策划与执行；欢迎品牌主带来真实社群，一起把创新做出来。',
+    cobuildHintEn: 'I run play design and execution; brand owners bring a real community, we co-build the innovation.',
   },
 ];
 

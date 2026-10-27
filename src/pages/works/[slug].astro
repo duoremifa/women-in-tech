@@ -25,14 +25,14 @@ const statusLabel = {
   <meta name='robots' content='noindex' />
   <div class='page-container'>
     <a href='/works' class='btn btn--ghost'>
-      <span lang='zh-CN' class='lang-zh'>← 返回器物列表</span>
-      <span lang='en' class='lang-en'>← Back to works</span>
+      <span lang='zh-CN' class='lang-zh'>← 返回方向列表</span>
+      <span lang='en' class='lang-en'>← Back to directions</span>
     </a>
 
     <header class='page-header'>
       <div class='work-meta'>
         <span class='work-status'>{statusLabel.zh}</span>
-        <span class='work-roles'>{w.roles.map(r => r.toUpperCase()).join(' × ')}</span>
+        <span class='work-roles'>{w.craftZh}</span>
       </div>
       <div lang='zh-CN' class='lang-zh'>
         <h1 class='page-title'>{w.titleZh}</h1>
@@ -67,18 +67,18 @@ const statusLabel = {
 
     <section class='placeholder-note'>
       <span class='note-mark' aria-hidden='true'>✦</span>
-      <p lang='zh-CN' class='lang-zh'>该器物仍在推敲中，详细交互原型与代码架构将随后陆续放出。如有共鸣，欢迎先认领共建角色。</p>
-      <p lang='en' class='lang-en'>This artifact is still in deliberation—interactive prototypes and architecture notes will follow. If it resonates, claim a co-build role first.</p>
+      <p lang='zh-CN' class='lang-zh'>这个方向的第一个打样项目正在筹备，详情随后放出。如有共鸣，欢迎先聊聊。</p>
+      <p lang='en' class='lang-en'>The first sample project for this direction is being prepared—details will follow. If it resonates, reach out first.</p>
     </section>
 
     <section class='next-steps'>
       <a href={`/join?work=${w.slug}`} class='btn btn--solid'>
-        <span lang='zh-CN' class='lang-zh'>认领共建角色 ⟶</span>
-        <span lang='en' class='lang-en'>Co-build this work ⟶</span>
+        <span lang='zh-CN' class='lang-zh'>想一起打磨 ⟶</span>
+        <span lang='en' class='lang-en'>Co-build this ⟶</span>
       </a>
       <a href='/works' class='btn btn--gold'>
-        <span lang='zh-CN' class='lang-zh'>其他器物 →</span>
-        <span lang='en' class='lang-en'>Other works →</span>
+        <span lang='zh-CN' class='lang-zh'>其他方向 →</span>
+        <span lang='en' class='lang-en'>Other directions →</span>
       </a>
     </section>
   </div>
