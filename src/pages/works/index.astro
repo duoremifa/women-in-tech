@@ -31,6 +31,11 @@ const statusLabel: Record<string, { zh: string; en: string }> = {
     <div class='works-stack'>
       {WORKS.map(w => (
         <a class='work-card' href={`/works/${w.slug}`}>
+          {w.cover && (
+            <figure class='work-thumb'>
+              <img src={w.cover} alt={w.titleZh} loading='lazy' decoding='async' />
+            </figure>
+          )}
           <div class='work-head'>
             <span class='work-status'>{statusLabel[w.status].zh}</span>
             <span class='work-roles'>{w.craftZh}</span>
@@ -81,6 +86,8 @@ const statusLabel: Record<string, { zh: string; en: string }> = {
     transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   }
   .work-card:hover { border-color: var(--color-gold-dust); box-shadow: 0 4px 16px -6px rgba(38, 34, 28, 0.04); }
+  .work-thumb { margin: 0 0 var(--spacing-4); padding: 0; border: 1px solid var(--color-border-divider); border-radius: var(--radius-xs); overflow: hidden; }
+  .work-thumb img { display: block; width: 100%; height: auto; }
   .work-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-3); }
   .work-status { font-family: var(--font-family-ui); font-size: 11px; color: var(--color-primary-dark); background: var(--color-surface-soft); padding: 2px 8px; border-radius: 2px; }
   .work-roles { font-family: var(--font-family-mono); font-size: 10.5px; color: var(--color-text-tertiary); letter-spacing: 0.06em; }

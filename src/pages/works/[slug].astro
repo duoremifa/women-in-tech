@@ -29,6 +29,12 @@ const statusLabel = {
       <span lang='en' class='lang-en'>← Back to directions</span>
     </a>
 
+    {w.cover && (
+      <figure class='work-cover'>
+        <img src={w.cover} alt={w.titleZh} loading='lazy' decoding='async' />
+      </figure>
+    )}
+
     <header class='page-header'>
       <div class='work-meta'>
         <span class='work-status'>{statusLabel.zh}</span>
@@ -72,6 +78,12 @@ const statusLabel = {
     </section>
 
     <section class='next-steps'>
+      {w.demoUrl && (
+        <a href={w.demoUrl} class='btn btn--solid' target='_blank' rel='noopener noreferrer'>
+          <span lang='zh-CN' class='lang-zh'>去看看这件 ↗</span>
+          <span lang='en' class='lang-en'>See it live ↗</span>
+        </a>
+      )}
       <a href={`/join?work=${w.slug}`} class='btn btn--solid'>
         <span lang='zh-CN' class='lang-zh'>想一起打磨 ⟶</span>
         <span lang='en' class='lang-en'>Co-build this ⟶</span>
@@ -86,6 +98,8 @@ const statusLabel = {
 
 <style>
   .page-container { padding: var(--spacing-6) 0 var(--spacing-20); max-width: 48rem; }
+  .work-cover { margin: 0 0 var(--spacing-8); padding: 0; border: 1px solid var(--color-border-subtle); border-radius: var(--radius-sm); overflow: hidden; }
+  .work-cover img { display: block; width: 100%; height: auto; }
   .back-link { display: inline-block; font-family: var(--font-family-ui); font-size: var(--font-size-xs); color: var(--color-text-tertiary); text-decoration: none !important; margin-bottom: var(--spacing-6); }
   .back-link:hover { color: var(--color-primary-dark); }
   .page-header { margin-bottom: var(--spacing-10); }

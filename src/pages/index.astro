@@ -137,6 +137,11 @@ import { WORKS } from '../data/works';
           <div class='workshop-cards-stack'>
             {WORKS.map(w => (
               <a class='workshop-card' href={`/works/${w.slug}`}>
+                {w.cover && (
+                  <figure class='workshop-thumb'>
+                    <img src={w.cover} alt={w.titleZh} loading='lazy' decoding='async' />
+                  </figure>
+                )}
                 <div class='card-header-line'>
                   <span class='work-status-badge'>{w.craftZh}</span>
                   <span class='work-triad-pills'>{w.status === 'prototype' ? '原型推敲中' : '概念草案'}</span>
@@ -447,6 +452,8 @@ import { WORKS } from '../data/works';
     border-color: var(--color-gold-dust);
     box-shadow: 0 4px 16px -6px rgba(38, 34, 28, 0.04);
   }
+  .workshop-thumb { margin: 0 0 var(--spacing-4); padding: 0; border: 1px solid var(--color-border-divider); border-radius: var(--radius-xs); overflow: hidden; }
+  .workshop-thumb img { display: block; width: 100%; height: auto; }
   .card-header-line {
     display: flex;
     justify-content: space-between;

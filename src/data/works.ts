@@ -19,6 +19,10 @@ export interface Work {
   ethosEn: string;
   cobuildHintZh: string;
   cobuildHintEn: string;
+  /** 可选：打样作品截图/封面，路径如 /works/sound-field.jpg（放 public/works/）。留空则不渲染。 */
+  cover?: string;
+  /** 可选：在线 demo 链接（成品可访问时填）。留空则不渲染"去看看这件"按钮。 */
+  demoUrl?: string;
 }
 
 export const WORKS: Work[] = [
