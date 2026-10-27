@@ -119,16 +119,11 @@ html.is-swapping {
   scroll-behavior: auto;
 }
 
-/* 主题切换：root/body/main/footer/nav 背景色与文字色 420ms 交叉淡化（不再硬切）。
-   初始加载不触发（CSS transition 不在首帧 computed value 上启动），仅主题切换时动。 */
+/* 主题切换：只让 body 基底 bg-color 短淡 200ms，其余面（main/footer/nav/卡片/文字）
+   瞬切——避免多面同时 420ms 过渡时，外层壳在淡而内层内容瞬切造成的"色块加载"观感。
+   body 基底在内容之下，淡 200ms 几乎不可见，整体读起来是干净的一次切换。 */
 @media (prefers-reduced-motion: no-preference) {
-  body,
-  main,
-  .footer,
-  .nav-header,
-  .reading-progress {
-    transition: background-color 420ms cubic-bezier(0.42, 0, 0.58, 1),
-      color 420ms cubic-bezier(0.42, 0, 0.58, 1),
-      border-color 420ms cubic-bezier(0.42, 0, 0.58, 1);
+  body {
+    transition: background-color 200ms cubic-bezier(0.42, 0, 0.58, 1);
   }
 }

@@ -9,7 +9,10 @@
 
 <details class='cal-add'>
   <summary class='cal-trigger' aria-label='添加到我的日历'>
-    <span class='cal-trigger-icon' aria-hidden='true'>📅</span>
+    <svg class='cal-trigger-icon' width='14' height='14' viewBox='0 0 16 16' fill='none' stroke='currentColor' stroke-width='1.3' aria-hidden='true'>
+      <rect x='2.5' y='3.5' width='11' height='10' rx='1'/>
+      <path d='M2.5 6.5h11M5 2v3M11 2v3'/>
+    </svg>
     <span lang='zh-CN' class='lang-zh'>添加到我的日历</span>
     <span lang='en' class='lang-en'>Add to my calendar</span>
   </summary>
@@ -67,7 +70,8 @@
   .cal-menu {
     position: absolute;
     top: calc(100% + 6px);
-    left: 0;
+    right: 0;
+    left: auto;
     min-width: 280px;
     background: var(--color-surface-pure);
     border: 1px solid var(--color-border-subtle);
@@ -78,7 +82,7 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
-    transform-origin: top left;
+    transform-origin: top right;
   }
   /* 下拉入场：220ms 缓动，不再硬弹出 */
   @keyframes cal-open {
@@ -132,10 +136,10 @@
   }
 
   @media (max-width: 680px) {
-    /* 移动端锚定 trigger 左边，不再 left:0/right:0 通栏脱离按钮 */
+    /* 移动端右锚定（与桌面一致），不再 left:0/right:0 通栏脱离按钮 */
     .cal-menu {
-      left: 0;
-      right: auto;
+      right: 0;
+      left: auto;
       min-width: min(280px, calc(100vw - 32px));
     }
   }

@@ -6,7 +6,10 @@
  * 把每个 woff2 下载到 public/fonts/，并生成 src/styles/typography/font-faces.css
  * 用本地 URL 替换 gstatic URL。完全保留 Google 的 unicode-range 按需加载策略。
  *
- * 仅保留站点实际使用的字重（去掉 Poppins、去掉 Lora 无效的 300）。
+ * 仅自托管 Latin 字体（Inter + Lora）。CJK 不自托管——Noto Serif SC 有 ~100 个子集、
+ * 总计数十 MB，会让 Chrome 加载极慢。CJK 走系统栈（Source Han Serif SC / Songti SC /
+ * STSong / PingFang SC / Microsoft YaHei），零下载即时渲染。
+ * 非拉丁子集（cyrillic/greek/vietnamese）本站永不使用，过滤掉。
  */
 
 import fs from 'node:fs';
@@ -26,8 +29,10 @@ const FETCH_HEADERS = { 'User-Agent': UA, 'Accept-Language': ACCEPT_LANG };
 const FAMILIES = [
   { family: 'Inter', weights: [400, 500, 600, 700] },
   { family: 'Lora', weights: [400, 500, 600, 700] },
-  { family: 'Noto Serif SC', weights: [400, 500, 700] },
 ];
+
+// 只保留拉丁子集——cyrillic/greek/vietnamese 本站永不使用，过滤掉省 CSS + 文件
+const KEEP_SUBSETS = new Set(['latin', 'latin-ext']);
 
 const slug = s =>
   s
@@ -103,8 +108,8 @@ async function main() {
   try {
     for (const { family, weights } of FAMILIES) {
       const css = await fetchCss(family, weights);
-      const faces = parseFaces(css);
-      console.log(`${family}: parsed ${faces.length} @font-face blocks`);
+      const faces = parseFaces(css).filter(f => KEEP_SUBSETS.has(f.subset));
+      console.log(`${family}: parsed ${parseFaces(css).length} → kept ${faces.length} (latin only)`);
       for (const f of faces) {
         const localName = `${slug(family)}-${f.weight}-${slug(f.subset)}.woff2`;
         const dest = path.join(FONTS_DIR, localName);

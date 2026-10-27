@@ -199,7 +199,7 @@
 
   /* 基础字体栈 —— 精确调校中英文混排韵律与基线 */
   --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
-  --font-family-serif: 'Lora', 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', 'Georgia', serif;
+  --font-family-serif: 'Lora', 'Source Han Serif SC', 'Songti SC', 'STSong', 'PingFang SC', 'Microsoft YaHei', 'Georgia', serif;
   --font-family-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Consolas', monospace;
 
   /* 语义化别名 —— 使用场景明确 */

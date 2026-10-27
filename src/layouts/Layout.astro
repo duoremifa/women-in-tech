@@ -289,12 +289,9 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
     background-color: var(--color-bg-page);
     padding-top: var(--spacing-8); /* 顶部留白（与导航间距） */
     padding-bottom: var(--spacing-20); /* 底部留白（与页脚间距） */
-    /* 合并 shorthand：opacity 给语言切换 180ms，bg/color/border 给主题切换 420ms。
-       之前 opacity-only 覆盖了 reset.css 的 420ms，导致 main 在主题切换时瞬间翻色。 */
-    transition: opacity 180ms cubic-bezier(0.42, 0, 0.58, 1),
-      background-color 420ms cubic-bezier(0.42, 0, 0.58, 1),
-      color 420ms cubic-bezier(0.42, 0, 0.58, 1),
-      border-color 420ms cubic-bezier(0.42, 0, 0.58, 1);
+    /* main 只过渡 opacity（语言切换 cross-fade 用）。bg/color 不过渡——
+       之前加的 420ms 让 main 在主题切换时淡，而内层内容瞬切，造成"色块加载"。 */
+    transition: opacity 180ms cubic-bezier(0.42, 0, 0.58, 1);
   }
 
   /* 深色模式适配（由变量自动处理，无需额外代码） */
