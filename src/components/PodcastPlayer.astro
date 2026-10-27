@@ -1,0 +1,220 @@
+---
+// src/components/PodcastPlayer.astro
+// 顶奢纸感播客播放器：hairline scrubber + gold 进度 + ink play/pause + mono 时间。
+// 无音量/倍速/下载按钮——Aman 克制。替换浏览器默认 <audio controls>（一秒破纸感）。
+interface Props {
+  src: string;
+  title?: string;
+}
+const { src, title = 'episode' } = Astro.props;
+---
+
+<div class='pp' data-player>
+  <audio class='pp-audio' preload='metadata' src={src} aria-label={title}></audio>
+
+  <button type='button' class='pp-play-btn' data-play-btn aria-label='播放 / Play'>
+    <svg class='pp-icon-play' viewBox='0 0 16 16' width='16' height='16' aria-hidden='true'>
+      <path d='M4.5 3 L12.5 8 L4.5 13 Z' fill='currentColor' />
+    </svg>
+    <svg class='pp-icon-pause' viewBox='0 0 16 16' width='16' height='16' aria-hidden='true'>
+      <rect x='4' y='3' width='3' height='10' fill='currentColor' />
+      <rect x='9' y='3' width='3' height='10' fill='currentColor' />
+    </svg>
+  </button>
+
+  <div
+    class='pp-track'
+    data-track
+    role='slider'
+    tabindex='0'
+    aria-label='进度 / Seek'
+    aria-valuemin='0'
+    aria-valuemax='100'
+    aria-valuenow='0'
+  >
+    <span class='pp-track-line' aria-hidden='true'></span>
+    <span class='pp-fill' data-fill aria-hidden='true'></span>
+    <span class='pp-playhead' data-playhead aria-hidden='true'></span>
+  </div>
+
+  <span class='pp-time' data-time>0:00 / 0:00</span>
+</div>
+
+<style>
+  .pp {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    padding: var(--spacing-3) var(--spacing-4);
+    background: var(--color-surface-soft);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-xs);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .pp-audio { display: none; }
+
+  /* play/pause 按钮：ink，hover→gold，焦点走全局 gold hairline */
+  .pp-play-btn {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--color-border-divider);
+    border-radius: var(--radius-full);
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+  }
+  .pp-play-btn:hover {
+    border-color: var(--color-gold-dust);
+    color: var(--color-gold-dust);
+  }
+  .pp-play-btn:focus-visible {
+    outline: 1px solid var(--color-gold-dust);
+    outline-offset: 3px;
+  }
+
+  .pp-icon-pause { display: none; }
+  .pp.is-playing .pp-icon-play { display: none; }
+  .pp.is-playing .pp-icon-pause { display: block; }
+
+  /* scrubber：14px 命中区，中间一条 1px hairline，gold 进度填 + 6px gold playhead */
+  .pp-track {
+    position: relative;
+    flex: 1;
+    height: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  .pp-track:focus-visible {
+    outline: 1px solid var(--color-gold-dust);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+  .pp-track-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: var(--color-border-divider);
+    transform: translateY(-50%);
+  }
+  .pp-fill {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 2px;
+    width: 0%;
+    background: var(--color-gold-dust);
+    transform: translateY(-50%);
+    transition: width 120ms linear;
+  }
+  .pp.is-playing .pp-fill { transition: width 240ms linear; }
+  .pp-playhead {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    width: 6px;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background: var(--color-gold-dust);
+    transform: translate(-50%, -50%);
+    transition: left 120ms linear, transform var(--transition-fast);
+  }
+  .pp.is-playing .pp-playhead { transition: left 240ms linear; }
+  .pp-track:hover .pp-playhead { transform: translate(-50%, -50%) scale(1.4); }
+
+  .pp-time {
+    flex-shrink: 0;
+    font-family: var(--font-family-mono);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.04em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (max-width: 480px) {
+    .pp { gap: var(--spacing-3); padding: var(--spacing-3); }
+    .pp-time { font-size: 10px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pp-fill, .pp-playhead { transition: none !important; }
+  }
+</style>
+
+<script>
+  function initPlayer() {
+    const root = document.querySelector<HTMLElement>('[data-player]');
+    if (!root || (root as any).__ppBound) return;
+    (root as any).__ppBound = true;
+
+    const audio = root.querySelector<HTMLAudioElement>('.pp-audio');
+    const playBtn = root.querySelector<HTMLButtonElement>('[data-play-btn]');
+    const track = root.querySelector<HTMLElement>('[data-track]');
+    const fill = root.querySelector<HTMLElement>('[data-fill]');
+    const playhead = root.querySelector<HTMLElement>('[data-playhead]');
+    const timeEl = root.querySelector<HTMLElement>('[data-time]');
+    if (!audio || !playBtn || !track || !fill || !playhead || !timeEl) return;
+
+    const fmt = (s: number) => {
+      if (!isFinite(s) || s < 0) s = 0;
+      const m = Math.floor(s / 60);
+      const sec = Math.floor(s % 60);
+      return `${m}:${sec < 10 ? '0' : ''}${sec}`;
+    };
+
+    const setProgress = (ratio: number) => {
+      const r = Math.max(0, Math.min(1, ratio));
+      fill!.style.width = (r * 100) + '%';
+      playhead!.style.left = (r * 100) + '%';
+      track!.setAttribute('aria-valuenow', String(Math.round(r * 100)));
+    };
+
+    playBtn.addEventListener('click', () => {
+      if (audio!.paused) audio!.play(); else audio!.pause();
+    });
+
+    audio.addEventListener('play', () => root!.classList.add('is-playing'));
+    audio.addEventListener('pause', () => root!.classList.remove('is-playing'));
+    audio.addEventListener('ended', () => {
+      root!.classList.remove('is-playing');
+      setProgress(0);
+      timeEl!.textContent = '0:00 / ' + fmt(audio!.duration);
+    });
+    audio.addEventListener('loadedmetadata', () => {
+      timeEl!.textContent = '0:00 / ' + fmt(audio!.duration);
+    });
+    audio.addEventListener('timeupdate', () => {
+      const dur = audio!.duration || 0;
+      const cur = audio!.currentTime || 0;
+      setProgress(dur > 0 ? cur / dur : 0);
+      timeEl!.textContent = fmt(cur) + ' / ' + fmt(dur);
+    });
+
+    const seekFromEvent = (clientX: number) => {
+      const rect = track!.getBoundingClientRect();
+      const ratio = (clientX - rect.left) / rect.width;
+      const dur = audio!.duration || 0;
+      if (dur > 0) audio!.currentTime = ratio * dur;
+    };
+    track.addEventListener('click', (e) => seekFromEvent((e as MouseEvent).clientX));
+    // 键盘 seek：←/→ ±5s，Home/End
+    track.addEventListener('keydown', (e) => {
+      const dur = audio!.duration || 0;
+      if (e.key === 'ArrowRight') { audio!.currentTime = Math.min(dur, audio!.currentTime + 5); e.preventDefault(); }
+      else if (e.key === 'ArrowLeft') { audio!.currentTime = Math.max(0, audio!.currentTime - 5); e.preventDefault(); }
+      else if (e.key === 'Home') { audio!.currentTime = 0; e.preventDefault(); }
+      else if (e.key === 'Home' || e.key === 'End') { audio!.currentTime = dur; e.preventDefault(); }
+      else if (e.key === ' ' || e.key === 'Enter') { if (audio!.paused) audio!.play(); else audio!.pause(); e.preventDefault(); }
+    });
+  }
+
+  document.addEventListener('astro:page-load', initPlayer);
+</script>
