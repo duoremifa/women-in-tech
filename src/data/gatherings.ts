@@ -88,8 +88,8 @@ export const GATHERINGS: Gathering[] = [
   {
     id: 'coffee-2026-11-08',
     type: 'coffee',
-    titleZh: 'Coffee Chat · AI 时代，还剩下什么是属于自己的？',
-    titleEn: 'Coffee Chat · In the Age of AI, What Truly Remains Ours?',
+    titleZh: 'Coffee Chat · 一杯咖啡，从容聊聊',
+    titleEn: 'Coffee Chat · A Coffee, an Unhurried Talk',
     startIso: '2026-11-08T14:30:00+08:00',
     endIso: '2026-11-08T16:00:00+08:00',
     icsStartUtc: '20261108T063000Z',
@@ -101,8 +101,8 @@ export const GATHERINGS: Gathering[] = [
       addressLocality: 'Hangzhou',
       addressCountry: 'CN',
     },
-    descriptionZh: '当生成式代码和模板能够秒级产出界面，我们对于"手艺"与"代表作"的定义正在发生怎样的变化？这一期我们坐下来，聊聊如何从工业流水线的焦虑中抽离，重新发现具有个人辨识度的表达。',
-    descriptionEn: 'As generative models output boilerplate interfaces in seconds, how are our definitions of personal craft and signature artifacts evolving? Let us sit together and step back from industrial anxiety to uncover distinct personal voice.',
+    descriptionZh: '生成式工具秒级产出界面的当下，手艺与代表作意味着什么？这一期坐下来，从容聊一段。',
+    descriptionEn: 'When generative tools ship interfaces in seconds, what does craft and signature work still mean? Sit together for one talk at its own pace.',
     capacity: 5,
   },
   {
@@ -116,8 +116,8 @@ export const GATHERINGS: Gathering[] = [
     icsEndUtc: '20261111T130000Z',
     status: 'open',
     location: { type: 'VirtualLocation', url: 'https://wotech.space/upcoming' },
-    descriptionZh: '特邀分享嘉宾用 40 分钟英文讲述一个深有体会的界面细节、动效或代码架构。在安全宽容的交流语境里，设有充裕的 Q&A 互动环节，帮助大家跨越开口焦虑，迈出全球化表达的第一步。',
-    descriptionEn: 'Featuring a guest speaker sharing a favorite interface detail, micro-interaction, or code architecture in English for 40 minutes, followed by an open Q&A session in a supportive, relaxed setting.',
+    descriptionZh: '嘉宾用 40 分钟英文讲一个界面细节、动效或代码架构，随后 Q&A。一段 Show & Tell，只讲手里那件。',
+    descriptionEn: 'A guest spends 40 minutes in English on one interface detail, micro-interaction, or code architecture, followed by open Q&A. One Show & Tell—only the work at hand.',
     capacity: 6,
   },
   {
@@ -131,8 +131,8 @@ export const GATHERINGS: Gathering[] = [
     icsEndUtc: '20261115T040000Z',
     status: 'forming',
     location: { type: 'VirtualLocation', url: 'https://wotech.space/works' },
-    descriptionZh: '召集 2-3 位不同专长伙伴，利用业余时间合力完成一个真正具有收藏质感与实用价值的开源 Web 产品。拒绝粗糙玩具，把每一处间距与基线对齐做到极致。滚动开展，异步推敲 + 周末轻度同步。',
-    descriptionEn: 'Gathering 2–3 creators across complementary disciplines to collaboratively build an enduring, refined open-source digital tool. Honoring craftsmanship at every scale. Rolling onboarding, async refinement with gentle weekend touchpoints.',
+    descriptionZh: '召集 2-3 位不同专长伙伴，业余时间合力做一个立得住的开源 Web 产品。间距、基线、节奏，都对齐。滚动开展，异步推敲 + 周末轻度同步。',
+    descriptionEn: 'Gather 2–3 creators across complementary disciplines to build one enduring open-source web tool—baselines, spacing, rhythm all aligned. Rolling onboarding, async refinement with gentle weekend touchpoints.',
     capacity: 3,
   },
 ];

@@ -18,7 +18,7 @@ const {
   canonicalURL = Astro.url.href.split('?')[0].replace(/\/$/, '') || 'https://wotech.space',
   type = 'website',
   ogImage,
-  keywords = 'wo/men in tech, women in technical, 我们, 手艺人, 独立创作者, 设计师, 工程师, 艺术工作者, 工作室主, 写作者, 个体之名, 慢节奏, 杭州, Coffee Chat, Show and Tell, 播客, 田野手记',
+  keywords = 'wo/men in tech, women in technical, 杭州, 手艺人, 设计师, 工程师, 写作者, 田野手记, 播客, Coffee Chat, Show and Tell',
 } = Astro.props;
 
 // 确保主标题带有品牌后缀
@@ -139,7 +139,7 @@ const jsonLd = {
 <meta property='og:image:type' content='image/png' />
 <meta property='og:image:width' content='1200' />
 <meta property='og:image:height' content='630' />
-<meta property='og:image:alt' content='wo/men in tech · 以个体之名 · 慢节奏女性创造社群' />
+<meta property='og:image:alt' content='wo/men in tech · 在杭州的巷子与山径之间，做经得起时间的事' />
 <meta property='og:locale' content='zh_CN' />
 <meta property='og:locale:alternate' content='en_US' />
 
@@ -151,7 +151,7 @@ const jsonLd = {
 <meta name='twitter:title' content={fullTitle} />
 <meta name='twitter:description' content={description} />
 <meta name='twitter:image' content={absoluteImageUrl} />
-<meta name='twitter:image:alt' content='wo/men in tech · 以个体之名' />
+<meta name='twitter:image:alt' content='wo/men in tech · 做，经得起时间' />
 
 <!-- 移动与品牌色彩 -->
 <meta name='format-detection' content='telephone=no, address=no, email=no' />
