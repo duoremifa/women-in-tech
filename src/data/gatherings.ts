@@ -55,6 +55,8 @@ export interface Gathering {
   reviewEn?: string;
   /** → /reviews/[slug] 占位页 */
   reviewSlug?: string;
+  /** 本期聚会录制的播客 episode id（双向联动 → /podcast/<slug>） */
+  episodeSlug?: string;
 }
 
 export const GATHERINGS: Gathering[] = [

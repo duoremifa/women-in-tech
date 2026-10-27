@@ -112,6 +112,12 @@ function fmtTime(iso: string) {
               </div>
 
               <div class='block-action'>
+                {g.episodeSlug && (
+                  <a class='btn-episode' href={`/podcast/${g.episodeSlug}/`}>
+                    <span lang='zh-CN' class='lang-zh'>本期录制 ↗</span>
+                    <span lang='en' class='lang-en'>Recorded ↗</span>
+                  </a>
+                )}
                 {g.status === 'open' && (
                   <>
                     <a class='btn-ics' href={`/gatherings/${g.id}.ics`} download>
@@ -326,6 +332,8 @@ function fmtTime(iso: string) {
   .meta-label { font-family: var(--font-family-ui); font-size: 10.5px; color: var(--color-text-tertiary); }
   .meta-val { font-family: var(--font-family-body); font-size: 12.5px; color: var(--color-text-primary); }
   .block-action { display: flex; justify-content: flex-end; gap: var(--spacing-3); align-items: center; flex-wrap: wrap; }
+  .btn-episode { font-family: var(--font-family-ui); font-size: 11px; color: var(--color-text-tertiary); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 2px; font-style: italic; transition: color var(--transition-fast), border-color var(--transition-fast); }
+  .btn-episode:hover { color: var(--color-primary-dark); border-bottom-color: var(--color-gold-dust) !important; }
   .btn-ics { font-family: var(--font-family-ui); font-size: 11.5px; color: var(--color-text-secondary); text-decoration: none !important; border: 1px solid var(--color-border-divider) !important; padding: 4px 10px; border-radius: var(--radius-xs); transition: border-color var(--transition-fast), color var(--transition-fast); }
   .btn-ics:hover { border-color: var(--color-gold-dust) !important; color: var(--color-primary-dark); }
   .btn-rsvp { font-family: var(--font-family-ui); font-size: 11.5px; color: var(--color-primary-dark); text-decoration: none !important; border-bottom: 1px solid var(--color-gold-dust) !important; padding-bottom: 2px; font-weight: var(--font-weight-medium); transition: color var(--transition-fast); }

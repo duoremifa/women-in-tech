@@ -25,7 +25,11 @@ const all = (await getCollection('writing', ({ data }) => !data.draft))
           <span class='w-date'>{w.data.pubDate.toLocaleDateString('zh-CN', { year:'numeric', month:'long' })}</span>
           <div class='w-content'>
             <h2 class='w-title'>{w.data.title}</h2>
-            {w.data.subject && <span class='w-subject'>{w.data.subject}</span>}
+            {w.data.interviewee ? (
+              <span class='w-subject'>{w.data.interviewee.name}{w.data.interviewee.brand ? ` · ${w.data.interviewee.brand}` : ''}</span>
+            ) : (
+              w.data.subject && <span class='w-subject'>{w.data.subject}</span>
+            )}
             {w.data.excerpt && <p class='w-excerpt'>{w.data.excerpt}</p>}
           </div>
           {w.data.tags && w.data.tags.length > 0 && (

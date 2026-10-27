@@ -39,7 +39,7 @@ export interface Props {
 
 const {
   title = 'wo/men in tech · women in technical · "我们"',
-  description = '既是女性，亦是“我们”的技术与创造联合体。面向产品经理 (PM)、交互设计师 (IxD) 与前端工程师 (FE) 的互助、交流与作品共建空间。相互成就。',
+  description = 'women in tech · 以个体之名做事的女性——手艺人、设计师、工程师、艺术工作者、工作室主、写作者。',
   width = 'full',
   header,
   ogImage,
@@ -113,10 +113,12 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
       <span lang='en' class='lang-en'>Skip to content</span>
     </a>
 
-    <!-- ===== 导航区（持久化）===== -->
-    <div transition:persist>
-      <Navbar />
-    </div>
+    <!-- ===== 导航区（首页隐藏，靠左侧侧栏定向；子页保留）===== -->
+    {Astro.url.pathname !== '/' && (
+      <div transition:persist>
+        <Navbar />
+      </div>
+    )}
 
     <!-- ===== 主要内容区 ===== -->
     <main

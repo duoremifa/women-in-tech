@@ -18,6 +18,7 @@ const podcast = defineCollection({
     cover: z.string().optional(),          // 封面图路径
     draft: z.boolean().default(false),
     comingSoon: z.boolean().default(false), // 创刊预告/未上线标记
+    gatheringId: z.string().optional(),     // 反向关联 gatherings（本期来自哪期聚会）
   }),
 });
 
@@ -33,6 +34,17 @@ const writing = defineCollection({
     cover: z.string().optional(),
     draft: z.boolean().default(false),
     comingSoon: z.boolean().default(false),
+    interviewee: z.object({
+      name: z.string(),
+      role: z.string().optional(),          // '咖啡主理人' / '大提琴老师' / '品牌设计师'
+      brand: z.string().optional(),         // 品牌/工作室名
+      location: z.string().optional(),      // '杭州 · 天目里'
+      cover: z.string().optional(),         // 受访者肖像/店面照（非 Dai Min）
+      links: z.array(z.object({             // 轻度品牌链接，每人不同，无固定模板
+        label: z.string(),                  // '公众号' / '小红书' / '店面' / '品牌介绍'
+        url: z.string().url(),
+      })).default([]),
+    }).optional(),
   }),
 });
 

@@ -20,19 +20,6 @@ export interface Work {
 
 export const WORKS: Work[] = [
   {
-    slug: 'frictionlog',
-    titleZh: 'FrictionLog · 宁静慢节奏感知器',
-    titleEn: 'FrictionLog · Quiet Friction Sensor',
-    taglineZh: '为复杂心智创造者设计的离线手写感知器物',
-    taglineEn: 'A local-first reflection tool for deep creators',
-    status: 'prototype',
-    roles: ['ixd', 'fe'],
-    ethosZh: '杜绝社交算法与点赞刺激，专注捕获未经修饰的创作卡壳与顿悟时刻。给"想得慢但想得深"的人，一个不被催逼的器物。',
-    ethosEn: 'Zero social algorithms, zero engagement hooks—holding space for genuine creative friction. For those who think slowly and deeply, a tool that never rushes.',
-    cobuildHintZh: '认领共建角色：PM 负责非评价体系与微顿悟闭环；IxD 负责纸感网格与金线刻痕；FE 负责 PWA 离线存储与极速响应。',
-    cobuildHintEn: 'Co-build: PM owns the non-evaluative loop; IxD owns the paper-grid tactile system; FE owns PWA offline + sub-millisecond response.',
-  },
-  {
     slug: 'typespec',
     titleZh: 'TypeSpec · 手艺排版标尺',
     titleEn: 'TypeSpec · Typography Calliper',

@@ -13,12 +13,12 @@ interface Props {
 
 const {
   title = 'wo/men in tech · women in technical · "我们"',
-  description = '既是女性，亦是“我们”的技术与创造联合体。面向产品经理 (PM)、交互设计师 (IxD) 与前端工程师 (FE) 的互助、交流与作品共建空间。相互成就，慢节奏打磨代表作。',
+  description = 'women in tech · 以个体之名做事的女性——手艺人、设计师、工程师、艺术工作者、工作室主、写作者。在快与喧嚣里，留一个安静的座位。',
   image = '/og-image.png',
   canonicalURL = Astro.url.href.split('?')[0].replace(/\/$/, '') || 'https://wotech.space',
   type = 'website',
   ogImage,
-  keywords = 'wo/men in tech, women in technical, 我们, 产品经理, PM, 交互设计, IxD, 前端工程, FE, 独立开发者, 女性技术社群, 慢节奏创作, 相互成就, Coffee Chat, Show and Tell, 杭州技术交流',
+  keywords = 'wo/men in tech, women in technical, 我们, 手艺人, 独立创作者, 设计师, 工程师, 艺术工作者, 工作室主, 写作者, 个体之名, 慢节奏, 杭州, Coffee Chat, Show and Tell, 播客, 田野手记',
 } = Astro.props;
 
 // 确保主标题带有品牌后缀
@@ -94,8 +94,8 @@ const jsonLd = {
         'width': 1200,
         'height': 630,
       },
-      'slogan': '相互成就 · 慢节奏女性技术与创造联合体',
-      'description': '面向产品经理 (PM)、交互设计师 (IxD) 与前端工程师 (FE) 的互助、交流与作品共建空间。',
+      'slogan': '以个体之名 · 慢节奏女性创造联合体',
+      'description': 'women in tech · 以个体之名做事的女性——手艺人、设计师、工程师、艺术工作者、工作室主、写作者。',
       'sameAs': [
         'https://github.com/duoremifa/women-in-tech',
       ],
@@ -139,7 +139,7 @@ const jsonLd = {
 <meta property='og:image:type' content='image/png' />
 <meta property='og:image:width' content='1200' />
 <meta property='og:image:height' content='630' />
-<meta property='og:image:alt' content='wo/men in tech · 相互成就 · 慢节奏女性技术与创造社群' />
+<meta property='og:image:alt' content='wo/men in tech · 以个体之名 · 慢节奏女性创造社群' />
 <meta property='og:locale' content='zh_CN' />
 <meta property='og:locale:alternate' content='en_US' />
 
@@ -151,7 +151,7 @@ const jsonLd = {
 <meta name='twitter:title' content={fullTitle} />
 <meta name='twitter:description' content={description} />
 <meta name='twitter:image' content={absoluteImageUrl} />
-<meta name='twitter:image:alt' content='wo/men in tech · 相互成就' />
+<meta name='twitter:image:alt' content='wo/men in tech · 以个体之名' />
 
 <!-- 移动与品牌色彩 -->
 <meta name='format-detection' content='telephone=no, address=no, email=no' />
