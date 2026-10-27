@@ -33,8 +33,8 @@ export const WORKS: Work[] = [
     craftEn: 'Audio',
     ethosZh: '把声音当手艺——每一帧都经得起回放，不靠响度讨好耳朵。',
     ethosEn: 'Treating sound as craft—every frame holds up to replay, never flattering the ear with loudness.',
-    cobuildHintZh: '我负责录音工程与母带陪伴；欢迎乐手带来未完成的曲子，或调音师一起打磨频段。',
-    cobuildHintEn: 'I cover recording engineering and mastering accompaniment; musicians bring unfinished tracks, or engineers co-shape the frequency map.',
+    cobuildHintZh: '一起把一首未完成的曲子，从话筒摆位打磨到母带灌注。乐手、录音、调音，谁都可以带来自己那一帧。',
+    cobuildHintEn: 'Shape an unfinished track together—from mic placement to mastering. Musicians, recording, and mastering hands alike; anyone can bring their frame.',
   },
   {
     slug: 'on-set',
@@ -47,8 +47,8 @@ export const WORKS: Work[] = [
     craftEn: 'Visual',
     ethosZh: '不拍流水线广告，只拍配得上作品本身的画面。',
     ethosEn: 'No conveyor-belt ads—only frames worthy of the work itself.',
-    cobuildHintZh: '我负责定位与现场；欢迎摄影师、导演或品牌主一起把画面做对。',
-    cobuildHintEn: 'I handle positioning and on-set direction; photographers, directors, or brand owners co-shoot the right frame.',
+    cobuildHintZh: '一起为一个独立品牌或作品，从定位想到画面。导演、摄影、品牌主，谁都可以是这一帧的发起人。',
+    cobuildHintEn: 'Co-shape one independent brand or work—from positioning to frame. Directors, photographers, brand owners—anyone can start the shot.',
   },
   {
     slug: 'web-craft',
@@ -61,8 +61,8 @@ export const WORKS: Work[] = [
     craftEn: 'Web',
     ethosZh: '把网页当器物打磨——每一行字、每一帧动效都经得起审视。',
     ethosEn: 'Polishing the web like an artifact—every line and motion frame holds up to scrutiny.',
-    cobuildHintZh: '我负责前端与排版；欢迎设计师一起把审美做对，或产品一起把逻辑想清。',
-    cobuildHintEn: 'I own frontend and typography; designers co-own the aesthetics, or PMs co-think the logic.',
+    cobuildHintZh: '一起把一个页面或作品集，从排版打磨到动效。前端、设计、产品，谁都可以带来自己想做的那个。',
+    cobuildHintEn: 'Co-build one page or portfolio—from typography to motion. Frontend, design, product—anyone can bring the one they want to make.',
   },
   {
     slug: 'circle-plays',
@@ -75,8 +75,8 @@ export const WORKS: Work[] = [
     craftEn: 'Brand',
     ethosZh: '不做泛社群，只为独立品牌打磨具体到能落地的玩法。',
     ethosEn: 'No generic communities—only plays concrete enough to land for one independent brand.',
-    cobuildHintZh: '我负责玩法策划与执行；欢迎品牌主带来真实社群，一起把创新做出来。',
-    cobuildHintEn: 'I run play design and execution; brand owners bring a real community, we co-build the innovation.',
+    cobuildHintZh: '一起为一个独立工作室的品牌，想一个具体到能落地的玩法。品牌主、策划、运营，谁都可以带来自己社群的真实问题。',
+    cobuildHintEn: 'Co-design one concrete, landable play for an independent studio brand. Brand owners, planners, operators—anyone can bring a real community problem.',
   },
 ];
 
