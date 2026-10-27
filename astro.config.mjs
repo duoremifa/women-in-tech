@@ -11,6 +11,12 @@ export default defineConfig({
   // 纯静态输出模式 (本地开发极其快速、零依赖无报错)
   output: 'static',
 
+  // 预取：hover 时预取所有内部链接，点击秒开（静态站零成本）
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'hover',
+  },
+
   // 构建优化配置
   build: {
     format: 'file',

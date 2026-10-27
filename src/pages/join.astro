@@ -323,7 +323,7 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
         let emailSent = false;
         let apiFailed = false;
 
-        if (submitBtn) submitBtn.setAttribute('disabled', 'true');
+        if (submitBtn) { submitBtn.setAttribute('disabled', 'true'); submitBtn.setAttribute('aria-busy', 'true'); submitBtn.classList.add('is-loading'); }
         try {
           const ctrl = new AbortController();
           const timer = setTimeout(() => ctrl.abort(), 15000);
@@ -340,7 +340,7 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
             if (resData.emailSent !== undefined) emailSent = resData.emailSent;
           }
         } catch (err) { apiFailed = true; }
-        finally { if (submitBtn) submitBtn.removeAttribute('disabled'); }
+        finally { if (submitBtn) { submitBtn.removeAttribute('disabled'); submitBtn.removeAttribute('aria-busy'); submitBtn.classList.remove('is-loading'); } }
 
         if (apiFailed) {
           const isEn = document.documentElement.getAttribute('data-lang') === 'en';
@@ -448,6 +448,8 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
   .submit-zone { margin-top: var(--spacing-8); padding-top: var(--spacing-5); border-top: 1px solid var(--color-border-divider); display: flex; align-items: center; gap: var(--spacing-4); flex-wrap: wrap; }
   .submit-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: var(--spacing-3); padding: var(--spacing-3) var(--spacing-6); background: var(--color-brand-purple); color: var(--color-surface-pure); border: none; border-radius: var(--radius-xs); font-family: var(--font-family-ui); font-size: 12px; letter-spacing: 0.08em; cursor: pointer; transition: all var(--transition-fast); }
   .submit-btn-primary:hover { background: var(--color-brand-purple-dark); }
+  .submit-btn-primary.is-loading { opacity: 0.6; cursor: progress; }
+  .submit-btn-primary.is-loading .btn-arrow { display: none; }
   .submit-btn-primary .btn-arrow { transition: transform var(--transition-fast); }
   .submit-btn-primary:hover .btn-arrow { transform: translateX(4px); }
   .privacy-assurance-pill { display: inline-flex; align-items: center; gap: var(--spacing-2); font-family: var(--font-family-ui); font-size: 11px; color: var(--color-text-tertiary); }

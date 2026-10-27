@@ -1,78 +1,71 @@
 # wo/men in tech · women in technical
 
-> **women in technical · 既是女性，亦是“我们”的技术与创造联合体**  
-> *A collaborative community & laboratory for Product Managers (PM), Interaction Designers (IxD), and Frontend Engineers (FE) to co-create, coffee chat, and build real-world portfolios.*
+> **在快与喧嚣里，留一个安静的座位——给手作，给深度，给署名。**
+> women in tech：以个体之名做事的女性——手艺人、设计师、工程师、艺术工作者、工作室主、写作者。
+
+自托管的个人名片 + 引力场站点（Astro 5 静态 + Cloudflare Pages）。名字保留 women in Tech，底层故事服务于"独立个体、慢节奏、署名"的理念。tech 是一面向，非定位边界。
 
 ---
 
-## 🌟 核心理念 · Core Concept
+## 信息架构
 
-- **“wo/men” 的双重语义**：
-  - **Women in Technical**：深耕于技术与设计前沿的女性专业力量。
-  - **我们 (Us / Together)**：告别单兵作战的孤岛体验，以互助和协同建立坚固的创造同盟。
-- **三大角色三角闭环**：
-  - 📐 **Product Managers (产品经理)**：定义问题与业务闭环，0-1 MVP 架构规划。
-  - 🎨 **Interaction Designers (交互与体验设计)**：视觉传达、设计系统 (Design Tokens)、触感与微交互。
-  - 💻 **Frontend Engineers (前端开发架构)**：现代化 Web 技术落地、响应式还原、高可用与高性能。
-- **核心活动与节奏**：
-  - ☕ **Offline & Online Coffee Chat**：双周低压真诚对话，分享卡壳的 side project、技术与设计探索。
-  - 🗣️ **English Tech & Design Chat**：跨文化场景下的 Show & Tell，练习用英文陈述作品与方案。
-  - 🛠️ **Portfolio Co-Building (代表作共建)**：借助相互经验，打磨能直接上线的独立产品与个人作品集。
+```
+/            首页 · 两栏（左 sticky 侧栏 + 右展陈），无顶部导航，侧栏定向 + 最新一期播客 + 单 CTA
+/ethos       理念 · manifesto + 原则（极简单栏）
+/podcast     Friction Log 播客 · 期次 + shownotes + RSS（女性社群对谈实录方向，内容待填）
+/writing     田野手记 · 深度访谈独立女性创造者（月更，含受访者品牌链接，内容待填）
+/upcoming    近期安排 · 真实排期 + per-slot .ics 直订 + webcal 订阅 + 轻 RSVP + 已结束回环
+/events      机制 · Coffee Chat / English Chat / Craft Lab 的原则与收获
+/works       正在打磨 · TypeSpec / Whisper Letter（概念阶段）
+/join        加入 · 表单 + 订阅开关（webcal / 邮件）+ ?slot= 轻 RSVP
+/reviews/[slug]  回顾 · 相见后回环（占位框架）
+/podcast/rss.xml  播客 RSS feed
+/gatherings.ics   webcal 日历源（全部未过期排期）
+/gatherings/[id].ics  单期 .ics 直订
+```
 
----
-
-## 🎨 视觉风格与设计系统 (Design System)
-
-继承并复用**宁静低压设计系统 (Quiet Luxury & Tactile UI)**：
-- **纸感肌理背景**：`--color-bg-page: #f8f6f2`（手工棉纸质感，温和不反光）
-- **品牌主色**：`--color-primary: #b7aad9`（磨砂薰衣草紫灰，温柔克制）
-- **点缀色**：`--color-gold-dust: #d8cdb0`（哑光金线，象征温度与细腻）
-- **文字层次**：`--color-text-primary: #26221c`（深卡其黑，极高可读、极低压迫）
-- **版式系统**：经典双栏画廊布局（Sticky Sidebar + Content Feed），移动端优雅降级自适应。
+顶部导航（子页，首页隐藏）：理念 · 播客 · 手记 · 排期 · 机制 · 加入
 
 ---
 
-## 🚀 项目结构与启动
+## 内容维护（不用本地 IDE）
+
+- **排期 gatherings**：编辑 `src/data/gatherings.ts`（顶部有注释 + 新增模板），GitHub 网页编辑器改 → push → Cloudflare 自动重建。.ics / webcal / join API / JSON-LD 全读此单一源。
+- **播客 podcast**：往 `src/content/podcast/` 加 markdown 文件（frontmatter: title/pubDate/duration/audio/平台 + body: shownotes）。
+- **田野手记 writing**：往 `src/content/writing/` 加 markdown（frontmatter: title/pubDate/interviewee{name/role/brand/location/links} + body）。每位受访者品牌链接 per-person，无泛用模板。
+
+---
+
+## 设计系统
+
+宁静低压（Quiet Luxury & Tactile UI）——纸感肌理背景、磨砂薰衣草紫灰、哑光金线、深卡其黑文本。8px 基线网格。纸感噪点由 `theme.ts` 应用到 `<html>`（极淡）。几何视觉系统（GeometricVisual / GeometricIcon）与播客站共用。
+
+文本对比度达 WCAG AA（tertiary 浅色 #756f64 / 深色 #8a8478）。排版启用 old-style 数字 + 标点悬挂。
+
+---
+
+## 技术
+
+- Astro 5 静态输出 + Cloudflare Pages Functions（`/api/join` `/api/subscribe` `/api/notify`）
+- 自托管 woff2 字体（`scripts/self-host-fonts.mjs`，prebuild 生成，网络失败回退系统字体）
+- PWA service worker（`src/sw.js`，workbox injectManifest）
+- 双语 zh/en（JS + localStorage + `data-lang` 属性 + CSS `.lang-zh/.lang-en`）
+- 邮件订阅 → Supabase `subscribers` 表（RLS 公共 INSERT）；批量通知 `/api/notify`（admin token + Resend）
+- 内容闭环：gatherings → 录制 → podcast → 沉淀 writing → 回流（双向 `episodeSlug` / `gatheringId` 联动）
+
+---
+
+## 启动
 
 ```bash
-# 1. 进入项目目录
-cd /Users/erin/.gemini/antigravity/scratch/women-in-tech
-
-# 2. 安装依赖
 npm install
-
-# 3. 本地启动开发预览
-npm run dev
-
-# 4. 构建生产产物
-npm run build
+npm run dev        # 本地开发（prebuild 自动生成字体）
+npm run build      # 生产构建
+npm run type-check # astro check
 ```
+
+环境变量（Cloudflare Pages → Settings → Environment variables）见 `SUPABASE_SETUP.md`。
 
 ---
 
-## 📁 目录概览
-
-```
-women-in-tech/
-├── astro.config.mjs            # Astro 5 + Cloudflare / PWA 配置
-├── package.json                # 项目依赖与元数据
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro        # 全局双栏骨架与设计系统挂载
-│   ├── components/
-│   │   ├── Navbar.astro        # 顶栏导航 (理念/角色/活动/作品/预约)
-│   │   ├── Footer.astro        # 底部品牌与角色签名
-│   │   ├── GeometricVisual.astro # 极简几何视觉装饰
-│   │   └── SEO.astro           # 动态元数据与社交分享标签
-│   ├── pages/
-│   │   └── index.astro         # 核心主页（理念阐述、三大角色、活动栈、日程、RSVP）
-│   └── styles/
-│       ├── design-system.css   # 核心变量（色彩、间距、圆角、阴影）
-│       ├── main.css            # 全局样式入口
-│       └── components/         # 卡片、表单、按钮原子组件样式
-└── public/                     # 字体、Favicon、静态资源
-```
-
----
-
-*Crafted by Erin & Co. with quiet luxury, high availability, and mutual support.*
+*以个体之名 · by Dai Min*

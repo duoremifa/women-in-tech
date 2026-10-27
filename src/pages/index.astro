@@ -73,7 +73,9 @@ import { WORKS } from '../data/works';
         </div>
 
         <div class='sidebar-footer'>
-          <GeometricVisual type='subtle' height='72px' />
+          <div class='sidebar-decor'>
+            <GeometricVisual type='subtle' height='72px' />
+          </div>
 
           {/* 首页无顶部 Navbar，侧栏补回房间入口 + 语言/主题控件 */}
           <nav class='sidebar-nav' aria-label='首页导航'>
@@ -544,16 +546,21 @@ import { WORKS } from '../data/works';
       padding: var(--spacing-3) 0 var(--spacing-12);
     }
     .two-column-layout {
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-direction: column;
       gap: var(--spacing-6);
     }
+    /* 移动端：品牌在前 → 正文 → 宣言/who/导航在后（display:contents 让侧栏子项参与父级排序）*/
     .sidebar {
-      position: static;
-      border-right: none;
-      border-bottom: 1px solid var(--color-border-divider);
-      padding-right: 0;
-      padding-bottom: var(--spacing-6);
-      margin-bottom: 0;
+      display: contents;
+    }
+    .brand-group { order: 0; }
+    .content-main { order: 1; }
+    .manifesto, .sidebar-divider, .who-section, .sidebar-footer { order: 2; }
+    .sidebar-footer {
+      border-top: 1px solid var(--color-border-divider);
+      padding-top: var(--spacing-6);
+      margin-top: var(--spacing-2);
     }
     .brand-group {
       margin-bottom: var(--spacing-4);
@@ -589,7 +596,7 @@ import { WORKS } from '../data/works';
     .who-note {
       font-size: 11.5px;
     }
-    .sidebar-footer {
+    .sidebar-decor {
       display: none;
     }
     .content-main {
