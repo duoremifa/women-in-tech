@@ -16,10 +16,8 @@
   /* 优雅减速 */
   --easing-ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
 
-  /* 动效预设 */
-  --transition-fast: all var(--duration-fast) var(--easing-ease-out);
-  --transition-normal: all var(--duration-normal) var(--easing-ease-out);
-  --transition-slow: all var(--duration-slow) var(--easing-ease-in-out);
+  /* 动效预设——不带 `all` 前缀（由 design-system.css 统一拥有 --transition-*，避免双定义导致
+     `transition: color var(--transition-fast)` 被浏览器丢弃） */
 
   /* 阴影系统 */
   --shadow-sm: 0 var(--border-width-thin) var(--radius-xs) rgb(0 0 0 / 5%);

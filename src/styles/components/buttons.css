@@ -21,46 +21,50 @@
   user-select: none;
 }
 
-/* 实心（品牌紫底，浅色文字） */
+/* 实心（墨底，浅色文字）——顶奢用 ink，不用品牌紫；hover 翻金（wax-seal 手势） */
 .btn--solid {
   padding: var(--spacing-2) var(--spacing-5);
-  background: var(--color-primary-dark);
+  background: var(--color-text-heading);
   color: var(--color-surface-pure) !important;
   border: none;
 }
-.btn--solid:hover { background: var(--color-text-heading); }
+.btn--solid:hover {
+  background: var(--color-gold-dust);
+  color: var(--color-text-heading) !important;
+}
 
-/* 金线链接（金底边，主色文字） */
+/* 金线链接（金底边，墨色文字）——hover 文字转金 */
 .btn--gold {
   padding-bottom: 2px;
-  color: var(--color-primary-dark);
+  color: var(--color-text-primary);
   border-bottom: 1px solid var(--color-gold-dust);
   font-weight: var(--font-weight-medium);
 }
-.btn--gold:hover { color: var(--color-text-heading); border-bottom-color: var(--color-text-heading); }
+.btn--gold:hover { color: var(--color-gold-dust); border-bottom-color: var(--color-gold-dust); }
 
-/* 描边（边框，无填充） */
+/* 描边（边框，无填充）——hover 边框转金 */
 .btn--outline {
   padding: 4px 10px;
   border: 1px solid var(--color-border-divider);
   color: var(--color-text-secondary);
   background: transparent;
 }
-.btn--outline:hover { border-color: var(--color-gold-dust); color: var(--color-primary-dark); }
+.btn--outline:hover { border-color: var(--color-gold-dust); color: var(--color-text-primary); }
 
-/* 纯文字链接（无装饰，三级文字色） */
+/* 纯文字链接（无装饰，三级文字色）——hover 转金 */
 .btn--ghost {
   padding: 0;
   color: var(--color-text-tertiary);
   border: none;
 }
-.btn--ghost:hover { color: var(--color-primary-dark); }
+.btn--ghost:hover { color: var(--color-gold-dust); }
 
 /* 尺寸修饰 */
 .btn--lg { padding: var(--spacing-4) var(--spacing-8); font-size: 13px; letter-spacing: 0.08em; }
 
-:root.dark .btn--solid { background: var(--color-brand-purple); }
-:root.dark .btn--solid:hover { background: var(--color-gold-dust); color: var(--color-surface-pure) !important; }
+/* 深色模式：solid 仍是 ink（dark 下 heading=近白，surface-pure=深，即白底深字）；hover 翻金 */
+:root.dark .btn--solid { background: var(--color-text-heading); color: var(--color-bg-page) !important; }
+:root.dark .btn--solid:hover { background: var(--color-gold-dust); color: var(--color-text-heading) !important; }
 :root.dark .btn--gold { color: var(--color-gold-dust); }
 :root.dark .btn--gold:hover { color: var(--color-text-heading); }
 :root.dark .btn--outline { border-color: var(--color-border-subtle); color: var(--color-text-secondary); }

@@ -277,10 +277,10 @@ function fmtTime(iso: string) {
   .subscribe-text p { font-family: var(--font-family-body); font-size: 13px; color: var(--color-text-secondary); line-height: 1.7; margin: 0; }
   .subscribe-actions { display: flex; flex-direction: column; gap: var(--spacing-2); align-items: flex-end; }
   .subscribe-btn { padding: var(--spacing-2) var(--spacing-4); border-radius: var(--radius-xs); font-family: var(--font-family-ui); font-size: 12px; text-decoration: none !important; letter-spacing: 0.04em; transition: background var(--transition-fast), border-color var(--transition-fast); white-space: nowrap; }
-  .subscribe-btn.primary { background: var(--color-brand-purple); color: var(--color-surface-pure) !important; }
-  .subscribe-btn.primary:hover { background: var(--color-brand-purple-dark); }
+  .subscribe-btn.primary { background: var(--color-text-heading); color: var(--color-surface-pure) !important; }
+  .subscribe-btn.primary:hover { background: var(--color-gold-dust); color: var(--color-text-heading) !important; }
   .subscribe-btn.ghost { border: 1px solid var(--color-border); color: var(--color-text-primary) !important; }
-  .subscribe-btn.ghost:hover { border-color: var(--color-gold-dust); color: var(--color-primary-dark) !important; }
+  .subscribe-btn.ghost:hover { border-color: var(--color-gold-dust); color: var(--color-gold-dust) !important; }
   .subscribe-link { font-family: var(--font-family-ui); font-size: 11px; color: var(--color-text-tertiary); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 1px; }
 
   /* 邮件提醒迷你表单 */
@@ -308,7 +308,7 @@ function fmtTime(iso: string) {
     cursor: pointer;
     transition: border-color var(--transition-fast), color var(--transition-fast);
   }
-  .email-sub-btn:hover { border-color: var(--color-gold-dust); color: var(--color-primary-dark); }
+  .email-sub-btn:hover { border-color: var(--color-gold-dust); color: var(--color-gold-dust); }
   .email-sub-msg { font-family: var(--font-family-ui); font-size: 11px; color: var(--color-text-tertiary); margin-top: var(--spacing-1); min-height: 1em; }
 
   /* 排期块 */
@@ -321,7 +321,7 @@ function fmtTime(iso: string) {
   .schedule-content { display: flex; flex-direction: column; }
   .block-status-line { display: flex; align-items: center; gap: var(--spacing-3); margin-bottom: var(--spacing-3); flex-wrap: wrap; }
   .status-pill { font-family: var(--font-family-ui); font-size: 11px; padding: 2px 8px; border-radius: 2px; letter-spacing: 0.04em; }
-  .status-pill.status-open { background: var(--color-surface-soft); color: var(--color-primary-dark); font-weight: var(--font-weight-medium); }
+  .status-pill.status-open { background: var(--color-surface-soft); color: var(--color-text-primary); font-weight: var(--font-weight-medium); }
   .status-pill.status-forming { background: var(--color-surface-soft); color: var(--color-text-tertiary); }
   .status-pill.status-full { background: var(--color-surface-soft); color: var(--color-text-tertiary); }
   .status-meta { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-text-tertiary); }
@@ -333,10 +333,10 @@ function fmtTime(iso: string) {
   .meta-val { font-family: var(--font-family-body); font-size: 12.5px; color: var(--color-text-primary); }
   .block-action { display: flex; justify-content: flex-end; gap: var(--spacing-3); align-items: center; flex-wrap: wrap; }
   .btn-episode { font-family: var(--font-family-ui); font-size: 11px; color: var(--color-text-tertiary); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 2px; font-style: italic; transition: color var(--transition-fast), border-color var(--transition-fast); }
-  .btn-episode:hover { color: var(--color-primary-dark); border-bottom-color: var(--color-gold-dust) !important; }
+  .btn-episode:hover { color: var(--color-gold-dust); border-bottom-color: var(--color-gold-dust) !important; }
   .btn-ics { font-family: var(--font-family-ui); font-size: 11.5px; color: var(--color-text-secondary); text-decoration: none !important; border: 1px solid var(--color-border-divider) !important; padding: 4px 10px; border-radius: var(--radius-xs); transition: border-color var(--transition-fast), color var(--transition-fast); }
-  .btn-ics:hover { border-color: var(--color-gold-dust) !important; color: var(--color-primary-dark); }
-  .btn-rsvp { font-family: var(--font-family-ui); font-size: 11.5px; color: var(--color-primary-dark); text-decoration: none !important; border-bottom: 1px solid var(--color-gold-dust) !important; padding-bottom: 2px; font-weight: var(--font-weight-medium); transition: color var(--transition-fast); }
+  .btn-ics:hover { border-color: var(--color-gold-dust) !important; color: var(--color-gold-dust); }
+  .btn-rsvp { font-family: var(--font-family-ui); font-size: 11.5px; color: var(--color-text-primary); text-decoration: none !important; border-bottom: 1px solid var(--color-gold-dust) !important; padding-bottom: 2px; font-weight: var(--font-weight-medium); transition: color var(--transition-fast); }
   .btn-rsvp:hover { color: var(--color-text-heading); }
   .full-note { font-family: var(--font-family-ui); font-size: 11.5px; color: var(--color-text-tertiary); font-style: italic; }
 
@@ -349,7 +349,7 @@ function fmtTime(iso: string) {
   .past-type { font-family: var(--font-family-ui); font-size: 10.5px; color: var(--color-gold-dust); letter-spacing: 0.06em; }
   .past-date { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-text-tertiary); }
   .past-block h3 { font-family: var(--font-family-heading); font-size: 1rem; font-weight: var(--font-weight-normal); color: var(--color-text-primary); margin: 0; }
-  .review-link { font-family: var(--font-family-ui); font-size: 11.5px; color: var(--color-primary-dark); text-decoration: none !important; border-bottom: 1px solid var(--color-gold-dust) !important; padding-bottom: 2px; }
+  .review-link { font-family: var(--font-family-ui); font-size: 11.5px; color: var(--color-text-primary); text-decoration: none !important; border-bottom: 1px solid var(--color-gold-dust) !important; padding-bottom: 2px; }
   .review-link:hover { color: var(--color-text-heading); }
   .review-pending { font-family: var(--font-family-ui); font-size: 11px; color: var(--color-text-tertiary); font-style: italic; }
 
@@ -367,7 +367,7 @@ function fmtTime(iso: string) {
   .next-text h3 { margin: 0 0 var(--spacing-1); font-family: var(--font-family-heading); font-size: var(--font-size-lg); color: var(--color-text-heading); }
   .next-text p { margin: 0; font-family: var(--font-family-body); font-size: var(--font-size-xs); color: var(--color-text-secondary); }
   .next-actions { display: flex; align-items: center; gap: var(--spacing-4); flex-shrink: 0; }
-  .btn-link-gold { font-family: var(--font-family-ui); font-size: var(--font-size-xs); color: var(--color-primary-dark); text-decoration: none !important; border-bottom: 1px solid var(--color-gold-dust) !important; padding-bottom: 2px; }
+  .btn-link-gold { font-family: var(--font-family-ui); font-size: var(--font-size-xs); color: var(--color-text-primary); text-decoration: none !important; border-bottom: 1px solid var(--color-gold-dust) !important; padding-bottom: 2px; }
   .btn-solid-dark { padding: var(--spacing-2) var(--spacing-5); background: var(--color-primary-dark); color: var(--color-surface-pure) !important; border-radius: var(--radius-xs); font-family: var(--font-family-ui); font-size: var(--font-size-xs); text-decoration: none !important; letter-spacing: 0.04em; transition: background var(--transition-fast); }
   .btn-solid-dark:hover { background: var(--color-text-heading); }
 

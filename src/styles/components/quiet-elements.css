@@ -29,28 +29,11 @@ hr,
   margin: var(--spacing-12) 0;
 }
 
-/* 链接 - 下划线悬停效果 */
-a {
-  color: var(--color-primary-dark);
-  text-decoration: none;
-  border-bottom: var(--border-width-thin) solid transparent;
-  transition: border-color var(--transition-normal);
-}
-
-a:hover {
-  border-bottom-color: var(--color-primary);
-}
+/* 链接：交由 typography/interactions.css 的 ::after 生长金线统一处理（currentcolor，220ms）。
+   不再在此覆盖 border-bottom，避免压住全局生长手势。 */
 
 /* ===== 深色模式适配 ===== */
 :root.dark blockquote {
   background: var(--color-surface-soft);
   border-left-color: var(--color-gold-dust);
-}
-
-:root.dark a {
-  color: var(--color-primary-light);
-}
-
-:root.dark a:hover {
-  border-bottom-color: var(--color-primary-light);
 }

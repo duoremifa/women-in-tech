@@ -29,7 +29,14 @@ body {
   hanging-punctuation: first last;
   color: var(--color-text-primary);
   background-color: var(--color-surface-primary);
+  background-image: var(--texture-paper);
+  background-repeat: repeat;
   font-family: var(--font-family-sans);
+}
+
+/* 纸感肌理：深色模式换浅噪点（screen 叠加），浅色用深噪点（multiply 叠加由 SVG 自身 alpha 完成） */
+:root.dark body {
+  background-image: var(--texture-paper-dark);
 }
 
 img,

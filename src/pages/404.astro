@@ -24,7 +24,7 @@ import GeometricIcon from '../components/Icon/GeometricIcon.astro';
         <h1 class='hero-title-serif'>就像走进树林深处</h1>
         <p class='hero-sub'>有时候，会迷路。</p>
       </div>
-      <GeometricVisual height='var(--spacing-40)' isBackground={true} opacity={0.015} />
+      <GeometricVisual height='var(--spacing-24)' isBackground={true} opacity={0.015} />
     </section>
 
     <!-- █████████████████████████████████████████████████ -->
@@ -39,7 +39,7 @@ import GeometricIcon from '../components/Icon/GeometricIcon.astro';
       </div>
 
       <div class='action-grid'>
-        <a href='/' class='btn btn-primary btn-large'>回到首页 / Back to Home</a>
+        <a href='/' class='btn btn--solid btn--lg'>回到首页 / Back to Home</a>
       </div>
 
 
@@ -69,7 +69,7 @@ import GeometricIcon from '../components/Icon/GeometricIcon.astro';
   .hero-404 {
     position: relative;
     margin-bottom: var(--spacing-20);
-    min-height: var(--spacing-35);
+    min-height: var(--spacing-24);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -96,7 +96,7 @@ import GeometricIcon from '../components/Icon/GeometricIcon.astro';
     gap: var(--spacing-2);
     margin-bottom: var(--spacing-6);
     font-family: var(--font-family-heading);
-    font-size: var(--font-size-6xl);
+    font-size: var(--font-size-5xl);
     font-weight: var(--font-weight-light);
     line-height: var(--line-height-tight);
     color: var(--color-text-heading);
@@ -203,7 +203,7 @@ import GeometricIcon from '../components/Icon/GeometricIcon.astro';
   }
 
   .footnote-404 a {
-    color: var(--color-primary-dark);
+    color: var(--color-text-primary);
     text-decoration: none;
     border-bottom: var(--border-width-thin) solid transparent;
     transition: border-color 0.2s;
@@ -236,8 +236,7 @@ import GeometricIcon from '../components/Icon/GeometricIcon.astro';
       align-items: stretch;
     }
 
-    .action-grid .btn,
-    .action-grid .btn-secondary {
+    .action-grid .btn {
       width: 100%;
       text-align: center;
     }

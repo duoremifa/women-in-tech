@@ -17,14 +17,11 @@
   box-shadow: none;
   border: var(--border-width-thin) solid var(--color-border-subtle);
   background: var(--color-surface-pure);
-  border-radius: var(--radius-subtle);
-  transition:
-    border-color var(--transition-normal),
-    background var(--transition-normal),
-    transform var(--transition-normal);
+  border-radius: var(--radius-xs);
+  transition: border-color var(--transition-fast);
 }
 
-/* 悬停效果统一 */
+/* 悬停效果统一：只改 border-color 一项（subtle→gold-dust），无上浮无阴影——顶奢 negative space 做功 */
 .function-card:hover,
 .card:hover,
 .post-card:hover,
@@ -35,10 +32,7 @@
 .truth-card:hover,
 .faq-card:hover,
 .detail-card:hover {
-  border-color: var(--color-primary-light);
-  background: var(--color-surface-soft);
-  transform: translateY(calc(var(--border-width-normal) * -1));
-  box-shadow: none;
+  border-color: var(--color-gold-dust);
 }
 
 /* ----- 功能卡片特有样式（首页三列）----- */
@@ -52,7 +46,7 @@
 
 .function-icon {
   margin-bottom: var(--spacing-5);
-  color: var(--color-primary);
+  color: var(--color-gold-dust);
 }
 
 .function-title {
@@ -75,15 +69,9 @@
 .function-link {
   font-family: var(--font-family-ui);
   font-size: var(--font-size-xs);
-  color: var(--color-primary);
+  color: var(--color-text-primary);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  border-bottom: var(--border-width-thin) solid transparent;
-  transition: border-color var(--transition-normal);
-}
-
-.function-card:hover .function-link {
-  border-bottom-color: var(--color-primary);
 }
 
 /* ----- 卡片变体（与原有类名兼容）----- */
@@ -123,6 +111,5 @@
 :root.dark .post-card:hover,
 :root.dark .story-card:hover,
 :root.dark .co-creator-card:hover {
-  background: var(--color-surface-soft);
-  border-color: var(--color-primary-light);
+  border-color: var(--color-gold-dust);
 }

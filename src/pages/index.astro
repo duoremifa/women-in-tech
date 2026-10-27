@@ -352,7 +352,7 @@ import { WORKS } from '../data/works';
     transition: color var(--transition-fast);
   }
   .sidebar-lang:hover, .sidebar-theme:hover {
-    color: var(--color-brand-purple);
+    color: var(--color-gold-dust);
   }
   :root.dark .sidebar-lang:hover, :root.dark .sidebar-theme:hover {
     color: var(--color-gold-dust);
@@ -463,7 +463,7 @@ import { WORKS } from '../data/works';
   .work-status-badge {
     font-family: var(--font-family-ui);
     font-size: 11px;
-    color: var(--color-brand-purple);
+    color: var(--color-gold-dust);
     background: var(--color-surface-soft);
     padding: 2px 8px;
     border-radius: 2px;
@@ -491,7 +491,7 @@ import { WORKS } from '../data/works';
   .work-cta {
     font-family: var(--font-family-ui);
     font-size: 11.5px;
-    color: var(--color-brand-purple);
+    color: var(--color-text-primary);
     font-weight: var(--font-weight-medium);
   }
 
@@ -500,48 +500,6 @@ import { WORKS } from '../data/works';
     display: flex;
     flex-direction: column;
     gap: var(--spacing-5);
-  }
-  .cta-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--spacing-3);
-    padding: var(--spacing-4) var(--spacing-8);
-    background: var(--color-brand-purple);
-    color: var(--color-surface-pure) !important;
-    border-radius: var(--radius-xs);
-    font-family: var(--font-family-ui);
-    font-size: 13px;
-    letter-spacing: 0.08em;
-    text-decoration: none !important;
-    transition: background var(--transition-fast);
-    align-self: flex-start;
-  }
-  .cta-primary:hover {
-    background: var(--color-brand-purple-dark);
-  }
-  .cta-secondary {
-    display: flex;
-    gap: var(--spacing-5);
-    flex-wrap: wrap;
-  }
-  .circle-arrow-link {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-2);
-    font-family: var(--font-family-ui);
-    font-size: 12px;
-    letter-spacing: 0.04em;
-    color: var(--color-brand-purple);
-    text-decoration: none !important;
-    border-bottom: 1px solid var(--color-border-divider) !important;
-    padding-bottom: 2px;
-    font-weight: var(--font-weight-medium);
-    transition: all var(--transition-fast);
-  }
-  .circle-arrow-link:hover {
-    color: var(--color-text-heading);
-    border-bottom-color: var(--color-gold-dust) !important;
   }
 
   /* ============================================================
@@ -647,15 +605,6 @@ import { WORKS } from '../data/works';
       flex-wrap: wrap;
       gap: 8px;
       margin-bottom: 10px;
-    }
-    .cta-primary {
-      width: auto;
-      padding: var(--spacing-3) var(--spacing-7);
-      align-self: flex-start;
-      min-height: 0;
-    }
-    .cta-secondary {
-      gap: var(--spacing-4);
     }
   }
 

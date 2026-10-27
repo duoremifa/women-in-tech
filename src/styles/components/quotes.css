@@ -9,15 +9,23 @@
   width: 100%;
   margin: var(--spacing-12) auto;
   background-color: var(--color-surface-card);
-  border-radius: var(--radius-subtle);
+  border-radius: var(--radius-xs);
   box-shadow: 0 12px 28px -8px rgb(38 34 28 / 4%);
   padding: var(--spacing-12) var(--spacing-10);
   position: relative;
-  transition: box-shadow 0.25s ease;
+  transition: box-shadow var(--transition-normal);
 }
 
 .quote-container:hover {
   box-shadow: 0 20px 36px -12px rgb(38 34 28 / 6%);
+}
+
+/* 深色模式：暖棕阴影被深底吃掉，改用极淡金阴影维持托盘深度 */
+:root.dark .quote-container {
+  box-shadow: 0 12px 28px -8px rgba(216, 205, 176, 0.06);
+}
+:root.dark .quote-container:hover {
+  box-shadow: 0 20px 36px -12px rgba(216, 205, 176, 0.09);
 }
 
 /* 顶奢徽记 - 沉默的信任 */

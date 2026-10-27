@@ -200,12 +200,11 @@ const navItems = [
     border-bottom-color: var(--color-gold-dust) !important;
   }
 
-  /* 语言/主题：平铺微钮，无边框底 */
+  /* 语言/主题：平铺微钮，无边框底。焦点交由全局 :focus-visible gold hairline（不再 outline:none） */
   .lang-toggle,
   .theme-toggle {
     background: transparent;
     border: none;
-    outline: none;
     cursor: pointer;
     padding: 4px 6px;
     display: inline-flex;
@@ -223,7 +222,7 @@ const navItems = [
 
   .lang-toggle:hover,
   .theme-toggle:hover {
-    color: var(--color-brand-purple);
+    color: var(--color-gold-dust);
   }
 
   :root.dark .lang-toggle:hover,

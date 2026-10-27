@@ -25,16 +25,21 @@
 
   /* 保持变量名，用于卡片容器 */
 
-  /* ----- 边框与分割 · 亚麻纤维与极细金痕 ----- */
+  /* ----- 边框与分割 · 亚麻纤维与极细金痕 -----
+     三档语义自洽：light（最淡，框线）< divider（中，呼吸分割线）< subtle（最可见，卡片边）。
+     之前 subtle/divider/light 的值与名字倒置，已重排。 */
+  --color-border-light: #ede8df;
+
+  /* 最淡，几乎只是框线 */
+
+  --color-border-divider: #e8e2d7;
+
+  /* 中等，呼吸分割线 */
+
   --color-border-subtle: #e5ded3;
 
-  /* 暖亚麻微痕，比纯灰更具纸质纤维感 */
-  --color-border-divider: #ede8df;
+  /* 最可见的淡线，卡片描边 */
 
-  /* 呼吸分割线 */
-  --color-border-light: #e8e2d7;
-
-  /* 浅框线 */
   --color-border: #d5ccbe;
 
   /* 明确的暖金调边界 */
@@ -377,11 +382,13 @@
   /* ========================================
      5. 圆角系统 · 圆润与安全的触感
      ======================================== */
+  /* 圆角收敛：所有面（卡片/引用/输入）统一 radius-xs(2px)，只有 pill 给小 tag，full 给圆形。
+     之前 radius-subtle(12px)/sm(4px)/md(6px)/lg(8px) 各搞各的太软、太电商。 */
   --radius-xs: 2px;
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-subtle: 12px;
+  --radius-sm: var(--radius-xs);
+  --radius-md: var(--radius-xs);
+  --radius-lg: var(--radius-xs);
+  --radius-subtle: var(--radius-xs);
   --radius-pill: 999px;
   --radius-full: 50%;
 
@@ -389,21 +396,27 @@
      6. 过渡动画 · 统一节奏
      ======================================== */
 
-  --transition-fast: 150ms ease;
-  --transition-normal: 200ms ease;
-  --transition-slow: 300ms ease;
+  /* 统一缓动家族：exit/hover = ease-out（0.22,1,0.36,1），慢 cross-fade = ease-in-out（0.42,0,0.58,1）。
+     不带 `all` 前缀——`transition: color var(--transition-fast)` 才不会被浏览器丢弃。 */
+  --transition-fast: 150ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-normal: 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-slow: 500ms cubic-bezier(0.42, 0, 0.58, 1);
 
   /* 页面过渡动画专用 */
-  --transition-page: 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-page: 300ms cubic-bezier(0.22, 1, 0.36, 1);
 
   /* 自然滑动 */
-  --transition-fade: 200ms ease-in-out;
+  --transition-fade: 200ms cubic-bezier(0.42, 0, 0.58, 1);
 
   /* 淡入淡出 */
-  --transition-slide: 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-slide: 300ms cubic-bezier(0.22, 1, 0.36, 1);
 
   /* 轻微上移滑动 */
-  --transition-hover: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-hover: 220ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* 统一焦点环 token——所有输入/按钮/链接焦点用同一个 gold-dust hairline */
+  --focus-ring: 0 0 0 2px rgba(216, 205, 176, 0.45);
+  --focus-border: var(--color-gold-dust);
 
   /* 柔和悬停动画 */
 
@@ -735,7 +748,7 @@
   --color-brand-purple-soft: #a084c2;
   --color-brand-purple-light: #5e4c7a;
   --color-primary: #cbbae6;
-  --color-primary-light: #2b2733;
+  --color-primary-light: rgba(216, 205, 176, 0.35);
   --color-primary-dark: #b29ed4;
   --color-primary-50: rgba(203, 186, 230, 0.08);
   --color-primary-100: rgba(203, 186, 230, 0.14);

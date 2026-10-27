@@ -52,7 +52,6 @@
 
 /* === 4. Components - 宁静低压系统 === */
 @import url('./components/cards-quiet.css');
-@import url('./components/buttons-quiet.css');
 @import url('./components/buttons.css');
 @import url('./components/forms.css');
 @import url('./components/quiet-elements.css');

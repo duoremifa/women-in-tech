@@ -82,8 +82,8 @@
 }
 
 .version-item:first-child::before {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
+  background: var(--color-gold-dust);
+  border-color: var(--color-gold-dust);
 }
 
 .version-header {
@@ -93,10 +93,10 @@
 .version-stage {
   display: inline-block;
   padding: var(--spacing-1) var(--spacing-2);
-  background: var(--color-primary-light);
-  color: var(--color-primary-dark);
+  background: rgba(216, 205, 176, 0.18);
+  color: var(--color-text-primary);
   font-size: var(--font-size-xs);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-xs);
   margin-top: var(--spacing-1);
   font-family: var(--font-family-sans);
   font-weight: var(--font-weight-medium);
