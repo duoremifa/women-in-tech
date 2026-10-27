@@ -277,8 +277,8 @@ function fmtTime(iso: string) {
   .subscribe-text p { font-family: var(--font-family-body); font-size: 13px; color: var(--color-text-secondary); line-height: 1.7; margin: 0; }
   .subscribe-actions { display: flex; flex-direction: column; gap: var(--spacing-2); align-items: flex-end; }
   .subscribe-btn { padding: var(--spacing-2) var(--spacing-4); border-radius: var(--radius-xs); font-family: var(--font-family-ui); font-size: 12px; text-decoration: none !important; letter-spacing: 0.04em; transition: background var(--transition-fast), border-color var(--transition-fast); white-space: nowrap; }
-  .subscribe-btn.primary { background: var(--color-brand-purple, #5e4c7a); color: var(--color-surface-pure) !important; }
-  .subscribe-btn.primary:hover { background: var(--color-brand-purple-dark, #4d3d66); }
+  .subscribe-btn.primary { background: var(--color-brand-purple); color: var(--color-surface-pure) !important; }
+  .subscribe-btn.primary:hover { background: var(--color-brand-purple-dark); }
   .subscribe-btn.ghost { border: 1px solid var(--color-border); color: var(--color-text-primary) !important; }
   .subscribe-btn.ghost:hover { border-color: var(--color-gold-dust); color: var(--color-primary-dark) !important; }
   .subscribe-link { font-family: var(--font-family-ui); font-size: 11px; color: var(--color-text-tertiary); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 1px; }
@@ -296,7 +296,7 @@ function fmtTime(iso: string) {
     min-width: 160px;
     box-sizing: border-box;
   }
-  .email-sub input[type='email']:focus { outline: none; border-color: var(--color-brand-purple, #5e4c7a); }
+  .email-sub input[type='email']:focus { outline: none; border-color: var(--color-brand-purple); }
   .email-sub-btn {
     padding: 6px 14px;
     background: transparent;

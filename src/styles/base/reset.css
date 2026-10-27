@@ -24,7 +24,9 @@ body {
     'kern' 1,
     'liga' 1,
     'clig' 1,
-    'calt' 1;
+    'calt' 1,
+    'onum' 1;
+  hanging-punctuation: first last;
   color: var(--color-text-primary);
   background-color: var(--color-surface-primary);
   font-family: var(--font-family-sans);

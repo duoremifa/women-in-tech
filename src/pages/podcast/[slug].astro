@@ -23,7 +23,7 @@ const gathering = ep.data.gatheringId ? getGatheringById(ep.data.gatheringId) : 
   description={ep.data.excerpt || ep.data.title}
   width='reading'
 >
-  {ep.data.draft && <meta name='robots' content='noindex' />}
+  {(ep.data.draft || ep.data.comingSoon) && <meta name='robots' content='noindex' />}
   <div class='page-container'>
     <a href='/podcast' class='back-link'>
       <span lang='zh-CN'>← 返回播客</span>

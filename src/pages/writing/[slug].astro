@@ -17,7 +17,7 @@ const dateStr = w.data.pubDate.toLocaleDateString('zh-CN', { year: 'numeric', mo
   description={w.data.excerpt || w.data.title}
   width='reading'
 >
-  {w.data.draft && <meta name='robots' content='noindex' />}
+  {(w.data.draft || w.data.comingSoon) && <meta name='robots' content='noindex' />}
   <div class='page-container'>
     <a href='/writing' class='back-link'>
       <span lang='zh-CN'>← 返回田野手记</span>

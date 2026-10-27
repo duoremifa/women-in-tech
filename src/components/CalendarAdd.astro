@@ -48,7 +48,7 @@
     align-items: center;
     gap: var(--spacing-2);
     padding: var(--spacing-2) var(--spacing-4);
-    background: var(--color-brand-purple, #5e4c7a);
+    background: var(--color-brand-purple);
     color: var(--color-surface-pure) !important;
     border: none;
     border-radius: var(--radius-xs);
@@ -61,7 +61,7 @@
     transition: background var(--transition-fast);
   }
   .cal-trigger::-webkit-details-marker { display: none; }
-  .cal-add[open] > .cal-trigger { background: var(--color-brand-purple-dark, #4d3d66); }
+  .cal-add[open] > .cal-trigger { background: var(--color-brand-purple-dark); }
   .cal-trigger-icon { font-size: 13px; }
 
   .cal-menu {
@@ -92,7 +92,7 @@
     background: var(--color-surface-soft);
     outline: none;
   }
-  .cal-opt.primary .cal-opt-title { color: var(--color-brand-purple, #5e4c7a); }
+  .cal-opt.primary .cal-opt-title { color: var(--color-brand-purple); }
   .cal-opt-title {
     font-family: var(--font-family-ui);
     font-size: 12.5px;
@@ -117,8 +117,8 @@
   .cal-foot:empty { display: none; }
 
   :root.dark .cal-menu {
-    background: var(--color-surface-card-dark, #2a2830);
-    border-color: var(--color-border-subtle-dark, #434047);
+    background: var(--color-surface-card-dark);
+    border-color: var(--color-border-subtle-dark);
   }
 
   @media (max-width: 680px) {

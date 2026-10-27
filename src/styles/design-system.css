@@ -46,7 +46,7 @@
   --color-text-secondary: #59544b;
 
   /* 中灰，适合辅助信息 */
-  --color-text-tertiary: #8c877d;
+  --color-text-tertiary: #756f64;
 
   /* 浅灰，安静的提示 */
   --color-text-heading: #1e1b16;
@@ -709,7 +709,7 @@
   /* 文本色 - 低反光，柔白与温和灰 */
   --color-text-primary: #eae6df;
   --color-text-secondary: #aba49a;
-  --color-text-tertiary: #797369;
+  --color-text-tertiary: #8a8478;
   --color-text-heading: #faf8f5;
 
   /* 表面色 - 手工暗夜炭纸基调，层次分明 */
