@@ -40,11 +40,6 @@ const all = (await getCollection('writing', ({ data }) => !data.draft))
     </div>
 
     {all.length === 0 && <p class='empty-note'>月更长文，筹备中。</p>}
-
-    <p class='index-foot'>
-      <span lang='zh-CN' class='lang-zh'>你也以个体之名在做事？<a href='/join'>来说说</a> · <a href='/podcast'>听听播客</a></span>
-      <span lang='en' class='lang-en'>Also building under your own name? <a href='/join'>Tell us</a> · <a href='/podcast'>Listen</a></span>
-    </p>
   </div>
 </Layout>
 
