@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 
-const PODCAST_NAME = 'Friction Log · women-in-tech 实录';
+const PODCAST_NAME = '慢谈 · Slow Talk';
 const SITE = 'https://wotech.space';
 const RSS_URL = `${SITE}/podcast/rss.xml`;
 
@@ -35,7 +35,7 @@ export const GET: APIRoute = async () => {
     <title><![CDATA[${PODCAST_NAME}]]></title>
     <link>${SITE}/podcast/</link>
     <language>zh-CN</language>
-    <description><![CDATA[wo/men in tech 社群对谈实录——听见女性创造者的卡壳、顿悟与署名执念。]]></description>
+    <description><![CDATA[把每一期相聚里日常的、松弛的对话用声音留下来——朋友聊天，不是表演。]]></description>
     <itunes:author>Dai Min</itunes:author>
     <itunes:category text="Society &amp; Culture" />
     <itunes:explicit>false</itunes:explicit>

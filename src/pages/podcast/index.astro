@@ -6,13 +6,13 @@ const all = (await getCollection('podcast', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const latest = all[0];
 const rest = all.slice(1);
-const PODCAST_NAME = 'Friction Log · women-in-tech 实录';
+const PODCAST_NAME = '慢谈 · Slow Talk';
 const RSS_URL = 'https://wotech.space/podcast/rss.xml';
 ---
 
 <Layout
   title={`${PODCAST_NAME} · wo/men in tech`}
-  description='wo/men in tech 社群对谈实录——听见女性创造者的卡壳、顿悟与署名执念。'
+  description='把每一期相聚里日常的、松弛的对话用声音留下来——朋友聊天，不是表演。'
   width='reading'
 >
   <div class='page-container'>
@@ -20,8 +20,8 @@ const RSS_URL = 'https://wotech.space/podcast/rss.xml';
       <span class='section-eyebrow'>PODCAST · 播客</span>
       <h1 class='page-title'>{PODCAST_NAME}</h1>
       <p class='page-lead'>
-        不是媒体采访，是社群的<span lang='zh-CN'>对谈实录</span>。<br />
-        每一期相聚之后，把那些安静的推敲、未经修饰的卡壳、署名的执念，用声音留下来。
+        不是媒体采访，是朋友聊天的实录。<br />
+        每一期相聚之后，把那些日常的、松弛的对话，用声音留下来。
       </p>
       <div class='gold-hairline'></div>
     </header>
