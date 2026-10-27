@@ -71,13 +71,22 @@
     min-width: 280px;
     background: var(--color-surface-pure);
     border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-xs);
     box-shadow: 0 8px 24px -8px rgba(38, 34, 28, 0.12);
     padding: var(--spacing-2);
     z-index: 100;
     display: flex;
     flex-direction: column;
     gap: 2px;
+    transform-origin: top left;
+  }
+  /* 下拉入场：220ms 缓动，不再硬弹出 */
+  @keyframes cal-open {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .cal-add[open] .cal-menu {
+    animation: cal-open 220ms cubic-bezier(0.22, 1, 0.36, 1);
   }
   .cal-opt {
     display: flex;
@@ -122,10 +131,11 @@
   }
 
   @media (max-width: 680px) {
+    /* 移动端锚定 trigger 左边，不再 left:0/right:0 通栏脱离按钮 */
     .cal-menu {
       left: 0;
-      right: 0;
-      min-width: 0;
+      right: auto;
+      min-width: min(280px, calc(100vw - 32px));
     }
   }
 </style>

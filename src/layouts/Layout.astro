@@ -132,11 +132,15 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
       <slot />
     </main>
 
-    <!-- ===== 页脚区 ===== -->
-    <Footer />
+    <!-- ===== 页脚区 + 阅读进度（transition:persist，导航不再每次重挂）===== -->
+    <div transition:persist>
+      <Footer />
+    </div>
 
     <!-- ===== 功能组件 ===== -->
-    <ReadingProgress />
+    <div transition:persist>
+      <ReadingProgress />
+    </div>
 
     <!-- ===== 统一客户端初始化（事件委托 + 集中管理）===== -->
     <script>
@@ -163,8 +167,8 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
           }
         });
 
-        // 事件委托：语言切换按钮（#quick-lang-btn）——同样用 document 委托，
-        // 跨 view-transition 持久可靠，不依赖被 persist 元素的 onclick 是否丢失
+        // 事件委托：语言切换按钮（#quick-lang-btn）——cross-fade 320ms（不再硬切）
+        // main 先淡出 140ms（opacity→0），swap data-lang，再淡入 180ms。
         document.addEventListener('click', e => {
           if (!e.target) return;
           const target = e.target as HTMLElement;
@@ -172,12 +176,26 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
           if (!langBtn) return;
           const current = document.documentElement.getAttribute('data-lang') || 'zh';
           const next = current === 'en' ? 'zh' : 'en';
-          document.documentElement.setAttribute('data-lang', next);
-          document.documentElement.lang = next === 'en' ? 'en' : 'zh-CN';
-          try { localStorage.setItem('site_lang', next); } catch (err) {}
-          // 同步按钮 aria-label
-          langBtn.setAttribute('aria-label', next === 'en' ? '切换到中文 / Switch to Chinese' : '切换到英文 / Switch to English');
-          window.dispatchEvent(new CustomEvent('site-language-change', { detail: { lang: next } }));
+          const main = document.getElementById('main-content');
+          const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          const applyLang = () => {
+            document.documentElement.setAttribute('data-lang', next);
+            document.documentElement.lang = next === 'en' ? 'en' : 'zh-CN';
+            try { localStorage.setItem('site_lang', next); } catch (err) {}
+            langBtn.setAttribute('aria-label', next === 'en' ? '切换到中文 / Switch to Chinese' : '切换到英文 / Switch to English');
+            window.dispatchEvent(new CustomEvent('site-language-change', { detail: { lang: next } }));
+          };
+          if (reduce || !main) { applyLang(); return; }
+          main.style.opacity = '0';
+          window.setTimeout(() => {
+            applyLang();
+            main.style.opacity = '1';
+          }, 140);
+        });
+
+        // view-transition 与 smooth-scroll 打架：swap 期间临时关 smooth
+        document.addEventListener('astro:before-swap', () => {
+          document.documentElement.classList.add('is-swapping');
         });
 
         // 系统主题变化（仅当用户未显式选择时跟随）
@@ -191,16 +209,12 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
         });
       }
 
-      // 更新主题图标显示
+      // 更新主题图标：toggle is-dark class，CSS 处理 sun/moon 交叉淡化 + rotate（不再 display 硬切）
       function updateThemeIcon() {
         const isDark = document.documentElement.classList.contains('dark');
         document.querySelectorAll<HTMLElement>('[data-theme-toggle]').forEach(btn => {
-          const sunIcon = btn.querySelector('.sun-icon') as HTMLElement | null;
-          const moonIcon = btn.querySelector('.moon-icon') as HTMLElement | null;
-          if (sunIcon && moonIcon) {
-            sunIcon.style.display = isDark ? 'none' : 'block';
-            moonIcon.style.display = isDark ? 'block' : 'none';
-          }
+          btn.classList.toggle('is-dark', isDark);
+          btn.setAttribute('aria-label', isDark ? '切换浅色模式 / Switch to light' : '切换深色模式 / Switch to dark');
         });
       }
 
@@ -225,7 +239,7 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
         initApp();
       }
 
-      // Astro 视图切换后：重跑初始化 + 焦点落到新页 main（无障碍）
+      // Astro 视图切换后：重跑初始化 + 焦点落到新页 main（无障碍）+ 移除 swap 期间的 is-swapping
       document.addEventListener('astro:after-swap', () => {
         if (import.meta.env.DEV) console.log('🔄 astro:after-swap fired, reinitializing...');
         initApp();
@@ -234,6 +248,8 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
           main.setAttribute('tabindex', '-1');
           main.focus({ preventScroll: true });
         }
+        // 下一帧再恢复 smooth-scroll，确保 swap 期间的滚动已完成
+        requestAnimationFrame(() => document.documentElement.classList.remove('is-swapping'));
       });
     </script>
   </body>
@@ -271,6 +287,7 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
     background-color: var(--color-bg-page);
     padding-top: var(--spacing-8); /* 顶部留白（与导航间距） */
     padding-bottom: var(--spacing-20); /* 底部留白（与页脚间距） */
+    transition: opacity 180ms cubic-bezier(0.42, 0, 0.58, 1); /* 语言切换 cross-fade 用 */
   }
 
   /* 深色模式适配（由变量自动处理，无需额外代码） */

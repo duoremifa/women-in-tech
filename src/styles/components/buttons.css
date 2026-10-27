@@ -62,6 +62,35 @@
 /* 尺寸修饰 */
 .btn--lg { padding: var(--spacing-4) var(--spacing-8); font-size: 13px; letter-spacing: 0.08em; }
 
+/* 主题切换图标：sun/moon 交叉淡化 + rotate（不再 display 硬切）。
+   .is-dark 由 Layout.updateThemeIcon 切换；moon 绝对定位叠在 sun 上。 */
+[data-theme-toggle] {
+  position: relative;
+}
+[data-theme-toggle] .sun-icon,
+[data-theme-toggle] .moon-icon {
+  transition: opacity 200ms cubic-bezier(0.22, 1, 0.36, 1), transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-theme-toggle] .sun-icon {
+  opacity: 1;
+  transform: rotate(0);
+}
+[data-theme-toggle] .moon-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+[data-theme-toggle].is-dark .sun-icon {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+[data-theme-toggle].is-dark .moon-icon {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(0);
+}
+
 /* 深色模式：solid 仍是 ink（dark 下 heading=近白，surface-pure=深，即白底深字）；hover 翻金 */
 :root.dark .btn--solid { background: var(--color-text-heading); color: var(--color-bg-page) !important; }
 :root.dark .btn--solid:hover { background: var(--color-gold-dust); color: var(--color-text-heading) !important; }

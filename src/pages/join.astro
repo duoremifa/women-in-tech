@@ -324,7 +324,16 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
         let emailSent = false;
         let apiFailed = false;
 
-        if (submitBtn) { submitBtn.setAttribute('disabled', 'true'); submitBtn.setAttribute('aria-busy', 'true'); submitBtn.classList.add('is-loading'); }
+        if (submitBtn) {
+          submitBtn.setAttribute('disabled', 'true');
+          submitBtn.setAttribute('aria-busy', 'true');
+          submitBtn.classList.add('is-loading');
+          // 标签换"送出中/Sending…"（btn-arrow 由 CSS 隐藏）
+          const zhSpan = submitBtn.querySelector('.lang-zh');
+          const enSpan = submitBtn.querySelector('.lang-en');
+          if (zhSpan) { (submitBtn as any)._origZh = zhSpan.textContent; zhSpan.textContent = '送出中'; }
+          if (enSpan) { (submitBtn as any)._origEn = enSpan.textContent; enSpan.textContent = 'Sending…'; }
+        }
         try {
           const ctrl = new AbortController();
           const timer = setTimeout(() => ctrl.abort(), 15000);
@@ -341,7 +350,17 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
             if (resData.emailSent !== undefined) emailSent = resData.emailSent;
           }
         } catch (err) { apiFailed = true; }
-        finally { if (submitBtn) { submitBtn.removeAttribute('disabled'); submitBtn.removeAttribute('aria-busy'); submitBtn.classList.remove('is-loading'); } }
+        finally {
+          if (submitBtn) {
+            submitBtn.removeAttribute('disabled');
+            submitBtn.removeAttribute('aria-busy');
+            submitBtn.classList.remove('is-loading');
+            const zhSpan = submitBtn.querySelector('.lang-zh');
+            const enSpan = submitBtn.querySelector('.lang-en');
+            if (zhSpan && (submitBtn as any)._origZh != null) zhSpan.textContent = (submitBtn as any)._origZh;
+            if (enSpan && (submitBtn as any)._origEn != null) enSpan.textContent = (submitBtn as any)._origEn;
+          }
+        }
 
         if (apiFailed) {
           const isEn = document.documentElement.getAttribute('data-lang') === 'en';
@@ -351,7 +370,7 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
           if (noteEn) noteEn.textContent = 'Network error—please retry shortly, or connect via WeChat at ' + WECHAT_HANDLE + '.';
           if (receiptIdDisplay) receiptIdDisplay.textContent = isEn ? 'Receipt pending (offline)' : '回执待补（离线）';
           currentIcsData = activeSlotId ? '' : generateICS(subId, name, interests);
-          if (feedback) { feedback.style.display = 'block'; feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+          if (feedback) { feedback.style.display = 'block'; requestAnimationFrame(() => feedback.classList.add('is-revealed')); feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
           return;
         }
 
@@ -396,8 +415,16 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
           if (noteEn) noteEn.textContent = 'Recorded. Download .ics or connect via WeChat ' + WECHAT_HANDLE + '.';
         }
 
-        form.querySelectorAll<HTMLElement>('.form-field, .submit-zone').forEach(el => { el.style.display = 'none'; });
+        // 表单字段 fade out（240ms），不再 display:none 硬切
+        const fadeEls = form.querySelectorAll<HTMLElement>('.form-field, .submit-zone');
+        fadeEls.forEach(el => {
+          el.style.transition = 'opacity 240ms cubic-bezier(0.22, 1, 0.36, 1)';
+          el.style.opacity = '0';
+        });
+        window.setTimeout(() => { fadeEls.forEach(el => { el.style.display = 'none'; }); }, 260);
+
         feedback.style.display = 'block';
+        requestAnimationFrame(() => feedback.classList.add('is-revealed'));
         feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       };
     }
@@ -452,8 +479,27 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
   .submit-zone { margin-top: var(--spacing-8); padding-top: var(--spacing-5); border-top: 1px solid var(--color-border-divider); display: flex; align-items: center; gap: var(--spacing-4); flex-wrap: wrap; }
   .submit-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: var(--spacing-3); padding: var(--spacing-3) var(--spacing-6); background: var(--color-text-heading); color: var(--color-bg-page); border: none; border-radius: var(--radius-xs); font-family: var(--font-family-ui); font-size: 12px; letter-spacing: 0.08em; cursor: pointer; transition: background-color var(--transition-fast), color var(--transition-fast); }
   .submit-btn-primary:hover { background: var(--color-gold-dust); color: var(--color-text-heading); }
-  .submit-btn-primary.is-loading { opacity: 0.6; cursor: progress; }
+  .submit-btn-primary.is-loading { cursor: progress; background: var(--color-surface-pure); color: var(--color-text-heading); border-color: var(--color-gold-dust); animation: gold-ring-pulse 1.4s ease-in-out infinite; }
   .submit-btn-primary.is-loading .btn-arrow { display: none; }
+  @keyframes gold-ring-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(216, 205, 176, 0.45); }
+    50% { box-shadow: 0 0 0 4px rgba(216, 205, 176, 0); }
+  }
+
+  /* 回执分四段 stagger 揭示：header 0ms / desc-box 160ms / receipt-loop 240ms */
+  .receipt-card > .receipt-header,
+  .receipt-card > .receipt-desc-box,
+  .receipt-card > .receipt-loop {
+    opacity: 0;
+  }
+  .feedback-receipt.is-revealed .receipt-header { animation: slide-up 320ms 0ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .feedback-receipt.is-revealed .receipt-desc-box { animation: slide-up 320ms 160ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .feedback-receipt.is-revealed .receipt-loop { animation: slide-up 320ms 240ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+  @media (prefers-reduced-motion: reduce) {
+    .submit-btn-primary.is-loading { animation: none; }
+    .receipt-card > .receipt-header, .receipt-card > .receipt-desc-box, .receipt-card > .receipt-loop { opacity: 1; }
+    .feedback-receipt.is-revealed .receipt-header, .feedback-receipt.is-revealed .receipt-desc-box, .feedback-receipt.is-revealed .receipt-loop { animation: none; }
+  }
   .submit-btn-primary .btn-arrow { transition: transform var(--transition-fast); }
   .submit-btn-primary:hover .btn-arrow { transform: translateX(4px); }
   .privacy-assurance-pill { display: inline-flex; align-items: center; gap: var(--spacing-2); font-family: var(--font-family-ui); font-size: 11px; color: var(--color-text-tertiary); }

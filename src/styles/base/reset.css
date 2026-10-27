@@ -98,3 +98,23 @@ ol[role='list'] {
 
   /* 优雅减速曲线 */
 }
+
+/* view-transition 与全局 smooth-scroll 打架：swap 期间临时关掉 smooth，
+   避免页面一边 slide 一边从旧滚动位缓动到顶的拖拽感。 */
+html.is-swapping {
+  scroll-behavior: auto;
+}
+
+/* 主题切换：root/body/main/footer/nav 背景色与文字色 420ms 交叉淡化（不再硬切）。
+   初始加载不触发（CSS transition 不在首帧 computed value 上启动），仅主题切换时动。 */
+@media (prefers-reduced-motion: no-preference) {
+  body,
+  main,
+  .footer,
+  .nav-header,
+  .reading-progress {
+    transition: background-color 420ms cubic-bezier(0.42, 0, 0.58, 1),
+      color 420ms cubic-bezier(0.42, 0, 0.58, 1),
+      border-color 420ms cubic-bezier(0.42, 0, 0.58, 1);
+  }
+}

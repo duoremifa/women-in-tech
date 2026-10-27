@@ -93,7 +93,7 @@ import { WORKS } from '../data/works';
             </button>
             <button type='button' class='sidebar-theme' data-theme-toggle aria-label='切换深色/浅色模式' title='切换深色/浅色模式'>
               <svg class='sun-icon' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5'><circle cx='12' cy='12' r='4.5'/><path d='M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41'/></svg>
-              <svg class='moon-icon' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' style='display:none;'><path d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/></svg>
+              <svg class='moon-icon' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5'><path d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/></svg>
             </button>
           </div>
         </div>
@@ -453,7 +453,8 @@ import { WORKS } from '../data/works';
     box-shadow: 0 4px 16px -6px rgba(38, 34, 28, 0.04);
   }
   .workshop-thumb { margin: 0 0 var(--spacing-4); padding: 0; border: 1px solid var(--color-border-divider); border-radius: var(--radius-xs); overflow: hidden; }
-  .workshop-thumb img { display: block; width: 100%; height: auto; }
+  .workshop-thumb img { display: block; width: 100%; height: auto; transition: transform 640ms cubic-bezier(0.22, 1, 0.36, 1); }
+  .workshop-card:hover .workshop-thumb img { transform: scale(1.025); }
   .card-header-line {
     display: flex;
     justify-content: space-between;

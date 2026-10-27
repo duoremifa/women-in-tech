@@ -3,7 +3,7 @@
 // 提供页面滚动进度指示功能，增强微交互效果
 ---
 
-<!-- 阅读进度条（纯装饰，对辅助技术隐藏） -->
+<!-- 阅读进度条（纯装饰，对辅助技术隐藏）——1px gradient bar，无涟漪（涟漪每帧闪烁，与顶奢克制冲突） -->
 <div class='reading-progress' id='reading-progress' aria-hidden='true'></div>
 
 <style>
@@ -21,32 +21,6 @@
     z-index: 1000;
     transition: width var(--transition-fast);
   }
-
-  /* 涟漪效果容器 */
-  .reading-progress::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: var(--ripple-size);
-    height: var(--ripple-size);
-    background: radial-gradient(
-      circle,
-      var(--ripple-color) 0%,
-      var(--ripple-color) 50%,
-      transparent 70%
-    );
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 0;
-    transition: all var(--ripple-duration) var(--transition-hover);
-    border-radius: var(--radius-full);
-  }
-
-  /* 涟漪激活状态 */
-  .reading-progress.active::after {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
 </style>
 
 <script>
@@ -61,14 +35,6 @@
       const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
 
       bar.style.width = scrolled + '%';
-      triggerRipple();
-    }
-
-    function triggerRipple() {
-      bar.classList.add('active');
-      setTimeout(() => {
-        bar.classList.remove('active');
-      }, 300);
     }
 
     window.addEventListener('scroll', updateProgress, { passive: true });
