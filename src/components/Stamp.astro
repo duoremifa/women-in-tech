@@ -1,0 +1,36 @@
+---
+// src/components/Stamp.astro
+// 品牌印章：四角十字星（两条 1px 主线 + 两条 0.7px 辅线，偏心）。
+// 替代 unicode ✦（太常见，精品化妆品腔）——自定义 SVG 才是抄不动的印章。
+// 颜色继承 currentColor（由父级 .gold-thread-dot 等设 color），
+// 尺寸随父级 font-size（width/height: 1em），与原 ✦ 行为一致。
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<svg
+  class:list={['brand-stamp', className]}
+  viewBox='0 0 10 10'
+  width='1em'
+  height='1em'
+  aria-hidden='true'
+  fill='none'
+  stroke='currentColor'
+  stroke-width='1'
+  stroke-linecap='round'
+>
+  <line x1='5' y1='1.4' x2='5' y2='8.6' />
+  <line x1='1.4' y1='5' x2='8.6' y2='5' />
+  <line x1='2.7' y1='2.7' x2='7.3' y2='7.3' stroke-width='0.7' opacity='0.55' />
+  <line x1='7.3' y1='2.7' x2='2.7' y2='7.3' stroke-width='0.7' opacity='0.55' />
+</svg>
+
+<style>
+  .brand-stamp {
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+</style>

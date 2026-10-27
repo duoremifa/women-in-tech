@@ -419,9 +419,17 @@
    触摸区域优化
    ============================================ */
 @media (width <=768px) {
-  /* 确保所有可交互元素都有足够点击区域 */
-  a,
-  button {
+  /* 确保真正可交互控件有足够点击区域——不再作用于正文 <a>（破坏行内排版） */
+  .btn,
+  button,
+  [data-theme-toggle],
+  .nav-link,
+  .sidebar-nav a,
+  .lang-toggle,
+  .theme-toggle,
+  .sidebar-lang,
+  .sidebar-theme,
+  [role='button'] {
     min-height: calc(var(--baseline) * 5.5);
     min-width: calc(var(--baseline) * 5.5);
     display: inline-flex;

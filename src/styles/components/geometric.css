@@ -728,7 +728,7 @@
   opacity: 0.6;
 }
 
-/* Footprint - 足迹 */
+/* Footprint - 足迹（emoji 已移除，留空 class 兼容） */
 .icon-footprint {
   position: relative;
   width: 16px;
@@ -736,7 +736,7 @@
 }
 
 .icon-footprint::before {
-  content: '👣';
+  content: '';
   position: absolute;
   top: 50%;
   left: 50%;
@@ -752,7 +752,7 @@
 }
 
 .geom-atom-footprint::before {
-  content: '👣';
+  content: '';
   position: absolute;
   top: 50%;
   left: 50%;

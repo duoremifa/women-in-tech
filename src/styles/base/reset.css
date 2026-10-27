@@ -48,6 +48,20 @@ svg {
   max-width: 100%;
 }
 
+/* 品牌图片处理：矩形封面统一 4/3 + object-cover + 纸感调色 filter。
+   正方形封面（latest-cover 等）保留原比例，仅上 filter。 */
+.workshop-thumb img,
+.work-thumb img,
+.work-cover img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  filter: var(--img-filter);
+}
+
+.latest-cover {
+  filter: var(--img-filter);
+}
+
 input,
 button,
 textarea,

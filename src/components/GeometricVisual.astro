@@ -21,14 +21,16 @@ const {
   style = '',
 } = Astro.props;
 
+// 确定性摆位：从 index 派生 x/y，每次渲染一致——变签名而非随机装饰。
+// （之前 Math.random() 导致 SSR/客户端不一致 + view-transition reflow）
 const getElements = (type: string, count: number) => {
   const elements = [];
   for (let i = 0; i < count; i++) {
     elements.push({
       id: i,
       position: {
-        x: Math.floor(Math.random() * 80) + 10,
-        y: Math.floor(Math.random() * 80) + 10,
+        x: 20 + ((i * 17) % 60),
+        y: 25 + ((i * 29) % 50),
       },
       size: type === 'accent' ? 'medium' : 'small',
       shape: ['circle', 'line', 'grid', 'intersect'][i % 4],
@@ -118,13 +120,13 @@ const visualElements = getElements(type, elementsCount);
     width: var(--spacing-2);
     height: var(--spacing-2);
     border-radius: var(--radius-full);
-    background-color: rgb(var(--color-primary-rgb) / calc(var(--visual-opacity) * 0.8));
+    background-color: rgb(var(--color-gold-dust-rgb) / calc(var(--visual-opacity) * 0.8));
   }
 
   .visual-accent .geom-circle {
     width: var(--spacing-3);
     height: var(--spacing-3);
-    background-color: rgb(var(--color-primary-rgb) / calc(var(--visual-opacity) * 1.2));
+    background-color: rgb(var(--color-gold-dust-rgb) / calc(var(--visual-opacity) * 1.2));
   }
 
   /* ----- 线条（水平）----- */
@@ -133,8 +135,8 @@ const visualElements = getElements(type, elementsCount);
     height: var(--border-width-thin);
     background: linear-gradient(
       90deg,
-      rgb(var(--color-primary-rgb) / calc(var(--visual-opacity) * 0.5)) 0%,
-      rgb(var(--color-primary-rgb) / calc(var(--visual-opacity) * 0.2)) 100%
+      rgb(var(--color-gold-dust-rgb) / calc(var(--visual-opacity) * 0.5)) 0%,
+      rgb(var(--color-gold-dust-rgb) / calc(var(--visual-opacity) * 0.2)) 100%
     );
   }
 
@@ -142,8 +144,8 @@ const visualElements = getElements(type, elementsCount);
     width: var(--spacing-15);
     background: linear-gradient(
       90deg,
-      rgb(var(--color-primary-rgb) / calc(var(--visual-opacity) * 0.8)) 0%,
-      rgb(var(--color-primary-rgb) / calc(var(--visual-opacity) * 0.3)) 100%
+      rgb(var(--color-gold-dust-rgb) / calc(var(--visual-opacity) * 0.8)) 0%,
+      rgb(var(--color-gold-dust-rgb) / calc(var(--visual-opacity) * 0.3)) 100%
     );
   }
 
@@ -154,12 +156,12 @@ const visualElements = getElements(type, elementsCount);
     background-image:
       radial-gradient(
         circle at 2px 2px,
-        rgb(var(--color-primary-rgb) / calc(var(--visual-opacity) * 0.6)) 1px,
+        rgb(var(--color-gold-dust-rgb) / calc(var(--visual-opacity) * 0.6)) 1px,
         transparent 1px
       ),
       radial-gradient(
         circle at 8px 8px,
-        rgb(var(--color-primary-rgb) / calc(var(--visual-opacity) * 0.6)) 1px,
+        rgb(var(--color-gold-dust-rgb) / calc(var(--visual-opacity) * 0.6)) 1px,
         transparent 1px
       );
     background-size: 6px 6px;
@@ -171,12 +173,12 @@ const visualElements = getElements(type, elementsCount);
     background-image:
       radial-gradient(
         circle at 3px 3px,
-        rgb(var(--color-primary-rgb) / calc(var(--visual-opacity) * 0.8)) 1.5px,
+        rgb(var(--color-gold-dust-rgb) / calc(var(--visual-opacity) * 0.8)) 1.5px,
         transparent 1.5px
       ),
       radial-gradient(
         circle at 12px 12px,
-        rgb(var(--color-primary-rgb) / calc(var(--visual-opacity) * 0.8)) 1.5px,
+        rgb(var(--color-gold-dust-rgb) / calc(var(--visual-opacity) * 0.8)) 1.5px,
         transparent 1.5px
       );
     background-size: 8px 8px;
@@ -193,7 +195,7 @@ const visualElements = getElements(type, elementsCount);
   .geom-intersect::after {
     content: '';
     position: absolute;
-    background: rgb(var(--color-primary-rgb) / calc(var(--visual-opacity) * 0.5));
+    background: rgb(var(--color-gold-dust-rgb) / calc(var(--visual-opacity) * 0.5));
   }
 
   .geom-intersect::before {
@@ -214,7 +216,7 @@ const visualElements = getElements(type, elementsCount);
 
   .visual-accent .geom-intersect::before,
   .visual-accent .geom-intersect::after {
-    background: rgb(var(--color-primary-rgb) / calc(var(--visual-opacity) * 0.8));
+    background: rgb(var(--color-gold-dust-rgb) / calc(var(--visual-opacity) * 0.8));
   }
 
   .visual-accent .geom-intersect::before {

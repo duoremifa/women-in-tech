@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Stamp from '../../components/Stamp.astro';
 import { WORKS } from '../../data/works';
 import type { Work } from '../../data/works';
 
@@ -72,7 +73,7 @@ const statusLabel = {
     </section>
 
     <section class='placeholder-note'>
-      <span class='note-mark' aria-hidden='true'>✦</span>
+      <span class='note-mark' aria-hidden='true'><Stamp /></span>
       <p lang='zh-CN' class='lang-zh'>这个方向在等第一个打样项目——可以是你带来的，也可以是一起找到的。有共鸣，先聊聊。</p>
       <p lang='en' class='lang-en'>This direction is waiting for its first sample project—yours, or one found together. If it resonates, reach out.</p>
     </section>

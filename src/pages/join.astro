@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import CalendarAdd from '../components/CalendarAdd.astro';
+import Stamp from '../components/Stamp.astro';
 import { getGatheringById, GATHERINGS } from '../data/gatherings';
 ---
 
@@ -130,7 +131,7 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
             <span class='btn-arrow' aria-hidden='true'>⟶</span>
           </button>
           <div class='privacy-assurance-pill'>
-            <span class='privacy-dot' aria-hidden='true'>✦</span>
+            <span class='privacy-dot' aria-hidden='true'><Stamp /></span>
             <span lang='zh-CN' class='privacy-text lang-zh'>随时可退订 · 零商业营销</span>
             <span lang='en' class='privacy-text lang-en'>Unsubscribe anytime · Zero marketing</span>
           </div>
@@ -140,7 +141,7 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
         <div id='join-feedback' class='feedback-receipt' role='status' aria-live='polite' aria-atomic='true' style='display: none;'>
           <div class='receipt-card'>
             <div class='receipt-header'>
-              <span class='receipt-mark' aria-hidden='true'>✦</span>
+              <span class='receipt-mark' aria-hidden='true'><Stamp /></span>
               <div>
                 <h3 lang='zh-CN' class='receipt-title lang-zh'>已记录</h3>
                 <h3 lang='en' class='receipt-title lang-en'>Received</h3>

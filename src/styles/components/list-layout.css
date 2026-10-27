@@ -27,9 +27,7 @@
 }
 
 .post-emoji {
-  font-size: var(--font-size-2xl);
-  flex-shrink: 0;
-  line-height: var(--line-height-normal);
+  display: none;
 }
 
 /* Load More & Empty States */
@@ -48,9 +46,7 @@
 }
 
 .empty-emoji {
-  font-size: var(--font-size-5xl);
-  display: block;
-  margin-bottom: var(--spacing-4);
+  display: none;
 }
 
 /* Timeline (Changelog) styles migrated from components.css */

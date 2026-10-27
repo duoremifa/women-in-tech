@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Stamp from '../../components/Stamp.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -58,7 +59,7 @@ const dateStr = w.data.pubDate.toLocaleDateString('zh-CN', { year: 'numeric', mo
     </article>
 
     <footer class='w-sign'>
-      <span class='sign-mark' aria-hidden='true'>✦</span>
+      <span class='sign-mark' aria-hidden='true'><Stamp /></span>
       <span>by Dai Min</span>
       <a href='/writing' class='more-link'>更多手记 →</a>
     </footer>
