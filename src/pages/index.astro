@@ -77,13 +77,14 @@ import { WORKS } from '../data/works';
             <GeometricVisual type='subtle' height='72px' />
           </div>
 
-          {/* 首页无顶部 Navbar，侧栏补回房间入口 + 语言/主题控件 */}
+          {/* 首页无顶部 Navbar，侧栏补回动作线（相聚+加入）+ 次级弱化（播客/手记/态度） */}
           <nav class='sidebar-nav' aria-label='首页导航'>
-            <a href='/podcast'>播客</a>
-            <a href='/writing'>手记</a>
-            <a href='/upcoming'>排期</a>
-            <a href='/join'>加入</a>
-            <a href='/ethos' class='sidebar-nav-minor'>态度</a>
+            <a href='/upcoming'><span class='lang-zh'>相聚</span><span class='lang-en'>Gather</span></a>
+            <a href='/join'><span class='lang-zh'>加入</span><span class='lang-en'>Join</span></a>
+            <span class='sidebar-nav-divider' aria-hidden='true'></span>
+            <a href='/podcast' class='sidebar-nav-minor'><span class='lang-zh'>播客</span><span class='lang-en'>Podcast</span></a>
+            <a href='/writing' class='sidebar-nav-minor'><span class='lang-zh'>手记</span><span class='lang-en'>Writing</span></a>
+            <a href='/ethos' class='sidebar-nav-minor'><span class='lang-zh'>态度</span><span class='lang-en'>Stance</span></a>
           </nav>
 
           <div class='sidebar-controls'>
@@ -333,6 +334,19 @@ import { WORKS } from '../data/works';
   .sidebar-nav a:hover {
     color: var(--color-text-heading);
     border-bottom-color: var(--color-gold-dust) !important;
+  }
+  .sidebar-nav-divider {
+    width: 1px;
+    height: 12px;
+    background: var(--color-border-divider);
+    align-self: center;
+  }
+  .sidebar-nav-minor {
+    font-size: 11px !important;
+    color: var(--color-text-tertiary) !important;
+  }
+  .sidebar-nav-minor:hover {
+    color: var(--color-text-primary) !important;
   }
 
   .sidebar-controls {

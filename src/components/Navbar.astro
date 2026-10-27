@@ -1,19 +1,23 @@
 ---
 // src/components/Navbar.astro - 宁静低奢顶部导航
-// 4 页纯文字 nav（理念/机制/排期/加入），去胶囊；语言/主题为右侧极小平铺元素。
+// 主线只留用户动线：相聚 + 加入。其余（播客/手记/态度）降为次级弱化链接，
+// 不与动作线争抢视觉——避免读起来像内容站自嗨。
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
-const navItems = [
+const primaryNav = [
+  { text: '相聚', en: 'Gather', href: '/upcoming', pagePath: '/upcoming' },
+  { text: '加入', en: 'Join', href: '/join', pagePath: '/join' },
+];
+const secondaryNav = [
   { text: '播客', en: 'Podcast', href: '/podcast', pagePath: '/podcast' },
   { text: '手记', en: 'Writing', href: '/writing', pagePath: '/writing' },
-  { text: '排期', en: 'Schedule', href: '/upcoming', pagePath: '/upcoming' },
-  { text: '加入', en: 'Join', href: '/join', pagePath: '/join' },
+  { text: '态度', en: 'Stance', href: '/ethos', pagePath: '/ethos' },
 ];
 ---
 
 <header class='nav-header'>
-  <nav class='quiet-nav layout-reading' aria-label='Main Navigation'>
+  <nav class='quiet-nav layout-reading' aria-label='主导航 / Primary'>
     <!-- 左侧品牌 -->
     <div class='nav-left'>
       <a href='/' class:list={['brand', { active: currentPath === '/' }]}>
@@ -22,11 +26,11 @@ const navItems = [
       </a>
     </div>
 
-    <!-- 右侧：nav 链接 + 平铺语言/主题（无胶囊） -->
+    <!-- 右侧：主线（相聚+加入）+ 次级弱化（播客/手记/态度）+ 语言/主题 -->
     <div class='nav-right-group'>
       <div class='nav-links'>
         {
-          navItems.map((item) => {
+          primaryNav.map((item) => {
             const isActive = currentPath === item.pagePath;
             return (
               <a
@@ -36,6 +40,26 @@ const navItems = [
               >
                 <span lang='zh-CN' class='nav-link-text lang-zh'>{item.text}</span>
                 <span lang='en' class='nav-link-text lang-en'>{item.en}</span>
+              </a>
+            );
+          })
+        }
+      </div>
+
+      <span class='nav-divider' aria-hidden='true'></span>
+
+      <div class='nav-links-minor'>
+        {
+          secondaryNav.map((item) => {
+            const isActive = currentPath === item.pagePath;
+            return (
+              <a
+                href={item.href}
+                class:list={['nav-link-minor', { 'is-active': isActive }]}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                <span lang='zh-CN' class='lang-zh'>{item.text}</span>
+                <span lang='en' class='lang-en'>{item.en}</span>
               </a>
             );
           })
@@ -171,6 +195,40 @@ const navItems = [
     gap: var(--spacing-4);
   }
 
+  /* 主线与次级之间的极细金痕分隔 */
+  .nav-divider {
+    width: 1px;
+    height: 14px;
+    background: var(--color-border-divider);
+    flex-shrink: 0;
+  }
+
+  /* 次级弱化：播客/手记/态度——更小、三级文字色，不与动作线争视觉 */
+  .nav-links-minor {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+  }
+  .nav-link-minor {
+    color: var(--color-text-tertiary);
+    text-decoration: none !important;
+    font-family: var(--font-family-ui);
+    font-size: 11.5px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    padding: 4px 2px;
+    border-bottom: 1px solid transparent !important;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+    white-space: nowrap;
+  }
+  .nav-link-minor:hover {
+    color: var(--color-text-primary);
+  }
+  .nav-link-minor.is-active {
+    color: var(--color-text-secondary);
+    border-bottom-color: var(--color-gold-dust) !important;
+  }
+
   /* nav 链接：纯文字 + 底部金线 active（去胶囊） */
   .nav-link {
     display: inline-flex;
@@ -261,6 +319,9 @@ const navItems = [
       padding: 4px 2px;
       white-space: nowrap;
     }
+
+    .nav-links-minor { gap: var(--spacing-2); }
+    .nav-link-minor { font-size: 11px; }
   }
 
   @media (max-width: 480px) {
@@ -284,6 +345,10 @@ const navItems = [
       padding: 4px 2px;
     }
 
+    .nav-divider { display: none; }
+    .nav-links-minor { gap: 4px; }
+    .nav-link-minor { font-size: 10.5px; }
+
     .lang-toggle,
     .theme-toggle {
       padding: 4px 4px;
@@ -305,6 +370,9 @@ const navItems = [
       padding: 3px 2px;
       letter-spacing: 0.02em;
     }
+
+    /* 360px 以下：次级藏起（播客/手记/态度 可从首页侧栏+footer 到达），只留动作线 */
+    .nav-divider, .nav-links-minor { display: none; }
 
     .nav-right-group {
       gap: 3px;
