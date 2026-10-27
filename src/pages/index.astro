@@ -74,6 +74,27 @@ import { WORKS } from '../data/works';
 
         <div class='sidebar-footer'>
           <GeometricVisual type='subtle' height='72px' />
+
+          {/* 首页无顶部 Navbar，侧栏补回房间入口 + 语言/主题控件 */}
+          <nav class='sidebar-nav' aria-label='首页导航'>
+            <a href='/ethos'>理念</a>
+            <a href='/podcast'>播客</a>
+            <a href='/writing'>手记</a>
+            <a href='/upcoming'>排期</a>
+            <a href='/events'>机制</a>
+            <a href='/join'>加入</a>
+          </nav>
+
+          <div class='sidebar-controls'>
+            <button type='button' class='sidebar-lang' id='quick-lang-btn' aria-label='切换到英文 / Switch to English' title='切换中英文 / Switch Language'>
+              <span lang='zh-CN' class='lang-zh'>EN</span>
+              <span lang='en' class='lang-en'>中</span>
+            </button>
+            <button type='button' class='sidebar-theme' data-theme-toggle aria-label='切换深色/浅色模式' title='切换深色/浅色模式'>
+              <svg class='sun-icon' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5'><circle cx='12' cy='12' r='4.5'/><path d='M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41'/></svg>
+              <svg class='moon-icon' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' style='display:none;'><path d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/></svg>
+            </button>
+          </div>
         </div>
       </aside>
 
@@ -283,6 +304,52 @@ import { WORKS } from '../data/works';
 
   .sidebar-footer {
     padding-top: var(--spacing-6);
+  }
+
+  /* 首页侧栏导航 + 控件（无顶部 Navbar 时补回） */
+  .sidebar-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2) var(--spacing-3);
+    margin-top: var(--spacing-5);
+    padding-top: var(--spacing-5);
+    border-top: 1px solid var(--color-border-divider);
+  }
+  .sidebar-nav a {
+    font-family: var(--font-family-ui);
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    text-decoration: none !important;
+    border-bottom: 2px solid transparent !important;
+    padding: 2px 0;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+  }
+  .sidebar-nav a:hover {
+    color: var(--color-text-heading);
+    border-bottom-color: var(--color-gold-dust) !important;
+  }
+
+  .sidebar-controls {
+    display: flex;
+    gap: var(--spacing-2);
+    margin-top: var(--spacing-4);
+  }
+  .sidebar-lang, .sidebar-theme {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px 6px;
+    color: var(--color-text-secondary);
+    font-family: var(--font-family-ui);
+    font-size: 12px;
+    line-height: 1;
+    transition: color var(--transition-fast);
+  }
+  .sidebar-lang:hover, .sidebar-theme:hover {
+    color: var(--color-brand-purple, #5e4c7a);
+  }
+  :root.dark .sidebar-lang:hover, :root.dark .sidebar-theme:hover {
+    color: var(--color-gold-dust);
   }
 
   /* ===== 右侧：核心展陈区 ===== */
