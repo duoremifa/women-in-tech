@@ -419,9 +419,11 @@
    触摸区域优化
    ============================================ */
 @media (width <=768px) {
-  /* 确保真正可交互控件有足够点击区域——不再作用于正文 <a>（破坏行内排版） */
+  /* 确保真正可交互控件有足够点击区域——不再作用于正文 <a>（破坏行内排版）。
+     覆盖所有 anchor-as-button 控件 + summary + 真按钮。 */
   .btn,
   button,
+  summary,
   [data-theme-toggle],
   .nav-link,
   .sidebar-nav a,
@@ -429,6 +431,15 @@
   .theme-toggle,
   .sidebar-lang,
   .sidebar-theme,
+  .cal-trigger,
+  .subscribe-btn,
+  .btn-rsvp,
+  .btn-ics,
+  .btn-episode,
+  .plat-link,
+  .btn-link-gold,
+  .btn-solid-dark,
+  .btn-download-ics,
   [role='button'] {
     min-height: calc(var(--baseline) * 5.5);
     min-width: calc(var(--baseline) * 5.5);
@@ -513,7 +524,8 @@
   input:not([type='checkbox']):not([type='radio']):focus,
   textarea:focus,
   select:focus {
-    border-color: var(--color-brand-purple, #5e4c7a);
+    border-color: var(--color-gold-dust);
+    box-shadow: var(--focus-ring);
     outline: none;
   }
 

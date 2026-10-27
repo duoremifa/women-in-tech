@@ -12,7 +12,7 @@ interface Props {
 }
 
 const {
-  title = 'wo/men in tech · women in technical · "我们"',
+  title = 'wo/men in tech · women in technical',
   description = 'women in tech · 在杭州的巷子与山径之间，做经得起时间的事。',
   image = '/og-image.png',
   canonicalURL = Astro.url.href.split('?')[0].replace(/\/$/, '') || 'https://wotech.space',
@@ -75,7 +75,7 @@ const jsonLd = {
       '@id': 'https://wotech.space/#website',
       'url': 'https://wotech.space/',
       'name': 'wo/men in tech',
-      'alternateName': ['women in technical', '我们', 'wotech'],
+      'alternateName': ['women in technical', 'wotech'],
       'description': description,
       'inLanguage': ['zh-CN', 'en'],
       'publisher': {
@@ -86,7 +86,7 @@ const jsonLd = {
       '@type': 'Organization',
       '@id': 'https://wotech.space/#organization',
       'name': 'wo/men in tech',
-      'alternateName': 'women in technical · "我们"',
+      'alternateName': 'women in technical',
       'url': 'https://wotech.space/',
       'logo': {
         '@type': 'ImageObject',

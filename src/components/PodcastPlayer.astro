@@ -178,7 +178,11 @@ const { src, title = 'episode' } = Astro.props;
     };
 
     playBtn.addEventListener('click', () => {
-      if (audio!.paused) audio!.play(); else audio!.pause();
+      if (audio!.paused) {
+        audio!.play().catch(() => { /* autoplay/取音频失败——静默，按钮保持暂停态 */ });
+      } else {
+        audio!.pause();
+      }
     });
 
     audio.addEventListener('play', () => root!.classList.add('is-playing'));
@@ -211,8 +215,11 @@ const { src, title = 'episode' } = Astro.props;
       if (e.key === 'ArrowRight') { audio!.currentTime = Math.min(dur, audio!.currentTime + 5); e.preventDefault(); }
       else if (e.key === 'ArrowLeft') { audio!.currentTime = Math.max(0, audio!.currentTime - 5); e.preventDefault(); }
       else if (e.key === 'Home') { audio!.currentTime = 0; e.preventDefault(); }
-      else if (e.key === 'Home' || e.key === 'End') { audio!.currentTime = dur; e.preventDefault(); }
-      else if (e.key === ' ' || e.key === 'Enter') { if (audio!.paused) audio!.play(); else audio!.pause(); e.preventDefault(); }
+      else if (e.key === 'End') { audio!.currentTime = dur; e.preventDefault(); }
+      else if (e.key === ' ' || e.key === 'Enter') {
+        if (audio!.paused) audio!.play().catch(() => {}); else audio!.pause();
+        e.preventDefault();
+      }
     });
   }
 

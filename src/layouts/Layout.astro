@@ -38,8 +38,8 @@ export interface Props {
 }
 
 const {
-  title = 'wo/men in tech · women in technical · "我们"',
-  description = 'women in tech · 以个体之名做事的女性——手艺人、设计师、工程师、艺术工作者、工作室主、写作者。',
+  title = 'wo/men in tech · women in technical',
+  description = 'women in tech · 在杭州的巷子与山径之间，做经得起时间的事。',
   width = 'full',
   header,
   ogImage,
@@ -65,7 +65,8 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
         } catch (e) {}
       })();
     </script>
-    <!-- 提前应用主题，消除深色模式 FOUC（首屏前同步执行） -->
+    <!-- 提前应用主题，消除深色模式 FOUC（首屏前同步执行）。
+         html 与 body 用同一个 texture token + 同一个 bg-color，避免首屏白闪 + html 那层被 body 盖掉。 -->
     <script is:inline>
       (function () {
         try {
@@ -77,9 +78,10 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
           var r = document.documentElement;
           r.classList.toggle('dark', isDark);
           r.classList.toggle('light', !isDark);
+          r.style.backgroundColor = isDark ? '#151413' : '#f7f5f0';
           r.style.backgroundImage = isDark
             ? 'var(--texture-paper-dark)'
-            : 'var(--texture-paper-light)';
+            : 'var(--texture-paper)';
         } catch (e) {}
       })();
     </script>
@@ -190,7 +192,7 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
           window.setTimeout(() => {
             applyLang();
             main.style.opacity = '1';
-          }, 140);
+          }, 200);
         });
 
         // view-transition 与 smooth-scroll 打架：swap 期间临时关 smooth
@@ -287,7 +289,12 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
     background-color: var(--color-bg-page);
     padding-top: var(--spacing-8); /* 顶部留白（与导航间距） */
     padding-bottom: var(--spacing-20); /* 底部留白（与页脚间距） */
-    transition: opacity 180ms cubic-bezier(0.42, 0, 0.58, 1); /* 语言切换 cross-fade 用 */
+    /* 合并 shorthand：opacity 给语言切换 180ms，bg/color/border 给主题切换 420ms。
+       之前 opacity-only 覆盖了 reset.css 的 420ms，导致 main 在主题切换时瞬间翻色。 */
+    transition: opacity 180ms cubic-bezier(0.42, 0, 0.58, 1),
+      background-color 420ms cubic-bezier(0.42, 0, 0.58, 1),
+      color 420ms cubic-bezier(0.42, 0, 0.58, 1),
+      border-color 420ms cubic-bezier(0.42, 0, 0.58, 1);
   }
 
   /* 深色模式适配（由变量自动处理，无需额外代码） */
