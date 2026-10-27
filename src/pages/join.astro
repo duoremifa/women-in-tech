@@ -51,13 +51,13 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
 
         {/* 字段 2: 从事领域（slot 模式下隐藏） */}
         <div class='form-field craft-field'>
-          <label class='field-label'>
+          <span class='field-label' id='join-craft-label'>
             <span lang='zh-CN' class='lang-zh'>你在从事的领域</span>
             <span lang='en' class='lang-en'>Your Primary Craft</span>
             <span lang='zh-CN' class='field-hint lang-zh'>单选 · 用于安排同频交流</span>
             <span lang='en' class='field-hint lang-en'>Single choice</span>
-          </label>
-          <div class='quiet-check-list' role='radiogroup' aria-label='从事领域'>
+          </span>
+          <div class='quiet-check-list' role='radiogroup' aria-labelledby='join-craft-label'>
             <label class='quiet-check-row is-radio'><input type='radio' name='craft' value='design' checked /><span class='check-indicator' aria-hidden='true'></span><div class='check-content'><span lang='zh-CN' class='check-title lang-zh'>设计 · 视觉传达 / 交互体验 (IxD)</span><span lang='en' class='check-title lang-en'>Design · Interaction & Visual Craft</span></div></label>
             <label class='quiet-check-row is-radio'><input type='radio' name='craft' value='product' /><span class='check-indicator' aria-hidden='true'></span><div class='check-content'><span lang='zh-CN' class='check-title lang-zh'>产品 · 商业逻辑 / 独立孵化 (PM)</span><span lang='en' class='check-title lang-en'>Product · Strategy & Independent Work</span></div></label>
             <label class='quiet-check-row is-radio'><input type='radio' name='craft' value='engineering' /><span class='check-indicator' aria-hidden='true'></span><div class='check-content'><span lang='zh-CN' class='check-title lang-zh'>工程 · 前端架构 / 独立全栈 (FE)</span><span lang='en' class='check-title lang-en'>Engineering · Frontend & Systems</span></div></label>
