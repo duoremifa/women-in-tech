@@ -8,7 +8,7 @@ const upcoming = upcomingGatherings(now);
 const past = pastGatherings(now);
 
 const statusMeta: Record<string, { zh: string; en: string; cls: string }> = {
-  open: { zh: '开放预约中', en: 'Open for RSVP', cls: 'status-open' },
+  open: { zh: '还能报名', en: 'Open', cls: 'status-open' },
   forming: { zh: '小组筹备中', en: 'Cohort Forming', cls: 'status-forming' },
   full: { zh: '已满', en: 'Full', cls: 'status-full' },
   past: { zh: '已结束', en: 'Past', cls: 'status-past' },
@@ -125,8 +125,8 @@ function fmtTime(iso: string) {
                       <span lang='en' class='lang-en'>Add this slot</span>
                     </a>
                     <a class='btn-rsvp' href={`/join?slot=${g.id}`}>
-                      <span lang='zh-CN' class='lang-zh'>预留这一期席位 ⟶</span>
-                      <span lang='en' class='lang-en'>Reserve a seat ⟶</span>
+                      <span lang='zh-CN' class='lang-zh'>我要参加 ⟶</span>
+                      <span lang='en' class='lang-en'>I'll join ⟶</span>
                     </a>
                   </>
                 )}
@@ -201,16 +201,22 @@ function fmtTime(iso: string) {
       <div class='next-card'>
         <div lang='zh-CN' class='next-text lang-zh'>
           <h3>想直接加入？</h3>
-          <p>留下你的声音，或先读理念与机制。</p>
+          <p>留下你的声音，或先看看我们的日常。</p>
         </div>
         <div lang='en' class='next-text lang-en'>
           <h3>Ready to join?</h3>
-          <p>Leave a note, or read our ethos and mechanics first.</p>
+          <p>Leave a note, or see our everyday first.</p>
         </div>
-        <a href='/join' class='btn btn--solid'>
-          <span lang='zh-CN' class='lang-zh'>预约加入</span>
-          <span lang='en' class='lang-en'>Join</span>
-        </a>
+        <div class='next-actions'>
+          <a href='/events' class='btn-link-gold'>
+            <span lang='zh-CN' class='lang-zh'>看看日常</span>
+            <span lang='en' class='lang-en'>Everyday</span>
+          </a>
+          <a href='/join' class='btn-solid-dark'>
+            <span lang='zh-CN' class='lang-zh'>我想参与</span>
+            <span lang='en' class='lang-en'>I want in</span>
+          </a>
+        </div>
       </div>
     </section>
   </div>

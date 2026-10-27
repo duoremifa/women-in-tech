@@ -5,7 +5,7 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
 ---
 
 <Layout
-  title='预约加入 · Join · wo/men in tech'
+  title='我想参与 · Join · wo/men in tech'
   description='加入 wo/men in tech——以个体之名做事的女性。一次加入，长期订阅。'
   width='reading'
 >
@@ -13,19 +13,21 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
     <header class='page-header'>
       <span class='section-eyebrow'>JOIN THE CIRCLE</span>
       <div lang='zh-CN' class='lang-zh'>
-        <h1 class='page-title'>加入"我们"</h1>
+        <h1 class='page-title'>我想参与</h1>
         <p class='page-lead'>在快与喧嚣里，留一个安静的座位——<br />如果你在找这样的场域，欢迎留下声音。</p>
+        <a href='/ethos' class='ctx-link'><span class='lang-zh'>先看看态度 →</span></a>
       </div>
       <div lang='en' class='lang-en'>
-        <h1 class='page-title'>Join the Circle</h1>
-        <p class='page-lead'>Encourage expression · Deep dialogue · Respect for craft—<br />if this resonates, leave a note.</p>
+        <h1 class='page-title'>I want in</h1>
+        <p class='page-lead'>A quiet seat amid speed and noise—<br />if this resonates, leave a note.</p>
+        <a href='/ethos' class='ctx-link'><span class='lang-en'>Read our stance first →</span></a>
       </div>
       <div class='gold-hairline'></div>
     </header>
 
     {/* slot banner（从 /upcoming "我要这一期" 带来） */}
     <div id='slot-banner' class='slot-banner' hidden>
-      <span class='slot-eyebrow'>RESERVED SLOT · 已选期次</span>
+      <span class='slot-eyebrow'>已选这一期 · CHOSEN SLOT</span>
       <h2 id='slot-title' class='slot-title'></h2>
       <p id='slot-meta' class='slot-meta'></p>
       <a id='slot-ics' class='slot-ics-link' href='#' download>
@@ -123,8 +125,8 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
 
         <div class='submit-zone'>
           <button type='submit' class='submit-btn-primary' id='submit-trigger'>
-            <span lang='zh-CN' class='lang-zh'>加入</span>
-            <span lang='en' class='lang-en'>Join</span>
+            <span lang='zh-CN' class='lang-zh'>我想参与</span>
+            <span lang='en' class='lang-en'>I want in</span>
             <span class='btn-arrow' aria-hidden='true'>⟶</span>
           </button>
           <div class='privacy-assurance-pill'>
@@ -171,8 +173,8 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
     {/* FAQ（精简） */}
     <section class='join-faq-section'>
       <div class='faq-card'>
-        <h3 lang='zh-CN' class='lang-zh'>加入须知</h3>
-        <h3 lang='en' class='lang-en'>Circle Norms</h3>
+        <h3 lang='zh-CN' class='lang-zh'>几个常被问到</h3>
+        <h3 lang='en' class='lang-en'>A few questions</h3>
         <div lang='zh-CN' class='faq-grid lang-zh'>
           <div class='faq-item'><h4>收费吗？</h4><p>纯公益，无任何费用。线下各自点单，线上完全免费。</p></div>
           <div class='faq-item'><h4>没成型代表作？</h4><p>完全可以。一个萌芽的念头、一段卡壳的思考，本身就值得被听见。</p></div>
@@ -186,12 +188,12 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
 
     <section class='next-steps'>
       <div class='next-card'>
-        <div lang='zh-CN' class='next-text lang-zh'><h3>探索更多</h3><p>读理念、看机制、或查排期。</p></div>
-        <div lang='en' class='next-text lang-en'><h3>Explore</h3><p>Ethos, mechanics, or schedule.</p></div>
-        <a href='/' class='btn btn--solid'>
-          <span lang='zh-CN' class='lang-zh'>返回首页</span>
-          <span lang='en' class='lang-en'>Home</span>
-        </a>
+        <div lang='zh-CN' class='next-text lang-zh'><h3>再多看看</h3><p>看看我们的日常，或回到首页。</p></div>
+        <div lang='en' class='next-text lang-en'><h3>Explore more</h3><p>See our everyday, or head home.</p></div>
+        <div class='next-actions'>
+          <a href='/events' class='btn-link-gold'><span lang='zh-CN' class='lang-zh'>看看日常</span><span lang='en' class='lang-en'>Everyday</span></a>
+          <a href='/' class='btn-solid-dark'><span lang='zh-CN' class='lang-zh'>返回首页</span><span lang='en' class='lang-en'>Home</span></a>
+        </div>
       </div>
     </section>
   </div>
@@ -409,7 +411,10 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
   .page-header { margin-bottom: var(--spacing-10); }
   .section-eyebrow { font-family: var(--font-family-mono); font-size: var(--font-size-xs); letter-spacing: 0.12em; color: var(--color-gold-dust); display: block; margin-bottom: var(--spacing-2); }
   .page-title { font-family: var(--font-family-heading); font-size: var(--font-size-3xl); font-weight: var(--font-weight-light); color: var(--color-text-heading); letter-spacing: -0.02em; margin: 0 0 var(--spacing-3); }
-  .page-lead { font-family: var(--font-family-body); font-size: var(--font-size-base); color: var(--color-text-secondary); line-height: 1.8; margin: 0; }
+  .page-lead { font-family: var(--font-family-body); font-size: var(--font-size-base); color: var(--color-text-secondary); line-height: 1.8; margin: 0 0 var(--spacing-3); }
+  .ctx-link { display: inline-block; margin-top: var(--spacing-1); font-family: var(--font-family-ui); font-size: 12px; color: var(--color-primary-dark); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 2px; transition: border-color var(--transition-fast); }
+  .ctx-link:hover { border-bottom-color: var(--color-gold-dust) !important; }
+  :root.dark .ctx-link { color: var(--color-gold-dust); }
   .gold-hairline { width: var(--spacing-12); height: 1px; background: var(--color-gold-dust); opacity: 0.7; margin-top: var(--spacing-5); }
 
   /* slot banner */
