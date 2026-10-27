@@ -35,7 +35,7 @@ export const GET: APIRoute = async () => {
     <title><![CDATA[${PODCAST_NAME}]]></title>
     <link>${SITE}/podcast/</link>
     <language>zh-CN</language>
-    <description><![CDATA[把每一期相聚里日常的、松弛的对话用声音留下来——朋友聊天，不是表演。]]></description>
+    <description><![CDATA[相聚之后，留下一段实录。不修饰，不剪辑。]]></description>
     <itunes:author>Dai Min</itunes:author>
     <itunes:category text="Society &amp; Culture" />
     <itunes:explicit>false</itunes:explicit>
