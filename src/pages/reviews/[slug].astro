@@ -25,7 +25,7 @@ const dateStrEn = new Date(g.startIso).toLocaleDateString('en-US', { year: 'nume
 >
   <meta name='robots' content='noindex' />
   <div class='page-container'>
-    <a href='/upcoming' class='back-link'>
+    <a href='/upcoming' class='btn btn--ghost'>
       <span lang='zh-CN' class='lang-zh'>← 返回排期</span>
       <span lang='en' class='lang-en'>← Back to schedule</span>
     </a>
@@ -68,11 +68,11 @@ const dateStrEn = new Date(g.startIso).toLocaleDateString('en-US', { year: 'nume
             <h3>Next gathering</h3>
             <p>{new Date(next.startIso).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })} · {next.titleEn}</p>
           </div>
-          <a href={`/gatherings/${next.id}.ics`} class='btn-link-gold'>
+          <a href={`/gatherings/${next.id}.ics`} class='btn btn--gold'>
             <span lang='zh-CN' class='lang-zh'>加日历 →</span>
             <span lang='en' class='lang-en'>Add to calendar →</span>
           </a>
-          <a href='/join' class='btn-solid-dark'>
+          <a href='/join' class='btn btn--solid'>
             <span lang='zh-CN' class='lang-zh'>预约下一期</span>
             <span lang='en' class='lang-en'>Join next</span>
           </a>

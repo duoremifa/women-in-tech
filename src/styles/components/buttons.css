@@ -1,0 +1,69 @@
+/* ============================================
+   原子按钮系统 · wo/men in tech
+   4 类型：solid（实心）/ gold（金线链接）/ outline（描边）/ ghost（纯文字）
+   统一 radius-xs / font-ui / transition-fast / 设计系统色
+   ============================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  font-family: var(--font-family-ui);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-decoration: none !important;
+  white-space: nowrap;
+  cursor: pointer;
+  border-radius: var(--radius-xs);
+  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), opacity var(--transition-fast), transform var(--transition-fast);
+  user-select: none;
+}
+
+/* 实心（品牌紫底，浅色文字） */
+.btn--solid {
+  padding: var(--spacing-2) var(--spacing-5);
+  background: var(--color-primary-dark);
+  color: var(--color-surface-pure) !important;
+  border: none;
+}
+.btn--solid:hover { background: var(--color-text-heading); }
+
+/* 金线链接（金底边，主色文字） */
+.btn--gold {
+  padding-bottom: 2px;
+  color: var(--color-primary-dark);
+  border-bottom: 1px solid var(--color-gold-dust);
+  font-weight: var(--font-weight-medium);
+}
+.btn--gold:hover { color: var(--color-text-heading); border-bottom-color: var(--color-text-heading); }
+
+/* 描边（边框，无填充） */
+.btn--outline {
+  padding: 4px 10px;
+  border: 1px solid var(--color-border-divider);
+  color: var(--color-text-secondary);
+  background: transparent;
+}
+.btn--outline:hover { border-color: var(--color-gold-dust); color: var(--color-primary-dark); }
+
+/* 纯文字链接（无装饰，三级文字色） */
+.btn--ghost {
+  padding: 0;
+  color: var(--color-text-tertiary);
+  border: none;
+}
+.btn--ghost:hover { color: var(--color-primary-dark); }
+
+/* 尺寸修饰 */
+.btn--lg { padding: var(--spacing-4) var(--spacing-8); font-size: 13px; letter-spacing: 0.08em; }
+
+:root.dark .btn--solid { background: var(--color-brand-purple); }
+:root.dark .btn--solid:hover { background: var(--color-gold-dust); color: var(--color-surface-pure) !important; }
+:root.dark .btn--gold { color: var(--color-gold-dust); }
+:root.dark .btn--gold:hover { color: var(--color-text-heading); }
+:root.dark .btn--outline { border-color: var(--color-border-subtle); color: var(--color-text-secondary); }
+:root.dark .btn--outline:hover { border-color: var(--color-gold-dust); color: var(--color-gold-dust); }
+:root.dark .btn--ghost { color: var(--color-text-tertiary); }
+:root.dark .btn--ghost:hover { color: var(--color-gold-dust); }

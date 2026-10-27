@@ -52,18 +52,11 @@
 
 /* === 4. Components - 宁静低压系统 === */
 @import url('./components/cards-quiet.css');
-
-/* 🆕 宁静卡片 */
 @import url('./components/buttons-quiet.css');
-
-/* 🆕 宁静按钮 */
+@import url('./components/buttons.css');
 @import url('./components/forms.css');
-
-/* 🆕 表单与交互控件 */
 @import url('./components/quiet-elements.css');
 @import url('./components/quotes.css');
-
-/* 🆕 宁静引用块/分割线/链接 */
 
 /* ❌ 原有卡片和按钮样式不再导入
    @import url('./components/cards.css');
