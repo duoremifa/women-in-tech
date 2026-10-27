@@ -40,6 +40,11 @@ const all = (await getCollection('writing', ({ data }) => !data.draft))
     </div>
 
     {all.length === 0 && <p class='empty-note'>月更长文，筹备中。</p>}
+
+    <p class='index-foot'>
+      <span lang='zh-CN' class='lang-zh'>你也以个体之名在做事？<a href='/join'>来说说</a> · <a href='/podcast'>听听播客</a></span>
+      <span lang='en' class='lang-en'>Also building under your own name? <a href='/join'>Tell us</a> · <a href='/podcast'>Listen</a></span>
+    </p>
   </div>
 </Layout>
 
@@ -63,6 +68,10 @@ const all = (await getCollection('writing', ({ data }) => !data.draft))
   .w-tag { font-family: var(--font-family-ui); font-size: 10px; color: var(--color-text-tertiary); background: var(--color-surface-soft); padding: 1px 6px; border-radius: 2px; }
 
   .empty-note { font-family: var(--font-family-body); font-size: 14px; color: var(--color-text-tertiary); font-style: italic; }
+
+  .index-foot { margin-top: var(--spacing-12); padding-top: var(--spacing-5); border-top: 1px solid var(--color-border-divider); font-family: var(--font-family-body); font-size: 13px; color: var(--color-text-tertiary); }
+  .index-foot a { color: var(--color-primary-dark); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 1px; transition: border-color var(--transition-fast); }
+  .index-foot a:hover { border-bottom-color: var(--color-gold-dust) !important; }
 
   @media (max-width: 680px) {
     .page-title { font-size: 1.6rem; }
