@@ -184,8 +184,8 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
         <div lang='zh-CN' class='next-text lang-zh'><h3>再多看看</h3><p>看看日常，或回到首页。</p></div>
         <div lang='en' class='next-text lang-en'><h3>Explore more</h3><p>See the everyday, or head home.</p></div>
         <div class='next-actions'>
-          <a href='/events' class='btn-link-gold'><span lang='zh-CN' class='lang-zh'>看看日常</span><span lang='en' class='lang-en'>Everyday</span></a>
-          <a href='/' class='btn-solid-dark'><span lang='zh-CN' class='lang-zh'>返回首页</span><span lang='en' class='lang-en'>Home</span></a>
+          <a href='/events' class='btn btn--gold'><span lang='zh-CN' class='lang-zh'>看看日常</span><span lang='en' class='lang-en'>Everyday</span></a>
+          <a href='/' class='btn btn--solid'><span lang='zh-CN' class='lang-zh'>返回首页</span><span lang='en' class='lang-en'>Home</span></a>
         </div>
       </div>
     </section>
@@ -512,9 +512,6 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
   .next-text h3 { margin: 0 0 var(--spacing-1); font-family: var(--font-family-heading); font-size: var(--font-size-lg); color: var(--color-text-heading); }
   .next-text p { margin: 0; font-family: var(--font-family-body); font-size: 12px; color: var(--color-text-secondary); }
   .next-actions { display: flex; align-items: center; gap: var(--spacing-3); flex-shrink: 0; flex-wrap: wrap; }
-  .btn-link-gold { font-family: var(--font-family-ui); font-size: var(--font-size-xs); color: var(--color-text-primary); text-decoration: none !important; border-bottom: 1px solid var(--color-gold-dust) !important; padding-bottom: 2px; }
-  .btn-solid-dark { padding: var(--spacing-2) var(--spacing-5); background: var(--color-primary-dark); color: var(--color-surface-pure) !important; border-radius: var(--radius-xs); font-family: var(--font-family-ui); font-size: var(--font-size-xs); text-decoration: none !important; letter-spacing: 0.04em; transition: background var(--transition-fast); }
-  .btn-solid-dark:hover { background: var(--color-text-heading); }
 
   @media (max-width: 680px) {
     .page-title { font-size: 1.6rem; }
@@ -522,6 +519,5 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
     .faq-grid { grid-template-columns: 1fr; }
     .next-card { flex-direction: column; align-items: flex-start; }
     .next-actions { flex-direction: column; width: 100%; align-items: stretch; }
-    .btn-solid-dark { text-align: center; padding: 10px 16px; }
   }
 </style>

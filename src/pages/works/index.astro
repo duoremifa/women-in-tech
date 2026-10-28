@@ -62,7 +62,7 @@ const statusLabel: Record<string, { zh: string; en: string }> = {
           <h3>Co-build a direction?</h3>
           <p>Leave a note and name the direction worth investing in.</p>
         </div>
-        <a href='/join' class='btn-solid-dark'>
+        <a href='/join' class='btn btn--solid'>
           <span lang='zh-CN' class='lang-zh'>我想参与</span>
           <span lang='en' class='lang-en'>I want in</span>
         </a>
@@ -100,12 +100,9 @@ const statusLabel: Record<string, { zh: string; en: string }> = {
   .next-card { background: var(--color-surface-pure); border: var(--border-width-thin) solid var(--color-border-subtle); border-radius: var(--radius-sm); padding: var(--spacing-8); display: flex; justify-content: space-between; align-items: center; gap: var(--spacing-6); }
   .next-text h3 { margin: 0 0 var(--spacing-1); font-family: var(--font-family-heading); font-size: var(--font-size-lg); color: var(--color-text-heading); }
   .next-text p { margin: 0; font-family: var(--font-family-body); font-size: var(--font-size-xs); color: var(--color-text-secondary); }
-  .btn-solid-dark { padding: var(--spacing-2) var(--spacing-5); background: var(--color-primary-dark); color: var(--color-surface-pure) !important; border-radius: var(--radius-xs); font-family: var(--font-family-ui); font-size: var(--font-size-xs); text-decoration: none !important; letter-spacing: 0.04em; transition: background var(--transition-fast); }
-  .btn-solid-dark:hover { background: var(--color-text-heading); }
 
   @media (max-width: 680px) {
     .page-title { font-size: 1.6rem; }
     .next-card { flex-direction: column; align-items: flex-start; padding: var(--spacing-5) var(--spacing-4); gap: var(--spacing-4); }
-    .btn-solid-dark { text-align: center; padding: 10px 16px; }
   }
 </style>
