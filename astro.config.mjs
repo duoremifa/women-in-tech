@@ -226,6 +226,8 @@ export default defineConfig({
     sitemap({
       changefreq: 'weekly',
       priority: 0.9,
+      // 与 robots.txt/noindex 意图一致：works/reviews 是 noindex 详情，不进 sitemap
+      filter: page => !page.includes('/works/') && !page.includes('/reviews/'),
     }),
     AstroPWA({
       registerType: 'autoUpdate',
@@ -243,8 +245,8 @@ export default defineConfig({
         name: 'wo/men in tech',
         short_name: 'wo/men',
         description: 'women in technical · 既是女性，亦是“我们”的技术与创造联合体',
-        theme_color: '#f8f6f2',
-        background_color: '#f8f6f2',
+        theme_color: '#f7f5f0',
+        background_color: '#f7f5f0',
         display: 'standalone',
         orientation: 'portrait',
         scope: '/',

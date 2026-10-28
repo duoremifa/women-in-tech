@@ -23,6 +23,9 @@ const gathering = ep.data.gatheringId ? getGatheringById(ep.data.gatheringId) : 
   title={`${ep.data.title} · ${'慢谈 · Slow Talk'}`}
   description={ep.data.excerpt || ep.data.title}
   width='reading'
+  type='article'
+  ogImage={ep.data.cover}
+  publishedTime={ep.data.pubDate.toISOString()}
 >
   {(ep.data.draft || ep.data.comingSoon) && <meta name='robots' content='noindex' />}
   <div class='page-container'>

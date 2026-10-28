@@ -22,6 +22,8 @@ const dateStrEn = new Date(g.startIso).toLocaleDateString('en-US', { year: 'nume
   title={`${typeLabel} · ${g.titleEn} · 回顾 · wo/men in tech`}
   description={g.descriptionEn}
   width='reading'
+  type='article'
+  publishedTime={new Date(g.startIso).toISOString()}
 >
   <meta name='robots' content='noindex' />
   <div class='page-container'>

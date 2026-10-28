@@ -160,7 +160,7 @@ export function upcomingGatherings(now: Date = new Date()): Gathering[] {
 
 /** 已结束的排期（/upcoming 回环区用），按开始时间降序（最近在前）。 */
 export function pastGatherings(now: Date = new Date()): Gathering[] {
-  return GATHERINGS.filter(g => isGatheringPast(g, now)).sort(
+  return GATHERINGS.filter(g => isGatheringPast(g, now) && g.status !== 'cancelled').sort(
     (a, b) => new Date(b.startIso).getTime() - new Date(a.startIso).getTime()
   );
 }

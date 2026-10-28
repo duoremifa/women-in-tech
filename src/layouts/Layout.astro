@@ -33,6 +33,8 @@ export interface Props {
   description?: string;
   width?: 'narrow' | 'reading' | 'standard' | 'wide' | 'full' | 'prose';
   ogImage?: string; // 页面特定的 OG 图
+  type?: 'website' | 'article';
+  publishedTime?: string; // ISO，type='article' 时发 article:published_time
 }
 
 const {
@@ -40,6 +42,8 @@ const {
   description = 'women in tech · 在杭州的巷子与山径之间，做经得起时间的事。',
   width = 'full',
   ogImage,
+  type,
+  publishedTime,
 } = Astro.props;
 
 // ============================================
@@ -83,7 +87,7 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
       })();
     </script>
     <!-- ===== SEO & 基础元数据 ===== -->
-    <SEO title={title} description={description} ogImage={ogImage} />
+    <SEO title={title} description={description} ogImage={ogImage} type={type} publishedTime={publishedTime} />
     <ViewTransitions />
     <meta name='theme-color' content='#f7f5f0' media='(prefers-color-scheme: light)' />
     <meta name='theme-color' content='#151413' media='(prefers-color-scheme: dark)' />

@@ -17,6 +17,9 @@ const dateStr = w.data.pubDate.toLocaleDateString('zh-CN', { year: 'numeric', mo
   title={`${w.data.title} · wo/men in tech`}
   description={w.data.excerpt || w.data.title}
   width='reading'
+  type='article'
+  ogImage={w.data.cover}
+  publishedTime={w.data.pubDate.toISOString()}
 >
   {(w.data.draft || w.data.comingSoon) && <meta name='robots' content='noindex' />}
   <div class='page-container'>

@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 
 const PODCAST_NAME = '慢谈 · Slow Talk';
 const SITE = 'https://wotech.space';
+const RSS_URL = `${SITE}/podcast/rss.xml`;
 
 export const GET: APIRoute = async () => {
   const episodes = (
@@ -32,14 +33,26 @@ export const GET: APIRoute = async () => {
     .join('\n');
 
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title><![CDATA[${PODCAST_NAME}]]></title>
     <link>${SITE}/podcast/</link>
+    <atom:link href="${RSS_URL}" rel="self" type="application/rss+xml" />
     <language>zh-CN</language>
     <description><![CDATA[相聚之后，留下一段实录。不修饰，不剪辑。]]></description>
+    <image>
+      <url>${SITE}/og-image.png</url>
+      <title><![CDATA[${PODCAST_NAME}]]></title>
+      <link>${SITE}/podcast/</link>
+    </image>
     <itunes:author>Dai Min</itunes:author>
+    <itunes:owner>
+      <itunes:name>Dai Min</itunes:name>
+      <itunes:email>invitation@wotech.space</itunes:email>
+    </itunes:owner>
+    <itunes:image href="${SITE}/og-image.png" />
     <itunes:category text="Society &amp; Culture" />
+    <itunes:type>episodic</itunes:type>
     <itunes:explicit>false</itunes:explicit>
     ${items}
   </channel>
