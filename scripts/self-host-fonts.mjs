@@ -28,8 +28,9 @@ const FETCH_HEADERS = { 'User-Agent': UA, 'Accept-Language': ACCEPT_LANG };
 
 const FAMILIES = [
   { family: 'Inter', weights: [300, 400, 500, 600, 700] },
-  // Lora 在 Google Fonts 的字重轴仅 400–700，无 300；标题 light 需另择字体或接受 400
-  { family: 'Lora', weights: [400, 500, 600, 700] },
+  // Cormorant：展示型衬线，300-700 全有。顶奢高对比，替代 Lora（Lora 无 300）；
+  // 标题 light（--font-weight-light:300）由此真落地。小字号脆弱，靠 ≥400 字重 + 限大标题用。
+  { family: 'Cormorant', weights: [300, 400, 500, 600, 700] },
 ];
 
 // 只保留拉丁子集——cyrillic/greek/vietnamese 本站永不使用，过滤掉省 CSS + 文件

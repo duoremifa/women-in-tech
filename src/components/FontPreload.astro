@@ -13,9 +13,9 @@ import path from 'node:path';
 
 const FONT_CSS_VER = '20261028';
 const interLatin = path.join(process.cwd(), 'public/fonts/inter-400-latin.woff2');
-const loraLatin = path.join(process.cwd(), 'public/fonts/lora-400-latin.woff2');
+const cormorantLatin = path.join(process.cwd(), 'public/fonts/cormorant-300-latin.woff2');
 const hasInter = fs.existsSync(interLatin);
-const hasLora = fs.existsSync(loraLatin);
+const hasCormorant = fs.existsSync(cormorantLatin);
 ---
 
 {hasInter && (
@@ -28,10 +28,10 @@ const hasLora = fs.existsSync(loraLatin);
     fetchpriority='low'
   />
 )}
-{hasLora && (
+{hasCormorant && (
   <link
     rel='preload'
-    href='/fonts/lora-400-latin.woff2'
+    href='/fonts/cormorant-300-latin.woff2'
     as='font'
     type='font/woff2'
     crossorigin
