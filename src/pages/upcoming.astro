@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import CalendarAdd from '../components/CalendarAdd.astro';
-import { GATHERINGS, upcomingGatherings, pastGatherings, type Gathering } from '../data/gatherings';
+import { upcomingGatherings, pastGatherings, type Gathering } from '../data/gatherings';
 
 const now = new Date();
 const upcoming = upcomingGatherings(now);

@@ -167,7 +167,7 @@ async function main() {
 
 main().catch(err => {
   // 兜底：即使 main 内部异常漏出，也不让 build 崩
-  try { writeFallbackCss(`unexpected: ${err && err.message || err}`); } catch (e) {}
+  try { writeFallbackCss(`unexpected: ${err && err.message || err}`); } catch { /* fallback write failed — stay non-blocking */ }
   console.error('✗ self-host-fonts failed (non-blocking):', err);
   // 不 exit(1)：prebuild 失败时让 astro build 继续（系统字体回退）
 });

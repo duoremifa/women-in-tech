@@ -23,31 +23,15 @@
 /* === 3. Base Styles === */
 @import url('./base/reset.css');
 
-/*  */
-
 /* @import url('./typography/variables.css'); */
-
 /* 已备份移除，避免与 design-system.css 冲突 */
 
-/*  */
 @import url('./typography/font-display.css');
-
-/*  */
 @import url('./typography/scale.css');
-
-/*  */
 @import url('./typography/hierarchy.css');
-
-/*  */
 @import url('./typography/components.css');
-
-/*  */
 @import url('./typography/interactions.css');
-
-/*  */
 @import url('./typography/utilities.css');
-
-/*  */
 @import url('./base/layout.css');
 
 /* === 4. Components - 宁静低压系统 === */

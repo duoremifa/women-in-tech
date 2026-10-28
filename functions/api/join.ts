@@ -16,6 +16,14 @@ import {
 } from '../../src/lib/join-shared';
 import { getGatheringById } from '../../src/data/gatherings';
 
+// UTF-8 安全的 Base64 编码（替代已弃用的 btoa(unescape(encodeURIComponent(...)))）
+function encodeBase64Utf8(input: string): string {
+  const bytes = new TextEncoder().encode(input);
+  let binary = '';
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  return btoa(binary);
+}
+
 function buildEmailHtml(params: {
   name: string;
   submissionId: string;
@@ -404,7 +412,7 @@ export async function onRequestPost(context: any) {
       if (resendApiKey) {
         try {
           // 在 Node / CF Workers 环境下将 UTF-8 字符串转 Base64
-          const icsBase64 = btoa(unescape(encodeURIComponent(icsContent)));
+          const icsBase64 = encodeBase64Utf8(icsContent);
           const defaultDomainFrom = context.env?.EMAIL_FROM || 'wo/men in tech <invitation@wotech.space>';
 
           // 优先尝试自定义域名发送
@@ -469,7 +477,7 @@ export async function onRequestPost(context: any) {
       const sendgridKey = context.env?.SENDGRID_API_KEY;
       if (!emailSent && sendgridKey) {
         try {
-          const icsBase64 = btoa(unescape(encodeURIComponent(icsContent)));
+          const icsBase64 = encodeBase64Utf8(icsContent);
           const sgResp = await fetch('https://api.sendgrid.com/v3/mail/send', {
             method: 'POST',
             headers: {

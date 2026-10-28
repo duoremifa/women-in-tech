@@ -42,7 +42,7 @@ export default defineConfig({
                     res.end(JSON.stringify({ success: true, submissionId: 'WT-TRAP0', isEmail: false, emailSent: false }));
                     return;
                   }
-                  const { name, craft, interests, idea, contact } = data;
+                  const { name, interests, contact } = data;
                   const submissionId = `WT-${Date.now().toString(36).slice(-5).toUpperCase()}`;
                   const cleanContact = String(contact || '').trim();
                   const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanContact);
@@ -110,7 +110,7 @@ export default defineConfig({
                   if (isEmail && resendKey) {
                     try {
                       const icsBase64 = Buffer.from(icsContent).toString('base64');
-                      let rResp = await fetch('https://api.resend.com/emails', {
+                      const rResp = await fetch('https://api.resend.com/emails', {
                         method: 'POST',
                         headers: {
                           Authorization: `Bearer ${resendKey}`,
@@ -130,7 +130,7 @@ export default defineConfig({
                         }),
                       });
                       if (rResp.ok) emailSent = true;
-                    } catch (e) {}
+                    } catch { /* dev 中间件：邮件发送尽力而为，不阻断响应 */ }
                   }
 
                   res.setHeader('Content-Type', 'application/json');
@@ -148,7 +148,7 @@ export default defineConfig({
                       timestamp: new Date().toISOString(),
                     })
                   );
-                } catch (err) {
+                } catch {
                   res.statusCode = 500;
                   res.end(JSON.stringify({ error: '提交解析异常，请稍候重试' }));
                 }

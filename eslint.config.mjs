@@ -7,7 +7,7 @@ export default [
   ...tseslint.configs.recommended,
   prettier,
   {
-    files: ['**/*.{ts,tsx,js,jsx}'],
+    files: ['**/*.{ts,tsx,js,jsx,mjs,cjs}'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',
@@ -21,6 +21,9 @@ export default [
         fetch: 'readonly',
         console: 'readonly',
         caches: 'readonly',
+        // Node globals（astro.config.mjs / 脚本等构建期代码会用）
+        process: 'readonly',
+        Buffer: 'readonly',
       },
     },
     rules: {
@@ -40,13 +43,16 @@ export default [
     },
   },
   {
-    files: ['scripts/**/*.js'],
+    files: ['scripts/**/*.{js,mjs}'],
     languageOptions: {
       globals: {
         require: 'readonly',
         __dirname: 'readonly',
         console: 'readonly',
         process: 'readonly',
+        fetch: 'readonly',
+        Buffer: 'readonly',
+        URL: 'readonly',
       },
     },
     rules: {
@@ -81,6 +87,6 @@ export default [
       '**/*.d.ts',
       // .astro 文件由 Astro 编译器处理；待引入 astro-eslint-parser 后再纳入 lint
       '**/*.astro',
-    },
+    ],
   },
 ];
