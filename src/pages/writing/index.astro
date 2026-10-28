@@ -14,15 +14,24 @@ const all = (await getCollection('writing', ({ data }) => !data.draft))
   <div class='page-container'>
     <header class='page-header'>
       <span class='section-eyebrow'>WRITING · 田野手记</span>
-      <h1 class='page-title'>田野手记</h1>
-      <p class='page-lead'>杭州的巷子、小店、山径与有特色的地方。<br />写下来，留得住。是记录，不是报道。</p>
+      <div lang='zh-CN' class='lang-zh'>
+        <h1 class='page-title'>田野手记</h1>
+        <p class='page-lead'>杭州的巷子、小店、山径与有特色的地方。<br />写下来，留得住。是记录，不是报道。</p>
+      </div>
+      <div lang='en' class='lang-en'>
+        <h1 class='page-title'>Field Notes</h1>
+        <p class='page-lead'>Hangzhou's alleys, small shops, mountain paths, and distinctive places.<br />Written to keep. Records, not reportage.</p>
+      </div>
       <div class='gold-hairline'></div>
     </header>
 
     <div class='writing-list'>
       {all.map(w => (
         <a class='writing-row' href={`/writing/${w.id}/`}>
-          <span class='w-date'>{w.data.pubDate.toLocaleDateString('zh-CN', { year:'numeric', month:'long' })}</span>
+          <span class='w-date'>
+            <span lang='zh-CN' class='lang-zh'>{w.data.pubDate.toLocaleDateString('zh-CN', { year:'numeric', month:'long' })}</span>
+            <span lang='en' class='lang-en'>{w.data.pubDate.toLocaleDateString('en-US', { year:'numeric', month:'long' })}</span>
+          </span>
           <div class='w-content'>
             <h2 class='w-title'>{w.data.title}</h2>
             {w.data.interviewee ? (
@@ -39,7 +48,12 @@ const all = (await getCollection('writing', ({ data }) => !data.draft))
       ))}
     </div>
 
-    {all.length === 0 && <p class='empty-note'>月更长文，筹备中。</p>}
+    {all.length === 0 && (
+      <p class='empty-note'>
+        <span lang='zh-CN' class='lang-zh'>月更长文，筹备中。</span>
+        <span lang='en' class='lang-en'>Long-form pieces in the making.</span>
+      </p>
+    )}
   </div>
 </Layout>
 

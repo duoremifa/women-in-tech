@@ -20,8 +20,8 @@ const RSS_URL = 'https://wotech.space/podcast/rss.xml';
       <span class='section-eyebrow'>PODCAST · 播客</span>
       <h1 class='page-title'>{PODCAST_NAME}</h1>
       <p class='page-lead'>
-        不是采访，是相聚的实录。<br />
-        每一期之后，把那段对话用声音留下来。
+        <span lang='zh-CN' class='lang-zh'>不是采访，是相聚的实录。<br />每一期之后，把那段对话用声音留下来。</span>
+        <span lang='en' class='lang-en'>Not interviews—recordings of gatherings.<br />After each session, we keep that conversation in sound.</span>
       </p>
       <div class='gold-hairline'></div>
     </header>
@@ -29,8 +29,8 @@ const RSS_URL = 'https://wotech.space/podcast/rss.xml';
     {/* 订阅 */}
     <section class='subscribe-row'>
       <a class='sub-btn primary' href={RSS_URL}>
-        <span lang='zh-CN'>订阅 RSS</span>
-        <span lang='en'>Subscribe RSS</span>
+        <span lang='zh-CN' class='lang-zh'>订阅 RSS</span>
+        <span lang='en' class='lang-en'>Subscribe RSS</span>
       </a>
     </section>
 
@@ -45,9 +45,11 @@ const RSS_URL = 'https://wotech.space/podcast/rss.xml';
           <h2 class='latest-title'>{latest.data.title}</h2>
           {latest.data.excerpt && <p class='latest-excerpt'>{latest.data.excerpt}</p>}
           <div class='latest-meta'>
-            <span>{latest.data.pubDate.toLocaleDateString('zh-CN', { year:'numeric', month:'long', day:'numeric' })}</span>
+            <span lang='zh-CN' class='lang-zh'>{latest.data.pubDate.toLocaleDateString('zh-CN', { year:'numeric', month:'long', day:'numeric' })}</span>
+            <span lang='en' class='lang-en'>{latest.data.pubDate.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' })}</span>
             {latest.data.duration && <span>· {latest.data.duration}</span>}
-            <span>· 主播 {latest.data.hosts.join('、')}</span>
+            <span lang='zh-CN' class='lang-zh'>· 主播 {latest.data.hosts.join('、')}</span>
+            <span lang='en' class='lang-en'>· Hosts {latest.data.hosts.join(', ')}</span>
           </div>
         </div>
       </a>
