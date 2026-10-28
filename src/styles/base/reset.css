@@ -29,11 +29,35 @@ body {
     'calt' 1,
     'onum' 1;
   hanging-punctuation: first last;
+  /* CJK 与 Latin/数字之间自动留白（Chrome 120+/Safari 17.4+ 渐进增强，不支持则无变化） */
+  text-autospace: ideograph-alpha ideograph-numeric;
   color: var(--color-text-primary);
   background-color: var(--color-surface-primary);
   background-image: var(--texture-paper);
   background-repeat: repeat;
   font-family: var(--font-family-sans);
+}
+
+/* 标题用 lining numerals（body 是 old-style，标题大字号用 lining 更清晰）+ kerning */
+h1, h2, h3, h4, h5, h6 {
+  font-feature-settings: 'lnum' 1, 'kern' 1, 'liga' 1;
+}
+
+/* mono 上下文的数字等宽（日期/编号/时长/序号对齐） */
+.receipt-id,
+.ep-date,
+.ep-meta,
+.latest-meta,
+.w-date,
+.block-num,
+.card-index,
+.section-serial,
+.pp-time,
+.slot-meta,
+.meta-val,
+.footer-colophon,
+.by {
+  font-variant-numeric: tabular-nums;
 }
 
 /* 纸感肌理：深色模式换浅噪点（screen 叠加），浅色用深噪点（multiply 叠加由 SVG 自身 alpha 完成） */

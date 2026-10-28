@@ -29,6 +29,20 @@ hr,
   margin: var(--spacing-12) 0;
 }
 
+/* 页头金线入场：从左一笔画出（scaleX 0→1，320ms，仅一次）。
+   顶奢的安静手势——不是动画，是"线落下"。reduced-motion 关。 */
+.gold-hairline {
+  transform-origin: left center;
+  animation: gold-hairline-draw 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes gold-hairline-draw {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gold-hairline { animation: none; }
+}
+
 /* 链接：交由 typography/interactions.css 的 ::after 生长金线统一处理（currentcolor，220ms）。
    不再在此覆盖 border-bottom，避免压住全局生长手势。 */
 
