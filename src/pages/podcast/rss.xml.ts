@@ -5,28 +5,31 @@ const PODCAST_NAME = '慢谈 · Slow Talk';
 const SITE = 'https://wotech.space';
 
 export const GET: APIRoute = async () => {
-  const episodes = (await getCollection('podcast', ({ data }) => !data.draft && !data.comingSoon))
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  const episodes = (
+    await getCollection('podcast', ({ data }) => !data.draft && !data.comingSoon)
+  ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-  const items = episodes.map(ep => {
-    const guid = `${SITE}/podcast/${ep.id}/`;
-    const pub = ep.data.pubDate.toUTCString();
-    const enclosure = ep.data.audio
-      ? `<enclosure url="${ep.data.audio}" length="0" type="audio/mpeg" />`
-      : '';
-    const dur = ep.data.duration ? `<itunes:duration>${ep.data.duration}</itunes:duration>` : '';
-    return [
-      '<item>',
-      `<title><![CDATA[${ep.data.title}]]></title>`,
-      `<link>${guid}</link>`,
-      `<guid isPermaLink="true">${guid}</guid>`,
-      `<pubDate>${pub}</pubDate>`,
-      enclosure,
-      dur,
-      `<itunes:summary><![CDATA[${ep.data.excerpt || ep.data.title}]]></itunes:summary>`,
-      '</item>',
-    ].join('\n');
-  }).join('\n');
+  const items = episodes
+    .map(ep => {
+      const guid = `${SITE}/podcast/${ep.id}/`;
+      const pub = ep.data.pubDate.toUTCString();
+      const enclosure = ep.data.audio
+        ? `<enclosure url="${ep.data.audio}" length="0" type="audio/mpeg" />`
+        : '';
+      const dur = ep.data.duration ? `<itunes:duration>${ep.data.duration}</itunes:duration>` : '';
+      return [
+        '<item>',
+        `<title><![CDATA[${ep.data.title}]]></title>`,
+        `<link>${guid}</link>`,
+        `<guid isPermaLink="true">${guid}</guid>`,
+        `<pubDate>${pub}</pubDate>`,
+        enclosure,
+        dur,
+        `<itunes:summary><![CDATA[${ep.data.excerpt || ep.data.title}]]></itunes:summary>`,
+        '</item>',
+      ].join('\n');
+    })
+    .join('\n');
 
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">

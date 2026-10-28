@@ -31,9 +31,7 @@ export function applyTheme(theme: 'light' | 'dark') {
   // 浏览器按 prefers-color-scheme 自动选取，无需 JS 覆盖。
 
   // 深色模式下添加背景纹理
-  root.style.backgroundImage = isDark
-    ? 'var(--texture-paper-dark)'
-    : 'var(--texture-paper-light)';
+  root.style.backgroundImage = isDark ? 'var(--texture-paper-dark)' : 'var(--texture-paper-light)';
 
   // 实验性主题支持
   applyExperimentalTheme();

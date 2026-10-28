@@ -71,7 +71,10 @@ function parseFaces(css) {
       const first = range.split(',')[0].trim();
       subset = first || `chunk-${++anonIdx}`;
     }
-    subset = subset.replace(/[^a-zA-Z0-9-]/g, '-').replace(/-+/g, '-').replace(/^-+|-+$/g, '');
+    subset = subset
+      .replace(/[^a-zA-Z0-9-]/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-+|-+$/g, '');
     faces.push({
       subset,
       weight: weightMatch[1],
@@ -97,7 +100,7 @@ function writeFallbackCss(reason) {
   if (fs.existsSync(CSS_OUT)) return; // 已有真字体缓存则不覆盖
   fs.writeFileSync(
     CSS_OUT,
-    `/* fonts.css fallback: ${reason}. 自托管字体生成失败（构建机无法访问 Google Fonts），\n   暂用系统字体回退。本地或可联网环境重跑 \`npm run fonts\` 即可恢复自托管 woff2。 */\n`,
+    `/* fonts.css fallback: ${reason}. 自托管字体生成失败（构建机无法访问 Google Fonts），\n   暂用系统字体回退。本地或可联网环境重跑 \`npm run fonts\` 即可恢复自托管 woff2。 */\n`
   );
   console.log(`⚠ wrote fallback fonts.css (${reason}); build proceeds with system fonts.`);
 }
@@ -109,7 +112,9 @@ async function main() {
     for (const { family, weights } of FAMILIES) {
       const css = await fetchCss(family, weights);
       const faces = parseFaces(css).filter(f => KEEP_SUBSETS.has(f.subset));
-      console.log(`${family}: parsed ${parseFaces(css).length} → kept ${faces.length} (latin only)`);
+      console.log(
+        `${family}: parsed ${parseFaces(css).length} → kept ${faces.length} (latin only)`
+      );
       for (const f of faces) {
         const localName = `${slug(family)}-${f.weight}-${slug(f.subset)}.woff2`;
         const dest = path.join(FONTS_DIR, localName);
@@ -167,7 +172,11 @@ async function main() {
 
 main().catch(err => {
   // 兜底：即使 main 内部异常漏出，也不让 build 崩
-  try { writeFallbackCss(`unexpected: ${err && err.message || err}`); } catch { /* fallback write failed — stay non-blocking */ }
+  try {
+    writeFallbackCss(`unexpected: ${(err && err.message) || err}`);
+  } catch {
+    /* fallback write failed — stay non-blocking */
+  }
   console.error('✗ self-host-fonts failed (non-blocking):', err);
   // 不 exit(1)：prebuild 失败时让 astro build 继续（系统字体回退）
 });

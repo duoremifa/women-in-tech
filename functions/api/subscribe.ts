@@ -24,7 +24,8 @@ function checkIpRateLimit(ip: string): boolean {
   const safeIp = ip && ip !== 'unknown' ? ip : '__shared_anonymous_pool__';
   const now = Date.now();
   if (RATE_LIMIT_STORE.size > 1500) {
-    for (const [k, v] of RATE_LIMIT_STORE.entries()) if (v.resetAt < now) RATE_LIMIT_STORE.delete(k);
+    for (const [k, v] of RATE_LIMIT_STORE.entries())
+      if (v.resetAt < now) RATE_LIMIT_STORE.delete(k);
   }
   const record = RATE_LIMIT_STORE.get(safeIp);
   if (!record || record.resetAt < now) {
@@ -54,7 +55,9 @@ function isOriginAllowed(origin: string | null, referer: string | null, env: any
 
 function isValidEmailFormat(email: string): boolean {
   if (!email || email.length > 80) return false;
-  return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/.test(email);
+  return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/.test(
+    email
+  );
 }
 
 export async function onRequestPost(context: any) {
@@ -79,23 +82,28 @@ export async function onRequestPost(context: any) {
       return secureJsonResponse({ error: '请提供合法邮箱 / Valid email required' }, 400);
     }
     const locale = data.locale === 'en' ? 'en' : 'zh';
-    const source = typeof data.source === 'string' ? String(data.source).slice(0, 40) : 'subscribe-only';
+    const source =
+      typeof data.source === 'string' ? String(data.source).slice(0, 40) : 'subscribe-only';
 
     const supabaseUrl = context.env?.PUBLIC_SUPABASE_URL;
     const supabaseAnonKey = context.env?.PUBLIC_SUPABASE_ANON_KEY;
     if (!supabaseUrl || !supabaseAnonKey) {
       // Supabase 未配置：静默成功（不暴露内部状态）
-      return secureJsonResponse({ success: true, subscribed: false, message: '订阅暂未生效，请稍后重试' });
+      return secureJsonResponse({
+        success: true,
+        subscribed: false,
+        message: '订阅暂未生效，请稍后重试',
+      });
     }
 
     // upsert：同 email 已存在则更新 active/locale/created_at
     const resp = await fetch(`${supabaseUrl}/rest/v1/subscribers`, {
       method: 'POST',
       headers: {
-        'apikey': supabaseAnonKey,
-        'Authorization': `Bearer ${supabaseAnonKey}`,
+        apikey: supabaseAnonKey,
+        Authorization: `Bearer ${supabaseAnonKey}`,
         'Content-Type': 'application/json',
-        'Prefer': 'return=minimal,resolution=merge-duplicates',
+        Prefer: 'return=minimal,resolution=merge-duplicates',
       },
       body: JSON.stringify({
         email,
@@ -107,7 +115,11 @@ export async function onRequestPost(context: any) {
       }),
     });
     if (!resp.ok) {
-      console.error('Supabase subscribe insert error:', resp.status, await resp.text().catch(() => ''));
+      console.error(
+        'Supabase subscribe insert error:',
+        resp.status,
+        await resp.text().catch(() => '')
+      );
     }
     return secureJsonResponse({ success: true, subscribed: true, message: '已订阅' });
   } catch (err) {

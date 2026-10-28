@@ -106,3 +106,16 @@ Thumbs.db
 
 # Specific to this project
 font-audit.json
+
+# CSS / astro 由 stylelint 管理（紧凑单行块等项目风格，prettier 会拆多行打架）
+**/*.css
+**/*.astro
+
+# HTML 渲染模板（OG/社交卡片）手写紧凑风格，同理由 stylelint/手工维护
+**/*.html
+
+# Markdown 文档不 prettier（大参考文档 rewrap 噪音大）
+**/*.md
+
+# 自动生成，不格式化
+package-lock.json

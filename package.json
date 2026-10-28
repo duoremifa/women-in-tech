@@ -25,9 +25,6 @@
     "*.{ts,tsx,js,jsx,mjs,cjs}": [
       "prettier --write",
       "eslint --fix"
-    ],
-    "*.{astro,css}": [
-      "prettier --write"
     ]
   },
   "dependencies": {

@@ -31,14 +31,17 @@ export const WORKS: Work[] = [
     titleZh: '声场 · 独立音乐人录音灌注',
     titleEn: 'Sound Field · Recording for Independent Musicians',
     taglineZh: '为有自己作品的独立音乐人，从话筒摆位到母带灌注的完整陪伴。',
-    taglineEn: 'From mic placement to mastering—end-to-end care for independent musicians with original work.',
+    taglineEn:
+      'From mic placement to mastering—end-to-end care for independent musicians with original work.',
     status: 'concept',
     craftZh: '录音灌注',
     craftEn: 'Audio',
     ethosZh: '录一首曲，从话筒到母带。',
     ethosEn: 'Record a track, from mic to master.',
-    cobuildHintZh: '一起把一首未完成的曲子，从话筒摆位做到母带灌注。乐手带来曲子，录音与调音带来频段。',
-    cobuildHintEn: 'Shape an unfinished track together—from mic placement to mastering. Musicians bring the track, recording and mastering hands bring the frequencies.',
+    cobuildHintZh:
+      '一起把一首未完成的曲子，从话筒摆位做到母带灌注。乐手带来曲子，录音与调音带来频段。',
+    cobuildHintEn:
+      'Shape an unfinished track together—from mic placement to mastering. Musicians bring the track, recording and mastering hands bring the frequencies.',
   },
   {
     slug: 'on-set',
@@ -51,8 +54,10 @@ export const WORKS: Work[] = [
     craftEn: 'Visual',
     ethosZh: '拍一个品牌或作品，从定位到画面。',
     ethosEn: 'Shoot a brand or work, from positioning to frame.',
-    cobuildHintZh: '一起为一个独立品牌或作品，从定位做到画面。导演定调，摄影取景，品牌主带来要拍的那件。',
-    cobuildHintEn: 'Co-shape one independent brand or work—from positioning to frame. Directors set the tone, photographers take the frame, brand owners bring what gets shot.',
+    cobuildHintZh:
+      '一起为一个独立品牌或作品，从定位做到画面。导演定调，摄影取景，品牌主带来要拍的那件。',
+    cobuildHintEn:
+      'Co-shape one independent brand or work—from positioning to frame. Directors set the tone, photographers take the frame, brand owners bring what gets shot.',
   },
   {
     slug: 'web-craft',
@@ -66,7 +71,8 @@ export const WORKS: Work[] = [
     ethosZh: '做一个页面或作品集。',
     ethosEn: 'Make a page or portfolio.',
     cobuildHintZh: '一起把一个页面或作品集，从排版做到动效。前端搭骨，设计定调，产品想清逻辑。',
-    cobuildHintEn: 'Co-build one page or portfolio—from typography to motion. Frontend lays the bones, design sets the tone, product thinks the logic.',
+    cobuildHintEn:
+      'Co-build one page or portfolio—from typography to motion. Frontend lays the bones, design sets the tone, product thinks the logic.',
   },
   {
     slug: 'circle-plays',
@@ -79,8 +85,10 @@ export const WORKS: Work[] = [
     craftEn: 'Brand',
     ethosZh: '为一个品牌，想一个能落地的玩法。',
     ethosEn: 'For one brand, a play that lands.',
-    cobuildHintZh: '一起为一家独立工作室的品牌，想一个落得了地的玩法。品牌主带来社群，策划与运营把它做成。',
-    cobuildHintEn: 'Co-design one landable play for an independent studio brand. Brand owners bring the community, planners and operators make it happen.',
+    cobuildHintZh:
+      '一起为一家独立工作室的品牌，想一个落得了地的玩法。品牌主带来社群，策划与运营把它做成。',
+    cobuildHintEn:
+      'Co-design one landable play for an independent studio brand. Brand owners bring the community, planners and operators make it happen.',
   },
 ];
 

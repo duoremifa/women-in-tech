@@ -212,7 +212,7 @@ function secureJsonResponse(body: any, status = 200, extraHeaders: Record<string
       'Content-Type': 'application/json; charset=utf-8',
       'X-Content-Type-Options': 'nosniff',
       'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
-      'Pragma': 'no-cache',
+      Pragma: 'no-cache',
       'X-Frame-Options': 'DENY',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
       ...extraHeaders,
@@ -249,7 +249,11 @@ function checkIpRateLimit(ip: string): boolean {
   return true;
 }
 
-function isOriginAllowed(originHeader: string | null, refererHeader: string | null, env: any): boolean {
+function isOriginAllowed(
+  originHeader: string | null,
+  refererHeader: string | null,
+  env: any
+): boolean {
   // 必须存在来源头，杜绝无头跨站伪造或外部脚本盲投
   const target = originHeader || refererHeader;
   if (!target) return false;
@@ -288,7 +292,10 @@ export async function onRequestPost(context: any) {
   const clientIp = req.headers.get('cf-connecting-ip') || req.headers.get('x-real-ip') || 'unknown';
   if (!checkIpRateLimit(clientIp)) {
     return secureJsonResponse(
-      { error: '提交请求过于频繁，请稍候再试 / Too many requests, please try again in a few minutes.' },
+      {
+        error:
+          '提交请求过于频繁，请稍候再试 / Too many requests, please try again in a few minutes.',
+      },
       429,
       { 'Retry-After': '600' }
     );
@@ -298,7 +305,9 @@ export async function onRequestPost(context: any) {
     const data = await req.json();
 
     // 4. 蜜罐陷阱 (Honeypot Trap) 与时间陷阱 (Time Trap)
-    const isHoneypotTriggered = Boolean(data._hp || data._company_trap || data.company || data.website);
+    const isHoneypotTriggered = Boolean(
+      data._hp || data._company_trap || data.company || data.website
+    );
     const clientTime = Number(data._t || 0);
     const elapsed = clientTime > 0 ? Date.now() - clientTime : 99999;
     const isTooFast = elapsed < 1500;
@@ -326,10 +335,17 @@ export async function onRequestPost(context: any) {
     }
 
     // 5. 白名单校验与输入深度清洗（VALID_CRAFTS/VALID_INTERESTS 来自 join-shared）
-    const safeCraftKey = (VALID_CRAFTS as readonly string[]).includes(String(craft)) ? String(craft) : 'other';
+    const safeCraftKey = (VALID_CRAFTS as readonly string[]).includes(String(craft))
+      ? String(craft)
+      : 'other';
 
     const safeInterests = Array.isArray(interests)
-      ? interests.filter((i: unknown) => typeof i === 'string' && (VALID_INTERESTS as readonly string[]).includes(i)).slice(0, 5)
+      ? interests
+          .filter(
+            (i: unknown) =>
+              typeof i === 'string' && (VALID_INTERESTS as readonly string[]).includes(i)
+          )
+          .slice(0, 5)
       : [];
 
     const safeName = escapeHtml(name, 40);
@@ -361,10 +377,10 @@ export async function onRequestPost(context: any) {
         await fetch(`${supabaseUrl}/rest/v1/subscribers`, {
           method: 'POST',
           headers: {
-            'apikey': supabaseAnonKey,
-            'Authorization': `Bearer ${supabaseAnonKey}`,
+            apikey: supabaseAnonKey,
+            Authorization: `Bearer ${supabaseAnonKey}`,
             'Content-Type': 'application/json',
-            'Prefer': 'return=minimal',
+            Prefer: 'return=minimal',
           },
           body: JSON.stringify({
             email: isEmail ? cleanContact : null,
@@ -413,13 +429,14 @@ export async function onRequestPost(context: any) {
         try {
           // 在 Node / CF Workers 环境下将 UTF-8 字符串转 Base64
           const icsBase64 = encodeBase64Utf8(icsContent);
-          const defaultDomainFrom = context.env?.EMAIL_FROM || 'wo/men in tech <invitation@wotech.space>';
+          const defaultDomainFrom =
+            context.env?.EMAIL_FROM || 'wo/men in tech <invitation@wotech.space>';
 
           // 优先尝试自定义域名发送
           let resendResp = await fetch('https://api.resend.com/emails', {
             method: 'POST',
             headers: {
-              'Authorization': `Bearer ${resendApiKey}`,
+              Authorization: `Bearer ${resendApiKey}`,
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -443,7 +460,7 @@ export async function onRequestPost(context: any) {
             resendResp = await fetch('https://api.resend.com/emails', {
               method: 'POST',
               headers: {
-                'Authorization': `Bearer ${resendApiKey}`,
+                Authorization: `Bearer ${resendApiKey}`,
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
@@ -481,12 +498,15 @@ export async function onRequestPost(context: any) {
           const sgResp = await fetch('https://api.sendgrid.com/v3/mail/send', {
             method: 'POST',
             headers: {
-              'Authorization': `Bearer ${sendgridKey}`,
+              Authorization: `Bearer ${sendgridKey}`,
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
               personalizations: [{ to: [{ email: cleanContact }] }],
-              from: { email: context.env?.SENDGRID_FROM || 'invitation@wotech.space', name: 'wo/men in tech' },
+              from: {
+                email: context.env?.SENDGRID_FROM || 'invitation@wotech.space',
+                name: 'wo/men in tech',
+              },
               subject: `[wo/men in tech] 交流预约确认与日历邀请 #${submissionId}`,
               content: [
                 { type: 'text/plain', value: emailText },
@@ -513,7 +533,10 @@ export async function onRequestPost(context: any) {
 
     // 6. 无论是否留邮箱，通知发起人 (Webhook / Organizer Email，经深度字符清洗与 HTTPS 严格校验)
     const webhookUrl = context.env?.JOIN_WEBHOOK_URL;
-    if (webhookUrl && (webhookUrl.startsWith('https://') || webhookUrl.startsWith('http://localhost'))) {
+    if (
+      webhookUrl &&
+      (webhookUrl.startsWith('https://') || webhookUrl.startsWith('http://localhost'))
+    ) {
       try {
         const safeWebhookText = `[wo/men in tech] 新预约加入\n编号: #${submissionId}\n称呼: ${sanitizeForWebhook(safeName)}\n领域: ${craftLabel}\n意向: ${interestsLabel}\n联系: ${sanitizeForWebhook(cleanContact)}\n想法: ${sanitizeForWebhook(safeIdea) || '无'}\n邮箱触达: ${emailSent ? '成功' : '未送达'}\n时间: ${submissionTime}`;
 

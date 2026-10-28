@@ -30,7 +30,7 @@ export default defineConfig({
           server.middlewares.use(async (req, res, next) => {
             if (req.url === '/api/join' && req.method === 'POST') {
               let body = '';
-              req.on('data', (chunk) => {
+              req.on('data', chunk => {
                 body += chunk;
               });
               req.on('end', async () => {
@@ -39,7 +39,14 @@ export default defineConfig({
                   if (data._hp) {
                     res.setHeader('Content-Type', 'application/json');
                     res.statusCode = 200;
-                    res.end(JSON.stringify({ success: true, submissionId: 'WT-TRAP0', isEmail: false, emailSent: false }));
+                    res.end(
+                      JSON.stringify({
+                        success: true,
+                        submissionId: 'WT-TRAP0',
+                        isEmail: false,
+                        emailSent: false,
+                      })
+                    );
                     return;
                   }
                   const { name, interests, contact } = data;
@@ -49,50 +56,60 @@ export default defineConfig({
 
                   const dtStamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
                   const userInterests = Array.isArray(interests) ? interests : [];
-                  const wantsCoffee = userInterests.includes('coffee_chat') || userInterests.includes('coffee') || userInterests.length === 0;
-                  const wantsEnglish = userInterests.includes('english_chat') || userInterests.includes('english') || userInterests.length === 0;
+                  const wantsCoffee =
+                    userInterests.includes('coffee_chat') ||
+                    userInterests.includes('coffee') ||
+                    userInterests.length === 0;
+                  const wantsEnglish =
+                    userInterests.includes('english_chat') ||
+                    userInterests.includes('english') ||
+                    userInterests.length === 0;
                   const events = [];
 
                   if (wantsCoffee) {
-                    events.push([
-                      'BEGIN:VEVENT',
-                      `UID:wotech-coffee-${submissionId}@wotech.space`,
-                      `DTSTAMP:${dtStamp}`,
-                      'DTSTART:20261108T063000Z',
-                      'DTEND:20261108T080000Z',
-                      'SUMMARY:wo/men in tech · Coffee Chat（双周轻聚）',
-                      `DESCRIPTION:致 ${name || '同行者'}：\\n这是为你预留的 Coffee Chat 交流席位。\\n回执编号: #${submissionId}\\n形式：杭州线下 + 线上接入\\n微信联络：daiminay`,
-                      'LOCATION:杭州线下 / 线上连线',
-                      'STATUS:CONFIRMED',
-                      'SEQUENCE:0',
-                      'BEGIN:VALARM',
-                      'TRIGGER:-PT30M',
-                      'ACTION:DISPLAY',
-                      'DESCRIPTION:wo/men in tech · Coffee Chat 提醒',
-                      'END:VALARM',
-                      'END:VEVENT',
-                    ].join('\r\n'));
+                    events.push(
+                      [
+                        'BEGIN:VEVENT',
+                        `UID:wotech-coffee-${submissionId}@wotech.space`,
+                        `DTSTAMP:${dtStamp}`,
+                        'DTSTART:20261108T063000Z',
+                        'DTEND:20261108T080000Z',
+                        'SUMMARY:wo/men in tech · Coffee Chat（双周轻聚）',
+                        `DESCRIPTION:致 ${name || '同行者'}：\\n这是为你预留的 Coffee Chat 交流席位。\\n回执编号: #${submissionId}\\n形式：杭州线下 + 线上接入\\n微信联络：daiminay`,
+                        'LOCATION:杭州线下 / 线上连线',
+                        'STATUS:CONFIRMED',
+                        'SEQUENCE:0',
+                        'BEGIN:VALARM',
+                        'TRIGGER:-PT30M',
+                        'ACTION:DISPLAY',
+                        'DESCRIPTION:wo/men in tech · Coffee Chat 提醒',
+                        'END:VALARM',
+                        'END:VEVENT',
+                      ].join('\r\n')
+                    );
                   }
 
                   if (wantsEnglish) {
-                    events.push([
-                      'BEGIN:VEVENT',
-                      `UID:wotech-showtell-${submissionId}@wotech.space`,
-                      `DTSTAMP:${dtStamp}`,
-                      'DTSTART:20261111T120000Z',
-                      'DTEND:20261111T124500Z',
-                      'SUMMARY:wo/men in tech · Show & Tell 英文技术与设计交流',
-                      `DESCRIPTION:致 ${name || '同行者'}：\\n这是为你预留的 Show & Tell 交流席位。\\n回执编号: #${submissionId}\\n形式：40 min 英文界面细节与代码架构分享 + Q&A\\n微信联络：daiminay`,
-                      'LOCATION:线上视频室 (活动前发放连线)',
-                      'STATUS:CONFIRMED',
-                      'SEQUENCE:0',
-                      'BEGIN:VALARM',
-                      'TRIGGER:-PT30M',
-                      'ACTION:DISPLAY',
-                      'DESCRIPTION:wo/men in tech · Show & Tell 提醒',
-                      'END:VALARM',
-                      'END:VEVENT',
-                    ].join('\r\n'));
+                    events.push(
+                      [
+                        'BEGIN:VEVENT',
+                        `UID:wotech-showtell-${submissionId}@wotech.space`,
+                        `DTSTAMP:${dtStamp}`,
+                        'DTSTART:20261111T120000Z',
+                        'DTEND:20261111T124500Z',
+                        'SUMMARY:wo/men in tech · Show & Tell 英文技术与设计交流',
+                        `DESCRIPTION:致 ${name || '同行者'}：\\n这是为你预留的 Show & Tell 交流席位。\\n回执编号: #${submissionId}\\n形式：40 min 英文界面细节与代码架构分享 + Q&A\\n微信联络：daiminay`,
+                        'LOCATION:线上视频室 (活动前发放连线)',
+                        'STATUS:CONFIRMED',
+                        'SEQUENCE:0',
+                        'BEGIN:VALARM',
+                        'TRIGGER:-PT30M',
+                        'ACTION:DISPLAY',
+                        'DESCRIPTION:wo/men in tech · Show & Tell 提醒',
+                        'END:VALARM',
+                        'END:VEVENT',
+                      ].join('\r\n')
+                    );
                   }
 
                   const icsContent = [
@@ -130,7 +147,9 @@ export default defineConfig({
                         }),
                       });
                       if (rResp.ok) emailSent = true;
-                    } catch { /* dev 中间件：邮件发送尽力而为，不阻断响应 */ }
+                    } catch {
+                      /* dev 中间件：邮件发送尽力而为，不阻断响应 */
+                    }
                   }
 
                   res.setHeader('Content-Type', 'application/json');

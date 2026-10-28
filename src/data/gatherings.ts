@@ -80,8 +80,10 @@ export const GATHERINGS: Gathering[] = [
     descriptionZh: '第一期 Coffee Chat。聊了工具更迭之外，手艺意味着什么。',
     descriptionEn: 'The first Coffee Chat. Explored what craft means beyond tool churn.',
     capacity: 5,
-    reviewZh: '回顾整理中：本期围坐聊了"工具更迭与个人节奏的张力"。两位设计师、一位 PM、两位工程师，没有 PPT，只有咖啡和一段段从容的推敲。详细回顾与参与者匿名感言整理中。',
-    reviewEn: 'Recap in progress: the circle sat around "the tension between tool churn and personal cadence." Two designers, a PM, two engineers—no slides, only coffee and quiet reflection. Detailed recap pending.',
+    reviewZh:
+      '回顾整理中：本期围坐聊了"工具更迭与个人节奏的张力"。两位设计师、一位 PM、两位工程师，没有 PPT，只有咖啡和一段段从容的推敲。详细回顾与参与者匿名感言整理中。',
+    reviewEn:
+      'Recap in progress: the circle sat around "the tension between tool churn and personal cadence." Two designers, a PM, two engineers—no slides, only coffee and quiet reflection. Detailed recap pending.',
     reviewSlug: 'coffee-2026-10-25',
   },
   // ── 即将到来 ──
@@ -101,8 +103,10 @@ export const GATHERINGS: Gathering[] = [
       addressLocality: 'Hangzhou',
       addressCountry: 'CN',
     },
-    descriptionZh: '生成式工具秒级产出界面的当下，手艺与代表作意味着什么？这一期坐下来，从容聊一段。',
-    descriptionEn: 'When generative tools ship interfaces in seconds, what does craft and signature work still mean? Sit together for one talk at its own pace.',
+    descriptionZh:
+      '生成式工具秒级产出界面的当下，手艺与代表作意味着什么？这一期坐下来，从容聊一段。',
+    descriptionEn:
+      'When generative tools ship interfaces in seconds, what does craft and signature work still mean? Sit together for one talk at its own pace.',
     capacity: 5,
   },
   {
@@ -116,8 +120,10 @@ export const GATHERINGS: Gathering[] = [
     icsEndUtc: '20261111T130000Z',
     status: 'open',
     location: { type: 'VirtualLocation', url: 'https://wotech.space/upcoming' },
-    descriptionZh: '嘉宾用 40 分钟英文讲一个界面细节、动效或代码架构，随后 Q&A。一段 Show & Tell，只讲手里那件。',
-    descriptionEn: 'A guest spends 40 minutes in English on one interface detail, micro-interaction, or code architecture, followed by open Q&A. One Show & Tell—only the work at hand.',
+    descriptionZh:
+      '嘉宾用 40 分钟英文讲一个界面细节、动效或代码架构，随后 Q&A。一段 Show & Tell，只讲手里那件。',
+    descriptionEn:
+      'A guest spends 40 minutes in English on one interface detail, micro-interaction, or code architecture, followed by open Q&A. One Show & Tell—only the work at hand.',
     capacity: 6,
   },
   {
@@ -131,8 +137,10 @@ export const GATHERINGS: Gathering[] = [
     icsEndUtc: '20261115T040000Z',
     status: 'forming',
     location: { type: 'VirtualLocation', url: 'https://wotech.space/works' },
-    descriptionZh: '召集 2-3 位不同专长伙伴，业余时间合力做一个立得住的开源 Web 产品。间距、基线、节奏，都对齐。滚动开展，异步推敲 + 周末轻度同步。',
-    descriptionEn: 'Gather 2–3 creators across complementary disciplines to build one enduring open-source web tool—baselines, spacing, rhythm all aligned. Rolling onboarding, async refinement with weekend syncs kept light.',
+    descriptionZh:
+      '召集 2-3 位不同专长伙伴，业余时间合力做一个立得住的开源 Web 产品。间距、基线、节奏，都对齐。滚动开展，异步推敲 + 周末轻度同步。',
+    descriptionEn:
+      'Gather 2–3 creators across complementary disciplines to build one enduring open-source web tool—baselines, spacing, rhythm all aligned. Rolling onboarding, async refinement with weekend syncs kept light.',
     capacity: 3,
   },
 ];
@@ -146,14 +154,14 @@ export function isGatheringPast(g: Gathering, now: Date = new Date()): boolean {
  *  cancelled 不显示（取消后从排期+日历源消失，数据保留作记录）。 */
 export function upcomingGatherings(now: Date = new Date()): Gathering[] {
   return GATHERINGS.filter(g => !isGatheringPast(g, now) && g.status !== 'cancelled').sort(
-    (a, b) => new Date(a.startIso).getTime() - new Date(b.startIso).getTime(),
+    (a, b) => new Date(a.startIso).getTime() - new Date(b.startIso).getTime()
   );
 }
 
 /** 已结束的排期（/upcoming 回环区用），按开始时间降序（最近在前）。 */
 export function pastGatherings(now: Date = new Date()): Gathering[] {
   return GATHERINGS.filter(g => isGatheringPast(g, now)).sort(
-    (a, b) => new Date(b.startIso).getTime() - new Date(a.startIso).getTime(),
+    (a, b) => new Date(b.startIso).getTime() - new Date(a.startIso).getTime()
   );
 }
 

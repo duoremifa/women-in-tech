@@ -3,7 +3,10 @@
 // 需 admin token（ADMIN_TOKEN env）+ service_role key（SUPABASE_SERVICE_ROLE_KEY env）。
 // 触发方式：rebuild 后手动 curl，或 CI 在新排期 deploy 后调用。
 
-interface Subscriber { email: string; locale: string }
+interface Subscriber {
+  email: string;
+  locale: string;
+}
 
 export async function onRequestPost(context: any) {
   const req = context.request;
@@ -22,10 +25,13 @@ export async function onRequestPost(context: any) {
   const emailFrom = context.env?.EMAIL_FROM || 'wo/men in tech <onboarding@resend.dev>';
 
   if (!supabaseUrl || !serviceRoleKey || !resendApiKey) {
-    return new Response(JSON.stringify({ error: 'Server not configured (Supabase service role / Resend missing)' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return new Response(
+      JSON.stringify({ error: 'Server not configured (Supabase service role / Resend missing)' }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   }
 
   try {
@@ -41,7 +47,7 @@ export async function onRequestPost(context: any) {
     // 读 active + notify_email=true 订阅者
     const supaResp = await fetch(
       `${supabaseUrl}/rest/v1/subscribers?select=email,locale&active=eq.true&notify_email=eq.true`,
-      { headers: { apikey: serviceRoleKey, Authorization: `Bearer ${serviceRoleKey}` } },
+      { headers: { apikey: serviceRoleKey, Authorization: `Bearer ${serviceRoleKey}` } }
     );
     if (!supaResp.ok) {
       return new Response(JSON.stringify({ error: 'Supabase read failed' }), {
@@ -81,7 +87,9 @@ export async function onRequestPost(context: any) {
           }),
         });
         return r.ok ? emails.length : 0;
-      } catch { return 0; }
+      } catch {
+        return 0;
+      }
     };
 
     // 分批（Resend 单封至多 ~50 BCC；超量分多封）

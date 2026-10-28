@@ -17,5 +17,13 @@
     "types": ["@types/node"]
   },
   "include": [".astro/types.d.ts", "src/**/*", "functions/**/*", "scripts/**/*", "*.ts"],
-  "exclude": ["dist", "node_modules", ".vercel", ".astro", "eslint.config.mjs", ".stylelintrc.mjs", "astro.config.mjs"]
+  "exclude": [
+    "dist",
+    "node_modules",
+    ".vercel",
+    ".astro",
+    "eslint.config.mjs",
+    ".stylelintrc.mjs",
+    "astro.config.mjs"
+  ]
 }

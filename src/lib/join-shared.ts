@@ -8,12 +8,16 @@ import { GATHERINGS, type Gathering } from '../data/gatherings';
 
 /** 兴趣键 → 是否包含 Coffee Chat 席位。兼容新旧两套键（coffee / coffee_chat）。 */
 export function wantsCoffeeChat(interests: string[] = []): boolean {
-  return interests.includes('coffee_chat') || interests.includes('coffee') || interests.length === 0;
+  return (
+    interests.includes('coffee_chat') || interests.includes('coffee') || interests.length === 0
+  );
 }
 
 /** 兴趣键 → 是否包含 Show & Tell 英文交流席位。兼容 english / english_chat。 */
 export function wantsEnglishChat(interests: string[] = []): boolean {
-  return interests.includes('english_chat') || interests.includes('english') || interests.length === 0;
+  return (
+    interests.includes('english_chat') || interests.includes('english') || interests.length === 0
+  );
 }
 
 export const VALID_CRAFTS = ['design', 'product', 'engineering', 'research', 'other'] as const;
@@ -108,7 +112,7 @@ function isPast(g: Gathering, now: Date): boolean {
 export function isValidEmailFormat(email: string): boolean {
   if (!email || email.length > 80) return false;
   return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/.test(
-    email,
+    email
   );
 }
 
