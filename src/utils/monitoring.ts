@@ -6,7 +6,7 @@ export class Monitor {
     // In production, integrate with Sentry/LogRocket here in future
   }
 
-  static logEvent(name: string, data?: Record<string, any>) {
+  static logEvent(name: string, data?: Record<string, unknown>) {
     if (import.meta.env.DEV) {
       console.log(`[Event: ${name}]`, data);
     }

@@ -3,12 +3,14 @@
 // 需 admin token（ADMIN_TOKEN env）+ service_role key（SUPABASE_SERVICE_ROLE_KEY env）。
 // 触发方式：rebuild 后手动 curl，或 CI 在新排期 deploy 后调用。
 
+import type { PagesContext } from './types';
+
 interface Subscriber {
   email: string;
   locale: string;
 }
 
-export async function onRequestPost(context: any) {
+export async function onRequestPost(context: PagesContext) {
   const req = context.request;
   const adminToken = context.env?.ADMIN_TOKEN;
   const sentToken = req.headers.get('x-admin-token');

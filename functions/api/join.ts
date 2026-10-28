@@ -15,6 +15,7 @@ import {
   WECHAT_HANDLE,
 } from '../../src/lib/join-shared';
 import { getGatheringById } from '../../src/data/gatherings';
+import type { PagesContext, PagesEnv } from './types';
 
 // UTF-8 安全的 Base64 编码（替代已弃用的 btoa(unescape(encodeURIComponent(...)))）
 function encodeBase64Utf8(input: string): string {
@@ -205,7 +206,11 @@ const RATE_LIMIT_STORE = new Map<string, { count: number; resetAt: number }>();
 const MAX_REQUESTS_PER_WINDOW = 5;
 const RATE_WINDOW_MS = 10 * 60 * 1000; // 10 分钟窗口
 
-function secureJsonResponse(body: any, status = 200, extraHeaders: Record<string, string> = {}) {
+function secureJsonResponse(
+  body: unknown,
+  status = 200,
+  extraHeaders: Record<string, string> = {}
+) {
   return new Response(JSON.stringify(body), {
     status,
     headers: {
@@ -252,7 +257,7 @@ function checkIpRateLimit(ip: string): boolean {
 function isOriginAllowed(
   originHeader: string | null,
   refererHeader: string | null,
-  env: any
+  env: PagesEnv
 ): boolean {
   // 必须存在来源头，杜绝无头跨站伪造或外部脚本盲投
   const target = originHeader || refererHeader;
@@ -272,7 +277,7 @@ function isOriginAllowed(
   }
 }
 
-export async function onRequestPost(context: any) {
+export async function onRequestPost(context: PagesContext) {
   const req = context.request;
 
   // 1. 请求体尺寸硬顶限制 (防大包 DoS)
@@ -482,11 +487,13 @@ export async function onRequestPost(context: any) {
           if (resendResp.ok) {
             emailSent = true;
           } else {
-            const errJson: any = await resendResp.json().catch(() => ({}));
-            emailError = errJson.message || `Resend HTTP ${resendResp.status}`;
+            const errJson: Record<string, unknown> = await resendResp.json().catch(() => ({}));
+            emailError =
+              (typeof errJson.message === 'string' && errJson.message) ||
+              `Resend HTTP ${resendResp.status}`;
           }
-        } catch (e: any) {
-          emailError = e.message;
+        } catch (e: unknown) {
+          emailError = e instanceof Error ? e.message : String(e);
         }
       }
 
@@ -525,8 +532,8 @@ export async function onRequestPost(context: any) {
           if (sgResp.ok || sgResp.status === 202) {
             emailSent = true;
           }
-        } catch (e: any) {
-          if (!emailError) emailError = e.message;
+        } catch (e: unknown) {
+          if (!emailError) emailError = e instanceof Error ? e.message : String(e);
         }
       }
     }
@@ -563,7 +570,7 @@ export async function onRequestPost(context: any) {
       message: '意向已收录',
       timestamp: submissionTime,
     });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error('Join API processing error:', err);
     return secureJsonResponse({ error: '提交解析异常，请稍候重试' }, 500);
   }

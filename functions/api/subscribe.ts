@@ -2,11 +2,17 @@
 // 邮件订阅入口（webcal 是纯静态无需后端；邮件订阅存 Supabase subscribers 表）。
 // 与 /upcoming 订阅卡 + /join 邮件订阅勾选共用。
 
+import type { PagesContext, PagesEnv } from './types';
+
 const RATE_LIMIT_STORE = new Map<string, { count: number; resetAt: number }>();
 const MAX_REQUESTS_PER_WINDOW = 10;
 const RATE_WINDOW_MS = 10 * 60 * 1000;
 
-function secureJsonResponse(body: any, status = 200, extraHeaders: Record<string, string> = {}) {
+function secureJsonResponse(
+  body: unknown,
+  status = 200,
+  extraHeaders: Record<string, string> = {}
+) {
   return new Response(JSON.stringify(body), {
     status,
     headers: {
@@ -37,7 +43,7 @@ function checkIpRateLimit(ip: string): boolean {
   return true;
 }
 
-function isOriginAllowed(origin: string | null, referer: string | null, env: any): boolean {
+function isOriginAllowed(origin: string | null, referer: string | null, env: PagesEnv): boolean {
   const target = origin || referer;
   if (!target) return false;
   try {
@@ -60,7 +66,7 @@ function isValidEmailFormat(email: string): boolean {
   );
 }
 
-export async function onRequestPost(context: any) {
+export async function onRequestPost(context: PagesContext) {
   const req = context.request;
   if (Number(req.headers.get('content-length') || 0) > 2048) {
     return secureJsonResponse({ error: 'Payload too large' }, 413);
