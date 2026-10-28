@@ -473,6 +473,23 @@
   contain-intrinsic-size: 800px;
 }
 
+/* 触控设备命中区 ≥44px（WCAG 2.5.5）——仅 pointer:coarse 生效，桌面鼠标视觉不变 */
+@media (pointer: coarse) {
+  .nav-link,
+  .lang-toggle,
+  .theme-toggle,
+  .sidebar-lang,
+  .sidebar-theme,
+  .cal-trigger,
+  .email-sub-btn,
+  .pp-play-btn {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 /* 永久 will-change 已移除：常驻 will-change 强制建合成层 + 预留 GPU 内存，
    卡片多的页面移动端合成层爆炸反掉帧。需要时由 JS 在动画前后临时切换 .is-animating。 */
 

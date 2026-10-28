@@ -12,6 +12,7 @@ const statusMeta: Record<string, { zh: string; en: string; cls: string }> = {
   forming: { zh: '小组筹备中', en: 'Cohort Forming', cls: 'status-forming' },
   full: { zh: '已满', en: 'Full', cls: 'status-full' },
   past: { zh: '已结束', en: 'Past', cls: 'status-past' },
+  cancelled: { zh: '已取消', en: 'Cancelled', cls: 'status-past' },
 };
 
 const typeLabel: Record<string, string> = { coffee: 'Coffee Chat', english: 'English Chat', lab: 'Craft Lab' };
@@ -71,6 +72,12 @@ function fmtTime(iso: string) {
 
     {/* ── 排期列表 ── */}
     <div class='schedule-stack'>
+      {upcoming.length === 0 && (
+        <p class='empty-note'>
+          <span lang='zh-CN' class='lang-zh'>暂无开放排期，订阅日历源等候下期。</span>
+          <span lang='en' class='lang-en'>No open slots right now—subscribe the calendar feed for the next one.</span>
+        </p>
+      )}
       {upcoming.map((g: Gathering) => {
         const s = statusMeta[g.status];
         return (

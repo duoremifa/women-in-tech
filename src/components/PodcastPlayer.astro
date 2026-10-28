@@ -179,10 +179,17 @@ const { src, title = 'episode' } = Astro.props;
 
     playBtn.addEventListener('click', () => {
       if (audio!.paused) {
-        audio!.play().catch(() => { /* autoplay/取音频失败——静默，按钮保持暂停态 */ });
+        audio!.play().catch(() => { /* 加载/自动播放失败由下方 'error' 监听统一反馈 */ });
       } else {
         audio!.pause();
       }
+    });
+
+    // 音频加载失败（404 / 断网 / 解码错）——按钮保持暂停态，时间位显示失败提示
+    audio.addEventListener('error', () => {
+      root!.classList.add('is-error');
+      playBtn!.setAttribute('aria-label', '音频加载失败，点击重试 / Audio unavailable, tap to retry');
+      timeEl!.textContent = '音频加载失败 / Audio unavailable';
     });
 
     audio.addEventListener('play', () => root!.classList.add('is-playing'));
