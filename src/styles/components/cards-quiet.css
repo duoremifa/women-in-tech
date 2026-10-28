@@ -1,19 +1,12 @@
 /* ============================================
    cards-quiet.css · 宁静低压卡片系统
    完全基于 design-system.css 变量
+   只保留实际在用的 .faq-card（join/upcoming 的 FAQ 卡）；
+   其余历史变体（function/post/story/co-creator/dashboard/choice/truth/detail）已全站无引用，清除。
    ============================================ */
 
-/* ----- 所有卡片基类 ----- */
-.function-card,
-.card,
-.post-card,
-.story-card,
-.co-creator-card,
-.dashboard-card,
-.choice-card,
-.truth-card,
-.faq-card,
-.detail-card {
+/* ----- FAQ 卡基类（join.astro / upcoming.astro scoped 在此之上覆写半径/padding）----- */
+.faq-card {
   box-shadow: none;
   border: var(--border-width-thin) solid var(--color-border-subtle);
   background: var(--color-surface-pure);
@@ -21,95 +14,17 @@
   transition: border-color var(--transition-fast);
 }
 
-/* 悬停效果统一：只改 border-color 一项（subtle→gold-dust），无上浮无阴影——顶奢 negative space 做功 */
-.function-card:hover,
-.card:hover,
-.post-card:hover,
-.story-card:hover,
-.co-creator-card:hover,
-.dashboard-card:hover,
-.choice-card:hover,
-.truth-card:hover,
-.faq-card:hover,
-.detail-card:hover {
+/* 悬停只改 border-color 一项（subtle→gold-dust），无上浮无阴影——顶奢 negative space 做功 */
+.faq-card:hover {
   border-color: var(--color-gold-dust);
 }
 
-/* ----- 功能卡片特有样式（首页三列）----- */
-.function-card {
-  display: flex;
-  flex-direction: column;
-  padding: var(--spacing-8) var(--spacing-6);
-  text-decoration: none;
-  color: inherit;
-}
-
-.function-icon {
-  margin-bottom: var(--spacing-5);
-  color: var(--color-gold-dust);
-}
-
-.function-title {
-  font-family: var(--font-family-ui);
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-primary);
-  margin-bottom: var(--spacing-2);
-  letter-spacing: 0.02em;
-}
-
-.function-desc {
-  font-family: var(--font-family-text);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-tertiary);
-  line-height: 1.6;
-  margin-bottom: var(--spacing-4);
-}
-
-.function-link {
-  font-family: var(--font-family-ui);
-  font-size: var(--font-size-xs);
-  color: var(--color-text-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-/* ----- 卡片变体（与原有类名兼容）----- */
-.post-card {
-  display: block;
-  padding: var(--spacing-6);
-}
-
-.post-title {
-  font-family: var(--font-family-heading);
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-primary);
-  margin-bottom: var(--spacing-2);
-}
-
-.story-card {
-  padding: var(--spacing-6);
-}
-
-.co-creator-card {
-  padding: var(--spacing-6);
-}
-
-/* ===== 深色模式适配 ===== */
-:root.dark .function-card,
-:root.dark .card,
-:root.dark .post-card,
-:root.dark .story-card,
-:root.dark .co-creator-card {
+/* ===== 深色模式 ===== */
+:root.dark .faq-card {
   background: var(--color-surface-card);
   border-color: var(--color-border-subtle);
 }
 
-:root.dark .function-card:hover,
-:root.dark .card:hover,
-:root.dark .post-card:hover,
-:root.dark .story-card:hover,
-:root.dark .co-creator-card:hover {
+:root.dark .faq-card:hover {
   border-color: var(--color-gold-dust);
 }

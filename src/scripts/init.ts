@@ -3,12 +3,9 @@
 
 import { Monitor } from '../utils/monitoring';
 import { initVisitTracking, migrateFromEmojiSystem } from '../utils/geometricSystem';
-import { fontManager } from '../utils/fontManager';
 
 export function initializeApp() {
   Monitor.init();
   initVisitTracking();
   migrateFromEmojiSystem();
-  if (import.meta.env.DEV) fontManager.init().catch(console.error);
-  else fontManager.init().catch(() => {});
 }

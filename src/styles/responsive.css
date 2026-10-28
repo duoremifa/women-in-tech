@@ -44,7 +44,6 @@
 
   /* ----- 间距系统极致微调 ----- */
   .quiet-card,
-  .story-card,
   .path-card,
   .cta-card,
   .invite-card,
@@ -202,7 +201,6 @@
 
   /* ----- 卡片内边距 ----- */
   .quiet-card,
-  .story-card,
   .path-card,
   .cta-card,
   .invite-card,
@@ -495,11 +493,8 @@
     height: auto;
   }
 
-  /* 防止图片溢出容器 */
-  .card img,
-  .story-card img {
-    border-radius: var(--radius-sm);
-  }
+  /* .card img / .story-card img 规则已删——两选择器全站无元素匹配，是死规则 */
+
 }
 
 /* ============================================

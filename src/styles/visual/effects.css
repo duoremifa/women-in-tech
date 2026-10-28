@@ -172,30 +172,11 @@
   animation-delay: 500ms;
 }
 
-/* 悬停效果 */
-.hover-lift {
-  transition: var(--transition-normal);
-}
-
-.hover-lift:hover {
-  transform: translateY(calc(var(--border-width-normal) * -1));
-}
-
-.hover-glow {
-  transition: var(--transition-normal);
-}
-
-.hover-glow:hover {
-  box-shadow: var(--shadow-md);
-}
-
 /* 减少动效支持 */
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-in,
   .animate-slide-up,
-  .animate-scale-in,
-  .hover-lift,
-  .hover-glow {
+  .animate-scale-in {
     animation: none !important;
     transition: none !important;
   }

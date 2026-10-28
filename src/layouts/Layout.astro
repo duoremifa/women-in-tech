@@ -18,11 +18,10 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import SEO from '../components/SEO.astro';
 
-import PageHeader from '../components/PageHeader.astro';
 import ReadingProgress from '../components/ReadingProgress.astro';
 import FontPreload from '../components/FontPreload.astro';
 
-// 注意：utils（monitoring/geometricSystem/fontManager）与 scripts（init/pwa/theme）
+// 注意：utils（monitoring/geometricSystem）与 scripts（init/pwa/theme）
 // 必须在客户端 <script> 内 import 才会真正执行——frontmatter 的 import 仅构建期运行，
 // 不产生客户端 JS。见 <body> 底部统一初始化脚本。
 
@@ -33,15 +32,13 @@ export interface Props {
   title?: string;
   description?: string;
   width?: 'narrow' | 'reading' | 'standard' | 'wide' | 'full' | 'prose';
-  header?: any; // 使用any类型避免ComponentProps错误
-  ogImage?: string; // 新增：支持页面特定的OG图
+  ogImage?: string; // 页面特定的 OG 图
 }
 
 const {
   title = 'wo/men in tech · women in technical',
   description = 'women in tech · 在杭州的巷子与山径之间，做经得起时间的事。',
   width = 'full',
-  header,
   ogImage,
 } = Astro.props;
 
@@ -130,7 +127,6 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
       transition:animate='slide'
       transition:name='page'
     >
-      {header && <PageHeader {...header} />}
       <slot />
     </main>
 
