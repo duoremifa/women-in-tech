@@ -63,9 +63,15 @@
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=31536000, immutable
 
-/fonts/*
+/fonts/*.woff2
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=31536000, immutable
+
+# fonts.css 内容会随 self-host 脚本重建而变（@font-face 增减）——不能 immutable。
+# 短缓存 + stale-while-revalidate：重建后 1 小时内全网刷新。
+/fonts/fonts.css
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
 /icons/*
   Access-Control-Allow-Origin: *
