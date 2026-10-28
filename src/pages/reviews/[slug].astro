@@ -25,6 +25,19 @@ const dateStrEn = new Date(g.startIso).toLocaleDateString('en-US', { year: 'nume
   type='article'
   publishedTime={new Date(g.startIso).toISOString()}
 >
+  <script
+    type='application/ld+json'
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: `${typeLabel} · ${g.titleEn}`,
+      datePublished: new Date(g.startIso).toISOString(),
+      url: `https://wotech.space/reviews/${g.reviewSlug}/`,
+      author: { '@type': 'Person', name: 'Dai Min' },
+      publisher: { '@type': 'Organization', name: 'wo/men in tech' },
+      description: g.descriptionEn,
+    })}
+  />
   <meta name='robots' content='noindex' />
   <div class='page-container'>
     <a href='/upcoming' class='btn btn--ghost'>

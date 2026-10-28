@@ -14,7 +14,7 @@ const latest = (await getCollection('podcast', ({ data }) => !data.draft))
             ? '播客即将上线 · PODCAST COMING'
             : '最新一期 · LATEST EPISODE'}
         </span>
-        <h3 class='le-title'>{latest.data.title}</h3>
+        <h2 class='le-title'>{latest.data.title}</h2>
         {latest.data.excerpt && <p class='le-excerpt'>{latest.data.excerpt}</p>}
         <div class='le-meta'>
           {latest.data.duration && <span>{latest.data.duration}</span>}

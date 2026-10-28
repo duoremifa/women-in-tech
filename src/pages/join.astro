@@ -440,7 +440,7 @@ import Stamp from '../components/Stamp.astro';
   .quiet-form input[type='text']:focus, .quiet-form textarea:focus { outline: none; border-color: var(--color-gold-dust); background: var(--color-surface-pure); box-shadow: var(--focus-ring); }
   .subscribe-field .cal-add-wrap { margin-bottom: var(--spacing-4); }
   .quiet-check-list { display: flex; flex-direction: column; gap: var(--spacing-2); }
-  .quiet-check-row { display: flex; align-items: flex-start; gap: var(--spacing-3); padding: var(--spacing-3) var(--spacing-4); border: 1px solid var(--color-border-divider); border-radius: var(--radius-xs); background: transparent; cursor: pointer; transition: all var(--transition-fast); }
+  .quiet-check-row { display: flex; align-items: flex-start; gap: var(--spacing-3); padding: var(--spacing-3) var(--spacing-4); border: 1px solid var(--color-border-divider); border-radius: var(--radius-xs); background: transparent; cursor: pointer; transition: border-color var(--transition-fast), background-color var(--transition-fast); }
   .quiet-check-row:hover { border-color: var(--color-border); background: var(--color-surface-soft); }
   .quiet-check-row input { position: absolute; opacity: 0; pointer-events: none; }
   .quiet-check-row:has(input:focus-visible) { border-color: var(--color-gold-dust); box-shadow: var(--focus-ring); }
@@ -456,9 +456,9 @@ import Stamp from '../components/Stamp.astro';
   .inline-link { color: var(--color-text-primary); text-decoration: underline; }
 
   .submit-zone { margin-top: var(--spacing-8); padding-top: var(--spacing-5); border-top: 1px solid var(--color-border-divider); display: flex; align-items: center; gap: var(--spacing-4); flex-wrap: wrap; }
-  .submit-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: var(--spacing-3); padding: var(--spacing-3) var(--spacing-6); background: var(--color-text-heading); color: var(--color-bg-page); border: none; border-radius: var(--radius-xs); font-family: var(--font-family-ui); font-size: 12px; letter-spacing: 0.08em; cursor: pointer; transition: background-color var(--transition-fast), color var(--transition-fast); }
+  .submit-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: var(--spacing-3); padding: var(--spacing-3) var(--spacing-6); background: var(--color-text-heading); color: var(--color-surface-pure); border: none; border-radius: var(--radius-xs); font-family: var(--font-family-ui); font-size: 12px; letter-spacing: 0.08em; cursor: pointer; transition: background-color var(--transition-fast), color var(--transition-fast); }
   .submit-btn-primary:hover { background: var(--color-gold-dust); color: var(--color-text-heading); }
-  .submit-btn-primary.is-loading { cursor: progress; background: var(--color-surface-pure); color: var(--color-text-heading); border-color: var(--color-gold-dust); animation: gold-ring-pulse 1.4s ease-in-out infinite; }
+  .submit-btn-primary.is-loading { cursor: progress; background: var(--color-surface-pure); color: var(--color-text-heading); animation: gold-ring-pulse 1.4s ease-in-out infinite; }
   .submit-btn-primary.is-loading .btn-arrow { display: none; }
   @keyframes gold-ring-pulse {
     0%, 100% { box-shadow: 0 0 0 0 rgba(216, 205, 176, 0.45); }

@@ -184,6 +184,10 @@ export default defineConfig({
     css: {
       devSourcemap: false,
       transformer: 'lightningcss',
+      lightningcss: {
+        // 显式 targets：让前缀决策可控可预期（项目无 autoprefixer，手写 -webkit- 保留）
+        targets: { chrome: 100, safari: 15, firefox: 115, edge: 100 },
+      },
       postcss: {
         plugins: [
           cssnano({

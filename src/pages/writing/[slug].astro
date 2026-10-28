@@ -21,6 +21,22 @@ const dateStr = w.data.pubDate.toLocaleDateString('zh-CN', { year: 'numeric', mo
   ogImage={w.data.cover}
   publishedTime={w.data.pubDate.toISOString()}
 >
+  {!(w.data.draft || w.data.comingSoon) && (
+    <script
+      type='application/ld+json'
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: w.data.title,
+        datePublished: w.data.pubDate.toISOString(),
+        url: `https://wotech.space/writing/${w.id}/`,
+        author: { '@type': 'Person', name: 'Dai Min' },
+        publisher: { '@type': 'Organization', name: 'wo/men in tech' },
+        description: w.data.excerpt || w.data.title,
+        ...(w.data.cover ? { image: `https://wotech.space${w.data.cover}` } : {}),
+      })}
+    />
+  )}
   {(w.data.draft || w.data.comingSoon) && <meta name='robots' content='noindex' />}
   <div class='page-container'>
     <a href='/writing' class='btn btn--ghost'>

@@ -27,6 +27,22 @@ const gathering = ep.data.gatheringId ? getGatheringById(ep.data.gatheringId) : 
   ogImage={ep.data.cover}
   publishedTime={ep.data.pubDate.toISOString()}
 >
+  {!(ep.data.draft || ep.data.comingSoon) && (
+    <script
+      type='application/ld+json'
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'PodcastEpisode',
+        headline: ep.data.title,
+        datePublished: ep.data.pubDate.toISOString(),
+        url: `https://wotech.space/podcast/${ep.id}/`,
+        description: ep.data.excerpt || ep.data.title,
+        ...(ep.data.duration ? { duration: ep.data.duration } : {}),
+        ...(ep.data.audio ? { associatedMedia: { '@type': 'MediaObject', contentUrl: ep.data.audio } } : {}),
+        partOfSeries: { '@type': 'PodcastSeries', name: '慢谈 · Slow Talk', webFeed: 'https://wotech.space/podcast/rss.xml' },
+      })}
+    />
+  )}
   {(ep.data.draft || ep.data.comingSoon) && <meta name='robots' content='noindex' />}
   <div class='page-container'>
     <a href='/podcast' class='btn btn--ghost'>

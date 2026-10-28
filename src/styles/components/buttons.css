@@ -92,11 +92,20 @@
 }
 
 /* 深色模式：solid 仍是 ink（dark 下 heading=近白，surface-pure=深，即白底深字）；hover 翻金 */
-:root.dark .btn--solid { background: var(--color-text-heading); color: var(--color-bg-page) !important; }
+:root.dark .btn--solid { background: var(--color-text-heading); color: var(--color-surface-pure) !important; }
 :root.dark .btn--solid:hover { background: var(--color-gold-dust); color: var(--color-text-heading) !important; }
 :root.dark .btn--gold { color: var(--color-gold-dust); }
 :root.dark .btn--gold:hover { color: var(--color-text-heading); }
 :root.dark .btn--outline { border-color: var(--color-border-subtle); color: var(--color-text-secondary); }
 :root.dark .btn--outline:hover { border-color: var(--color-gold-dust); color: var(--color-gold-dust); }
+
+/* 禁用/提交中态：半透 + progress 光标，明确不可再点（此前 .btn 全程无 :disabled 样式） */
+.btn:disabled,
+.btn[aria-disabled='true'],
+.submit-btn-primary:disabled,
+.email-sub-btn:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
 :root.dark .btn--ghost { color: var(--color-text-tertiary); }
 :root.dark .btn--ghost:hover { color: var(--color-gold-dust); }
