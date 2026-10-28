@@ -731,43 +731,4 @@
 /* ============================================
    打印样式优化
    ============================================ */
-@media print {
-  .nav-right,
-  .zen-mode-wrapper,
-  [data-theme-toggle],
-  .hero-actions,
-  .btn {
-    display: none !important;
-  }
-
-  .layout-narrow,
-  .layout-reading,
-  .layout-standard,
-  .layout-wide {
-    max-width: 100%;
-    padding: 0;
-  }
-
-  body {
-    font-size: 12pt;
-    line-height: 1.4;
-    color: #000;
-    background: #fff;
-  }
-
-  .markdown-content {
-    font-size: 12pt;
-  }
-
-  .markdown-content h1 {
-    font-size: 18pt;
-  }
-
-  .markdown-content h2 {
-    font-size: 16pt;
-  }
-
-  .markdown-content h3 {
-    font-size: 14pt;
-  }
-}
+/* 打印样式统一在 utilities/accessibility.css 的 @media print 块管理 */

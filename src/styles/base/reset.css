@@ -11,6 +11,8 @@
 html {
   text-size-adjust: none;
   scroll-behavior: smooth;
+  /* anchor 跳转时为 sticky nav 留位，避免目标被 nav 遮住 */
+  scroll-padding-top: var(--spacing-20);
   height: 100%;
 }
 
@@ -85,10 +87,10 @@ ol[role='list'] {
   list-style: none;
 }
 
-/* Scrollbar Styling (Minimal) */
+/* Scrollbar Styling (克制：6px，淡亚麻拇指，hover 金) */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -96,12 +98,18 @@ ol[role='list'] {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 4px;
+  background: var(--color-border-divider);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-tertiary);
+  background: var(--color-gold-dust);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-divider) transparent;
 }
 
 /* View Transitions API - Smooth Page Transitions */

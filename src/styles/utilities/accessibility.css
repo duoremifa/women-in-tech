@@ -33,22 +33,59 @@
   color: inherit;
 }
 
-/* Print Styles */
+/* Print Styles —— 干净的纸面：藏所有交互 chrome，留内容。URL 跟在链接后。 */
 @media print {
   body {
     background: white;
     color: black;
+    font-size: 11pt;
+    line-height: 1.5;
   }
-
-  .no-print,
-  .navbar,
+  /* 藏：导航、页脚、进度条、语言/主题控件、按钮、日历组件、订阅卡、slot banner、
+     上下期导航、平台链接、CTA 区、任何 .no-print */
+  .nav-header,
   .footer,
-  .zen-mode-wrapper {
+  .reading-progress,
+  .sidebar-controls,
+  .sidebar-nav,
+  [data-theme-toggle],
+  #quick-lang-btn,
+  .btn,
+  .cal-add,
+  .subscribe-row,
+  .subscribe-card,
+  .email-sub,
+  .slot-banner,
+  .next-steps,
+  .ep-nav,
+  .platforms,
+  .pp,
+  .no-print {
     display: none !important;
   }
-
+  main,
+  .layout-reading,
+  .layout-standard,
+  .layout-wide,
+  .layout-narrow {
+    max-width: 100% !important;
+    padding: 0 !important;
+    min-height: 0 !important;
+  }
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
   a[href^='http']::after {
     content: ' (' attr(href) ')';
-    font-size: var(--font-size-xs);
+    font-size: 9pt;
+    color: #555;
+  }
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+  p, li, blockquote {
+    orphans: 3;
+    widows: 3;
   }
 }
