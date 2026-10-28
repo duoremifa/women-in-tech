@@ -5,8 +5,11 @@
  * 用于创建包含中文字符的优化字体文件
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // 项目常用中文字符集
 const commonChineseChars =
@@ -108,12 +111,6 @@ function main() {
   console.log('4. 🎨 更新 CSS 中的字体引用');
 }
 
-if (require.main === module) {
-  main();
-}
+main();
 
-module.exports = {
-  generateCharset,
-  generateSubsetCommands,
-  fullCharset,
-};
+export { generateCharset, generateSubsetCommands, fullCharset };
