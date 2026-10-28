@@ -16,6 +16,7 @@ import {
 } from '../../src/lib/join-shared';
 import { getGatheringById } from '../../src/data/gatherings';
 import type { PagesContext, PagesEnv } from './types';
+import { readJsonWithCap, PayloadTooLargeError } from './body';
 
 // UTF-8 安全的 Base64 编码（替代已弃用的 btoa(unescape(encodeURIComponent(...)))）
 function encodeBase64Utf8(input: string): string {
@@ -265,12 +266,13 @@ function isOriginAllowed(
   try {
     const url = new URL(target);
     const host = url.hostname.toLowerCase();
+    // 生产只放行自有域；预览 *.pages.dev 与 localhost 仅 DEV_MODE 下放行
+    // （任何人都能注册同名 women-in-tech Pages 项目仿冒预览域后缀，故 endsWith 不放开）
     return (
       host === 'wotech.space' ||
       host.endsWith('.wotech.space') ||
-      host === 'women-in-tech.pages.dev' ||
-      host.endsWith('-women-in-tech.pages.dev') ||
-      (Boolean(env?.DEV_MODE) && (host === 'localhost' || host === '127.0.0.1'))
+      (Boolean(env?.DEV_MODE) &&
+        (host === 'localhost' || host === '127.0.0.1' || host.endsWith('.pages.dev')))
     );
   } catch {
     return false;
@@ -307,7 +309,15 @@ export async function onRequestPost(context: PagesContext) {
   }
 
   try {
-    const data = await req.json();
+    let data: Record<string, unknown>;
+    try {
+      data = (await readJsonWithCap(req, 10240)) as Record<string, unknown>;
+    } catch (e) {
+      if (e instanceof PayloadTooLargeError) {
+        return secureJsonResponse({ error: '请求数据过大 / Payload Too Large' }, 413);
+      }
+      throw e;
+    }
 
     // 4. 蜜罐陷阱 (Honeypot Trap) 与时间陷阱 (Time Trap)
     const isHoneypotTriggered = Boolean(
@@ -397,7 +407,7 @@ export async function onRequestPost(context: PagesContext) {
             craft: safeCraftKey,
             idea: safeIdea,
             receipt_id: submissionId,
-            notify_email: subscribeEmail && !oneTime,
+            notify_email: isEmail && subscribeEmail && !oneTime,
             notify_calendar: subscribeCalendar && !oneTime,
             active: true,
           }),
@@ -540,10 +550,20 @@ export async function onRequestPost(context: PagesContext) {
 
     // 6. 无论是否留邮箱，通知发起人 (Webhook / Organizer Email，经深度字符清洗与 HTTPS 严格校验)
     const webhookUrl = context.env?.JOIN_WEBHOOK_URL;
-    if (
-      webhookUrl &&
-      (webhookUrl.startsWith('https://') || webhookUrl.startsWith('http://localhost'))
-    ) {
+    const isWebhookUrlSafe = (() => {
+      if (!webhookUrl) return false;
+      try {
+        const u = new URL(webhookUrl);
+        // 仅允许 https，或 localhost/127.0.0.1（dev 本机 webhook，严格主机名防 localhost.evil.com 仿冒）
+        return (
+          u.protocol === 'https:' ||
+          ((u.hostname === 'localhost' || u.hostname === '127.0.0.1') && u.protocol === 'http:')
+        );
+      } catch {
+        return false;
+      }
+    })();
+    if (webhookUrl && isWebhookUrlSafe) {
       try {
         const safeWebhookText = `[wo/men in tech] 新预约加入\n编号: #${submissionId}\n称呼: ${sanitizeForWebhook(safeName)}\n领域: ${craftLabel}\n意向: ${interestsLabel}\n联系: ${sanitizeForWebhook(cleanContact)}\n想法: ${sanitizeForWebhook(safeIdea) || '无'}\n邮箱触达: ${emailSent ? '成功' : '未送达'}\n时间: ${submissionTime}`;
 

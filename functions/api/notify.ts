@@ -4,17 +4,69 @@
 // 触发方式：rebuild 后手动 curl，或 CI 在新排期 deploy 后调用。
 
 import type { PagesContext } from './types';
+import { readJsonWithCap, PayloadTooLargeError } from './body';
 
 interface Subscriber {
   email: string;
   locale: string;
 }
 
+// admin 接口 IP 限流（防 token 时序爆破与重放刷配额）。edge 跨 isolate 不可靠，
+// 真正的限流靠 CF WAF（见 docs/SECURITY_CF_HARDENING.md）；此为纵深防御。
+const NOTIFY_RATE_STORE = new Map<string, { count: number; resetAt: number }>();
+const NOTIFY_MAX_PER_HOUR = 5;
+const NOTIFY_WINDOW_MS = 60 * 60 * 1000;
+
+function checkNotifyRateLimit(ip: string): boolean {
+  const safeIp = ip && ip !== 'unknown' ? ip : '__anon__';
+  const now = Date.now();
+  if (NOTIFY_RATE_STORE.size > 200) {
+    for (const [k, v] of NOTIFY_RATE_STORE.entries())
+      if (v.resetAt < now) NOTIFY_RATE_STORE.delete(k);
+    if (NOTIFY_RATE_STORE.size > 300) NOTIFY_RATE_STORE.clear();
+  }
+  const rec = NOTIFY_RATE_STORE.get(safeIp);
+  if (!rec || rec.resetAt < now) {
+    NOTIFY_RATE_STORE.set(safeIp, { count: 1, resetAt: now + NOTIFY_WINDOW_MS });
+    return true;
+  }
+  if (rec.count >= NOTIFY_MAX_PER_HOUR) return false;
+  rec.count += 1;
+  return true;
+}
+
+// 恒定时间字符串比较 —— 防 admin token 时序侧信道（Workerd 无 crypto.timingSafeEqual）
+function ctEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  let r = 0;
+  for (let i = 0; i < a.length; i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return r === 0;
+}
+
 export async function onRequestPost(context: PagesContext) {
   const req = context.request;
+
+  // body 硬顶（admin 调用体很小，4096 足够）
+  if (Number(req.headers.get('content-length') || 0) > 4096) {
+    return new Response(JSON.stringify({ error: 'Payload Too Large' }), {
+      status: 413,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  // IP 限流（防爆破）
+  const clientIp = req.headers.get('cf-connecting-ip') || req.headers.get('x-real-ip') || 'unknown';
+  if (!checkNotifyRateLimit(clientIp)) {
+    return new Response(JSON.stringify({ error: 'Too many requests' }), {
+      status: 429,
+      headers: { 'Content-Type': 'application/json', 'Retry-After': '3600' },
+    });
+  }
+
+  // 恒定时间 token 校验
   const adminToken = context.env?.ADMIN_TOKEN;
-  const sentToken = req.headers.get('x-admin-token');
-  if (!adminToken || sentToken !== adminToken) {
+  const sentToken = req.headers.get('x-admin-token') || '';
+  if (!adminToken || !ctEqual(sentToken, adminToken)) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },
@@ -37,7 +89,18 @@ export async function onRequestPost(context: PagesContext) {
   }
 
   try {
-    const data = await req.json();
+    let data: { gatheringId?: unknown };
+    try {
+      data = (await readJsonWithCap(req, 4096)) as { gatheringId?: unknown };
+    } catch (e) {
+      if (e instanceof PayloadTooLargeError) {
+        return new Response(JSON.stringify({ error: 'Payload Too Large' }), {
+          status: 413,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+      throw e;
+    }
     const gatheringId = String(data.gatheringId || '').slice(0, 60);
     if (!gatheringId) {
       return new Response(JSON.stringify({ error: 'gatheringId required' }), {
@@ -46,9 +109,9 @@ export async function onRequestPost(context: PagesContext) {
       });
     }
 
-    // 读 active + notify_email=true 订阅者
+    // 读 active + notify_email=true 订阅者（email 非空，防 wechat-only 行混入 BCC 致整批失败）
     const supaResp = await fetch(
-      `${supabaseUrl}/rest/v1/subscribers?select=email,locale&active=eq.true&notify_email=eq.true`,
+      `${supabaseUrl}/rest/v1/subscribers?select=email,locale&active=eq.true&notify_email=eq.true&email=not.is.null`,
       { headers: { apikey: serviceRoleKey, Authorization: `Bearer ${serviceRoleKey}` } }
     );
     if (!supaResp.ok) {
@@ -65,6 +128,7 @@ export async function onRequestPost(context: PagesContext) {
     }
 
     // Resend 批量（BCC，单封多收件人，节约配额）
+    // 隐私硬约束：to 只放发件方占位，订阅者全部进 bcc，互不可见
     const subjectZh = `[wo/men in tech] 新一期交流排期已上线`;
     const subjectEn = `[wo/men in tech] New gathering slot is live`;
     const textZh = `wo/men in tech · 新一期排期已上线。\n\n查看 https://wotech.space/upcoming\n或一次性订阅日历源：webcal://wotech.space/gatherings.ics\n\n随时可退订，零商业营销。\nhttps://wotech.space`;
@@ -82,8 +146,8 @@ export async function onRequestPost(context: PagesContext) {
           headers: { Authorization: `Bearer ${resendApiKey}`, 'Content-Type': 'application/json' },
           body: JSON.stringify({
             from: emailFrom,
-            to: emails.slice(0, 50), // Resend 单封 BCC 上限，分批
-            bcc: emails.slice(0, 50),
+            to: [emailFrom], // 占位收件人，真实订阅者全在 bcc
+            bcc: emails.slice(0, 50), // Resend 单封 BCC 上限，分批
             subject,
             text,
           }),

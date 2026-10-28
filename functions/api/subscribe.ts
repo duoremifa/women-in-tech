@@ -3,6 +3,7 @@
 // 与 /upcoming 订阅卡 + /join 邮件订阅勾选共用。
 
 import type { PagesContext, PagesEnv } from './types';
+import { readJsonWithCap, PayloadTooLargeError } from './body';
 
 const RATE_LIMIT_STORE = new Map<string, { count: number; resetAt: number }>();
 const MAX_REQUESTS_PER_WINDOW = 10;
@@ -32,6 +33,8 @@ function checkIpRateLimit(ip: string): boolean {
   if (RATE_LIMIT_STORE.size > 1500) {
     for (const [k, v] of RATE_LIMIT_STORE.entries())
       if (v.resetAt < now) RATE_LIMIT_STORE.delete(k);
+    // 硬兜底：极端情况下防 Map 无限增长挤占 isolate 内存
+    if (RATE_LIMIT_STORE.size > 2000) RATE_LIMIT_STORE.clear();
   }
   const record = RATE_LIMIT_STORE.get(safeIp);
   if (!record || record.resetAt < now) {
@@ -48,11 +51,13 @@ function isOriginAllowed(origin: string | null, referer: string | null, env: Pag
   if (!target) return false;
   try {
     const host = new URL(target).hostname.toLowerCase();
+    // 生产只放行自有域；预览 *.pages.dev 与 localhost 仅 DEV_MODE 下放行
+    // （任何人都能注册同名 women-in-tech Pages 项目仿冒预览域，故 suffix 不放开）
     return (
       host === 'wotech.space' ||
       host.endsWith('.wotech.space') ||
-      host.endsWith('-women-in-tech.pages.dev') ||
-      (Boolean(env?.DEV_MODE) && (host === 'localhost' || host === '127.0.0.1'))
+      (Boolean(env?.DEV_MODE) &&
+        (host === 'localhost' || host === '127.0.0.1' || host.endsWith('.pages.dev')))
     );
   } catch {
     return false;
@@ -82,7 +87,19 @@ export async function onRequestPost(context: PagesContext) {
   }
 
   try {
-    const data = await req.json();
+    let data: { email?: unknown; locale?: unknown; source?: unknown };
+    try {
+      data = (await readJsonWithCap(req, 2048)) as {
+        email?: unknown;
+        locale?: unknown;
+        source?: unknown;
+      };
+    } catch (e) {
+      if (e instanceof PayloadTooLargeError) {
+        return secureJsonResponse({ error: 'Payload too large' }, 413);
+      }
+      throw e;
+    }
     const email = isValidEmailFormat(String(data.email || '').trim());
     if (!email) {
       return secureJsonResponse({ error: '请提供合法邮箱 / Valid email required' }, 400);
