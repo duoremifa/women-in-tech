@@ -100,10 +100,10 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
           <label class='field-label' for='join-contact'>
             <span lang='zh-CN' class='lang-zh'>联系方式</span>
             <span lang='en' class='lang-en'>Contact</span>
-            <span lang='zh-CN' class='field-hint lang-zh'>微信或邮箱 · 仅用于活动邀请</span>
-            <span lang='en' class='field-hint lang-en'>WeChat or Email · for invites only</span>
+            <span lang='zh-CN' class='field-hint lang-zh'>邮箱 · 仅用于活动邀请</span>
+            <span lang='en' class='field-hint lang-en'>Email · for invites only</span>
           </label>
-          <input type='text' id='join-contact' name='contact' placeholder='微信号或 Email' data-placeholder-zh='微信号或 Email' data-placeholder-en='WeChat ID or Email' required autocomplete='off' />
+          <input type='email' id='join-contact' name='contact' placeholder='你的邮箱 / your email' data-placeholder-zh='你的邮箱 / your email' data-placeholder-en='your email' required autocomplete='email' />
         </div>
 
         {/* 订阅区（替代一次性 RSVP） */}
@@ -157,14 +157,6 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
                 <span lang='zh-CN' class='lang-zh'>下载 .ics ↗</span>
                 <span lang='en' class='lang-en'>Download .ics ↗</span>
               </a>
-              <div class='wechat-field-card'>
-                <span class='wechat-label-caption' lang='zh-CN'>微信</span>
-                <code class='wechat-handle'>daiminay</code>
-                <button type='button' class='btn-copy-hairline' id='join-btn-copy-wechat' data-wechat='daiminay'>
-                  <span lang='zh-CN' class='copy-text lang-zh'>复制</span>
-                  <span lang='en' class='copy-text lang-en'>Copy</span>
-                </button>
-              </div>
             </div>
           </div>
         </div>
@@ -201,7 +193,7 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
 </Layout>
 
 <script>
-  import { generateICS, WECHAT_HANDLE } from '../lib/join-shared';
+  import { generateICS } from '../lib/join-shared';
   import { getGatheringById } from '../data/gatherings';
 
   // 注：getGatheringById 在客户端是 build 期数据，仅用于读 title/date 显示 banner。
@@ -213,7 +205,6 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
     const submitBtn = document.getElementById('submit-trigger');
     const receiptIdDisplay = document.getElementById('receipt-id-display');
     const receiptIcs = document.getElementById('receipt-ics') as HTMLAnchorElement | null;
-    const copyWechatBtn = document.getElementById('join-btn-copy-wechat');
 
     let currentIcsData = '';
     let currentSubId = '';
@@ -277,19 +268,6 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
       }
       if (source) { /* 记录来源，submit 时带上 */ }
     } catch (e) {}
-
-    // ── copy wechat ──
-    if (copyWechatBtn) {
-      copyWechatBtn.onclick = async () => {
-        try {
-          await navigator.clipboard.writeText(WECHAT_HANDLE);
-          const spans = copyWechatBtn.querySelectorAll<HTMLElement>('.copy-text');
-          const originals: string[] = [];
-          spans.forEach((s, i) => { originals[i] = s.textContent || ''; s.textContent = i === 0 ? '✓ 已复制' : '✓ Copied'; });
-          setTimeout(() => { spans.forEach((s, i) => { s.textContent = originals[i]; }); }, 2500);
-        } catch (e) {}
-      };
-    }
 
     const formMountTime = Date.now();
     if (form && feedback) {
@@ -367,8 +345,8 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
           const isEn = document.documentElement.getAttribute('data-lang') === 'en';
           const noteZh = document.getElementById('join-note-text');
           const noteEn = document.getElementById('join-note-text-en');
-          if (noteZh) noteZh.textContent = '网络异常，意向暂未送达。请稍后重试，或直接加微信 ' + WECHAT_HANDLE + ' 联系。';
-          if (noteEn) noteEn.textContent = 'Network error—please retry shortly, or connect via WeChat at ' + WECHAT_HANDLE + '.';
+          if (noteZh) noteZh.textContent = '网络异常，意向暂未送达。请稍后重试，或回邮件给我们。';
+          if (noteEn) noteEn.textContent = 'Network error—please retry shortly, or reply to the confirmation email.';
           if (receiptIdDisplay) receiptIdDisplay.textContent = isEn ? 'Receipt pending (offline)' : '回执待补（离线）';
           currentIcsData = activeSlotId ? '' : generateICS(subId, name, interests);
           if (feedback) { feedback.style.display = 'block'; feedback.classList.remove('is-revealed'); requestAnimationFrame(() => requestAnimationFrame(() => feedback.classList.add('is-revealed'))); feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
@@ -409,11 +387,11 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
           if (noteZh) noteZh.textContent = '已向你的邮箱 ' + contact + ' 发送确认信与 .ics 日历邀请。';
           if (noteEn) noteEn.textContent = 'A confirmation & .ics invite dispatched to ' + contact + '.';
         } else if (isEmail && !emailSent) {
-          if (noteZh) noteZh.textContent = '邮箱已记录，确认信暂未发出。可下载 .ics 或加微信 ' + WECHAT_HANDLE + '。';
-          if (noteEn) noteEn.textContent = 'Email recorded; confirmation pending. Download .ics or connect via WeChat ' + WECHAT_HANDLE + '.';
+          if (noteZh) noteZh.textContent = '邮箱已记录，确认信稍后发出。可下载 .ics。';
+          if (noteEn) noteEn.textContent = 'Email recorded; confirmation will arrive shortly. Download .ics.';
         } else {
-          if (noteZh) noteZh.textContent = '意向已记录。可下载 .ics 或加微信 ' + WECHAT_HANDLE + ' 随时交流。';
-          if (noteEn) noteEn.textContent = 'Recorded. Download .ics or connect via WeChat ' + WECHAT_HANDLE + '.';
+          if (noteZh) noteZh.textContent = '意向已记录，确认信稍后到邮箱。可下载 .ics。';
+          if (noteEn) noteEn.textContent = 'Recorded; confirmation will arrive by email. Download .ics.';
         }
 
         // 表单字段 fade out（240ms），不再 display:none 硬切
@@ -519,11 +497,6 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
   .receipt-loop { display: flex; gap: var(--spacing-3); align-items: center; flex-wrap: wrap; }
   .btn-download-ics { background: transparent; border: 1px solid var(--color-gold-dust); color: var(--color-gold-dust); padding: 7px 14px; font-family: var(--font-family-ui); font-size: 11.5px; text-decoration: none !important; border-radius: var(--radius-xs); transition: all 0.2s ease; }
   .btn-download-ics:hover { background: var(--color-gold-dust); color: var(--color-surface-pure) !important; }
-  .wechat-field-card { display: flex; align-items: center; gap: var(--spacing-2); padding: 6px 12px; background: var(--color-surface-pure); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-xs); }
-  .wechat-label-caption { font-family: var(--font-family-ui); font-size: 10px; color: var(--color-text-tertiary); letter-spacing: 0.04em; }
-  .wechat-handle { font-family: var(--font-family-mono); font-size: 13px; font-weight: 500; color: var(--color-text-heading); background: none; border: none; padding: 0; }
-  .btn-copy-hairline { background: transparent; border: 1px solid var(--color-border-divider); color: var(--color-text-secondary); font-family: var(--font-family-ui); font-size: 11px; padding: 3px 10px; border-radius: var(--radius-xs); cursor: pointer; transition: all 0.2s ease; }
-  .btn-copy-hairline:hover { border-color: var(--color-gold-dust); color: var(--color-gold-dust); }
 
   /* FAQ */
   .join-faq-section { margin-top: var(--spacing-12); }

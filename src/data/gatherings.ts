@@ -26,7 +26,7 @@
 // 已过期后：status 改 'past'，加 reviewZh/reviewEn/reviewSlug 进回环区。
 // ────────────────────────────────────────────────────────────
 
-export type GatheringStatus = 'open' | 'forming' | 'full' | 'past';
+export type GatheringStatus = 'open' | 'forming' | 'full' | 'past' | 'cancelled';
 
 export interface Gathering {
   id: string; // 'coffee-2026-11-08'
@@ -142,9 +142,10 @@ export function isGatheringPast(g: Gathering, now: Date = new Date()): boolean {
   return new Date(g.endIso).getTime() < now.getTime();
 }
 
-/** 未过期的排期（webcal feed + schedule 主列表用），按开始时间升序。 */
+/** 未过期的排期（webcal feed + schedule 主列表用），按开始时间升序。
+ *  cancelled 不显示（取消后从排期+日历源消失，数据保留作记录）。 */
 export function upcomingGatherings(now: Date = new Date()): Gathering[] {
-  return GATHERINGS.filter(g => !isGatheringPast(g, now)).sort(
+  return GATHERINGS.filter(g => !isGatheringPast(g, now) && g.status !== 'cancelled').sort(
     (a, b) => new Date(a.startIso).getTime() - new Date(b.startIso).getTime(),
   );
 }

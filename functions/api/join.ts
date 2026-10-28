@@ -108,17 +108,6 @@ function buildEmailHtml(params: {
     margin: 24px 0;
     line-height: 1.65;
   }
-  .wechat-box {
-    background: #FAF8F5;
-    border: 1px solid #E8E2D9;
-    padding: 16px 20px;
-    margin: 24px 0;
-    font-size: 13.5px;
-    color: #383532;
-  }
-  .wechat-box strong {
-    color: #5e4c7a;
-  }
   .footer-meta {
     border-top: 1px solid #EFEAE3;
     padding-top: 20px;
@@ -131,39 +120,34 @@ function buildEmailHtml(params: {
 </head>
 <body>
   <div class="paper-card">
-    <div class="brand-line">
-      <h1 class="brand-title">wo/men in tech</h1>
-      <p class="brand-sub">women in technical · "我们"</p>
-    </div>
-    
-    <div class="greeting">致 ${name}：</div>
-    
-    <p>你的交流意向已静默送达。</p>
-    <div class="receipt-tag">回执编号：#${submissionId}</div>
-    
-    <div class="detail-panel">
-      <div class="detail-row"><span class="detail-label">所选领域：</span>${craftName}</div>
-      <div class="detail-row"><span class="detail-label">参与意向：</span>${interestNames}</div>
-      ${idea ? `<div class="detail-row"><span class="detail-label">关注话题：</span>${idea}</div>` : ''}
+    <div class='brand-line'>
+      <h1 class='brand-title'>wo/men in tech</h1>
+      <p class='brand-sub'>women in technical · 杭州</p>
     </div>
 
-    <p>在商业流水线的空隙里，总有一些东西是做给自己的。很高兴能遇见同样对手艺与思考保有执念的你。</p>
-    
-    <div class="cal-invite-box">
+    <div class='greeting'>致 ${name}：</div>
+
+    <p>你的交流意向已静默送达。</p>
+    <div class='receipt-tag'>回执编号：#${submissionId}</div>
+
+    <div class='detail-panel'>
+      <div class='detail-row'><span class='detail-label'>所选领域：</span>${craftName}</div>
+      <div class='detail-row'><span class='detail-label'>参与意向：</span>${interestNames}</div>
+      ${idea ? `<div class='detail-row'><span class='detail-label'>关注话题：</span>${idea}</div>` : ''}
+    </div>
+
+    <p>工作之外，找个地方做点事。很高兴你愿意来。</p>
+
+    <div class='cal-invite-box'>
       ✦ <strong>已随信附带本期交流日历邀请（.ics 附件）</strong><br>
       包含 Coffee Chat 与 Show & Tell 交流时段。双击附件即可直接添加入 Apple 日历、Google Calendar 或 Outlook 占位。
     </div>
 
-    <div class="wechat-box">
-      <strong>微信直接交流</strong>：<code>daiminay</code><br>
-      <span style="font-size: 12px; color: #8C8680;">添加时请备注回执编号 #${submissionId}，我们将邀你进入当期交流席位。</span>
-    </div>
+    <p style='margin-top: 24px; font-style: italic; color: #6E6862; font-size: 13.5px;'>不急。</p>
 
-    <p style="margin-top: 24px; font-style: italic; color: #6E6862; font-size: 13.5px;">给推敲留出时间，让灵感自然生长。</p>
-
-    <div class="footer-meta">
-      wo/men in tech · 既是女性，亦是“我们”的技术与创造联合体<br>
-      <a href="https://wotech.space" style="color: #5e4c7a; text-decoration: none;">https://wotech.space</a>
+    <div class='footer-meta'>
+      wo/men in tech · 杭州，做经得起时间的事<br>
+      <a href='https://wotech.space' style='color: #5e4c7a; text-decoration: none;'>https://wotech.space</a>
     </div>
   </div>
 </body>
@@ -179,7 +163,7 @@ function buildEmailText(params: {
 }): string {
   const { name, submissionId, craftName, interestNames, idea } = params;
   return `✦ wo/men in tech
-women in technical · "我们"
+women in technical · 杭州
 
 致 ${name}：
 
@@ -189,7 +173,7 @@ women in technical · "我们"
 所选领域：${craftName}
 参与意向：${interestNames}
 ${idea ? `关注话题：${idea}\n` : ''}
-在商业流水线的空隙里，总有一些东西是做给自己的。很高兴能遇见同样对手艺与思考保有执念的你。
+工作之外，找个地方做点事。很高兴你愿意来。
 
 附件为你预约的本期交流日历邀请（.ics）。导入系统日历（Apple 日历 / Google Calendar / Outlook）即可自动占位。
 
@@ -197,12 +181,12 @@ ${idea ? `关注话题：${idea}\n` : ''}
 · Coffee Chat：双周周末 · 杭州线下 + 线上接入（3-5人）
 · Show & Tell：双周周中晚间 · 40 min 英文深度分享与自由试错 + Q&A
 
-如有任何即时想交流的细节，亦可随时微信联系我：daiminay（备注回执编号 #${submissionId} 即可）。
+有任何想说的，回这封邮件就好。
 
-给推敲留出时间，让灵感自然生长。
+不急。
 
 —
-wo/men in tech · 慢节奏女性技术与创造社群
+wo/men in tech · 杭州，做经得起时间的事
 https://wotech.space`;
 }
 
@@ -523,7 +507,7 @@ export async function onRequestPost(context: any) {
     const webhookUrl = context.env?.JOIN_WEBHOOK_URL;
     if (webhookUrl && (webhookUrl.startsWith('https://') || webhookUrl.startsWith('http://localhost'))) {
       try {
-        const safeWebhookText = `[wo/men in tech] 新预约加入\n编号: #${submissionId}\n称呼: ${sanitizeForWebhook(safeName)}\n领域: ${craftLabel}\n意向: ${interestsLabel}\n联系: ${sanitizeForWebhook(cleanContact)}\n想法: ${sanitizeForWebhook(safeIdea) || '无'}\n邮箱触达: ${emailSent ? '成功' : isEmail ? '未送达' : '微信方式'}\n时间: ${submissionTime}`;
+        const safeWebhookText = `[wo/men in tech] 新预约加入\n编号: #${submissionId}\n称呼: ${sanitizeForWebhook(safeName)}\n领域: ${craftLabel}\n意向: ${interestsLabel}\n联系: ${sanitizeForWebhook(cleanContact)}\n想法: ${sanitizeForWebhook(safeIdea) || '无'}\n邮箱触达: ${emailSent ? '成功' : '未送达'}\n时间: ${submissionTime}`;
 
         await fetch(webhookUrl, {
           method: 'POST',
