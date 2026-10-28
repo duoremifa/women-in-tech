@@ -9,15 +9,26 @@
 }
 
 html {
-  text-size-adjust: none;
-  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   /* anchor 跳转时为 sticky nav 留位，避免目标被 nav 遮住 */
   scroll-padding-top: var(--spacing-20);
   height: 100%;
 }
 
+/* 平滑滚动仅在用户未请求减少动效时启用（WCAG 2.2 SC 2.2.2）——
+   前庭不适用户强制平滑滚动会触发眩晕。 */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 body {
+  /* 100dvh 动态视口单位：iOS Safari 横屏不含地址栏，消除底部裁切与 CLS；
+     不支持 dvh 的老浏览器自动回退到上一行 100vh。 */
   min-height: 100vh;
+  min-height: 100dvh;
   line-height: var(--line-height-normal, 1.5);
   margin: 0;
   text-rendering: optimizelegibility;

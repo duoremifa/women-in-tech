@@ -394,11 +394,12 @@
   }
 }
 
-/* 高对比度模式 */
+/* 高对比度模式：项目实际用 .btn--solid/--outline/--gold（非 .btn-primary/--secondary） */
 @media (prefers-contrast: high) {
   .btn,
-  .btn-primary,
-  .btn-secondary {
+  .btn--solid,
+  .btn--outline,
+  .btn--gold {
     border-width: 2px;
   }
 }
@@ -472,12 +473,8 @@
   contain-intrinsic-size: 800px;
 }
 
-/* GPU 加速优化 */
-.hero-section,
-.card,
-.btn {
-  will-change: transform;
-}
+/* 永久 will-change 已移除：常驻 will-change 强制建合成层 + 预留 GPU 内存，
+   卡片多的页面移动端合成层爆炸反掉帧。需要时由 JS 在动画前后临时切换 .is-animating。 */
 
 /* ============================================
    图片与图标自适应

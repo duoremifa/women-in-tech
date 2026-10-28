@@ -220,10 +220,18 @@ const containerClass = layoutMode !== 'full' ? `layout-${layoutMode}` : '';
       function initApp() {
         if (import.meta.env.DEV) console.log('🚀 initApp() called');
         try {
+          // 主题必须立即应用，消除 FOUC
           applyStoredTheme();
           updateThemeIcon();
-          initializeApp();
-          registerPWA();
+          // 监控/几何系统/PWA 注册延后到 idle，不抢首屏 INP/TBT
+          const idle: (cb: () => void) => void =
+            (window as any).requestIdleCallback
+              ? (window as any).requestIdleCallback.bind(window)
+              : (cb: () => void) => window.setTimeout(cb, 1500);
+          idle(() => {
+            initializeApp();
+            registerPWA();
+          });
           if (import.meta.env.DEV) console.log('✅ initApp() completed successfully');
         } catch (error) {
           if (import.meta.env.DEV) console.error('❌ initApp() error:', error);

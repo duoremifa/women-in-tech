@@ -11,10 +11,11 @@ export default defineConfig({
   // 纯静态输出模式 (本地开发极其快速、零依赖无报错)
   output: 'static',
 
-  // 预取：hover 时预取所有内部链接，点击秒开（静态站零成本）
+  // 预取：链接进入视口时预取（viewport），点击秒开；移动端无 hover 也能预取，
+  // 且不像 hover+prefetchAll 那样一次性预取全部 nav/footer 链接浪费带宽
   prefetch: {
     prefetchAll: true,
-    defaultStrategy: 'hover',
+    defaultStrategy: 'viewport',
   },
 
   // 构建优化配置

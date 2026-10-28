@@ -27,7 +27,8 @@ const ACCEPT_LANG = 'zh-CN,zh;q=0.9,en;q=0.8';
 const FETCH_HEADERS = { 'User-Agent': UA, 'Accept-Language': ACCEPT_LANG };
 
 const FAMILIES = [
-  { family: 'Inter', weights: [400, 500, 600, 700] },
+  { family: 'Inter', weights: [300, 400, 500, 600, 700] },
+  // Lora 在 Google Fonts 的字重轴仅 400–700，无 300；标题 light 需另择字体或接受 400
   { family: 'Lora', weights: [400, 500, 600, 700] },
 ];
 
