@@ -445,7 +445,7 @@ import { getGatheringById, GATHERINGS } from '../data/gatherings';
   .quiet-check-row:hover { border-color: var(--color-border); background: var(--color-surface-soft); }
   .quiet-check-row input { position: absolute; opacity: 0; pointer-events: none; }
   .quiet-check-row:has(input:focus-visible) { border-color: var(--color-gold-dust); box-shadow: var(--focus-ring); }
-  .check-indicator { width: 13px; height: 13px; margin-top: 3px; flex-shrink: 0; border: 1px solid var(--color-border); border-radius: 2px; background: var(--color-surface-pure); display: inline-flex; align-items: center; justify-content: center; transition: border-color var(--transition-fast), background var(--transition-fast); }
+  .check-indicator { width: 13px; height: 13px; margin-top: 3px; flex-shrink: 0; border: 1px solid var(--color-border); border-radius: var(--radius-xs); background: var(--color-surface-pure); display: inline-flex; align-items: center; justify-content: center; transition: border-color var(--transition-fast), background var(--transition-fast); }
   .is-radio .check-indicator { border-radius: 50%; }
   .quiet-check-row input:checked ~ .check-indicator { border-color: var(--color-gold-dust); background: var(--color-gold-dust); }
   .is-radio input:checked ~ .check-indicator::after { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--color-surface-pure); }

@@ -73,7 +73,7 @@ import Layout from '../layouts/Layout.astro';
   .eyebrow {
     font-family: var(--font-family-mono);
     font-size: 11px;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.12em;
     color: var(--color-gold-dust);
     text-transform: uppercase;
   }
@@ -127,18 +127,6 @@ import Layout from '../layouts/Layout.astro';
     letter-spacing: 0.06em;
     margin: 0;
   }
-
-  .ethos-nav { display: flex; gap: var(--spacing-5); margin-top: var(--spacing-2); }
-  .ethos-nav a {
-    font-family: var(--font-family-ui);
-    font-size: 12px;
-    color: var(--color-text-primary);
-    text-decoration: none !important;
-    border-bottom: 1px solid var(--color-border-divider) !important;
-    padding-bottom: 2px;
-    transition: border-color var(--transition-fast);
-  }
-  .ethos-nav a:hover { border-bottom-color: var(--color-gold-dust) !important; }
 
   @media (max-width: 680px) {
     .ethos { padding: var(--spacing-16) 0 var(--spacing-20); gap: var(--spacing-6); }
