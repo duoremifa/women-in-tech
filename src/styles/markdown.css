@@ -248,7 +248,7 @@ pre code {
 .markdown-content h3:hover::after {
   content: '#';
   margin-left: var(--spacing-2);
-  color: var(--color-primary-200);
+  color: var(--color-gold-dust);
   font-size: var(--font-size-xs);
   opacity: 0.5;
   cursor: pointer;
