@@ -8,6 +8,9 @@ const podcast = defineCollection({
     pubDate: z.coerce.date(),
     duration: z.string().optional(), // itunes:duration, e.g. '28:15'
     audio: z.string().url().optional(), // mp3 直链（自托管/R2）
+    // 音频文件真实字节数（RSS enclosure length）。Apple Podcasts 拒收 length=0，
+    // 未提供时 rss.xml 会省略 enclosure 而非伪造 length。
+    audioBytes: z.number().optional(),
     excerpt: z.string().optional(), // 一句摘要
     season: z.number().default(1),
     hosts: z.array(z.string()).default(['Dai Min']),

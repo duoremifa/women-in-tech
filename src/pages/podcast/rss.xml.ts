@@ -12,21 +12,27 @@ export const GET: APIRoute = async () => {
 
   const items = episodes
     .map(ep => {
-      const guid = `${SITE}/podcast/${ep.id}/`;
+      const guid = `${SITE}/podcast/${ep.slug}`; // entry.slug：无 .md、无尾斜杠，与页面真实 URL 一致
       const pub = ep.data.pubDate.toUTCString();
-      const enclosure = ep.data.audio
-        ? `<enclosure url="${ep.data.audio}" length="0" type="audio/mpeg" />`
-        : '';
+      // RSS 规范的 item 必备 <description>；与 itunes:summary 同内容（excerpt）
+      const summary = ep.data.excerpt || ep.data.title;
+      // Apple Podcasts 拒收 length="0"：只在有真实字节数（audioBytes）时输出 enclosure，
+      // 否则省略整行（绝不伪造 length）
+      const enclosure =
+        ep.data.audio && ep.data.audioBytes
+          ? `<enclosure url="${ep.data.audio}" length="${ep.data.audioBytes}" type="audio/mpeg" />`
+          : '';
       const dur = ep.data.duration ? `<itunes:duration>${ep.data.duration}</itunes:duration>` : '';
       return [
         '<item>',
         `<title><![CDATA[${ep.data.title}]]></title>`,
         `<link>${guid}</link>`,
+        `<description><![CDATA[${summary}]]></description>`,
         `<guid isPermaLink="true">${guid}</guid>`,
         `<pubDate>${pub}</pubDate>`,
         enclosure,
         dur,
-        `<itunes:summary><![CDATA[${ep.data.excerpt || ep.data.title}]]></itunes:summary>`,
+        `<itunes:summary><![CDATA[${summary}]]></itunes:summary>`,
         '</item>',
       ].join('\n');
     })

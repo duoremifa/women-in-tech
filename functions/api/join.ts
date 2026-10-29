@@ -201,7 +201,9 @@ https://wotech.space`;
 }
 
 // ==============================================================================
-// 商业级安全与防 DoS 防护层 (Cloudflare Edge Firewall & Anti-Abuse)
+// 防 DoS / 防滥用纵深防御层
+// 注意：edge 内存 Map 跨 isolate 不保证生效（CF Workers 随时可起新 isolate），
+// 真实限流靠 CF WAF（见 docs/SECURITY_CF_HARDENING.md）；此处仅作纵深防御。
 // ==============================================================================
 const RATE_LIMIT_STORE = new Map<string, { count: number; resetAt: number }>();
 const MAX_REQUESTS_PER_WINDOW = 5;
@@ -221,6 +223,8 @@ function secureJsonResponse(
       Pragma: 'no-cache',
       'X-Frame-Options': 'DENY',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
+      // Cloudflare Pages 的 _headers 对 Function 响应不生效，安全头需随响应自带
+      'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
       ...extraHeaders,
     },
   });
@@ -295,7 +299,7 @@ export async function onRequestPost(context: PagesContext) {
     return secureJsonResponse({ error: '非法跨域请求 / Forbidden' }, 403);
   }
 
-  // 3. IP 级速率限制 (防批量脚本刷接口、爆破邮件配额)
+  // 3. IP 级速率限制（多 isolate 下不保证，真实限流靠 CF WAF；此处为纵深防御）
   const clientIp = req.headers.get('cf-connecting-ip') || req.headers.get('x-real-ip') || 'unknown';
   if (!checkIpRateLimit(clientIp)) {
     return secureJsonResponse(
@@ -319,18 +323,17 @@ export async function onRequestPost(context: PagesContext) {
       throw e;
     }
 
-    // 4. 蜜罐陷阱 (Honeypot Trap) 与时间陷阱 (Time Trap)
+    // 4. 蜜罐陷阱 (Honeypot Trap)
+    // 仅蜜罐字段承担 bot 判定；不做时间陷阱（_t）拒绝——客户端时钟快于服务器会让
+    // 真实用户 elapsed 为负，若据此走假成功分支会静默丢失真实提交，不可接受。
     const isHoneypotTriggered = Boolean(
       data._hp || data._company_trap || data.company || data.website
     );
-    const clientTime = Number(data._t || 0);
-    const elapsed = clientTime > 0 ? Date.now() - clientTime : 99999;
-    const isTooFast = elapsed < 1500;
 
     const submissionTime = new Date().toISOString();
     const submissionId = `WT-${Date.now().toString(36).slice(-5).toUpperCase()}`;
 
-    if (isHoneypotTriggered || isTooFast) {
+    if (isHoneypotTriggered) {
       // 静默防御：返回假成功 200，绝不调用 Resend API 或 Webhook，零服务器资源消耗
       return secureJsonResponse({
         success: true,
@@ -391,6 +394,7 @@ export async function onRequestPost(context: PagesContext) {
       try {
         await fetch(`${supabaseUrl}/rest/v1/subscribers`, {
           method: 'POST',
+          signal: AbortSignal.timeout(5000),
           headers: {
             apikey: supabaseAnonKey,
             Authorization: `Bearer ${supabaseAnonKey}`,
@@ -450,6 +454,7 @@ export async function onRequestPost(context: PagesContext) {
           // 优先尝试自定义域名发送
           let resendResp = await fetch('https://api.resend.com/emails', {
             method: 'POST',
+            signal: AbortSignal.timeout(5000),
             headers: {
               Authorization: `Bearer ${resendApiKey}`,
               'Content-Type': 'application/json',
@@ -474,6 +479,7 @@ export async function onRequestPost(context: PagesContext) {
             await resendResp.text().catch(() => '');
             resendResp = await fetch('https://api.resend.com/emails', {
               method: 'POST',
+              signal: AbortSignal.timeout(5000),
               headers: {
                 Authorization: `Bearer ${resendApiKey}`,
                 'Content-Type': 'application/json',
@@ -514,6 +520,7 @@ export async function onRequestPost(context: PagesContext) {
           const icsBase64 = encodeBase64Utf8(icsContent);
           const sgResp = await fetch('https://api.sendgrid.com/v3/mail/send', {
             method: 'POST',
+            signal: AbortSignal.timeout(5000),
             headers: {
               Authorization: `Bearer ${sendgridKey}`,
               'Content-Type': 'application/json',
@@ -569,6 +576,7 @@ export async function onRequestPost(context: PagesContext) {
 
         await fetch(webhookUrl, {
           method: 'POST',
+          signal: AbortSignal.timeout(5000),
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             msg_type: 'text',

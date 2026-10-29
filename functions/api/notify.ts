@@ -35,12 +35,37 @@ function checkNotifyRateLimit(ip: string): boolean {
   return true;
 }
 
-// 恒定时间字符串比较 —— 防 admin token 时序侧信道（Workerd 无 crypto.timingSafeEqual）
-function ctEqual(a: string, b: string): boolean {
-  if (a.length !== b.length) return false;
+// 恒定时间 token 比较 —— 先对双方做 SHA-256 摘要（等长 32 字节，长度信号天然消除，
+// 防 token 长度被时序探出），再逐字节 XOR。Workerd 无 crypto.timingSafeEqual。
+async function ctEqual(a: string, b: string): Promise<boolean> {
+  const enc = new TextEncoder();
+  const digest = (s: string) => crypto.subtle.digest('SHA-256', enc.encode(s));
+  const [da, db] = await Promise.all([digest(a), digest(b)]);
+  const va = new Uint8Array(da);
+  const vb = new Uint8Array(db);
   let r = 0;
-  for (let i = 0; i < a.length; i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  for (let i = 0; i < va.length; i++) r |= va[i] ^ vb[i];
   return r === 0;
+}
+
+function secureJsonResponse(
+  body: unknown,
+  status = 200,
+  extraHeaders: Record<string, string> = {}
+) {
+  // Cloudflare Pages 的 _headers 对 Function 响应不生效，安全头需随响应自带
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'X-Content-Type-Options': 'nosniff',
+      'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
+      'X-Frame-Options': 'DENY',
+      'Referrer-Policy': 'strict-origin-when-cross-origin',
+      'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+      ...extraHeaders,
+    },
+  });
 }
 
 export async function onRequestPost(context: PagesContext) {
@@ -48,29 +73,20 @@ export async function onRequestPost(context: PagesContext) {
 
   // body 硬顶（admin 调用体很小，4096 足够）
   if (Number(req.headers.get('content-length') || 0) > 4096) {
-    return new Response(JSON.stringify({ error: 'Payload Too Large' }), {
-      status: 413,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return secureJsonResponse({ error: 'Payload Too Large' }, 413);
   }
 
   // IP 限流（防爆破）
   const clientIp = req.headers.get('cf-connecting-ip') || req.headers.get('x-real-ip') || 'unknown';
   if (!checkNotifyRateLimit(clientIp)) {
-    return new Response(JSON.stringify({ error: 'Too many requests' }), {
-      status: 429,
-      headers: { 'Content-Type': 'application/json', 'Retry-After': '3600' },
-    });
+    return secureJsonResponse({ error: 'Too many requests' }, 429, { 'Retry-After': '3600' });
   }
 
   // 恒定时间 token 校验
   const adminToken = context.env?.ADMIN_TOKEN;
   const sentToken = req.headers.get('x-admin-token') || '';
-  if (!adminToken || !ctEqual(sentToken, adminToken)) {
-    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-      status: 401,
-      headers: { 'Content-Type': 'application/json' },
-    });
+  if (!adminToken || !(await ctEqual(sentToken, adminToken))) {
+    return secureJsonResponse({ error: 'Unauthorized' }, 401);
   }
 
   const supabaseUrl = context.env?.PUBLIC_SUPABASE_URL;
@@ -79,12 +95,9 @@ export async function onRequestPost(context: PagesContext) {
   const emailFrom = context.env?.EMAIL_FROM || 'wo/men in tech <onboarding@resend.dev>';
 
   if (!supabaseUrl || !serviceRoleKey || !resendApiKey) {
-    return new Response(
-      JSON.stringify({ error: 'Server not configured (Supabase service role / Resend missing)' }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
+    return secureJsonResponse(
+      { error: 'Server not configured (Supabase service role / Resend missing)' },
+      500
     );
   }
 
@@ -94,37 +107,29 @@ export async function onRequestPost(context: PagesContext) {
       data = (await readJsonWithCap(req, 4096)) as { gatheringId?: unknown };
     } catch (e) {
       if (e instanceof PayloadTooLargeError) {
-        return new Response(JSON.stringify({ error: 'Payload Too Large' }), {
-          status: 413,
-          headers: { 'Content-Type': 'application/json' },
-        });
+        return secureJsonResponse({ error: 'Payload Too Large' }, 413);
       }
       throw e;
     }
     const gatheringId = String(data.gatheringId || '').slice(0, 60);
     if (!gatheringId) {
-      return new Response(JSON.stringify({ error: 'gatheringId required' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return secureJsonResponse({ error: 'gatheringId required' }, 400);
     }
 
     // 读 active + notify_email=true 订阅者（email 非空，防 wechat-only 行混入 BCC 致整批失败）
     const supaResp = await fetch(
       `${supabaseUrl}/rest/v1/subscribers?select=email,locale&active=eq.true&notify_email=eq.true&email=not.is.null`,
-      { headers: { apikey: serviceRoleKey, Authorization: `Bearer ${serviceRoleKey}` } }
+      {
+        headers: { apikey: serviceRoleKey, Authorization: `Bearer ${serviceRoleKey}` },
+        signal: AbortSignal.timeout(5000),
+      }
     );
     if (!supaResp.ok) {
-      return new Response(JSON.stringify({ error: 'Supabase read failed' }), {
-        status: 502,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return secureJsonResponse({ error: 'Supabase read failed' }, 502);
     }
     const subscribers: Subscriber[] = await supaResp.json();
     if (subscribers.length === 0) {
-      return new Response(JSON.stringify({ sent: 0, message: 'no active subscribers' }), {
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return secureJsonResponse({ sent: 0, message: 'no active subscribers' });
     }
 
     // Resend 批量（BCC，单封多收件人，节约配额）
@@ -143,6 +148,7 @@ export async function onRequestPost(context: PagesContext) {
       try {
         const r = await fetch('https://api.resend.com/emails', {
           method: 'POST',
+          signal: AbortSignal.timeout(5000),
           headers: { Authorization: `Bearer ${resendApiKey}`, 'Content-Type': 'application/json' },
           body: JSON.stringify({
             from: emailFrom,
@@ -166,14 +172,9 @@ export async function onRequestPost(context: PagesContext) {
       sent += await sendBatch(enEmails.slice(i, i + 50), subjectEn, textEn);
     }
 
-    return new Response(JSON.stringify({ sent, total: subscribers.length, gatheringId }), {
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return secureJsonResponse({ sent, total: subscribers.length, gatheringId });
   } catch (err) {
     console.error('Notify API error:', err);
-    return new Response(JSON.stringify({ error: 'notify failed' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return secureJsonResponse({ error: 'notify failed' }, 500);
   }
 }

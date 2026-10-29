@@ -64,6 +64,30 @@ function buildVEVENT(g: Gathering, submissionId?: string): string {
   ].join('\r\n');
 }
 
+/** RFC 5545 §3.1 行折叠：单行不超过 75 八位字节（octet），续行以单个空格开头。
+ *  按 UTF-8 字节折叠：切点若落在多字节序列中间则回退到该字符首字节，杜绝字符断裂。
+ *  返回的续行已含 CRLF 与前导空格，可直接与其它行以 CRLF 拼接。 */
+function fold75(line: string): string {
+  const bytes = new TextEncoder().encode(line);
+  if (bytes.length <= 75) return line;
+  const decoder = new TextDecoder();
+  const isContinuationByte = (b: number) => (b & 0xc0) === 0x80;
+  const segments: Uint8Array[] = [];
+  let start = 0;
+  let limit = 75; // 首行 75；续行前导空格占 1 字节，内容限 74
+  while (start < bytes.length) {
+    let end = Math.min(start + limit, bytes.length);
+    // 切点落在 UTF-8 续字节上时回退到多字节字符的首字节
+    while (end > start && end < bytes.length && isContinuationByte(bytes[end])) end--;
+    segments.push(bytes.slice(start, end));
+    start = end;
+    limit = 74;
+  }
+  return segments
+    .map((seg, i) => (i === 0 ? decoder.decode(seg) : ` ${decoder.decode(seg)}`))
+    .join('\r\n');
+}
+
 function wrapCalendar(events: string[]): string {
   return [
     'BEGIN:VCALENDAR',
@@ -73,7 +97,10 @@ function wrapCalendar(events: string[]): string {
     'METHOD:REQUEST',
     ...events,
     'END:VCALENDAR',
-  ].join('\r\n');
+  ]
+    .flatMap(e => e.split('\r\n')) // 逐物理行折叠（DESCRIPTION 等长行全部受保护）
+    .map(fold75)
+    .join('\r\n');
 }
 
 /** 兴趣多事件 .ics（join 表单回执用，按兴趣取未过期的 coffee/english 期）。 */

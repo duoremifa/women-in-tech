@@ -21,7 +21,10 @@ function secureJsonResponse(
       'X-Content-Type-Options': 'nosniff',
       'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
       'Access-Control-Allow-Origin': 'https://wotech.space',
+      'X-Frame-Options': 'DENY',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
+      // Cloudflare Pages 的 _headers 对 Function 响应不生效，安全头需随响应自带
+      'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
       ...extraHeaders,
     },
   });
@@ -122,6 +125,7 @@ export async function onRequestPost(context: PagesContext) {
     // upsert：同 email 已存在则更新 active/locale/created_at
     const resp = await fetch(`${supabaseUrl}/rest/v1/subscribers`, {
       method: 'POST',
+      signal: AbortSignal.timeout(5000),
       headers: {
         apikey: supabaseAnonKey,
         Authorization: `Bearer ${supabaseAnonKey}`,
