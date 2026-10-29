@@ -50,7 +50,7 @@
 
   /* 字体栈 —— 原语层；组件统一用 var(--font-family-sans/heading/code) */
   --font-family-sans: 'Inter', -apple-system, blinkmacsystemfont, 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Microsoft YaHei', 'Helvetica Neue', arial, sans-serif;
-  --font-family-serif: 'Lora', 'Source Han Serif SC', 'Songti SC', 'STSong', 'PingFang SC', 'Noto Serif SC', 'SimSun', 'Microsoft YaHei', 'Georgia', serif;
+  --font-family-serif: 'Lora', 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', 'PingFang SC', 'Noto Serif SC', 'SimSun', 'Microsoft YaHei', 'Georgia', serif;
   --font-family-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Consolas', monospace;
 
   /* 语义化别名 —— 仅保留真正承载语义的两个 */

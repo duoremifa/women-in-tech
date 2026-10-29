@@ -3,13 +3,13 @@
  * self-host-fonts.mjs — 把 Google Fonts CSS2 的 woff2 子集下载到本地并生成本地 @font-face。
  *
  * 做法：以浏览器 UA 请求 CSS2，解析返回的 @font-face 块（含 unicode-range 切分），
- * 把每个 woff2 下载到 public/fonts/，并生成 src/styles/typography/font-faces.css
+ * 把每个 woff2 下载到 public/fonts/，并生成 public/fonts/fonts.css
  * 用本地 URL 替换 gstatic URL。完全保留 Google 的 unicode-range 按需加载策略。
  *
- * 仅自托管 Latin 字体（Inter + Lora）。CJK 不自托管——Noto Serif SC 有 ~100 个子集、
- * 总计数十 MB，会让 Chrome 加载极慢。CJK 走系统栈（Source Han Serif SC / Songti SC /
- * STSong / PingFang SC / Microsoft YaHei），零下载即时渲染。
- * 非拉丁子集（cyrillic/greek/vietnamese）本站永不使用，过滤掉。
+ * Latin（Inter + Lora）走 unicode-range 子集；CJK 走 text= 精确子集——按站内实际
+ * 用到的字符请求 Noto Serif SC（思源宋体），让 iOS/Windows/Android 的中文标题渲染
+ * 统一（此前系统栈分裂：Windows 落宋体、iOS 落苹方）。
+ * 非拉丁子集（cyrillic/greek/vietnamese/latin-ext）本站永不使用，过滤掉。
  */
 
 import fs from 'node:fs';
@@ -39,6 +39,57 @@ const FAMILIES = [
 // cyrillic/greek/vietnamese 同理本站永不使用，过滤掉省 CSS + 文件
 const KEEP_SUBSETS = new Set(['latin']);
 
+// ---- CJK 衬线自托管子集（Noto Serif SC / 思源宋体）----
+// 背景：latin 子集自托管后，中文仍走系统栈——Windows 落 SimSun、iOS 落苹方（无衬线），
+// 跨平台标题质感分裂。这里按「站内实际用到的 CJK 字符」请求 Google CSS2 的 text= 参数，
+// 得到只含这些字形的小子集，全平台标题渲染统一。
+// text= 的 URL 会很长（CJK percent-encode 后每字 9 字节），按 chunkSize 分片请求，
+// 每片自己算 unicode-range（text= 返回的 CSS 不带 unicode-range）。
+const CJK = {
+  family: 'Noto Serif SC',
+  weight: 400,
+  filePrefix: 'noto-serif-sc',
+  chunkSize: 300, // 300 字/片 ≈ 2.7KB URL，远离 ~8KB 服务器上限
+};
+
+const CJK_CODE_RE = /[\u3000-\u303F\u3400-\u9FFF\uF900-\uFAFF\uFF00-\uFFEF]/;
+
+function collectCjkChars(rootDir) {
+  const chars = new Set();
+  const walk = dir => {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const p = path.join(dir, e.name);
+      if (e.isDirectory()) walk(p);
+      else if (/\.(astro|ts|md|mjs)$/.test(e.name)) {
+        const t = fs.readFileSync(p, 'utf-8');
+        for (const ch of t) if (CJK_CODE_RE.test(ch)) chars.add(ch);
+      }
+    }
+  };
+  walk(rootDir);
+  return [...chars].sort();
+}
+
+/** 码点序列 → unicode-range 串（连续段合并） */
+function codepointsToRange(chars) {
+  const cps = chars.map(c => c.codePointAt(0)).sort((a, b) => a - b);
+  const runs = [];
+  let start = cps[0];
+  let prev = cps[0];
+  for (const cp of cps.slice(1)) {
+    if (cp === prev + 1) {
+      prev = cp;
+    } else {
+      runs.push([start, prev]);
+      start = prev = cp;
+    }
+  }
+  runs.push([start, prev]);
+  return runs
+    .map(([a, b]) => (a === b ? `U+${a.toString(16)}` : `U+${a.toString(16)}-${b.toString(16)}`))
+    .join(',');
+}
+
 const slug = s =>
   s
     .toLowerCase()
@@ -64,7 +115,9 @@ function parseFaces(css) {
     const comment = m[1];
     const block = m[2];
     const weightMatch = block.match(/font-weight:\s*([0-9]+)\s*;/);
-    const urlMatch = block.match(/url\((https:\/\/[^)]+\.woff2)\)/);
+    // text= 动态子集的 URL 形如 https://fonts.gstatic.com/l/font?kit=...（无 .woff2 后缀），
+    // 统一按 "url(...) format('woff2')" 匹配两种形态
+    const urlMatch = block.match(/url\((https:\/\/[^)]+)\)\s*format\('woff2'\)/);
     const rangeMatch = block.match(/unicode-range:\s*([^;]+);/);
     const styleMatch = block.match(/font-style:\s*(\w+)/);
     const displayMatch = block.match(/font-display:\s*(\w+)/);
@@ -132,6 +185,44 @@ async function main() {
         allFaces.push({ ...f, family, localPath: `/fonts/${localName}` });
       }
     }
+    // ---- CJK 衬线子集（text= 精确子集，分片规避 URL 长度上限）----
+    const cjkChars = collectCjkChars(path.join(ROOT, 'src'));
+    const manifestPath = path.join(FONTS_DIR, `${CJK.filePrefix}-${CJK.weight}-cjk.chars`);
+    const manifestSame =
+      fs.existsSync(manifestPath) && fs.readFileSync(manifestPath, 'utf-8') === cjkChars.join('');
+    const chunks = [];
+    for (let i = 0; i < cjkChars.length; i += CJK.chunkSize)
+      chunks.push(cjkChars.slice(i, i + CJK.chunkSize));
+    for (let ci = 0; ci < chunks.length; ci++) {
+      const chunk = chunks[ci];
+      const localName = `${CJK.filePrefix}-${CJK.weight}-cjk-${ci + 1}.woff2`;
+      const dest = path.join(FONTS_DIR, localName);
+      if (manifestSame && fs.existsSync(dest)) {
+        console.log(`  • ${localName} (exists) [${chunk.length} chars]`);
+      } else {
+        const url =
+          `https://fonts.googleapis.com/css2?family=${CJK.family.replace(/ /g, '+')}` +
+          `:wght@${CJK.weight}&display=swap&text=${encodeURIComponent(chunk.join(''))}`;
+        const res = await fetch(url, { headers: FETCH_HEADERS });
+        if (!res.ok) throw new Error(`CSS2 ${CJK.family} chunk ${ci + 1} HTTP ${res.status}`);
+        const faces = parseFaces(await res.text());
+        if (!faces.length || !faces[0].url)
+          throw new Error(`${CJK.family} chunk ${ci + 1}: no woff2 in response`);
+        const size = await download(faces[0].url, dest);
+        console.log(`  ✓ ${localName} (${size} B) [${chunk.length} chars]`);
+      }
+      allFaces.push({
+        family: CJK.family,
+        weight: String(CJK.weight),
+        subset: `cjk-${ci + 1}`,
+        style: 'normal',
+        display: 'swap',
+        unicodeRange: codepointsToRange(chunk),
+        localPath: `/fonts/${localName}`,
+      });
+    }
+    fs.writeFileSync(manifestPath, cjkChars.join(''));
+    console.log(`${CJK.family}: ${cjkChars.length} chars → ${chunks.length} chunk(s)`);
   } catch (err) {
     // 联网失败：有缓存则用缓存，无缓存则写 fallback css，绝不阻断 build
     if (fs.existsSync(CSS_OUT)) {
