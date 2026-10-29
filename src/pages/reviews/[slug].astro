@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { GATHERINGS, upcomingGatherings, type Gathering } from '../../data/gatherings';
+import { GATHERINGS, upcomingGatherings, typeLabel, type Gathering } from '../../data/gatherings';
 
 export function getStaticPaths() {
   return GATHERINGS.filter(g => g.reviewSlug).map(g => ({
@@ -13,32 +13,34 @@ interface Props { g: Gathering }
 const { g } = Astro.props;
 const next = upcomingGatherings(new Date())[0];
 
-const typeLabel = g.type === 'coffee' ? 'Coffee Chat' : g.type === 'english' ? 'Show & Tell' : 'Craft Lab';
+const tl = typeLabel(g.type);
+// titleEn 自带类型前缀时去重，避免「Coffee Chat · Coffee Chat · …」
+const cleanTitle = g.titleEn.startsWith(`${tl} · `) ? g.titleEn.slice(tl.length + 3) : g.titleEn;
 const dateStr = new Date(g.startIso).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
 const dateStrEn = new Date(g.startIso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 ---
 
 <Layout
-  title={`${typeLabel} · ${g.titleEn} · 回顾 · wo/men in tech`}
+  title={`${cleanTitle} · 回顾 · wo/men in tech`}
   description={g.descriptionEn}
   width='reading'
   type='article'
   publishedTime={new Date(g.startIso).toISOString()}
+  noindex={true}
 >
   <script
     type='application/ld+json'
     set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'Article',
-      headline: `${typeLabel} · ${g.titleEn}`,
+      headline: g.titleEn,
       datePublished: new Date(g.startIso).toISOString(),
-      url: `https://wotech.space/reviews/${g.reviewSlug}/`,
+      url: `https://wotech.space/reviews/${g.reviewSlug}`,
       author: { '@type': 'Person', name: 'Dai Min' },
       publisher: { '@type': 'Organization', name: 'wo/men in tech' },
       description: g.descriptionEn,
     })}
   />
-  <meta name='robots' content='noindex' />
   <div class='page-container'>
     <a href='/upcoming' class='btn btn--ghost'>
       <span lang='zh-CN' class='lang-zh'>← 返回排期</span>
@@ -48,9 +50,9 @@ const dateStrEn = new Date(g.startIso).toLocaleDateString('en-US', { year: 'nume
     <header class='page-header'>
       <span class='section-eyebrow'>RECAP · 回顾</span>
       <div class='meta-line'>
-        <span class='recap-type'>{typeLabel}</span>
-        <span class='recap-date' lang='zh-CN'>{dateStr}</span>
-        <span class='recap-date' lang='en'>{dateStrEn}</span>
+        <span class='recap-type'>{tl}</span>
+        <span class='recap-date lang-zh' lang='zh-CN'>{dateStr}</span>
+        <span class='recap-date lang-en' lang='en'>{dateStrEn}</span>
       </div>
       <h1 lang='zh-CN' class='page-title lang-zh'>{g.titleZh}</h1>
       <h1 lang='en' class='page-title lang-en'>{g.titleEn}</h1>
@@ -76,11 +78,11 @@ const dateStrEn = new Date(g.startIso).toLocaleDateString('en-US', { year: 'nume
       <section class='next-steps'>
         <div class='next-card'>
           <div lang='zh-CN' class='next-text lang-zh'>
-            <h3>下一期相见</h3>
+            <h2>下一期相见</h2>
             <p>{new Date(next.startIso).toLocaleDateString('zh-CN', { month: 'long', day: 'numeric' })} · {next.titleZh}</p>
           </div>
           <div lang='en' class='next-text lang-en'>
-            <h3>Next gathering</h3>
+            <h2>Next gathering</h2>
             <p>{new Date(next.startIso).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })} · {next.titleEn}</p>
           </div>
           <a href={`/gatherings/${next.id}.ics`} class='btn btn--gold'>
@@ -116,7 +118,7 @@ const dateStrEn = new Date(g.startIso).toLocaleDateString('en-US', { year: 'nume
 
   .next-steps { margin-top: var(--spacing-12); }
   .next-card { background: var(--color-surface-pure); border: var(--border-width-thin) solid var(--color-border-subtle); border-radius: var(--radius-sm); padding: var(--spacing-6); display: flex; flex-direction: column; gap: var(--spacing-3); }
-  .next-text h3 { margin: 0 0 2px; font-family: var(--font-family-heading); font-size: var(--font-size-base); color: var(--color-text-heading); }
+  .next-text h2 { margin: 0 0 2px; font-family: var(--font-family-heading); font-size: var(--font-size-base); color: var(--color-text-heading); }
   .next-text p { margin: 0; font-family: var(--font-family-sans); font-size: 13px; color: var(--color-text-secondary); }
   .next-card a { align-self: flex-start; }
 

@@ -8,26 +8,30 @@ export async function getStaticPaths() {
   const all = await getCollection('podcast', ({ data }) => !data.draft);
   const sorted = all.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
   return sorted.map((ep, i) => ({
-    params: { slug: ep.id },
-    props: { ep, prev: sorted[i - 1] ?? null, next: sorted[i + 1] ?? null },
+    // entry.id 含 .md 扩展名（Astro 5 legacy collection），slug 才是干净 URL
+    params: { slug: ep.slug },
+    props: { ep, num: sorted.length - i, older: sorted[i + 1] ?? null, newer: sorted[i - 1] ?? null },
   }));
 }
 
-const { ep, prev, next } = Astro.props;
+const { ep, num, older, newer } = Astro.props;
 const { Content } = await ep.render();
 const dateStr = ep.data.pubDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
+const dateStrEn = ep.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 const gathering = ep.data.gatheringId ? getGatheringById(ep.data.gatheringId) : undefined;
+const hideFromSearch = ep.data.draft || ep.data.comingSoon;
 ---
 
 <Layout
-  title={`${ep.data.title} · ${'慢谈 · Slow Talk'}`}
+  title={ep.data.title}
   description={ep.data.excerpt || ep.data.title}
   width='reading'
   type='article'
   ogImage={ep.data.cover}
   publishedTime={ep.data.pubDate.toISOString()}
+  noindex={hideFromSearch}
 >
-  {!(ep.data.draft || ep.data.comingSoon) && (
+  {!hideFromSearch && (
     <script
       type='application/ld+json'
       set:html={JSON.stringify({
@@ -35,7 +39,7 @@ const gathering = ep.data.gatheringId ? getGatheringById(ep.data.gatheringId) : 
         '@type': 'PodcastEpisode',
         headline: ep.data.title,
         datePublished: ep.data.pubDate.toISOString(),
-        url: `https://wotech.space/podcast/${ep.id}/`,
+        url: `https://wotech.space/podcast/${ep.slug}`,
         description: ep.data.excerpt || ep.data.title,
         ...(ep.data.duration ? { duration: ep.data.duration } : {}),
         ...(ep.data.audio ? { associatedMedia: { '@type': 'MediaObject', contentUrl: ep.data.audio } } : {}),
@@ -43,7 +47,6 @@ const gathering = ep.data.gatheringId ? getGatheringById(ep.data.gatheringId) : 
       })}
     />
   )}
-  {(ep.data.draft || ep.data.comingSoon) && <meta name='robots' content='noindex' />}
   <div class='page-container'>
     <a href='/podcast' class='btn btn--ghost'>
       <span lang='zh-CN'>← 返回播客</span>
@@ -52,13 +55,15 @@ const gathering = ep.data.gatheringId ? getGatheringById(ep.data.gatheringId) : 
 
     <header class='ep-head'>
       <span class='section-eyebrow'>
-        {ep.data.comingSoon ? '即将上线 · COMING SOON' : `EPISODE ${ep.data.season}`}
+        {ep.data.comingSoon ? '即将上线 · COMING SOON' : `EPISODE ${num}`}
       </span>
       <h1 class='ep-title'>{ep.data.title}</h1>
       <div class='ep-meta'>
-        <span>{dateStr}</span>
+        <span lang='zh-CN'>{dateStr}</span>
+        <span lang='en'>{dateStrEn}</span>
         {ep.data.duration && <span>· {ep.data.duration}</span>}
-        <span>· 主播 {ep.data.hosts.join('、')}</span>
+        <span lang='zh-CN'>· 主播 {ep.data.hosts.join('、')}</span>
+        <span lang='en'>· Host {ep.data.hosts.join(', ')}</span>
       </div>
       {gathering && (
         <a class='ep-from-gathering' href='/upcoming'>
@@ -92,11 +97,21 @@ const gathering = ep.data.gatheringId ? getGatheringById(ep.data.gatheringId) : 
       <Content />
     </article>
 
-    {/* 上一期/下一期 */}
-    {(prev || next) && (
+    {/* 上一期（更早）/ 下一期（更新）——中文播客惯例：上一期 = 更早一期 */}
+    {(older || newer) && (
       <nav class='ep-nav'>
-        {prev && <a class='ep-nav-link prev' href={`/podcast/${prev.id}/`}><span class='nav-label'>← 上一期</span><span class='nav-title'>{prev.data.title}</span></a>}
-        {next && <a class='ep-nav-link next' href={`/podcast/${next.id}/`}><span class='nav-label'>下一期 →</span><span class='nav-title'>{next.data.title}</span></a>}
+        {older && (
+          <a class='ep-nav-link prev' href={`/podcast/${older.slug}`}>
+            <span class='nav-label'>← 上一期</span>
+            <span class='nav-title'>{older.data.title}</span>
+          </a>
+        )}
+        {newer && (
+          <a class='ep-nav-link next' href={`/podcast/${newer.slug}`}>
+            <span class='nav-label'>下一期 →</span>
+            <span class='nav-title'>{newer.data.title}</span>
+          </a>
+        )}
       </nav>
     )}
   </div>

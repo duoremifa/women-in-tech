@@ -5,7 +5,7 @@ import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
   const all = await getCollection('writing', ({ data }) => !data.draft);
-  return all.map(w => ({ params: { slug: w.id }, props: { w } }));
+  return all.map(w => ({ params: { slug: w.slug }, props: { w } }));
 }
 
 const { w } = Astro.props;
@@ -20,6 +20,7 @@ const dateStr = w.data.pubDate.toLocaleDateString('zh-CN', { year: 'numeric', mo
   type='article'
   ogImage={w.data.cover}
   publishedTime={w.data.pubDate.toISOString()}
+  noindex={w.data.draft || w.data.comingSoon}
 >
   {!(w.data.draft || w.data.comingSoon) && (
     <script
@@ -29,7 +30,7 @@ const dateStr = w.data.pubDate.toLocaleDateString('zh-CN', { year: 'numeric', mo
         '@type': 'Article',
         headline: w.data.title,
         datePublished: w.data.pubDate.toISOString(),
-        url: `https://wotech.space/writing/${w.id}/`,
+        url: `https://wotech.space/writing/${w.slug}`,
         author: { '@type': 'Person', name: 'Dai Min' },
         publisher: { '@type': 'Organization', name: 'wo/men in tech' },
         description: w.data.excerpt || w.data.title,
@@ -37,7 +38,7 @@ const dateStr = w.data.pubDate.toLocaleDateString('zh-CN', { year: 'numeric', mo
       })}
     />
   )}
-  {(w.data.draft || w.data.comingSoon) && <meta name='robots' content='noindex' />}
+  
   <div class='page-container'>
     <a href='/writing' class='btn btn--ghost'>
       <span lang='zh-CN'>← 返回田野手记</span>
@@ -80,7 +81,10 @@ const dateStr = w.data.pubDate.toLocaleDateString('zh-CN', { year: 'numeric', mo
     <footer class='w-sign'>
       <span class='sign-mark' aria-hidden='true'><Stamp /></span>
       <span>by Dai Min</span>
-      <a href='/writing' class='more-link'>更多手记 →</a>
+      <a href='/writing' class='more-link'>
+        <span lang='zh-CN' class='lang-zh'>更多手记 →</span>
+        <span lang='en' class='lang-en'>More field notes →</span>
+      </a>
     </footer>
   </div>
 </Layout>
@@ -109,7 +113,6 @@ const dateStr = w.data.pubDate.toLocaleDateString('zh-CN', { year: 'numeric', mo
   .w-body :global(h2) { font-family: var(--font-family-heading); font-size: 1.3rem; font-weight: var(--font-weight-normal); color: var(--color-text-heading); margin: var(--spacing-8) 0 var(--spacing-3); }
   .w-body :global(h3) { font-family: var(--font-family-heading); font-size: 1.1rem; color: var(--color-text-heading); margin: var(--spacing-6) 0 var(--spacing-2); }
   .w-body :global(p) { margin: 0 0 var(--spacing-5); }
-  .w-body :global(blockquote) { margin: var(--spacing-5) 0; padding-left: var(--spacing-4); border-left: 1px solid var(--color-gold-dust); color: var(--color-text-secondary); font-style: italic; }
   .w-body :global(ul), .w-body :global(ol) { padding-left: var(--spacing-6); margin: 0 0 var(--spacing-5); }
   .w-body :global(li) { margin: 0 0 var(--spacing-2); }
   .w-body :global(a) { color: var(--color-text-primary); text-decoration: underline; text-underline-offset: 2px; }

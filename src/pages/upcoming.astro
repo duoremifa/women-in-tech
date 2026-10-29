@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import CalendarAdd from '../components/CalendarAdd.astro';
-import { upcomingGatherings, pastGatherings, type Gathering } from '../data/gatherings';
+import { upcomingGatherings, pastGatherings, typeLabel, type Gathering } from '../data/gatherings';
 
 const now = new Date();
 const upcoming = upcomingGatherings(now);
@@ -14,8 +14,6 @@ const statusMeta: Record<string, { zh: string; en: string; cls: string }> = {
   past: { zh: '已结束', en: 'Past', cls: 'status-past' },
   cancelled: { zh: '已取消', en: 'Cancelled', cls: 'status-past' },
 };
-
-const typeLabel: Record<string, string> = { coffee: 'Coffee Chat', english: 'English Chat', lab: 'Craft Lab' };
 
 function fmtDate(iso: string, locale: string) {
   return new Date(iso).toLocaleDateString(locale, { month: 'long', day: 'numeric', weekday: 'short' });
@@ -83,7 +81,7 @@ function fmtTime(iso: string) {
         return (
           <article class='schedule-block'>
             <div class='schedule-indicator'>
-              <span class='block-type'>{typeLabel[g.type]}</span>
+              <span class='block-type'>{typeLabel(g.type)}</span>
               <span class='block-num'>{g.type === 'coffee' ? '01' : g.type === 'english' ? '02' : '03'}</span>
             </div>
             <div class='schedule-content'>
@@ -93,8 +91,8 @@ function fmtTime(iso: string) {
                   <span lang='en' class='lang-en'>{s.en}</span>
                 </span>
                 <span class='status-meta'>
-                  {fmtDate(g.startIso, 'zh-CN')} {fmtTime(g.startIso)} GMT+8
-                  {g.capacity ? ` · ${g.capacity} 人` : ''}
+                  <span lang='zh-CN' class='lang-zh'>{fmtDate(g.startIso, 'zh-CN')} {fmtTime(g.startIso)} GMT+8{g.capacity ? ` · ${g.capacity} 人` : ''}</span>
+                  <span lang='en' class='lang-en'>{fmtDate(g.startIso, 'en-US')} {fmtTime(g.startIso)} GMT+8{g.capacity ? ` · ${g.capacity} people` : ''}</span>
                 </span>
               </div>
 
@@ -166,7 +164,7 @@ function fmtTime(iso: string) {
           {past.map(g => (
             <article class='past-block'>
               <div class='past-meta'>
-                <span class='past-type'>{typeLabel[g.type]}</span>
+                <span class='past-type'>{typeLabel(g.type)}</span>
                 <span class='past-date'>{fmtDate(g.startIso, 'zh-CN')}</span>
               </div>
               <h3 lang='zh-CN' class='lang-zh'>{g.titleZh}</h3>
@@ -270,7 +268,7 @@ function fmtTime(iso: string) {
 </script>
 
 <style>
-  .page-container { padding: var(--spacing-6) 0 var(--spacing-20); }
+  .page-container { padding: var(--spacing-6) 0 var(--spacing-20); max-width: var(--measure-list); margin: 0 auto; }
   .page-header { margin-bottom: var(--spacing-10); }
   .section-eyebrow { font-family: var(--font-family-mono); font-size: var(--font-size-xs); letter-spacing: 0.12em; color: var(--color-gold-dust); display: block; margin-bottom: var(--spacing-2); }
   .page-title { font-family: var(--font-family-heading); font-size: var(--font-size-3xl); font-weight: var(--font-weight-light); color: var(--color-text-heading); letter-spacing: -0.02em; margin: 0 0 var(--spacing-3); }
@@ -283,12 +281,6 @@ function fmtTime(iso: string) {
   .subscribe-text h2 { font-family: var(--font-family-heading); font-size: var(--font-size-lg); font-weight: var(--font-weight-normal); color: var(--color-text-heading); margin: 0 0 var(--spacing-1); }
   .subscribe-text p { font-family: var(--font-family-sans); font-size: 13px; color: var(--color-text-secondary); line-height: 1.7; margin: 0; }
   .subscribe-actions { display: flex; flex-direction: column; gap: var(--spacing-2); align-items: flex-end; }
-  .subscribe-btn { padding: var(--spacing-2) var(--spacing-4); border-radius: var(--radius-xs); font-family: var(--font-family-sans); font-size: var(--font-size-xs); text-decoration: none !important; letter-spacing: 0.04em; transition: background var(--transition-fast), border-color var(--transition-fast); white-space: nowrap; }
-  .subscribe-btn.primary { background: var(--color-text-heading); color: var(--color-surface-pure) !important; }
-  .subscribe-btn.primary:hover { background: var(--color-gold-dust); color: var(--color-text-heading) !important; }
-  .subscribe-btn.ghost { border: 1px solid var(--color-border); color: var(--color-text-primary) !important; }
-  .subscribe-btn.ghost:hover { border-color: var(--color-gold-dust); color: var(--color-gold-dust) !important; }
-  .subscribe-link { font-family: var(--font-family-sans); font-size: var(--font-size-2xs); color: var(--color-text-tertiary); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 1px; }
 
   /* 邮件提醒迷你表单 */
   .email-sub { display: flex; gap: var(--spacing-2); align-items: stretch; }

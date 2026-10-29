@@ -14,14 +14,8 @@ Disallow: /reviews/
 Disallow: /gatherings.ics
 Disallow: /gatherings/
 
-# 显式放行顶级搜索引擎爬虫
-User-agent: Googlebot
-User-agent: Googlebot-Image
-User-agent: Bingbot
-User-agent: Baiduspider
-User-agent: Applebot
-User-agent: YandexBot
-Allow: /
+# 注：不给 Googlebot/Bingbot 等单独建 Allow:/ 组——robots.txt 按最具体组优先，
+# 单独组会盖掉上面 * 组的 Disallow: /reviews/ 与 /api/，导致这些目录被重新放行。
 
 # 显式放行社交媒体卡片预览爬虫 (Twitter, Facebook, Instagram, LinkedIn, WeChat, Slack, Telegram)
 User-agent: Twitterbot

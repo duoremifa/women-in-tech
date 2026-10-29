@@ -7,7 +7,7 @@ const latest = (await getCollection('podcast', ({ data }) => !data.draft))
 
 {latest && (
   <section class='latest-ep'>
-    <a class='latest-ep-card' href={`/podcast/${latest.id}/`}>
+    <a class='latest-ep-card' href={`/podcast/${latest.slug}`}>
       <div class='le-info'>
         <span class='le-eyebrow'>
           {latest.data.comingSoon
@@ -18,7 +18,8 @@ const latest = (await getCollection('podcast', ({ data }) => !data.draft))
         {latest.data.excerpt && <p class='le-excerpt'>{latest.data.excerpt}</p>}
         <div class='le-meta'>
           {latest.data.duration && <span>{latest.data.duration}</span>}
-          <span>· 主播 {latest.data.hosts.join('、')}</span>
+          <span lang='zh-CN' class='lang-zh'>· 主播 {latest.data.hosts.join('、')}</span>
+          <span lang='en' class='lang-en'>· Host {latest.data.hosts.join(', ')}</span>
           <span class='le-arrow' aria-hidden='true'>⟶</span>
         </div>
       </div>

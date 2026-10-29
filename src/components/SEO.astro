@@ -9,6 +9,8 @@ interface Props {
   ogImage?: string;
   publishedTime?: string;
   keywords?: string;
+  /** noindex 页：robots meta 只在 <head> 内生效，必须经 Layout 透传到 SEO，禁止写在页面 slot 里 */
+  noindex?: boolean;
 }
 
 const {
@@ -20,6 +22,7 @@ const {
   ogImage,
   publishedTime,
   keywords = 'wo/men in tech, women in technical, 杭州, 手艺人, 设计师, 工程师, 写作者, 田野手记, 播客, Coffee Chat, Show and Tell',
+  noindex = false,
 } = Astro.props;
 
 // 确保主标题带有品牌后缀
@@ -118,11 +121,17 @@ const jsonLd = {
 <meta name='author' content='wo/men in tech' />
 <link rel='canonical' href={canonicalURL} />
 
-<!-- 搜索引擎爬虫指令 (极致开放抓取、开启大图与丰富摘要) -->
-<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
-<meta name='googlebot' content='index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1' />
-<meta name='bingbot' content='index, follow, max-snippet:-1, max-image-preview:large' />
-<meta name='baiduspider' content='index, follow' />
+<!-- 搜索引擎爬虫指令 (极致开放抓取、开启大图与丰富摘要)；noindex 时只保留 robots 单条，避免互相矛盾 -->
+{noindex ? (
+  <meta name='robots' content='noindex, follow' />
+) : (
+  <>
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+    <meta name='googlebot' content='index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1' />
+    <meta name='bingbot' content='index, follow, max-snippet:-1, max-image-preview:large' />
+    <meta name='baiduspider' content='index, follow' />
+  </>
+)}
 
 <!-- 多语言 / 国际化 hreflang：站点语言由 JS+localStorage 切换，无独立 en URL，
      故仅声明 zh-CN 与 x-default，避免向搜索引擎发送错误的 hreflang 信号 -->

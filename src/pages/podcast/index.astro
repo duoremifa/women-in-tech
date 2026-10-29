@@ -36,7 +36,7 @@ const RSS_URL = 'https://wotech.space/podcast/rss.xml';
 
     {/* 最新一期大卡 */}
     {latest && (
-      <a class='latest-card' href={`/podcast/${latest.id}/`}>
+      <a class='latest-card' href={`/podcast/${latest.slug}`}>
         {latest.data.cover && <img class='latest-cover' src={latest.data.cover} alt='' loading='lazy' />}
         <div class='latest-info'>
           <span class='latest-eyebrow'>
@@ -59,7 +59,7 @@ const RSS_URL = 'https://wotech.space/podcast/rss.xml';
     {rest.length > 0 && (
       <div class='ep-list'>
         {rest.map(ep => (
-          <a class='ep-row' href={`/podcast/${ep.id}/`}>
+          <a class='ep-row' href={`/podcast/${ep.slug}`}>
             <span class='ep-date'>{ep.data.pubDate.toLocaleDateString('zh-CN', { month:'2-digit', day:'2-digit' })}</span>
             <span class='ep-title'>{ep.data.title}</span>
             {ep.data.duration && <span class='ep-dur'>{ep.data.duration}</span>}
@@ -69,7 +69,10 @@ const RSS_URL = 'https://wotech.space/podcast/rss.xml';
     )}
 
     {all.length === 0 && (
-      <p class='empty-note'>播客筹备中，订阅 RSS 第一期上线自动到。</p>
+      <p class='empty-note'>
+        <span lang='zh-CN' class='lang-zh'>播客筹备中，订阅 RSS 第一期上线自动到。</span>
+        <span lang='en' class='lang-en'>Podcast is in the works — subscribe to RSS and the first episode arrives on its own.</span>
+      </p>
     )}
   </div>
 </Layout>
@@ -86,7 +89,6 @@ const RSS_URL = 'https://wotech.space/podcast/rss.xml';
   .sub-btn { padding: var(--spacing-2) var(--spacing-5); border-radius: var(--radius-xs); font-family: var(--font-family-sans); font-size: var(--font-size-xs); text-decoration: none !important; letter-spacing: 0.04em; transition: background var(--transition-fast); }
   .sub-btn.primary { background: var(--color-text-heading); color: var(--color-surface-pure) !important; }
   .sub-btn.primary:hover { background: var(--color-gold-dust); color: var(--color-text-heading) !important; }
-  .sub-or { font-family: var(--font-family-sans); font-size: var(--font-size-2xs); color: var(--color-text-tertiary); }
 
   .latest-card { display: flex; gap: var(--spacing-6); padding: var(--spacing-6); background: var(--color-surface-pure); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-sm); text-decoration: none !important; transition: border-color var(--transition-fast); margin-bottom: var(--spacing-10); }
   .latest-card:hover { border-color: var(--color-gold-dust) }
@@ -105,10 +107,6 @@ const RSS_URL = 'https://wotech.space/podcast/rss.xml';
   .ep-dur { font-family: var(--font-family-mono); font-size: var(--font-size-2xs); color: var(--color-text-tertiary); }
 
   .empty-note { font-family: var(--font-family-sans); font-size: var(--font-size-sm); color: var(--color-text-tertiary); font-style: italic; }
-
-  .index-foot { margin-top: var(--spacing-12); padding-top: var(--spacing-5); border-top: 1px solid var(--color-border-divider); font-family: var(--font-family-sans); font-size: 13px; color: var(--color-text-tertiary); }
-  .index-foot a { color: var(--color-text-primary); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 1px; transition: border-color var(--transition-fast); }
-  .index-foot a:hover { border-bottom-color: var(--color-gold-dust) !important; }
 
   @media (max-width: 680px) {
     .page-title { font-size: var(--font-size-page-title); }

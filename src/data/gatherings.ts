@@ -165,6 +165,18 @@ export function pastGatherings(now: Date = new Date()): Gathering[] {
   );
 }
 
+// 活动类型的官方标签——全站唯一口径（upcoming 徽标 / reviews 页题 / 邮件与日历都用它）
+export function typeLabel(type: Gathering['type']): string {
+  switch (type) {
+    case 'coffee':
+      return 'Coffee Chat';
+    case 'english':
+      return 'English Chat';
+    default:
+      return 'Craft Lab';
+  }
+}
+
 export function getGatheringById(id: string): Gathering | undefined {
   return GATHERINGS.find(g => g.id === id);
 }

@@ -34,6 +34,7 @@ export interface Props {
   ogImage?: string; // 页面特定的 OG 图
   type?: 'website' | 'article';
   publishedTime?: string; // ISO，type='article' 时发 article:published_time
+  noindex?: boolean; // 透传 SEO，在 <head> 内输出 robots meta（页面 slot 里写无效）
 }
 
 const {
@@ -43,6 +44,7 @@ const {
   ogImage,
   type,
   publishedTime,
+  noindex = false,
 } = Astro.props;
 
 // ============================================
@@ -84,10 +86,18 @@ const containerClass = width !== 'full' ? `layout-${width}` : '';
       })();
     </script>
     <!-- ===== SEO & 基础元数据 ===== -->
-    <SEO title={title} description={description} ogImage={ogImage} type={type} publishedTime={publishedTime} />
+    <SEO
+      title={title}
+      description={description}
+      ogImage={ogImage}
+      type={type}
+      publishedTime={publishedTime}
+      noindex={noindex}
+    />
     <ViewTransitions />
-    <meta name='theme-color' content='#f7f5f0' media='(prefers-color-scheme: light)' />
-    <meta name='theme-color' content='#151413' media='(prefers-color-scheme: dark)' />
+    <!-- theme-color 跟随站点主题（class 轨），而非 OS prefers-color-scheme——
+         用户手动切深色时地址栏/系统栏同步转暗；实际值由 theme.ts 按主题写回 -->
+    <meta name='theme-color' id='theme-color-meta' content='#f7f5f0' />
 
     <!-- ===== 宁静品牌图标 ===== -->
     <!-- 标准 favicon -->
@@ -279,7 +289,7 @@ const containerClass = width !== 'full' ? `layout-${width}` : '';
     font-family: var(--font-family-sans);
     font-size: var(--font-size-xs);
     text-decoration: none !important;
-    box-shadow: 0 2px 8px -2px rgba(38, 34, 28, 0.12);
+    box-shadow: 0 2px 8px -2px rgb(var(--color-gold-dust-rgb) / 14%);
   }
   .skip-link:focus,
   .skip-link:focus-visible {
