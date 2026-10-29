@@ -266,14 +266,14 @@ import Layout from '../layouts/Layout.astro';
 
   .card-badge {
     font-family: var(--font-family-sans);
-    font-size: 12px;
+    font-size: var(--font-size-xs);
     color: var(--color-text-tertiary);
     letter-spacing: 0.04em;
   }
 
   .card-title {
     font-family: var(--font-family-heading);
-    font-size: 1.25rem;
+    font-size: var(--font-size-xl);
     font-weight: var(--font-weight-normal);
     color: var(--color-text-heading);
     margin: 0 0 var(--spacing-3);
@@ -283,7 +283,7 @@ import Layout from '../layouts/Layout.astro';
 
   .card-body {
     font-family: var(--font-family-sans);
-    font-size: 14px;
+    font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
     line-height: 1.85;
     letter-spacing: 0.015em;
@@ -369,7 +369,7 @@ import Layout from '../layouts/Layout.astro';
 
   @media (max-width: 680px) {
     .page-title {
-      font-size: 1.6rem;
+      font-size: var(--font-size-page-title);
     }
 
     .event-detail-card {
@@ -384,7 +384,7 @@ import Layout from '../layouts/Layout.astro';
     }
 
     .card-title {
-      font-size: 1.25rem;
+      font-size: var(--font-size-xl);
     }
 
     .card-insight-box {

@@ -279,16 +279,16 @@ function fmtTime(iso: string) {
 
   /* 订阅卡 */
   .subscribe-card { background: var(--color-surface-pure); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-sm); padding: var(--spacing-6) var(--spacing-6); display: flex; justify-content: space-between; align-items: center; gap: var(--spacing-5); margin-bottom: var(--spacing-12); }
-  .sub-eyebrow { font-family: var(--font-family-mono); font-size: 11px; letter-spacing: 0.12em; color: var(--color-gold-dust); display: block; margin-bottom: var(--spacing-2); }
+  .sub-eyebrow { font-family: var(--font-family-mono); font-size: var(--font-size-2xs); letter-spacing: 0.12em; color: var(--color-gold-dust); display: block; margin-bottom: var(--spacing-2); }
   .subscribe-text h2 { font-family: var(--font-family-heading); font-size: var(--font-size-lg); font-weight: var(--font-weight-normal); color: var(--color-text-heading); margin: 0 0 var(--spacing-1); }
   .subscribe-text p { font-family: var(--font-family-sans); font-size: 13px; color: var(--color-text-secondary); line-height: 1.7; margin: 0; }
   .subscribe-actions { display: flex; flex-direction: column; gap: var(--spacing-2); align-items: flex-end; }
-  .subscribe-btn { padding: var(--spacing-2) var(--spacing-4); border-radius: var(--radius-xs); font-family: var(--font-family-sans); font-size: 12px; text-decoration: none !important; letter-spacing: 0.04em; transition: background var(--transition-fast), border-color var(--transition-fast); white-space: nowrap; }
+  .subscribe-btn { padding: var(--spacing-2) var(--spacing-4); border-radius: var(--radius-xs); font-family: var(--font-family-sans); font-size: var(--font-size-xs); text-decoration: none !important; letter-spacing: 0.04em; transition: background var(--transition-fast), border-color var(--transition-fast); white-space: nowrap; }
   .subscribe-btn.primary { background: var(--color-text-heading); color: var(--color-surface-pure) !important; }
   .subscribe-btn.primary:hover { background: var(--color-gold-dust); color: var(--color-text-heading) !important; }
   .subscribe-btn.ghost { border: 1px solid var(--color-border); color: var(--color-text-primary) !important; }
   .subscribe-btn.ghost:hover { border-color: var(--color-gold-dust); color: var(--color-gold-dust) !important; }
-  .subscribe-link { font-family: var(--font-family-sans); font-size: 11px; color: var(--color-text-tertiary); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 1px; }
+  .subscribe-link { font-family: var(--font-family-sans); font-size: var(--font-size-2xs); color: var(--color-text-tertiary); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 1px; }
 
   /* 邮件提醒迷你表单 */
   .email-sub { display: flex; gap: var(--spacing-2); align-items: stretch; }
@@ -298,7 +298,7 @@ function fmtTime(iso: string) {
     border-radius: var(--radius-xs);
     padding: 6px 10px;
     font-family: var(--font-family-sans);
-    font-size: 12px;
+    font-size: var(--font-size-xs);
     color: var(--color-text-primary);
     min-width: 160px;
     box-sizing: border-box;
@@ -311,27 +311,27 @@ function fmtTime(iso: string) {
     color: var(--color-text-primary);
     border-radius: var(--radius-xs);
     font-family: var(--font-family-sans);
-    font-size: 12px;
+    font-size: var(--font-size-xs);
     cursor: pointer;
     transition: border-color var(--transition-fast), color var(--transition-fast);
   }
   .email-sub-btn:hover { border-color: var(--color-gold-dust); color: var(--color-gold-dust); }
-  .email-sub-msg { font-family: var(--font-family-sans); font-size: 11px; color: var(--color-text-tertiary); margin-top: var(--spacing-1); min-height: 1em; }
+  .email-sub-msg { font-family: var(--font-family-sans); font-size: var(--font-size-2xs); color: var(--color-text-tertiary); margin-top: var(--spacing-1); min-height: 1em; }
 
   /* 排期块 */
   .schedule-stack { display: flex; flex-direction: column; gap: 0; }
   .schedule-block { display: grid; grid-template-columns: 90px 1fr; gap: var(--spacing-6); border-bottom: 1px solid var(--color-border-divider); padding: var(--spacing-8) var(--spacing-2); }
   .schedule-block:last-of-type { border-bottom: none; }
   .schedule-indicator { display: flex; flex-direction: column; gap: var(--spacing-1); border-right: 1px solid var(--color-border-divider); padding-right: var(--spacing-4); }
-  .block-type { font-family: var(--font-family-sans); font-size: 11px; color: var(--color-text-tertiary); }
+  .block-type { font-family: var(--font-family-sans); font-size: var(--font-size-2xs); color: var(--color-text-tertiary); }
   .block-num { font-family: var(--font-family-heading); font-size: 0.8125rem; font-style: italic; font-weight: 300; color: var(--color-gold-dust); }
   .schedule-content { display: flex; flex-direction: column; }
   .block-status-line { display: flex; align-items: center; gap: var(--spacing-3); margin-bottom: var(--spacing-3); flex-wrap: wrap; }
-  .status-pill { font-family: var(--font-family-sans); font-size: 11px; padding: 2px 8px; border-radius: var(--radius-xs); letter-spacing: 0.04em; }
+  .status-pill { font-family: var(--font-family-sans); font-size: var(--font-size-2xs); padding: 2px 8px; border-radius: var(--radius-xs); letter-spacing: 0.04em; }
   .status-pill.status-open { background: var(--color-surface-soft); color: var(--color-text-primary); font-weight: var(--font-weight-medium); }
   .status-pill.status-forming { background: var(--color-surface-soft); color: var(--color-text-tertiary); }
   .status-pill.status-full { background: var(--color-surface-soft); color: var(--color-text-tertiary); }
-  .status-meta { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-text-tertiary); }
+  .status-meta { font-family: var(--font-family-mono); font-size: var(--font-size-2xs); color: var(--color-text-tertiary); }
   .block-title { font-family: var(--font-family-heading); font-size: var(--font-size-xl); font-weight: var(--font-weight-normal); color: var(--color-text-heading); margin: 0 0 var(--spacing-2); }
   .block-desc { font-family: var(--font-family-sans); font-size: var(--font-size-sm); color: var(--color-text-secondary); line-height: 1.75; margin: 0 0 var(--spacing-4); }
   .block-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-4); padding: var(--spacing-3) 0; border-top: 1px solid var(--color-border-divider); border-bottom: 1px solid var(--color-border-divider); margin-bottom: var(--spacing-4); }
@@ -339,7 +339,7 @@ function fmtTime(iso: string) {
   .meta-label { font-family: var(--font-family-sans); font-size: 10.5px; color: var(--color-text-tertiary); }
   .meta-val { font-family: var(--font-family-sans); font-size: 12.5px; color: var(--color-text-primary); }
   .block-action { display: flex; justify-content: flex-end; gap: var(--spacing-3); align-items: center; flex-wrap: wrap; }
-  .btn-episode { font-family: var(--font-family-sans); font-size: 11px; color: var(--color-text-tertiary); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 2px; font-style: italic; transition: color var(--transition-fast), border-color var(--transition-fast); }
+  .btn-episode { font-family: var(--font-family-sans); font-size: var(--font-size-2xs); color: var(--color-text-tertiary); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 2px; font-style: italic; transition: color var(--transition-fast), border-color var(--transition-fast); }
   .btn-episode:hover { color: var(--color-gold-dust); border-bottom-color: var(--color-gold-dust) !important; }
   .btn-ics { font-family: var(--font-family-sans); font-size: 11.5px; color: var(--color-text-secondary); text-decoration: none !important; border: 1px solid var(--color-border-divider) !important; padding: 4px 10px; border-radius: var(--radius-xs); transition: border-color var(--transition-fast), color var(--transition-fast); }
   .btn-ics:hover { border-color: var(--color-gold-dust) !important; color: var(--color-gold-dust); }
@@ -354,11 +354,11 @@ function fmtTime(iso: string) {
   .past-block { display: grid; grid-template-columns: 1fr auto; gap: var(--spacing-4); align-items: baseline; padding: var(--spacing-4) 0; border-bottom: 1px solid var(--color-border-divider); }
   .past-meta { display: flex; flex-direction: column; gap: 2px; }
   .past-type { font-family: var(--font-family-sans); font-size: 10.5px; color: var(--color-gold-dust); letter-spacing: 0.06em; }
-  .past-date { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-text-tertiary); }
-  .past-block h3 { font-family: var(--font-family-heading); font-size: 1rem; font-weight: var(--font-weight-normal); color: var(--color-text-primary); margin: 0; }
+  .past-date { font-family: var(--font-family-mono); font-size: var(--font-size-2xs); color: var(--color-text-tertiary); }
+  .past-block h3 { font-family: var(--font-family-heading); font-size: var(--font-size-base); font-weight: var(--font-weight-normal); color: var(--color-text-primary); margin: 0; }
   .review-link { font-family: var(--font-family-sans); font-size: 11.5px; color: var(--color-text-primary); text-decoration: none !important; border-bottom: 1px solid var(--color-gold-dust) !important; padding-bottom: 2px; }
   .review-link:hover { color: var(--color-text-heading); }
-  .review-pending { font-family: var(--font-family-sans); font-size: 11px; color: var(--color-text-tertiary); font-style: italic; }
+  .review-pending { font-family: var(--font-family-sans); font-size: var(--font-size-2xs); color: var(--color-text-tertiary); font-style: italic; }
 
   /* FAQ */
   .faq-section { margin-top: var(--spacing-16); }
@@ -376,7 +376,7 @@ function fmtTime(iso: string) {
   .next-actions { display: flex; align-items: center; gap: var(--spacing-4); flex-shrink: 0; }
 
   @media (max-width: 680px) {
-    .page-title { font-size: 1.6rem; }
+    .page-title { font-size: var(--font-size-page-title); }
     .subscribe-card { flex-direction: column; align-items: stretch; padding: var(--spacing-5); }
     .subscribe-actions { align-items: stretch; }
     .schedule-block { grid-template-columns: 1fr; gap: var(--spacing-3); padding: var(--spacing-5) 0; }

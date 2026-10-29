@@ -62,16 +62,28 @@
   --font-weight-normal: 400;
   --font-weight-medium: 500;
 
-  /* 字号系统 */
+  /* 字号系统
+     官方档位只含下列值。以下「半像素光学值」是手工调校的例外，禁止归档，
+     括号为全站留存处数（2026-10-29 盘点）：
+     · 9px(1) / 10px(2) / 10.5px(7) — 极小标注（join 表单、podcast 封面角标等）
+     · 11.5px(11) — Navbar 品牌副标、导航次级字
+     · 12.5px(8) / 13px(16) / 13.5px(9) — 13 是辅助文字经典甜点位，勿归 12/14
+     · 14.5px(3) / 15px(4) — 首页副题、播客正文
+     · 1.0625rem(2)=17px / 1.1rem(3)=17.6 / 1.15rem(1)=18.4 / 1.1875rem(3)=19 / 1.3rem(1)=20.8 / 0.9em(1) — 光学微调
+     · 0.8125rem(3)=13px — events/index/upcoming 小标注
+     · 16px(1) 字面（responsive.css 输入框）— iOS 防自动放大阈值，保持字面
+     · 11pt(1) / 9pt(1) — print 语境，与屏幕字号无关 */
+  --font-size-2xs: 0.6875rem; /* 11px - UI chrome（时间戳/编号/脚注） */
   --font-size-xs: 0.75rem; /* 12px */
   --font-size-sm: 0.875rem; /* 14px */
   --font-size-base: 1rem; /* 16px */
   --font-size-lg: 1.125rem; /* 18px */
   --font-size-xl: 1.25rem; /* 20px */
   --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-page-title: 1.6rem; /* 25.6px - 内容页标题（page-title/w-title/ethos-head） */
   --font-size-3xl: 1.875rem; /* 30px */
-  --font-size-4xl: 2.25rem; /* 36px */
-  --font-size-5xl: 3rem; /* 48px */
+  --font-size-4xl: 2.25rem; /* 36px - 首页大标题 */
+  --font-size-5xl: 3rem; /* 48px - 404 大字 */
 
   /* 行高系统
      标题行高必须用无单位比例（1.2），不能用 px——px 值小于字号时换行会叠字；
@@ -170,8 +182,8 @@
   --measure-prose: 42rem;
   --measure-list: 46rem;
 
-  /* 流式字体（超小屏 clamp） */
-  --fluid-hero-min: 1.8rem;
+  /* 流式字体（超小屏 clamp）——min 2rem 与 8vw 均迁就 index 首页大标题的实测值 */
+  --fluid-hero-min: 2rem;
   --fluid-hero-max: 2.5rem;
   --fluid-h1-min: 1.6rem;
   --fluid-h1-max: 2rem;
@@ -179,7 +191,7 @@
   --fluid-h2-max: 1.75rem;
   --fluid-h3-min: 1.2rem;
   --fluid-h3-max: 1.25rem;
-  --font-size-hero-fluid: clamp(var(--fluid-hero-min), 7vw, var(--fluid-hero-max));
+  --font-size-hero-fluid: clamp(var(--fluid-hero-min), 8vw, var(--fluid-hero-max));
   --font-size-h1-fluid: clamp(var(--fluid-h1-min), 6vw, var(--fluid-h1-max));
   --font-size-h2-fluid: clamp(var(--fluid-h2-min), 5vw, var(--fluid-h2-max));
   --font-size-h3-fluid: clamp(var(--fluid-h3-min), 4vw, var(--fluid-h3-max));

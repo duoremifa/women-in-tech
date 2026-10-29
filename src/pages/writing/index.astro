@@ -68,22 +68,22 @@ const all = (await getCollection('writing', ({ data }) => !data.draft))
   .writing-list { display: flex; flex-direction: column; }
   .writing-row { display: grid; grid-template-columns: 7rem 1fr auto; gap: var(--spacing-5); align-items: baseline; padding: var(--spacing-5) 0; border-bottom: 1px solid var(--color-border-divider); text-decoration: none !important; transition: background var(--transition-fast); }
   .writing-row:hover { background: var(--color-surface-pure); }
-  .w-date { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-text-tertiary); }
+  .w-date { font-family: var(--font-family-mono); font-size: var(--font-size-2xs); color: var(--color-text-tertiary); }
   .w-content { display: flex; flex-direction: column; gap: var(--spacing-1); }
   .w-title { font-family: var(--font-family-heading); font-size: 1.1rem; font-weight: var(--font-weight-normal); color: var(--color-text-heading); margin: 0; line-height: 1.35; }
-  .w-subject { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-gold-dust); letter-spacing: 0.04em; }
+  .w-subject { font-family: var(--font-family-mono); font-size: var(--font-size-2xs); color: var(--color-gold-dust); letter-spacing: 0.04em; }
   .w-excerpt { font-family: var(--font-family-sans); font-size: 12.5px; color: var(--color-text-secondary); line-height: 1.65; margin: 0; }
   .w-tags { display: flex; gap: 4px; flex-wrap: wrap; }
   .w-tag { font-family: var(--font-family-sans); font-size: 10px; color: var(--color-text-tertiary); background: var(--color-surface-soft); padding: 1px 6px; border-radius: var(--radius-xs); }
 
-  .empty-note { font-family: var(--font-family-sans); font-size: 14px; color: var(--color-text-tertiary); font-style: italic; }
+  .empty-note { font-family: var(--font-family-sans); font-size: var(--font-size-sm); color: var(--color-text-tertiary); font-style: italic; }
 
   .index-foot { margin-top: var(--spacing-12); padding-top: var(--spacing-5); border-top: 1px solid var(--color-border-divider); font-family: var(--font-family-sans); font-size: 13px; color: var(--color-text-tertiary); }
   .index-foot a { color: var(--color-text-primary); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 1px; transition: border-color var(--transition-fast); }
   .index-foot a:hover { border-bottom-color: var(--color-gold-dust) !important; }
 
   @media (max-width: 680px) {
-    .page-title { font-size: 1.6rem; }
+    .page-title { font-size: var(--font-size-page-title); }
     .writing-row { grid-template-columns: 1fr; gap: var(--spacing-2); }
   }
 </style>

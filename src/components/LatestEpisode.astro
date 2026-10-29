@@ -42,7 +42,7 @@ const latest = (await getCollection('podcast', ({ data }) => !data.draft))
   }
   .le-eyebrow {
     font-family: var(--font-family-mono);
-    font-size: 11px;
+    font-size: var(--font-size-2xs);
     letter-spacing: 0.12em;
     color: var(--color-gold-dust);
     display: block;
@@ -65,7 +65,7 @@ const latest = (await getCollection('podcast', ({ data }) => !data.draft))
   }
   .le-meta {
     font-family: var(--font-family-mono);
-    font-size: 11px;
+    font-size: var(--font-size-2xs);
     color: var(--color-text-tertiary);
     display: flex;
     gap: var(--spacing-2);

@@ -418,24 +418,24 @@ import Stamp from '../components/Stamp.astro';
   .section-eyebrow { font-family: var(--font-family-mono); font-size: var(--font-size-xs); letter-spacing: 0.12em; color: var(--color-gold-dust); display: block; margin-bottom: var(--spacing-2); }
   .page-title { font-family: var(--font-family-heading); font-size: var(--font-size-3xl); font-weight: var(--font-weight-light); color: var(--color-text-heading); letter-spacing: -0.02em; margin: 0 0 var(--spacing-3); }
   .page-lead { font-family: var(--font-family-sans); font-size: var(--font-size-base); color: var(--color-text-secondary); line-height: 1.8; margin: 0; }
-  .ctx-link { display: inline-block; margin-top: var(--spacing-1); font-family: var(--font-family-sans); font-size: 12px; color: var(--color-text-primary); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 2px; transition: border-color var(--transition-fast); }
+  .ctx-link { display: inline-block; margin-top: var(--spacing-1); font-family: var(--font-family-sans); font-size: var(--font-size-xs); color: var(--color-text-primary); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 2px; transition: border-color var(--transition-fast); }
   .ctx-link:hover { border-bottom-color: var(--color-gold-dust) !important; }
   :root.dark .ctx-link { color: var(--color-gold-dust); }
   .gold-hairline { width: var(--spacing-12); height: 1px; background: var(--color-gold-dust); opacity: 0.7; margin-top: var(--spacing-5); }
 
   /* slot banner */
   .slot-banner { background: var(--color-surface-pure); border: 1px solid var(--color-gold-dust); border-radius: var(--radius-sm); padding: var(--spacing-5) var(--spacing-6); margin-bottom: var(--spacing-8); }
-  .slot-eyebrow { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-gold-dust); letter-spacing: 0.1em; display: block; margin-bottom: var(--spacing-2); }
+  .slot-eyebrow { font-family: var(--font-family-mono); font-size: var(--font-size-2xs); color: var(--color-gold-dust); letter-spacing: 0.1em; display: block; margin-bottom: var(--spacing-2); }
   .slot-title { font-family: var(--font-family-heading); font-size: var(--font-size-lg); font-weight: var(--font-weight-normal); color: var(--color-text-heading); margin: 0 0 var(--spacing-1); }
-  .slot-meta { font-family: var(--font-family-mono); font-size: 12px; color: var(--color-text-secondary); margin: 0 0 var(--spacing-3); }
-  .slot-ics-link { font-family: var(--font-family-sans); font-size: 12px; color: var(--color-text-primary); text-decoration: none !important; border-bottom: 1px solid var(--color-gold-dust) !important; padding-bottom: 2px; }
+  .slot-meta { font-family: var(--font-family-mono); font-size: var(--font-size-xs); color: var(--color-text-secondary); margin: 0 0 var(--spacing-3); }
+  .slot-ics-link { font-family: var(--font-family-sans); font-size: var(--font-size-xs); color: var(--color-text-primary); text-decoration: none !important; border-bottom: 1px solid var(--color-gold-dust) !important; padding-bottom: 2px; }
 
   /* form */
   .form-card-container { background: var(--color-surface-pure); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-sm); padding: var(--spacing-8); }
   .form-field { display: flex; flex-direction: column; gap: var(--spacing-2); margin-bottom: var(--spacing-6); }
   .form-field[hidden] { display: none; }
   .field-label { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--font-family-sans); font-size: 12.5px; font-weight: var(--font-weight-medium); color: var(--color-text-primary); letter-spacing: 0.02em; }
-  .field-hint { font-family: var(--font-family-sans); font-size: 11px; color: var(--color-text-tertiary); font-weight: var(--font-weight-normal); }
+  .field-hint { font-family: var(--font-family-sans); font-size: var(--font-size-2xs); color: var(--color-text-tertiary); font-weight: var(--font-weight-normal); }
   .quiet-form input[type='text'], .quiet-form textarea { width: 100%; background: var(--color-surface-soft); border: 1px solid var(--color-border-divider); border-radius: var(--radius-xs); padding: var(--spacing-3) var(--spacing-4); font-family: var(--font-family-sans); font-size: 13.5px; line-height: 1.6; color: var(--color-text-primary); transition: border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast); box-sizing: border-box; }
   .quiet-form input[type='text']:focus, .quiet-form textarea:focus { outline: none; border-color: var(--color-gold-dust); background: var(--color-surface-pure); box-shadow: var(--focus-ring); }
   .subscribe-field .cal-add-wrap { margin-bottom: var(--spacing-4); }
@@ -452,11 +452,11 @@ import Stamp from '../components/Stamp.astro';
   .quiet-check-row input:checked ~ .check-indicator svg { opacity: 1; }
   .check-content { display: flex; flex-direction: column; gap: 2px; }
   .check-title { font-family: var(--font-family-sans); font-size: 13px; font-weight: var(--font-weight-medium); color: var(--color-text-primary); }
-  .check-note { font-family: var(--font-family-sans); font-size: 11px; color: var(--color-text-tertiary); }
+  .check-note { font-family: var(--font-family-sans); font-size: var(--font-size-2xs); color: var(--color-text-tertiary); }
   .inline-link { color: var(--color-text-primary); text-decoration: underline; }
 
   .submit-zone { margin-top: var(--spacing-8); padding-top: var(--spacing-5); border-top: 1px solid var(--color-border-divider); display: flex; align-items: center; gap: var(--spacing-4); flex-wrap: wrap; }
-  .submit-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: var(--spacing-3); padding: var(--spacing-3) var(--spacing-6); background: var(--color-text-heading); color: var(--color-surface-pure); border: none; border-radius: var(--radius-xs); font-family: var(--font-family-sans); font-size: 12px; letter-spacing: 0.08em; cursor: pointer; transition: background-color var(--transition-fast), color var(--transition-fast); }
+  .submit-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: var(--spacing-3); padding: var(--spacing-3) var(--spacing-6); background: var(--color-text-heading); color: var(--color-surface-pure); border: none; border-radius: var(--radius-xs); font-family: var(--font-family-sans); font-size: var(--font-size-xs); letter-spacing: 0.08em; cursor: pointer; transition: background-color var(--transition-fast), color var(--transition-fast); }
   .submit-btn-primary:hover { background: var(--color-gold-dust); color: var(--color-text-heading); }
   .submit-btn-primary.is-loading { cursor: progress; background: var(--color-surface-pure); color: var(--color-text-heading); animation: gold-ring-pulse 1.4s ease-in-out infinite; }
   .submit-btn-primary.is-loading .btn-arrow { display: none; }
@@ -481,14 +481,14 @@ import Stamp from '../components/Stamp.astro';
   }
   .submit-btn-primary .btn-arrow { transition: transform var(--transition-fast); }
   .submit-btn-primary:hover .btn-arrow { transform: translateX(4px); }
-  .privacy-assurance-pill { display: inline-flex; align-items: center; gap: var(--spacing-2); font-family: var(--font-family-sans); font-size: 11px; color: var(--color-text-tertiary); }
+  .privacy-assurance-pill { display: inline-flex; align-items: center; gap: var(--spacing-2); font-family: var(--font-family-sans); font-size: var(--font-size-2xs); color: var(--color-text-tertiary); }
   .privacy-dot { color: var(--color-gold-dust); font-size: 9px; }
 
   /* receipt */
   .feedback-receipt { margin-top: var(--spacing-6); }
   .receipt-card { background: var(--color-surface-soft); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-sm); padding: var(--spacing-6); }
   .receipt-header { display: flex; align-items: center; gap: var(--spacing-4); margin-bottom: var(--spacing-4); padding-bottom: var(--spacing-4); border-bottom: 1px solid var(--color-border-divider); }
-  .receipt-mark { color: var(--color-gold-dust); font-size: 1.25rem; }
+  .receipt-mark { color: var(--color-gold-dust); font-size: var(--font-size-xl); }
   .receipt-title { margin: 0; font-family: var(--font-family-heading); font-size: 1.0625rem; color: var(--color-text-heading); }
   .receipt-id { margin: 2px 0 0; font-family: var(--font-family-mono); font-size: 11.5px; color: var(--color-gold-dust); letter-spacing: 0.05em; }
   .receipt-desc-box { margin: var(--spacing-2) 0 var(--spacing-5); }
@@ -503,17 +503,17 @@ import Stamp from '../components/Stamp.astro';
   .faq-card h3 { margin: 0 0 var(--spacing-5); font-family: var(--font-family-heading); font-size: var(--font-size-lg); color: var(--color-text-heading); }
   .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-5); }
   .faq-item h4 { margin: 0 0 var(--spacing-2); font-family: var(--font-family-sans); font-size: var(--font-size-sm); color: var(--color-text-primary); }
-  .faq-item p { margin: 0; font-family: var(--font-family-sans); font-size: 12px; color: var(--color-text-secondary); line-height: 1.7; }
+  .faq-item p { margin: 0; font-family: var(--font-family-sans); font-size: var(--font-size-xs); color: var(--color-text-secondary); line-height: 1.7; }
 
   /* CTA */
   .next-steps { margin-top: var(--spacing-12); }
   .next-card { background: var(--color-surface-pure); border: 1px solid var(--color-border-subtle); border-radius: var(--radius-sm); padding: var(--spacing-6); display: flex; justify-content: space-between; align-items: center; gap: var(--spacing-5); }
   .next-text h3 { margin: 0 0 var(--spacing-1); font-family: var(--font-family-heading); font-size: var(--font-size-lg); color: var(--color-text-heading); }
-  .next-text p { margin: 0; font-family: var(--font-family-sans); font-size: 12px; color: var(--color-text-secondary); }
+  .next-text p { margin: 0; font-family: var(--font-family-sans); font-size: var(--font-size-xs); color: var(--color-text-secondary); }
   .next-actions { display: flex; align-items: center; gap: var(--spacing-3); flex-shrink: 0; flex-wrap: wrap; }
 
   @media (max-width: 680px) {
-    .page-title { font-size: 1.6rem; }
+    .page-title { font-size: var(--font-size-page-title); }
     .form-card-container { padding: var(--spacing-5); }
     .faq-grid { grid-template-columns: 1fr; }
     .next-card { flex-direction: column; align-items: flex-start; }
