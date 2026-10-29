@@ -27,8 +27,9 @@ export function applyTheme(theme: 'light' | 'dark') {
   // 存储用户选择
   safeSet('theme', theme);
 
-  // theme-color meta 由 Layout 静态声明为 light/dark 媒体查询对，
-  // 浏览器按 prefers-color-scheme 自动选取，无需 JS 覆盖。
+  // theme-color 跟随站点主题（class 轨）而非 OS——手动切深色时地址栏/系统栏同步转暗
+  const themeColorMeta = document.querySelector("meta[name='theme-color']");
+  if (themeColorMeta) themeColorMeta.setAttribute('content', isDark ? '#151413' : '#f7f5f0');
 
   // 深色模式下添加背景纹理
   root.style.backgroundImage = isDark ? 'var(--texture-paper-dark)' : 'var(--texture-paper-light)';

@@ -4,14 +4,9 @@
 // @font-face 声明见 /fonts/fonts.css（保留 unicode-range 按需加载，CJK 仅在用到时取）
 // 仅预加载首屏关键 latin 子集；其余子集由浏览器按 unicode-range 自动按需拉取
 // build 期检查 woff2 是否存在（prebuild 联网失败回退模式时不发 preload，避免 404）
-//
-// fonts.css URL 带版本号 ?v=YYYYMMDD——self-host 脚本重建改变 @font-face 内容时，
-// 改这个版本号即可强制浏览器 + CDN 重新拉取（woff2 文件名按 family-weight-subset 命名，
-// 内容不变所以保持 immutable 长缓存；只有 fonts.css 会变，需要可破缓存）。
 import fs from 'node:fs';
 import path from 'node:path';
 
-const FONT_CSS_VER = '20261028e';
 const interLatin = path.join(process.cwd(), 'public/fonts/inter-400-latin.woff2');
 const loraLatin = path.join(process.cwd(), 'public/fonts/lora-400-latin.woff2');
 const hasInter = fs.existsSync(interLatin);
@@ -40,9 +35,10 @@ const hasLora = fs.existsSync(loraLatin);
 )}
 
 <!-- 字体样式表（含全部 @font-face 与 unicode-range 切分，浏览器按需取子集）。
-     ?v= 版本号破缓存：fonts.css 内容随 self-host 脚本变，不能 immutable。 -->
-<link rel='stylesheet' href={`/fonts/fonts.css?v=${FONT_CSS_VER}`} media='print' onload="this.media='all'" />
+     不带查询串：URL 必须与 SW precache 键完全一致才能命中 precache；
+     破缓存交给 precache revision（内容变 → hash 变）+ _headers 的 max-age=3600, stale-while-revalidate。 -->
+<link rel='stylesheet' href='/fonts/fonts.css' media='print' onload="this.media='all'" />
 <!-- 不阻塞首屏：先以 print 媒介加载，完成后切 all；不支持 JS 时回退 noscript -->
 <noscript>
-  <link rel='stylesheet' href={`/fonts/fonts.css?v=${FONT_CSS_VER}`} />
+  <link rel='stylesheet' href='/fonts/fonts.css' />
 </noscript>

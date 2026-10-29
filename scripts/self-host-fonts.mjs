@@ -26,13 +26,18 @@ const UA =
 const ACCEPT_LANG = 'zh-CN,zh;q=0.9,en;q=0.8';
 const FETCH_HEADERS = { 'User-Agent': UA, 'Accept-Language': ACCEPT_LANG };
 
+// 字重取舍：300 = --font-weight-light 令牌实际所指（首页 h1/.site-title 等 18 处在用），
+// 必须真实存在才能渲染出轻盈感；600 全库零引用，删。
+// 注意：Lora 是 400–700 变量字体，Google 不提供 300 字重（CSS2 请求 300 会被静默丢弃），
+// 所以 Lora 不含 300——font-weight: 300 用在 Lora 上时浏览器就近取 400。
 const FAMILIES = [
-  { family: 'Inter', weights: [400, 500, 600, 700] },
-  { family: 'Lora', weights: [400, 500, 600, 700] },
+  { family: 'Inter', weights: [300, 400, 500, 700] },
+  { family: 'Lora', weights: [400, 500, 700] },
 ];
 
-// 只保留拉丁子集——cyrillic/greek/vietnamese 本站永不使用，过滤掉省 CSS + 文件
-const KEEP_SUBSETS = new Set(['latin', 'latin-ext']);
+// 只保留 latin 子集——latin-ext 全站零引用（2026-10 实测 8 文件 420KB 无一处 unicode 命中），
+// cyrillic/greek/vietnamese 同理本站永不使用，过滤掉省 CSS + 文件
+const KEEP_SUBSETS = new Set(['latin']);
 
 const slug = s =>
   s
