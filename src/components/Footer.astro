@@ -4,13 +4,9 @@
 
 <footer class='footer'>
   <div class='footer-sub'>
-    <span lang='zh-CN' class='footer-privacy lang-zh'>
-      © 2026 wo/men in tech
-    </span>
-    <span lang='en' class='footer-privacy lang-en'>
-      © 2026 wo/men in tech
-    </span>
-    <span class='footer-colophon'>by Dai Min</span>
+    {/* 签名手势：一短金线，从中心画出（reduced-motion 关） */}
+    <span class='footer-hairline' aria-hidden='true'></span>
+    <span class='footer-privacy'>© 2026 wo/men in tech</span>
   </div>
 </footer>
 
@@ -25,28 +21,49 @@
     border-top: var(--border-width-thin) solid var(--color-border-divider);
   }
 
+  /* 内容束：严格居中，行距走 8px 节奏 */
   .footer-sub {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--spacing-2);
+    gap: var(--spacing-3);
   }
 
+  /* 短金线：顶奢的安静手势——不是动画，是「线落下」。与页头 gold-hairline 同家族，
+     区别在于从中心向两侧生长，而非从左起笔 */
+  .footer-hairline {
+    width: var(--spacing-10);
+    height: var(--border-width-thin);
+    background: var(--color-gold-dust);
+    transform-origin: center;
+    animation: footer-hairline-draw 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes footer-hairline-draw {
+    from {
+      transform: scaleX(0);
+      opacity: 0.4;
+    }
+
+    to {
+      transform: scaleX(1);
+      opacity: 0.9;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer-hairline {
+      animation: none;
+    }
+  }
+
+  /* 版权行：mono 元数据语言，与全站 section-eyebrow 同家族 */
   .footer-privacy {
-    color: var(--color-text-tertiary);
-    font-size: var(--font-size-xs);
-    font-style: normal;
-    margin-top: var(--spacing-4);
-    letter-spacing: 0.02em;
-  }
-
-  .footer-colophon {
     font-family: var(--font-family-mono);
     font-size: var(--font-size-2xs);
     color: var(--color-text-tertiary);
     letter-spacing: 0.08em;
-    margin-top: var(--spacing-2);
-    opacity: 0.7;
+    line-height: 1;
   }
 
   @media (width <= 768px) {
