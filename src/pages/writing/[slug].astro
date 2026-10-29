@@ -86,7 +86,7 @@ const dateStr = w.data.pubDate.toLocaleDateString('zh-CN', { year: 'numeric', mo
 </Layout>
 
 <style>
-  .page-container { padding: var(--spacing-6) 0 var(--spacing-20); max-width: 42rem; margin: 0 auto; }
+  .page-container { padding: var(--spacing-6) 0 var(--spacing-20); max-width: var(--measure-prose); margin: 0 auto; }
 
   .w-head { margin-bottom: var(--spacing-10); padding-bottom: var(--spacing-6); border-bottom: 1px solid var(--color-border-divider); }
   .w-subject { display: block; font-family: var(--font-family-mono); font-size: 11px; color: var(--color-gold-dust); letter-spacing: 0.1em; margin-bottom: var(--spacing-2); }
@@ -99,13 +99,13 @@ const dateStr = w.data.pubDate.toLocaleDateString('zh-CN', { year: 'numeric', mo
   .interviewee-info { display: flex; flex-direction: column; gap: 2px; }
   .interviewee-name { font-family: var(--font-family-heading); font-size: 1rem; font-weight: var(--font-weight-medium); color: var(--color-text-heading); }
   .interviewee-role { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-gold-dust); letter-spacing: 0.04em; }
-  .interviewee-brand { font-family: var(--font-family-body); font-size: 12.5px; color: var(--color-text-primary); }
+  .interviewee-brand { font-family: var(--font-family-sans); font-size: 12.5px; color: var(--color-text-primary); }
   .interviewee-loc { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-text-tertiary); }
   .interviewee-links { display: flex; gap: var(--spacing-3); margin-top: var(--spacing-2); flex-wrap: wrap; }
-  .interviewee-link { font-family: var(--font-family-ui); font-size: 11px; color: var(--color-text-primary); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 1px; transition: border-color var(--transition-fast); }
+  .interviewee-link { font-family: var(--font-family-sans); font-size: 11px; color: var(--color-text-primary); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 1px; transition: border-color var(--transition-fast); }
   .interviewee-link:hover { border-bottom-color: var(--color-gold-dust) !important; }
 
-  .w-body { font-family: var(--font-family-body); font-size: 16px; color: var(--color-text-primary); line-height: 1.85; letter-spacing: 0.005em; }
+  .w-body { font-family: var(--font-family-sans); font-size: 16px; color: var(--color-text-primary); line-height: 1.85; letter-spacing: 0.005em; }
   .w-body :global(h2) { font-family: var(--font-family-heading); font-size: 1.3rem; font-weight: var(--font-weight-normal); color: var(--color-text-heading); margin: var(--spacing-8) 0 var(--spacing-3); }
   .w-body :global(h3) { font-family: var(--font-family-heading); font-size: 1.1rem; color: var(--color-text-heading); margin: var(--spacing-6) 0 var(--spacing-2); }
   .w-body :global(p) { margin: 0 0 var(--spacing-5); }
@@ -118,7 +118,7 @@ const dateStr = w.data.pubDate.toLocaleDateString('zh-CN', { year: 'numeric', mo
   .w-sign { margin-top: var(--spacing-12); padding-top: var(--spacing-5); border-top: 1px solid var(--color-border-divider); display: flex; align-items: center; gap: var(--spacing-3); }
   .sign-mark { color: var(--color-gold-dust); font-size: 11px; }
   .w-sign span { font-family: var(--font-family-mono); font-size: 12px; color: var(--color-text-tertiary); }
-  .more-link { margin-left: auto; font-family: var(--font-family-ui); font-size: 12px; color: var(--color-text-primary); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 2px; }
+  .more-link { margin-left: auto; font-family: var(--font-family-sans); font-size: 12px; color: var(--color-text-primary); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 2px; }
 
   @media (max-width: 680px) {
     .w-title { font-size: 1.6rem; }

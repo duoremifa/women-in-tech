@@ -11,19 +11,18 @@ textarea {
   display: block;
   width: 100%;
   padding: var(--spacing-3) var(--spacing-4);
-  font-family: var(--font-family-ui);
+  font-family: var(--font-family-sans);
   font-size: var(--font-size-sm);
   line-height: var(--line-height-normal);
   color: var(--color-text-primary);
   background-color: var(--color-surface-pure);
   border: var(--border-width-thin) solid var(--color-border-subtle);
   border-radius: var(--radius-sm);
-  box-shadow: 0 1px 2px rgba(38, 34, 28, 0.02);
+  box-shadow: 0 1px 2px rgb(38 34 28 / 2%);
   transition:
     border-color var(--transition-fast),
     background-color var(--transition-fast),
     box-shadow var(--transition-fast);
-  -webkit-appearance: none;
   appearance: none;
 }
 
@@ -37,7 +36,7 @@ textarea::placeholder {
 
 input:hover:not(:focus),
 textarea:hover:not(:focus) {
-  border-color: rgba(216, 205, 176, 0.5);
+  border-color: rgb(216 205 176 / 50%);
 }
 
 input:focus,
@@ -59,7 +58,7 @@ textarea {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  font-family: var(--font-family-ui);
+  font-family: var(--font-family-sans);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
   letter-spacing: 0.05em;
@@ -103,7 +102,7 @@ textarea {
 }
 
 .quiet-check-row:hover {
-  border-color: rgba(216, 205, 176, 0.5);
+  border-color: rgb(216 205 176 / 50%);
   background: var(--color-surface-pure);
 }
 
@@ -150,28 +149,24 @@ textarea {
 }
 
 /* 选中激活状态：细腻纸感高亮 + 金线边缘 */
-.quiet-check-row:has(input:checked),
-.quiet-check-row.is-checked {
+.quiet-check-row:has(input:checked) {
   background: var(--color-surface-pure);
   border-color: var(--color-gold-dust);
-  box-shadow: 0 1px 3px rgba(216, 205, 176, 0.15);
+  box-shadow: 0 1px 3px rgb(216 205 176 / 15%);
 }
 
-.quiet-check-row:has(input:checked) .check-indicator,
-.quiet-check-row.is-checked .check-indicator {
+.quiet-check-row:has(input:checked) .check-indicator {
   border-color: var(--color-gold-dust);
   background: var(--color-surface-soft);
 }
 
-.quiet-check-row:has(input:checked) .check-indicator svg,
-.quiet-check-row.is-checked .check-indicator svg {
+.quiet-check-row:has(input:checked) .check-indicator svg {
   opacity: 1;
   transform: scale(1);
 }
 
 /* 单选时中心呈现金核微点 */
-.quiet-check-row.is-radio:has(input:checked) .check-indicator::after,
-.quiet-check-row.is-radio.is-checked .check-indicator::after {
+.quiet-check-row.is-radio:has(input:checked) .check-indicator::after {
   content: '';
   width: 6px;
   height: 6px;
@@ -189,7 +184,7 @@ textarea {
 }
 
 .check-title {
-  font-family: var(--font-family-ui);
+  font-family: var(--font-family-sans);
   font-size: var(--font-size-xs);
   color: var(--color-text-primary);
   font-weight: var(--font-weight-normal);
@@ -199,7 +194,7 @@ textarea {
 .check-note {
   font-size: 11px;
   color: var(--color-text-tertiary);
-  font-family: var(--font-family-ui);
+  font-family: var(--font-family-sans);
   letter-spacing: 0.02em;
 }
 
@@ -214,7 +209,7 @@ textarea {
   color: var(--color-bg-page);
   border: 1px solid var(--color-text-heading);
   border-radius: var(--radius-xs);
-  font-family: var(--font-family-ui);
+  font-family: var(--font-family-sans);
   font-size: var(--font-size-xs);
   letter-spacing: 0.06em;
   cursor: pointer;

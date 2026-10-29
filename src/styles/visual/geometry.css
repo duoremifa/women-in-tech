@@ -1,25 +1,12 @@
 /* src/styles/visual/geometry.css */
 
-:root {
-  /* ============ 几何形状系统 (Geometry Design Tokens) ============ */
+/* ============ 几何形状系统 (Geometry Design Tokens) ============ */
 
-  /* 基础形状尺寸 - 严密的比例系统 */
+/* 基础形状尺寸 - 严密的比例系统（GeometricIcon 按 size 动态取用） */
+:root {
   --geom-size-xs: var(--spacing-4);
   --geom-size-sm: var(--spacing-5);
   --geom-size-md: var(--spacing-6);
   --geom-size-lg: var(--spacing-8);
   --geom-size-xl: var(--spacing-12);
-  --geom-size-2xl: var(--spacing-16);
-  --geom-size-3xl: var(--spacing-24);
-
-  /* 线条粗细 - 增强视觉等级控制 */
-  --geom-stroke-thin: var(--border-width-thin);
-  --geom-stroke-normal: 1.25px; /* Keep precision? Or use 1px */
-  --geom-stroke-bold: var(--border-width-normal);
-
-  /* 几何专用圆角 (独立于组件圆角) */
-  --geom-radius-sm: var(--radius-xs);
-  --geom-radius-md: var(--radius-sm);
-  --geom-radius-lg: var(--radius-lg);
-  --geom-radius-full: var(--radius-full);
 }

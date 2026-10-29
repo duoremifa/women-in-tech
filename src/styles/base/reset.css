@@ -40,6 +40,7 @@ body {
     'calt' 1,
     'onum' 1;
   hanging-punctuation: first last;
+
   /* CJK 与 Latin/数字之间自动留白（Chrome 120+/Safari 17.4+ 渐进增强，不支持则无变化） */
   text-autospace: ideograph-alpha ideograph-numeric;
   color: var(--color-text-primary);
@@ -56,14 +57,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /* mono 上下文的数字等宽（日期/编号/时长/序号对齐） */
 .receipt-id,
-.ep-date,
 .ep-meta,
 .latest-meta,
 .w-date,
 .block-num,
 .card-index,
 .section-serial,
-.pp-time,
 .slot-meta,
 .meta-val,
 .footer-colophon,
@@ -83,20 +82,6 @@ canvas,
 svg {
   display: block;
   max-width: 100%;
-}
-
-/* 品牌图片处理：矩形封面统一 4/3 + object-cover + 纸感调色 filter。
-   正方形封面（latest-cover 等）保留原比例，仅上 filter。 */
-.workshop-thumb img,
-.work-thumb img,
-.work-cover img {
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  filter: var(--img-filter);
-}
-
-.latest-cover {
-  filter: var(--img-filter);
 }
 
 input,

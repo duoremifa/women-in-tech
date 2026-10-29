@@ -2,28 +2,8 @@
 
 /* Display & Layout Utilities */
 
-.block {
-  display: block;
-}
-
-.inline-block {
-  display: inline-block;
-}
-
-.inline {
-  display: inline;
-}
-
 .flex {
   display: flex;
-}
-
-.grid-util {
-  display: grid;
-}
-
-.hidden {
-  display: none;
 }
 
 .flex-col {
@@ -44,21 +24,4 @@
 
 .gap-4 {
   gap: var(--spacing-4);
-}
-
-.gap-6 {
-  gap: var(--spacing-6);
-}
-
-/* Text Alignment */
-.text-center {
-  text-align: center;
-}
-
-.text-left {
-  text-align: left;
-}
-
-.text-right {
-  text-align: right;
 }

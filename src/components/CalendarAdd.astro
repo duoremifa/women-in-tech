@@ -51,7 +51,7 @@
     color: var(--color-surface-pure) !important;
     border: none;
     border-radius: var(--radius-xs);
-    font-family: var(--font-family-ui);
+    font-family: var(--font-family-sans);
     font-size: 12px;
     letter-spacing: 0.04em;
     cursor: pointer;
@@ -104,13 +104,13 @@
   }
   .cal-opt.primary .cal-opt-title { color: var(--color-text-primary); }
   .cal-opt-title {
-    font-family: var(--font-family-ui);
+    font-family: var(--font-family-sans);
     font-size: 12.5px;
     font-weight: var(--font-weight-medium);
     color: var(--color-text-primary);
   }
   .cal-opt-hint {
-    font-family: var(--font-family-body);
+    font-family: var(--font-family-sans);
     font-size: 11px;
     color: var(--color-text-tertiary);
     line-height: 1.4;
@@ -119,17 +119,12 @@
     margin: var(--spacing-1) var(--spacing-3) 0;
     padding-top: var(--spacing-2);
     border-top: 1px solid var(--color-border-divider);
-    font-family: var(--font-family-body);
+    font-family: var(--font-family-sans);
     font-size: 10.5px;
     color: var(--color-text-tertiary);
     line-height: 1.5;
   }
   .cal-foot:empty { display: none; }
-
-  :root.dark .cal-menu {
-    background: var(--color-surface-card-dark);
-    border-color: var(--color-border-subtle-dark);
-  }
 
   @media (max-width: 680px) {
     /* 移动端右锚定（与桌面一致），不再 left:0/right:0 通栏脱离按钮 */

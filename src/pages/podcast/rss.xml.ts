@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 
 const PODCAST_NAME = '慢谈 · Slow Talk';
 const SITE = 'https://wotech.space';
+const RSS_URL = `${SITE}/podcast/rss.xml`;
 
 export const GET: APIRoute = async () => {
   const episodes = (

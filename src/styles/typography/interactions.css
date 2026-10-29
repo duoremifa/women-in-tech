@@ -26,17 +26,7 @@ a:hover::after {
   width: 100%;
 }
 
-/* ============ 引用样式 ============ */
-blockquote {
-  font-family: var(--font-family-text);
-  font-style: normal;
-  font-size: var(--font-size-base);
-  border-left: 1px solid var(--color-gold-dust);
-  padding-left: var(--spacing-4);
-  margin: var(--spacing-6) 0;
-  color: var(--color-text-secondary);
-  line-height: var(--line-height-relaxed);
-}
+/* ============ 引用样式（blockquote 统一由 components/quiet-elements.css 定义） ============ */
 
 /* ============ 代码样式 · 去电商 hover（无上浮/无阴影/无 4px 紫条） ============ */
 code {

@@ -12,82 +12,19 @@
   color: var(--color-text-heading);
 }
 
-.page-subtitle {
-  font-family: var(--font-family-ui);
-  font-size: var(--font-size-lg);
-  color: var(--color-text-secondary);
-}
-
-/* Sections */
-.section-title {
-  font-family: var(--font-family-heading);
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-normal);
-  line-height: var(--line-height-tight);
-  margin-bottom: var(--spacing-6);
-}
-
-.section-intro {
-  font-family: var(--font-family-ui);
-  font-size: var(--font-size-base);
-  color: var(--color-text-secondary);
-}
-
 /* Cards */
 .card-title {
-  font-family: var(--font-family-ui);
+  font-family: var(--font-family-sans);
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-medium);
   letter-spacing: var(--letter-spacing-wide);
 }
 
-.card-desc {
-  font-family: var(--font-family-ui);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-}
-
-/* Metadata & Labels */
-.caption,
-.hint-text,
-.post-meta {
-  font-family: var(--font-family-ui);
-  font-size: var(--font-size-sm);
-  letter-spacing: var(--letter-spacing-extended);
-  color: var(--color-text-tertiary);
-}
-
 /* UI Elements */
 .btn,
-.nav-link,
-.tag {
-  font-family: var(--font-family-ui);
+.nav-link {
+  font-family: var(--font-family-sans);
   font-weight: var(--font-weight-medium);
 }
 
-/* Code Elements */
-code {
-  font-family: var(--font-family-mono);
-  background: var(--color-surface-tertiary);
-  padding: var(--spacing-1) var(--spacing-2);
-  border-radius: var(--radius-sm);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-primary);
-}
-
-pre {
-  font-family: var(--font-family-mono);
-  background: var(--color-surface-tertiary);
-  padding: var(--spacing-4);
-  border-radius: var(--radius-md);
-  overflow-x: auto;
-  line-height: var(--line-height-relaxed);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-primary);
-}
-
-pre code {
-  background: transparent;
-  padding: 0;
-  font-size: inherit;
-}
+/* Code Elements（code/pre 统一由 typography/interactions.css 定义） */

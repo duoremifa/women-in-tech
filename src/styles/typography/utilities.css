@@ -1,26 +1,6 @@
 /* src/styles/typography/utilities.css */
 
-/* ============ 字体工具类 ============ */
-
-.text-heading {
-  font-family: var(--font-family-heading);
-}
-
-.text-ui {
-  font-family: var(--font-family-ui);
-}
-
-.text-serif {
-  font-family: var(--font-family-serif);
-}
-
-.text-sans {
-  font-family: var(--font-family-sans);
-}
-
-.text-mono {
-  font-family: var(--font-family-mono);
-}
+/* ============ 字体粗细工具类 ============ */
 
 .font-light {
   font-weight: var(--font-weight-light);
@@ -34,39 +14,10 @@
   font-weight: var(--font-weight-medium);
 }
 
-.font-semibold {
-  font-weight: var(--font-weight-semibold);
-}
+/* ============ 字体大小工具类 ============ */
 
-.font-bold {
-  font-weight: var(--font-weight-bold);
-}
-
-/* 字体粗细 - 兼容旧命名 */
-.font-weight-medium {
-  font-weight: var(--font-weight-medium) !important;
-}
-
-/* 字体大小 */
 .text-xs {
   font-size: var(--font-size-xs);
-}
-
-.text-sm {
-  font-size: var(--font-size-sm);
-}
-
-.small-text {
-  font-size: var(--font-size-sm) !important;
-}
-
-.text-base {
-  font-size: var(--font-size-base);
-}
-
-.text-body {
-  font-size: var(--font-size-base) !important;
-  color: var(--color-text-primary) !important;
 }
 
 .text-lg {
@@ -81,151 +32,18 @@
   font-size: var(--font-size-2xl);
 }
 
-.text-3xl {
-  font-size: var(--font-size-3xl);
-}
-
-.text-4xl {
-  font-size: var(--font-size-4xl);
-}
-
-.lh-dense {
-  line-height: var(--line-height-dense);
-}
-
-.lh-tight {
-  line-height: var(--line-height-tight);
-}
-
-.lh-normal {
-  line-height: var(--line-height-normal);
-}
-
-.lh-relaxed {
-  line-height: var(--line-height-relaxed);
-}
-
-.ls-tight {
-  letter-spacing: var(--letter-spacing-tight);
-}
-
-.ls-normal {
-  letter-spacing: var(--letter-spacing-normal);
-}
-
-.ls-wide {
-  letter-spacing: var(--letter-spacing-wide);
-}
-
-.text-uppercase {
-  text-transform: uppercase;
-}
-
-.text-italic {
-  font-style: italic;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.text-justify {
-  text-align: justify;
-}
-
-.text-primary {
-  color: var(--color-text-primary);
-}
-
-.text-secondary {
-  color: var(--color-text-secondary);
-}
-
-.text-tertiary {
-  color: var(--color-text-tertiary);
-}
-
-.text-heading-color {
-  color: var(--color-text-heading);
-}
-
 /* ============ 布局与间距工具类 ============ */
-
-.mt-0 {
-  margin-top: 0 !important;
-}
-
-.mt-2 {
-  margin-top: var(--spacing-2) !important;
-}
-
-.mt-4 {
-  margin-top: var(--spacing-4) !important;
-}
-
-.mt-6 {
-  margin-top: var(--spacing-6) !important;
-}
-
-.mt-8 {
-  margin-top: var(--spacing-8) !important;
-}
-
-.mt-10 {
-  margin-top: var(--spacing-10) !important;
-}
-
-.mb-0 {
-  margin-bottom: 0 !important;
-}
-
-.mb-2 {
-  margin-bottom: var(--spacing-2) !important;
-}
-
-.mb-3 {
-  margin-bottom: var(--spacing-3) !important;
-}
-
-.mb-4 {
-  margin-bottom: var(--spacing-4) !important;
-}
-
-.mb-6 {
-  margin-bottom: var(--spacing-6) !important;
-}
-
-.mb-8 {
-  margin-bottom: var(--spacing-8) !important;
-}
-
-.mb-10 {
-  margin-bottom: var(--spacing-10) !important;
-}
-
-.mr-1 {
-  margin-right: var(--spacing-1) !important;
-}
 
 .mx-auto {
   margin-left: auto !important;
   margin-right: auto !important;
 }
 
-.my-8 {
-  margin-top: var(--spacing-8) !important;
-  margin-bottom: var(--spacing-8) !important;
-}
-
 .w-full {
   width: 100% !important;
 }
 
-.w-\[120px\] {
-  width: 120px !important;
-}
-
-/* Flex & Stack System */
+/* Flex & Grid */
 .flex {
   display: flex;
 }
@@ -238,24 +56,16 @@
   align-items: center;
 }
 
+.items-baseline {
+  align-items: baseline;
+}
+
 .justify-center {
   justify-content: center;
 }
 
 .justify-between {
   justify-content: space-between;
-}
-
-.items-baseline {
-  align-items: baseline;
-}
-
-.flex-1 {
-  flex: 1;
-}
-
-.gap-1 {
-  gap: var(--spacing-1);
 }
 
 .gap-2 {
@@ -270,173 +80,10 @@
   gap: var(--spacing-4);
 }
 
-.gap-6 {
-  gap: var(--spacing-6);
-}
-
-.gap-8 {
-  gap: var(--spacing-8);
-}
-
-.stack-xl {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-16);
-}
-
-.stack-lg {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-8);
-}
-
-.stack-md {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-6);
-}
-
-.stack-sm {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-}
-
 .grid {
   display: grid;
 }
 
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
-}
-
-.grid-cols-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.text-left {
-  text-align: left;
-}
-
-/* ============ 动画与变换 ============ */
-
-/* 图标尺寸 */
-.icon-scale-xs {
-  transform: scale(0.75);
-}
-
-.icon-scale-sm {
-  transform: scale(0.875);
-}
-
-.icon-scale-md {
-  transform: scale(1);
-}
-
-.icon-scale-lg {
-  transform: scale(1.125);
-}
-
-.icon-scale-xl {
-  transform: scale(1.25);
-}
-
-.scale-150 {
-  transform: scale(1.5);
-}
-
-.scale-50 {
-  transform: scale(0.5);
-}
-
-.opacity-50 {
-  opacity: 0.5;
-}
-
-.opacity-70 {
-  opacity: 0.7;
-}
-
-.opacity-10 {
-  opacity: 0.1;
-}
-
-/* ============ 间距工具类 ============ */
-
-.margin-right-2 {
-  margin-right: var(--spacing-2) !important;
-}
-
-.margin-left-negative {
-  margin-left: calc(var(--spacing-2) * -1) !important;
-}
-
-/* Margin Top - 兼容旧命名 */
-.margin-top-2 {
-  margin-top: var(--spacing-2) !important;
-}
-
-.margin-top-4 {
-  margin-top: var(--spacing-4) !important;
-}
-
-.margin-top-6 {
-  margin-top: var(--spacing-6) !important;
-}
-
-.margin-top-8 {
-  margin-top: var(--spacing-8) !important;
-}
-
-.margin-top-10 {
-  margin-top: var(--spacing-10) !important;
-}
-
-/* Margin Bottom - 兼容旧命名 */
-.margin-bottom-2 {
-  margin-bottom: var(--spacing-2) !important;
-}
-
-.margin-bottom-3 {
-  margin-bottom: var(--spacing-3) !important;
-}
-
-.margin-bottom-4 {
-  margin-bottom: var(--spacing-4) !important;
-}
-
-.margin-bottom-6 {
-  margin-bottom: var(--spacing-6) !important;
-}
-
-.margin-bottom-8 {
-  margin-bottom: var(--spacing-8) !important;
-}
-
-.margin-bottom-10 {
-  margin-bottom: var(--spacing-10) !important;
-}
-
-.-ml-2 {
-  margin-left: -0.5rem !important;
-}
-
-/* ============ 列表标准化 ============ */
-
-.standard-list {
-  margin: var(--spacing-4) 0;
-  padding-left: var(--spacing-6);
-  list-style-type: disc;
-}
-
-.standard-list li {
-  margin-bottom: var(--spacing-2);
-}
-
-.standard-list li:last-child {
-  margin-bottom: 0;
 }

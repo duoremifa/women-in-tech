@@ -58,11 +58,11 @@ const all = (await getCollection('writing', ({ data }) => !data.draft))
 </Layout>
 
 <style>
-  .page-container { padding: var(--spacing-6) 0 var(--spacing-20); max-width: 46rem; margin: 0 auto; }
+  .page-container { padding: var(--spacing-6) 0 var(--spacing-20); max-width: var(--measure-list); margin: 0 auto; }
   .page-header { margin-bottom: var(--spacing-10); }
   .section-eyebrow { font-family: var(--font-family-mono); font-size: var(--font-size-xs); letter-spacing: 0.12em; color: var(--color-gold-dust); display: block; margin-bottom: var(--spacing-2); }
   .page-title { font-family: var(--font-family-heading); font-size: var(--font-size-3xl); font-weight: var(--font-weight-light); color: var(--color-text-heading); letter-spacing: -0.02em; margin: 0 0 var(--spacing-3); }
-  .page-lead { font-family: var(--font-family-body); font-size: var(--font-size-base); color: var(--color-text-secondary); line-height: 1.8; margin: 0; }
+  .page-lead { font-family: var(--font-family-sans); font-size: var(--font-size-base); color: var(--color-text-secondary); line-height: 1.8; margin: 0; }
   .gold-hairline { width: var(--spacing-12); height: 1px; background: var(--color-gold-dust); opacity: 0.7; margin-top: var(--spacing-5); }
 
   .writing-list { display: flex; flex-direction: column; }
@@ -72,13 +72,13 @@ const all = (await getCollection('writing', ({ data }) => !data.draft))
   .w-content { display: flex; flex-direction: column; gap: var(--spacing-1); }
   .w-title { font-family: var(--font-family-heading); font-size: 1.1rem; font-weight: var(--font-weight-normal); color: var(--color-text-heading); margin: 0; line-height: 1.35; }
   .w-subject { font-family: var(--font-family-mono); font-size: 11px; color: var(--color-gold-dust); letter-spacing: 0.04em; }
-  .w-excerpt { font-family: var(--font-family-body); font-size: 12.5px; color: var(--color-text-secondary); line-height: 1.65; margin: 0; }
+  .w-excerpt { font-family: var(--font-family-sans); font-size: 12.5px; color: var(--color-text-secondary); line-height: 1.65; margin: 0; }
   .w-tags { display: flex; gap: 4px; flex-wrap: wrap; }
-  .w-tag { font-family: var(--font-family-ui); font-size: 10px; color: var(--color-text-tertiary); background: var(--color-surface-soft); padding: 1px 6px; border-radius: var(--radius-xs); }
+  .w-tag { font-family: var(--font-family-sans); font-size: 10px; color: var(--color-text-tertiary); background: var(--color-surface-soft); padding: 1px 6px; border-radius: var(--radius-xs); }
 
-  .empty-note { font-family: var(--font-family-body); font-size: 14px; color: var(--color-text-tertiary); font-style: italic; }
+  .empty-note { font-family: var(--font-family-sans); font-size: 14px; color: var(--color-text-tertiary); font-style: italic; }
 
-  .index-foot { margin-top: var(--spacing-12); padding-top: var(--spacing-5); border-top: 1px solid var(--color-border-divider); font-family: var(--font-family-body); font-size: 13px; color: var(--color-text-tertiary); }
+  .index-foot { margin-top: var(--spacing-12); padding-top: var(--spacing-5); border-top: 1px solid var(--color-border-divider); font-family: var(--font-family-sans); font-size: 13px; color: var(--color-text-tertiary); }
   .index-foot a { color: var(--color-text-primary); text-decoration: none !important; border-bottom: 1px solid var(--color-border-divider) !important; padding-bottom: 1px; transition: border-color var(--transition-fast); }
   .index-foot a:hover { border-bottom-color: var(--color-gold-dust) !important; }
 

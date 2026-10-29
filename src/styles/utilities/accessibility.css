@@ -13,9 +13,7 @@
   clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
-}
-
-/* Focus Visible — 统一 gold-dust 1px hairline，距离 3px，有尊严的焦点环（不再用薰衣草 2px） */
+}/* Focus Visible — 统一 gold-dust 1px hairline，距离 3px，有尊严的焦点环（不再用薰衣草 2px） */
 :focus-visible {
   outline: 1px solid var(--color-gold-dust);
   outline-offset: 3px;
@@ -24,7 +22,7 @@
 
 /* Selection (Text Highlight) — gold-tinted，不再用品牌紫 */
 ::selection {
-  background-color: rgba(216, 205, 176, 0.25);
+  background-color: rgb(216 205 176 / 25%);
   color: var(--color-text-heading);
 }
 
@@ -41,8 +39,9 @@
     font-size: 11pt;
     line-height: 1.5;
   }
+
   /* 藏：导航、页脚、进度条、语言/主题控件、按钮、日历组件、订阅卡、slot banner、
-     上下期导航、平台链接、CTA 区、任何 .no-print */
+     上下期导航、CTA 区 */
   .nav-header,
   .footer,
   .reading-progress,
@@ -56,34 +55,32 @@
   .subscribe-card,
   .email-sub,
   .slot-banner,
-  .next-steps,
-  .ep-nav,
-  .platforms,
-  .pp,
-  .no-print {
+  .next-steps {
     display: none !important;
   }
+
   main,
-  .layout-reading,
-  .layout-standard,
-  .layout-wide,
-  .layout-narrow {
+  .layout-reading {
     max-width: 100% !important;
     padding: 0 !important;
     min-height: 0 !important;
   }
+
   a {
     color: #000;
     text-decoration: underline;
   }
+
   a[href^='http']::after {
     content: ' (' attr(href) ')';
     font-size: 9pt;
     color: #555;
   }
+
   h1, h2, h3 {
     page-break-after: avoid;
   }
+
   p, li, blockquote {
     orphans: 3;
     widows: 3;
