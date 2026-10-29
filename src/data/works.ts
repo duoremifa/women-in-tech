@@ -91,7 +91,3 @@ export const WORKS: Work[] = [
       'Co-design one landable play for an independent studio brand. Brand owners bring the community, planners and operators make it happen.',
   },
 ];
-
-export function getWorkBySlug(slug: string): Work | undefined {
-  return WORKS.find(w => w.slug === slug);
-}

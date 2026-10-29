@@ -1,8 +1,0 @@
-/* 
-   🏗️ [ARCHITECTURE DECISION]
-   scale.css has been merged into design-system.css as part of the v2.0 Quiet System.
-   Keep this file empty but imported to prevent breaking current modular structure.
-*/
-:root {
-  /* Variables migrated to design-system.css core tokens */
-}

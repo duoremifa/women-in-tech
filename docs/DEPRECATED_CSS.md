@@ -1,5 +1,10 @@
 # 废弃的 CSS 文件说明
 
+> **2026-10-29 死代码清理**：以下文件经构建产物（dist）逐类核实为全站未使用，已删除——
+> `markdown.css`、`typography/scale.css`、`components/{quotes,geometric,list-layout}.css`、
+> `utilities/{flow,focus-mode,spacing,text,visibility}.css`。
+> 现行结构以 `main.css` 的 `@import` 列表为准。
+
 ## ⚠️ 已废弃文件
 
 以下文件已不再使用，保留仅供历史参考：

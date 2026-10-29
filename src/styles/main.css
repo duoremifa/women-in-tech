@@ -5,92 +5,34 @@
    ============================================
    这是项目的唯一 CSS 入口文件。
    所有页面通过 Layout.astro 统一导入此文件。
-   
+
    架构层级：
    1. Design System (设计令牌：颜色、字体、间距)
    2. Base (全局重置、排版、布局)
    3. Components (可复用组件样式)
    4. Utilities (工具类)
-   5. Themes (主题变体)
    ============================================ */
 
-/* === 1. Design Tokens === */
+/* === 1. Design Tokens & 视觉系统 === */
 @import url('./design-system.css');
 @import url('./visual/effects.css');
 @import url('./visual/geometry.css');
 @import url('./responsive.css');
 
-/* === 3. Base Styles === */
+/* === 2. Base Styles === */
 @import url('./base/reset.css');
-
-/* @import url('./typography/variables.css'); */
-/* 已备份移除，避免与 design-system.css 冲突 */
-
-@import url('./typography/scale.css');
 @import url('./typography/hierarchy.css');
 @import url('./typography/components.css');
 @import url('./typography/interactions.css');
 @import url('./typography/utilities.css');
 @import url('./base/layout.css');
 
-/* === 4. Components - 宁静低压系统 === */
+/* === 3. Components - 宁静低压系统 === */
 @import url('./components/cards-quiet.css');
 @import url('./components/buttons.css');
 @import url('./components/forms.css');
 @import url('./components/quiet-elements.css');
-@import url('./components/quotes.css');
-
-/* ❌ 原有卡片和按钮样式不再导入
-   @import url('./components/cards.css');
-   @import url('./components/buttons.css');
-*/
 
 /* === 4. Utilities === */
 @import url('./utilities/display.css');
-@import url('./utilities/spacing.css');
-@import url('./utilities/text.css');
-@import url('./utilities/visibility.css');
 @import url('./utilities/accessibility.css');
-@import url('./utilities/flow.css');
-@import url('./utilities/focus-mode.css');
-
-/* === 6. Global Overrides === */
-
-/* Main layout moved to base/layout.css */
-
-/* Zen Mode styles moved to utilities/focus-mode.css */
-
-/* ============================================
-   移动端优化 · 宁静低压延续
-   基于 8px 基线网格，保持呼吸感与触控友好
-   ============================================ */
-
-/* 
- * 移动端响应式样式已统一迁移至 responsive.css 进行管理。
- * main.css 仅保留核心结构与全局入口导入。
- */
-
-/* ============================================
-   移动端极致化响应式优化
-   ============================================ */
-
-/* 
- * 以下移动端样式已迁移到 responsive.css
- * 保留注释以便参考，实际样式由 responsive.css 统一管理
- */
-
-/* 通用移动端调整 (≤768px) - 已迁移 */
-
-/*
-@media (max-width: 768px) {
-  ... 原有代码已迁移到 responsive.css
-}
-*/
-
-/* 小屏手机优化 (≤480px) - 已迁移 */
-
-/*
-@media (max-width: 480px) {
-  ... 原有代码已迁移到 responsive.css
-}
-*/

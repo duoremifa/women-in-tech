@@ -2,10 +2,9 @@
 // 统一管理所有系统初始化功能
 
 import { Monitor } from '../utils/monitoring';
-import { initVisitTracking, migrateFromEmojiSystem } from '../utils/geometricSystem';
+import { initVisitTracking } from '../utils/geometricSystem';
 
 export function initializeApp() {
   Monitor.init();
   initVisitTracking();
-  migrateFromEmojiSystem();
 }
