@@ -1,8 +1,10 @@
 /* src/styles/typography/interactions.css */
 
 /* ============ 链接样式 · 统一生长金线（currentcolor，220ms） ============
-   组件只设 color，下划线由全局 ::after 在 hover 时从 0→100% 生长。
-   删掉各组件的 border-bottom !important 覆盖后，全站链接成一个家族。 */
+   只作用于正文行内链接（.w-body/.shownotes 等长文容器）。
+   组件链接（按钮、导航、logo、块级卡片锚点、日历菜单）一律不长线——
+   它们各有自己的手势（btn 翻金蜡封、卡片只变金边、nav 自带底边），
+   全局无差别 ::after 会在这些元素下画出游离细线、破坏卡片签名。 */
 a {
   color: inherit;
   text-decoration: none;
@@ -10,7 +12,11 @@ a {
   transition: color var(--transition-fast);
 }
 
-a::after {
+/* 正文行内链接：hover 时金线从 0→100% 生长 */
+.prose-link a::after,
+.w-body a::after,
+.shownotes a::after,
+.recap-body a::after {
   content: '';
   position: absolute;
   bottom: -1px;
@@ -22,7 +28,10 @@ a::after {
   opacity: 0.6;
 }
 
-a:hover::after {
+.prose-link a:hover::after,
+.w-body a:hover::after,
+.shownotes a:hover::after,
+.recap-body a:hover::after {
   width: 100%;
 }
 

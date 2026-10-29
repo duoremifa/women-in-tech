@@ -31,7 +31,6 @@ body {
   min-height: 100dvh;
   line-height: var(--line-height-normal, 1.5);
   margin: 0;
-  text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
   font-feature-settings:
     'kern' 1,
@@ -50,9 +49,11 @@ body {
   font-family: var(--font-family-sans);
 }
 
-/* 标题用 lining numerals（body 是 old-style，标题大字号用 lining 更清晰）+ kerning */
+/* 标题用 lining numerals（body 是 old-style，标题大字号用 lining 更清晰）+ kerning。
+   optimizelegibility 只作用于大字号标题——CJK 正文强制 kerning/ligature 路径徒增低端安卓布局成本 */
 h1, h2, h3, h4, h5, h6 {
   font-feature-settings: 'lnum' 1, 'kern' 1, 'liga' 1;
+  text-rendering: optimizelegibility;
 }
 
 /* mono 上下文的数字等宽（日期/编号/时长/序号对齐） */

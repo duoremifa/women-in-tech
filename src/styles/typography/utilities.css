@@ -33,6 +33,7 @@
 }
 
 /* ============ 布局与间距工具类 ============ */
+/* flex / flex-col / items-center / justify-* / gap-4 统一由 utilities/display.css 定义，此处不重复 */
 
 .mx-auto {
   margin-left: auto !important;
@@ -43,29 +44,8 @@
   width: 100% !important;
 }
 
-/* Flex & Grid */
-.flex {
-  display: flex;
-}
-
-.flex-col {
-  flex-direction: column;
-}
-
-.items-center {
-  align-items: center;
-}
-
 .items-baseline {
   align-items: baseline;
-}
-
-.justify-center {
-  justify-content: center;
-}
-
-.justify-between {
-  justify-content: space-between;
 }
 
 .gap-2 {
@@ -74,10 +54,6 @@
 
 .gap-3 {
   gap: var(--spacing-3);
-}
-
-.gap-4 {
-  gap: var(--spacing-4);
 }
 
 .grid {

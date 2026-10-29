@@ -437,32 +437,15 @@ import Stamp from '../components/Stamp.astro';
   .field-label { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--font-family-sans); font-size: 12.5px; font-weight: var(--font-weight-medium); color: var(--color-text-primary); letter-spacing: 0.02em; }
   .field-hint { font-family: var(--font-family-sans); font-size: var(--font-size-2xs); color: var(--color-text-tertiary); font-weight: var(--font-weight-normal); }
   .quiet-form input[type='text'], .quiet-form textarea { width: 100%; background: var(--color-surface-soft); border: 1px solid var(--color-border-divider); border-radius: var(--radius-xs); padding: var(--spacing-3) var(--spacing-4); font-family: var(--font-family-sans); font-size: 13.5px; line-height: 1.6; color: var(--color-text-primary); transition: border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast); box-sizing: border-box; }
-  .quiet-form input[type='text']:focus, .quiet-form textarea:focus { outline: none; border-color: var(--color-gold-dust); background: var(--color-surface-pure); box-shadow: var(--focus-ring); }
   .subscribe-field .cal-add-wrap { margin-bottom: var(--spacing-4); }
-  .quiet-check-list { display: flex; flex-direction: column; gap: var(--spacing-2); }
-  .quiet-check-row { display: flex; align-items: flex-start; gap: var(--spacing-3); padding: var(--spacing-3) var(--spacing-4); border: 1px solid var(--color-border-divider); border-radius: var(--radius-xs); background: transparent; cursor: pointer; transition: border-color var(--transition-fast), background-color var(--transition-fast); }
-  .quiet-check-row:hover { border-color: var(--color-border); background: var(--color-surface-soft); }
-  .quiet-check-row input { position: absolute; opacity: 0; pointer-events: none; }
-  .quiet-check-row:has(input:focus-visible) { border-color: var(--color-gold-dust); box-shadow: var(--focus-ring); }
-  .check-indicator { width: 13px; height: 13px; margin-top: 3px; flex-shrink: 0; border: 1px solid var(--color-border); border-radius: var(--radius-xs); background: var(--color-surface-pure); display: inline-flex; align-items: center; justify-content: center; transition: border-color var(--transition-fast), background var(--transition-fast); }
-  .is-radio .check-indicator { border-radius: 50%; }
-  .quiet-check-row input:checked ~ .check-indicator { border-color: var(--color-gold-dust); background: var(--color-gold-dust); }
-  .is-radio input:checked ~ .check-indicator::after { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--color-surface-pure); }
-  .quiet-check-row svg { width: 9px; height: 9px; stroke: var(--color-surface-pure); stroke-width: 1.8; opacity: 0; transition: opacity var(--transition-fast); }
-  .quiet-check-row input:checked ~ .check-indicator svg { opacity: 1; }
-  .check-content { display: flex; flex-direction: column; gap: 2px; }
-  .check-title { font-family: var(--font-family-sans); font-size: 13px; font-weight: var(--font-weight-medium); color: var(--color-text-primary); }
-  .check-note { font-family: var(--font-family-sans); font-size: var(--font-size-2xs); color: var(--color-text-tertiary); }
-  .inline-link { color: var(--color-text-primary); text-decoration: underline; }
+  /* 勾选系统与提交按钮的组件样式归 forms.css 单一真相源（2026-10-29 收敛），此处只留页面专属交互 */
 
   .submit-zone { margin-top: var(--spacing-8); padding-top: var(--spacing-5); border-top: 1px solid var(--color-border-divider); display: flex; align-items: center; gap: var(--spacing-4); flex-wrap: wrap; }
-  .submit-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: var(--spacing-3); padding: var(--spacing-3) var(--spacing-6); background: var(--color-text-heading); color: var(--color-surface-pure); border: none; border-radius: var(--radius-xs); font-family: var(--font-family-sans); font-size: var(--font-size-xs); letter-spacing: 0.08em; cursor: pointer; transition: background-color var(--transition-fast), color var(--transition-fast); }
-  .submit-btn-primary:hover { background: var(--color-gold-dust); color: var(--color-text-heading); }
   .submit-btn-primary.is-loading { cursor: progress; background: var(--color-surface-pure); color: var(--color-text-heading); animation: gold-ring-pulse 1.4s ease-in-out infinite; }
   .submit-btn-primary.is-loading .btn-arrow { display: none; }
   @keyframes gold-ring-pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(216, 205, 176, 0.45); }
-    50% { box-shadow: 0 0 0 4px rgba(216, 205, 176, 0); }
+    0%, 100% { box-shadow: 0 0 0 0 rgb(var(--color-gold-dust-rgb) / 45%); }
+    50% { box-shadow: 0 0 0 4px rgb(var(--color-gold-dust-rgb) / 0%); }
   }
 
   /* 回执分四段 stagger 揭示：header 0ms / desc-box 160ms / receipt-loop 240ms */
@@ -479,8 +462,6 @@ import Stamp from '../components/Stamp.astro';
     .receipt-card > .receipt-header, .receipt-card > .receipt-desc-box, .receipt-card > .receipt-loop { opacity: 1; }
     .feedback-receipt.is-revealed .receipt-header, .feedback-receipt.is-revealed .receipt-desc-box, .feedback-receipt.is-revealed .receipt-loop { animation: none; }
   }
-  .submit-btn-primary .btn-arrow { transition: transform var(--transition-fast); }
-  .submit-btn-primary:hover .btn-arrow { transform: translateX(4px); }
   .privacy-assurance-pill { display: inline-flex; align-items: center; gap: var(--spacing-2); font-family: var(--font-family-sans); font-size: var(--font-size-2xs); color: var(--color-text-tertiary); }
   .privacy-dot { color: var(--color-gold-dust); font-size: 9px; }
 

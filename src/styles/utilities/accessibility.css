@@ -22,12 +22,12 @@
 
 /* Selection (Text Highlight) — gold-tinted，不再用品牌紫 */
 ::selection {
-  background-color: rgb(216 205 176 / 25%);
+  background-color: rgb(var(--color-gold-dust-rgb) / 25%);
   color: var(--color-text-heading);
 }
 
 :root.dark ::selection {
-  background-color: rgb(216 205 176 / 18%);
+  background-color: rgb(var(--color-gold-dust-rgb) / 18%);
   color: inherit;
 }
 

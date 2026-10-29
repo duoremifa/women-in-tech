@@ -61,6 +61,8 @@
   }
   .cal-trigger::-webkit-details-marker { display: none; }
   .cal-add[open] > .cal-trigger { background: var(--color-gold-dust); color: var(--color-text-heading) !important; }
+  /* 实心钮的蜡封 hover 手势——与 .btn--solid 同家族 */
+  .cal-trigger:hover { background: var(--color-gold-dust); color: var(--color-text-heading) !important; }
   .cal-trigger-icon { font-size: 13px; }
 
   .cal-menu {
@@ -72,7 +74,7 @@
     background: var(--color-surface-pure);
     border: 1px solid var(--color-border-subtle);
     border-radius: var(--radius-xs);
-    box-shadow: 0 8px 24px -8px rgba(38, 34, 28, 0.12);
+    box-shadow: 0 8px 24px -8px rgb(var(--color-gold-dust-rgb) / 14%);
     padding: var(--spacing-2);
     z-index: 100;
     display: flex;
@@ -97,7 +99,11 @@
     text-decoration: none !important;
     transition: background var(--transition-fast);
   }
-  .cal-opt:hover, .cal-opt:focus-visible {
+  .cal-opt:hover {
+    background: var(--color-surface-soft);
+  }
+  /* 焦点环只给 :focus-visible——hover 长焦点环会稀释焦点指示器的语义 */
+  .cal-opt:focus-visible {
     background: var(--color-surface-soft);
     box-shadow: var(--focus-ring);
     outline: none;

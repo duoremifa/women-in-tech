@@ -82,6 +82,13 @@ const { src, title = 'episode' } = Astro.props;
   .pp.is-playing .pp-icon-play { display: none; }
   .pp.is-playing .pp-icon-pause { display: block; }
 
+  /* 错误态：音频加载失败——播放钮转金半透、进度槽停摆（JS 加 .is-error） */
+  .pp.is-error .pp-play-btn {
+    border-color: rgb(var(--color-gold-dust-rgb) / 45%);
+    color: var(--color-gold-dust);
+    opacity: 0.75;
+  }
+
   /* scrubber：14px 命中区，中间一条 1px hairline，gold 进度填 + 6px gold playhead */
   .pp-track {
     position: relative;

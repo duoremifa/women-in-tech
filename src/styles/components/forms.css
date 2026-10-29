@@ -18,7 +18,7 @@ textarea {
   background-color: var(--color-surface-pure);
   border: var(--border-width-thin) solid var(--color-border-subtle);
   border-radius: var(--radius-sm);
-  box-shadow: 0 1px 2px rgb(38 34 28 / 2%);
+  box-shadow: 0 1px 2px rgb(var(--color-gold-dust-rgb) / 6%);
   transition:
     border-color var(--transition-fast),
     background-color var(--transition-fast),
@@ -36,7 +36,7 @@ textarea::placeholder {
 
 input:hover:not(:focus),
 textarea:hover:not(:focus) {
-  border-color: rgb(216 205 176 / 50%);
+  border-color: rgb(var(--color-gold-dust-rgb) / 50%);
 }
 
 input:focus,
@@ -74,8 +74,10 @@ textarea {
 }
 
 /* ============================================
-   前置细线勾选系统 · 手工纸感 + 金线刻度
-   取代一切廉价胶囊丸，回归纯粹出版级清单质感
+   前置细线勾选系统 · 单一真相源
+   （2026-10-29 收敛：此前 join.astro scoped 与本文件双源定义且取值矛盾，
+     现以 join 页打磨后的现行值为准并入此处，join 的副本已删除。
+     本系统目前仅 join 页使用，仍归全局组件层管理。）
    ============================================ */
 
 .quiet-check-list {
@@ -87,23 +89,22 @@ textarea {
 .quiet-check-row {
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--spacing-3);
   padding: var(--spacing-3) var(--spacing-4);
-  background: var(--color-surface-soft);
-  border: var(--border-width-thin) solid var(--color-border-subtle);
-  border-radius: var(--radius-sm);
+  background: transparent;
+  border: 1px solid var(--color-border-divider);
+  border-radius: var(--radius-xs);
   cursor: pointer;
   user-select: none;
   transition:
     border-color var(--transition-fast),
-    background-color var(--transition-fast),
-    box-shadow var(--transition-fast);
+    background-color var(--transition-fast);
 }
 
 .quiet-check-row:hover {
-  border-color: rgb(216 205 176 / 50%);
-  background: var(--color-surface-pure);
+  border-color: var(--color-border);
+  background: var(--color-surface-soft);
 }
 
 /* 隐藏原生 input */
@@ -116,112 +117,103 @@ textarea {
   pointer-events: none;
 }
 
-/* 前置金线勾选框 (Hairline Gold Indicator) */
+/* 键盘焦点：金线边 + 焦点环（与 hover 区分） */
+.quiet-check-row:has(input:focus-visible) {
+  border-color: var(--color-gold-dust);
+  box-shadow: var(--focus-ring);
+}
+
+/* 前置金线勾选框 (Hairline Gold Indicator)——选中翻实心金 */
 .check-indicator {
-  width: 14px;
-  height: 14px;
+  width: 13px;
+  height: 13px;
+  margin-top: 3px;
+  flex-shrink: 0;
   border: 1px solid var(--color-border);
-  border-radius: 2px;
+  border-radius: var(--radius-xs);
+  background: var(--color-surface-pure);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  background: var(--color-surface-pure);
-  transition: border-color var(--transition-fast), background var(--transition-fast);
   color: transparent;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
 }
 
 /* 单选题圆形指示器 */
-.quiet-check-row.is-radio .check-indicator {
+.is-radio .check-indicator {
   border-radius: 50%;
 }
 
 .check-indicator svg {
   width: 9px;
   height: 9px;
-  stroke: var(--color-gold-dust);
+  stroke: var(--color-surface-pure);
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
   opacity: 0;
-  transform: scale(0.6);
-  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  transition: opacity var(--transition-fast);
 }
 
-/* 选中激活状态：细腻纸感高亮 + 金线边缘 */
-.quiet-check-row:has(input:checked) {
-  background: var(--color-surface-pure);
+.quiet-check-row input:checked ~ .check-indicator {
   border-color: var(--color-gold-dust);
-  box-shadow: 0 1px 3px rgb(216 205 176 / 15%);
-}
-
-.quiet-check-row:has(input:checked) .check-indicator {
-  border-color: var(--color-gold-dust);
-  background: var(--color-surface-soft);
-}
-
-.quiet-check-row:has(input:checked) .check-indicator svg {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* 单选时中心呈现金核微点 */
-.quiet-check-row.is-radio:has(input:checked) .check-indicator::after {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
   background: var(--color-gold-dust);
+}
+
+.quiet-check-row input:checked ~ .check-indicator svg {
+  opacity: 1;
+}
+
+/* 单选时中心呈现墨核微点 */
+.is-radio input:checked ~ .check-indicator::after {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-surface-pure);
 }
 
 /* 选项内容排版 */
 .check-content {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-grow: 1;
-  gap: var(--spacing-3);
+  flex-direction: column;
+  gap: 2px;
 }
 
 .check-title {
   font-family: var(--font-family-sans);
-  font-size: var(--font-size-xs);
+  font-size: 13px; /* 13px 光学甜点位（见 design-system 字号例外对照表） */
+  font-weight: var(--font-weight-medium);
   color: var(--color-text-primary);
-  font-weight: var(--font-weight-normal);
-  letter-spacing: 0.02em;
 }
 
 .check-note {
+  font-family: var(--font-family-sans);
   font-size: var(--font-size-2xs);
   color: var(--color-text-tertiary);
-  font-family: var(--font-family-sans);
-  letter-spacing: 0.02em;
 }
 
-/* ----- 提交按钮 ----- */
+/* ----- 提交按钮（蜡封手势家族） ----- */
 .submit-btn-primary {
   align-self: flex-start;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--spacing-3);
   padding: var(--spacing-3) var(--spacing-6);
   background: var(--color-text-heading);
-  color: var(--color-bg-page);
-  border: 1px solid var(--color-text-heading);
+  color: var(--color-surface-pure);
+  border: none;
   border-radius: var(--radius-xs);
   font-family: var(--font-family-sans);
   font-size: var(--font-size-xs);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   cursor: pointer;
-  transition:
-    background-color var(--transition-fast),
-    border-color var(--transition-fast),
-    color var(--transition-fast);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
 .submit-btn-primary:hover {
   background: var(--color-gold-dust);
-  border-color: var(--color-gold-dust);
   color: var(--color-text-heading);
 }
 
