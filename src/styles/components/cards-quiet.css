@@ -21,7 +21,7 @@
 
 /* ===== 深色模式 ===== */
 :root.dark .faq-card {
-  background: var(--color-surface-card);
+  background: var(--color-surface-pure);
   border-color: var(--color-border-subtle);
 }
 

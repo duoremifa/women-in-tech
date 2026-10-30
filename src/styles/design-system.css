@@ -13,13 +13,11 @@
   --color-bg-page: #f7f5f0; /* 暖调手工棉纸底色，杜绝屏幕冷光反光 */
   --color-surface-pure: #fdfcf9; /* 微温奶白纸质卡片，触感素雅柔和 */
   --color-surface-soft: #f3f0e8; /* 极浅素米色，用于微区隔与前置槽 */
-  --color-surface-card: #fdfcf9; /* 卡片容器 */
   --color-surface-primary: #f8f6f2; /* 旧米白，页面基底 */
   --color-surface-tertiary: #f1eee9; /* 中米灰，代码块等 */
 
   /* ----- 边框与分割 · 亚麻纤维与极细金痕 -----
-     三档语义自洽：light（最淡，框线）< divider（中，呼吸分割线）< subtle（最可见，卡片边） */
-  --color-border-light: #ede8df; /* 最淡，几乎只是框线 */
+     两档语义自洽：divider（中，呼吸分割线）< subtle（最可见，卡片边），border 为强调边界 */
   --color-border-divider: #e8e2d7; /* 中等，呼吸分割线 */
   --color-border-subtle: #e5ded3; /* 最可见的淡线，卡片描边 */
   --color-border: #d5ccbe; /* 明确的暖金调边界 */
@@ -50,7 +48,7 @@
 
   /* 字体栈 —— 原语层；组件统一用 var(--font-family-sans/heading/code) */
   --font-family-sans: 'Inter', -apple-system, blinkmacsystemfont, 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Microsoft YaHei', 'Helvetica Neue', arial, sans-serif;
-  --font-family-serif: 'Lora', 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', 'PingFang SC', 'Noto Serif SC', 'SimSun', 'Microsoft YaHei', 'Georgia', serif;
+  --font-family-serif: 'Lora', 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', 'PingFang SC', 'SimSun', 'Microsoft YaHei', 'Georgia', serif;
   --font-family-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Consolas', monospace;
 
   /* 语义化别名 —— 仅保留真正承载语义的两个 */
@@ -126,12 +124,10 @@
   --spacing-16: calc(var(--baseline) * 8); /* 64px */
   --spacing-20: calc(var(--baseline) * 10); /* 80px */
   --spacing-24: calc(var(--baseline) * 12); /* 96px */
-  --spacing-tight: 12px; /* 极小屏专用 */
 
   /* ----- 边框专用令牌 ----- */
   --border-width-thin: 1px;
   --border-width-normal: 2px;
-  --border-width-thick: 3px;
 
   /* ========================================
      5. 圆角系统 · 圆润与安全的触感
@@ -140,8 +136,6 @@
   /* 圆角收敛：所有面（卡片/引用/输入）统一 radius-xs(2px)，full 给圆形。 */
   --radius-xs: 2px;
   --radius-sm: var(--radius-xs);
-  --radius-md: var(--radius-xs);
-  --radius-lg: var(--radius-xs);
   --radius-full: 50%;
 
   /* ========================================
@@ -241,26 +235,17 @@
   --color-surface-tertiary: #22201d;
   --color-surface-pure: #1e1d1b;
   --color-surface-soft: #252320;
-  --color-surface-card: #1e1d1b;
 
   /* 边框 - 极细暗金与微光分割 */
   --color-border-subtle: rgb(216 205 176 / 15%);
   --color-border-divider: rgb(255 255 255 / 8%);
-  --color-border-light: rgb(216 205 176 / 18%);
   --color-border: rgb(216 205 176 / 28%);
 
   /* 主色 - 柔和夜光薰衣草（暗底上品牌紫翻浅） */
   --color-brand: #cbbae6;
 
-  /* 点缀金 - 哑光暖金 */
-  --color-gold-dust: #d8cdb0;
-  --color-gold-dust-rgb: 216, 205, 176;
-
-  /* 次要色映射 · 深色模式下也使用暗金 */
-  --color-secondary: var(--color-gold-dust);
-
-  /* 页脚变量 - 深色页脚背景 */
-  --surface-footer: var(--color-surface-card);
+  /* 页脚变量 - 深色页脚背景（gold-dust 与 secondary 在 dark 下与 light 同值，无需覆盖） */
+  --surface-footer: var(--color-surface-pure);
 }
 
 /* ============================================

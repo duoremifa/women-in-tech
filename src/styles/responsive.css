@@ -38,7 +38,7 @@
 
   /* ----- 间距系统极致微调 ----- */
   .quiet-card {
-    padding: var(--spacing-tight);
+    padding: var(--spacing-3);
 
     /* 12px */
   }
