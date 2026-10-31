@@ -301,7 +301,7 @@ const containerClass = width !== 'full' ? `layout-${width}` : '';
   /* ===== 全局骨架样式 ===== */
   main {
     min-height: 60vh;
-    background-color: var(--color-bg-page);
+    background-color: var(--color-bg-main); /* 内容区底：比页面壳沉一阶（刻意分层） */
     padding-top: var(--spacing-8); /* 顶部留白（与导航间距） */
     padding-bottom: var(--spacing-20); /* 底部留白（与页脚间距） */
     /* main 只过渡 opacity（语言切换 cross-fade 用）。bg/color 不过渡——

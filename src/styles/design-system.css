@@ -9,11 +9,13 @@
      1. 色彩系统 · 绝对安静
      ======================================== */
 
-  /* ----- 背景与表面 · 温润手工棉纸肌理 ----- */
-  --color-bg-page: #f7f5f0; /* 暖调手工棉纸底色，杜绝屏幕冷光反光 */
+  /* ----- 背景与表面 · 温润手工棉纸肌理 -----
+     页面双层底：bg-page（壳）与 bg-main（内容区）刻意差一阶（各通道-1），
+     「内容微沉」是有意的设计分层，light/dark 对称——改值时两档必须一起动 */
+  --color-bg-page: #f8f6f2; /* 页面底色：壳（body/导航/页脚），杜绝屏幕冷光反光 */
+  --color-bg-main: #f7f5f0; /* 内容区底色：比页面底沉一阶，main 专用 */
   --color-surface-pure: #fdfcf9; /* 微温奶白纸质卡片，触感素雅柔和 */
   --color-surface-soft: #f3f0e8; /* 极浅素米色，用于微区隔与前置槽 */
-  --color-surface-primary: #f8f6f2; /* 旧米白，页面基底 */
   --color-surface-tertiary: #f1eee9; /* 中米灰，代码块等 */
 
   /* ----- 边框与分割 · 亚麻纤维与极细金痕 -----
@@ -39,7 +41,7 @@
   --color-secondary: var(--color-gold-dust);
 
   /* ----- 组件语义别名 ----- */
-  --surface-footer: var(--color-surface-primary);
+  --surface-footer: var(--color-bg-page);
 
   /* ========================================
      2. 字体系统
@@ -231,7 +233,7 @@
 
   /* 表面色 - 手工暗夜炭纸基调，层次分明 */
   --color-bg-page: #151413;
-  --color-surface-primary: #151413;
+  --color-bg-main: #141312; /* 内容区沉一阶，与 light 对称的刻意分层 */
   --color-surface-tertiary: #22201d;
   --color-surface-pure: #1e1d1b;
   --color-surface-soft: #252320;
