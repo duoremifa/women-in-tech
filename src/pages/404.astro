@@ -125,7 +125,7 @@ import GeometricIcon from '../components/Icon/GeometricIcon.astro';
     font-family: var(--font-family-sans);
     font-size: var(--font-size-xl);
     color: var(--color-text-secondary);
-    line-height: var(--line-height-relaxed);
+    line-height: var(--line-height-loose); /* 特殊字号不套正文档档位（原 1.7 比值 = 34px） */
   }
 
   /* ----- 安抚卡片 ----- */
@@ -156,7 +156,7 @@ import GeometricIcon from '../components/Icon/GeometricIcon.astro';
     font-family: var(--font-family-sans);
     font-size: var(--font-size-lg);
     color: var(--color-text-primary);
-    line-height: var(--line-height-relaxed);
+    line-height: var(--line-height-loose); /* 特殊字号不套正文档档位（原 1.7 比值 ≈ 30.6px） */
   }
 
   /* ----- 行动按钮组 ----- */
@@ -194,7 +194,7 @@ import GeometricIcon from '../components/Icon/GeometricIcon.astro';
     font-family: var(--font-family-sans);
     font-size: var(--font-size-sm);
     color: var(--color-text-tertiary);
-    line-height: var(--line-height-relaxed);
+    line-height: var(--line-height-normal); /* 小字不套正文档档位（原 1.7 比值 ≈ 23.8px） */
     margin: 0;
     font-style: italic;
     opacity: 0.8;

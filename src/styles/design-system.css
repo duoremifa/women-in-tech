@@ -91,8 +91,9 @@
   --font-size-5xl: 3rem; /* 48px - 404 大字 */
 
   /* 行高系统
-     标题行高必须用无单位比例（1.2），不能用 px——px 值小于字号时换行会叠字；
-     1.2 与 responsive.css 超小屏断点一致，全断点行为统一 */
+     设计原则：标题/特殊字号 = 无单位比值（px 小于字号会叠字，比值自适应流式字号）；
+     16px 正文档 = px 网格（snug/normal/relaxed/loose 走 8px 基线）。
+     小字组件（<16px）不套正文档令牌——px 档对小字会过松，用比值 */
   --line-height-tight: 1.2; /* 标题（h2/h3、page-title、大字） */
   --line-height-snug: calc(var(--baseline) * 2.5); /* 20px - 紧凑正文 */
   --line-height-normal: calc(var(--baseline) * 3); /* 24px - 标准正文 */
@@ -202,7 +203,9 @@
    中文排版微调 · 宁静设计系统
    ============================================ */
 :lang(zh) {
-  --line-height-relaxed: 1.7; /* 略增，更松弛 */
+  /* 行高不再覆盖——正文档已走 8px 网格令牌（28px/16px = 1.75，对 CJK 同样松弛）；
+     历史上 1.7 比值源于 16.8px 字号时代（1.7×16.8≈28.6px 落网格），正文改
+     16px 后悄悄脱网格 0.8px。段距覆盖保留（CJK 段落间需要更多呼吸） */
   --paragraph-spacing: 1.75em;
 }
 
