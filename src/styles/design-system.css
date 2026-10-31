@@ -15,8 +15,11 @@
   --color-bg-page: #f8f6f2; /* 页面底色：壳（body/导航/页脚），杜绝屏幕冷光反光 */
   --color-bg-main: #f7f5f0; /* 内容区底色：比页面底沉一阶，main 专用 */
   --color-surface-pure: #fdfcf9; /* 微温奶白纸质卡片，触感素雅柔和 */
+  /* 两个近似米色面分工（勿合并）：soft(22 处) = 交互微区隔的暖色 tint
+     （引用底/hover 高亮/选中态/pill）；tertiary(仅 code/pre) = 代码块
+     专属冷灰面，一阶色差是代码块的第三层身份标识（金线+边框之外） */
   --color-surface-soft: #f3f0e8; /* 极浅素米色，用于微区隔与前置槽 */
-  --color-surface-tertiary: #f1eee9; /* 中米灰，代码块等 */
+  --color-surface-tertiary: #f1eee9; /* 中米灰，代码块专属底 */
 
   /* ----- 边框与分割 · 亚麻纤维与极细金痕 -----
      两档语义自洽：divider（中，呼吸分割线）< subtle（最可见，卡片边），border 为强调边界 */
@@ -57,7 +60,10 @@
   --font-family-heading: var(--font-family-serif);
   --font-family-code: var(--font-family-mono);
 
-  /* 字重系统 */
+  /* 字重系统
+     light 为 sans 专用（Inter 300 真实存在）；Lora 字重轴只有 400–700，
+     衬线语境引用 light 实际渲染 400——现状即定稿视觉，勿用于衬线，也勿
+     试图「补齐」Lora 300（Cormorant 换字体之路已走过并回滚 6bf5c06） */
   --font-weight-light: 300;
   --font-weight-normal: 400;
   --font-weight-medium: 500;
@@ -114,7 +120,10 @@
 
   --baseline: 8px; /* 统一基线单位 - 所有间距和行高的基础 */
 
-  /* 基于基线的间距系统 - 确保垂直对齐 */
+  /* 基于基线的间距系统 - 确保垂直对齐
+     双层步进（刻意的，勿「整步化」）：半步档（4/12/20）= UI 微调——表单行、
+     勾选项、卡片内距的呼吸感，逐处手调的成果；整步档（24/32/40+）= 布局韵律。
+     半步是主力档（spacing-3/5 合计 128 处引用），全改整步会推倒重调 */
   --spacing-1: calc(var(--baseline) * 0.5); /* 4px */
   --spacing-2: calc(var(--baseline) * 1); /* 8px */
   --spacing-3: calc(var(--baseline) * 1.5); /* 12px */
